@@ -8,6 +8,7 @@ export const getProducts = () => {
         defaultimg_url
         description
         display_name
+        uom_name
         id
         img_url
         name
@@ -32,6 +33,7 @@ export const getProductsByCategory = (params) => {
         description
         display_name
         id
+        uom_name
         img_url
         name
         status

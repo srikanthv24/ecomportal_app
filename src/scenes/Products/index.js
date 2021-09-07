@@ -28,7 +28,7 @@ const Products = () => {
           <Col
             xs={12}
             lg={9}
-            style={{ overflow: "auto", paddingTop: 20, paddingBottom: 20 }}
+            style={{ overflow: "auto",  }}
           >
             <Row>
               <ProductsList list={products.productList} />

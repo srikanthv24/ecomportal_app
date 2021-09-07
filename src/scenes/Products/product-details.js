@@ -35,18 +35,24 @@ const ProductDetails = () => {
     <Container fluid>
       <Row>
         <Col sm={12} lg={6}>
-          <img
-            src={
+          <p className="h4 mt-3">{ProductDetails.display_name}</p>
+          <p className=" h6 text-muted">{ProductDetails.category}</p>
+          
+          <div style={{
+            backgroundImage: `url(${
+              ProductDetails.defaultimg_url ||
               "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-            }
-            height="100%"
-            width="100%"
-          />
+            })`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "250px",
+            
+          }} />
         </Col>
         <Col sm={12} lg={6}>
-          <h2 className="text-muted mt-4">{ProductDetails.display_name}</h2>
-          <h4>{ProductDetails.category}</h4>
-          <h3>{ProductDetails.description}</h3>
+          <p className="mt-3">{ProductDetails.description}</p>
           <h1>
             <BiRupee /> {ProductDetails.saleprice} / {ProductDetails.uom_name}
           </h1>
@@ -54,10 +60,7 @@ const ProductDetails = () => {
       </Row>
       <Row>
         <Col>
-          <Button className="w-100" variant="danger">
-            <MdFavoriteBorder />
-            Wishlist
-          </Button>
+          
         </Col>
         <Col>
           {!CartItem ? (

@@ -14,6 +14,7 @@ import "./styles.css";
 import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../../store/actions/products";
+import Select from "react-select/async";
 
 export default function AppBar() {
   const [SeacrhQuery, setSeacrhQuery] = useState("");
@@ -27,8 +28,8 @@ export default function AppBar() {
     const value = ev.target.value;
     console.log("search", value);
     if (value) {
-    setSearchOn(true);
-      
+      setSearchOn(true);
+
       setSeacrhQuery(value);
       dispatch(searchProducts(value));
     }
@@ -114,39 +115,23 @@ export default function AppBar() {
         </Container>
         <Container className="d-lg-none">
           <Row className="w-100">
-            <Col>
-              <InputGroup>
-                <FormControl
-                  aria-label="search..."
-                  placeholder="Search..."
-                  value={SeacrhQuery}
-                  onChange={handleChange}
-                />{" "}
-                <InputGroup.Text onClick={() => console.log("object")}>
+            <Col sm="12">
+              {/* <InputGroup> */}
+                <Select
+                  style={{ width: "100%" }}
+                  placeholder="search product..."
+                  closeMenuOnSelect={false}
+                  options={[]}
+                  // styles={colourStyles}
+                />
+                {/* <InputGroup.Text>
                   <AiOutlineSearch />
                 </InputGroup.Text>
-              </InputGroup>
+              </InputGroup> */}
             </Col>
           </Row>
         </Container>
       </Navbar>
-      {searchOn && (
-        <div
-          style={{
-            position: "absolute",
-            top: 115,
-            left: 10,
-            right: 10,
-            backgroundColor: "#FFF",
-            boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
-          }}
-        >
-          {products.searchResults.length &&
-            products.searchResults.map((product) => {
-              return <h4>{product.display_name}</h4>;
-            })}
-        </div>
-      )}
     </>
   );
 }

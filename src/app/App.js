@@ -8,9 +8,9 @@ function App() {
     <div className="App">
       <AppBar />
       <Routes />
-      <div className="d-block d-sm-none">
+      {/* <div className="d-block d-sm-none">
         <Footer>Footer</Footer>
-      </div>
+      </div> */}
     </div>
   );
 }
