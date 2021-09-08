@@ -10,15 +10,27 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export class Products {
   static getProducts = async (params) => {
-    console.log("PARAMSSSS", params);
-    return await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
-      },
-      body: params.payload ? getProductsByCategory(params) : getProducts(),
-    }).then((res) => res.json());
+    try {
+      console.log("PARAARARAMS==>", params);
+      // console.log("PARAMSSSS", getProductsByCategory(params));
+      return await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+        },
+        // body: params.payload ? getProductsByCategory(params) : getProducts(),
+        body: JSON.stringify({
+          query: getProducts,
+          variables: {
+            limit: params.payload.limit,
+            nextToken: params.payload.nextToken,
+          },
+        }),
+      }).then((res) => res.json());
+    } catch (error) {
+      throw error;
+    }
   };
 
   static ProductDetails = async (id) => {
@@ -41,6 +53,6 @@ export class Products {
         "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
       },
       body: searchProducts(query),
-    }).then(res => res.json());
+    }).then((res) => res.json());
   };
 }

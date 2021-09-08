@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import AppBar from "../../components/AppBar/app-bar";
-import { IoAppsOutline, IoNotifications } from "react-icons/io5";
-import { FaProductHunt } from "react-icons/fa";
-
+import { IoNotifications } from "react-icons/io5";
 import "./styles.css";
-import { Alert, Container } from "react-bootstrap";
+import { Alert, Card, Container } from "react-bootstrap";
 import SimpleCard from "../../components/card/simple-card";
 import LandingCarousel from "../../components/carousel";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,11 +15,11 @@ const Landing = () => {
   const categories = useSelector((state) => state.categories);
 
   useEffect(() => {
-    console.log("categoriesXV", categories);
+    console.log("categoriesXV", categories, products);
   }, [categories]);
 
   useEffect(() => {
-    dispatch(getProductsAction());
+    dispatch(getProductsAction({ limit: 10, nextToken: "" }));
     dispatch(getCategories());
   }, []);
 
@@ -43,14 +40,35 @@ const Landing = () => {
         )}
       </Container>
       <SimpleCard />
-
-      <span className="d-inline h3">Categories</span>
-
-      <LandingCarousel carouselItems={categories.categories} />
-
-      <span className="d-inline h3">Products</span>
-
-      <LandingCarousel multiItem carouselItems={products.productList} />
+      <Card>
+        <Card.Header>
+          <div className="d-flex justify-content-between">
+            <span className="h5">Categories</span>
+            <span>
+              <a href="/categories">View all</a>
+            </span>
+          </div>
+        </Card.Header>
+        <Card.Body className="m-0 p-0">
+          <LandingCarousel carouselItems={categories.categories} />
+        </Card.Body>
+      </Card>
+      <Card>
+        <Card.Header>
+          <div className="d-flex justify-content-between align-items-baseline">
+            <span className="h5">Products</span>
+            <span>
+              <a href="/products">View all</a>
+            </span>
+          </div>
+        </Card.Header>
+        <Card.Body className="m-0 p-1">
+          <LandingCarousel
+            multiItem
+            carouselItems={products?.productList?.items || []}
+          />
+        </Card.Body>
+      </Card>
     </div>
   );
 };

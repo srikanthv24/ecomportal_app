@@ -4,12 +4,12 @@ import { types } from "../constants";
 
 function* getProducts(params) {
   try {
-    const products = yield call(() => Products.getProducts(params));
+    const products = yield call(Products.getProducts, params);
     console.log("prodduc", products.data.listItems.items);
     if (products.data) {
       yield put({
         type: types.PRODUCT_LIST_SUCCESS,
-        payload: products.data.listItems.items,
+        payload: products.data.listItems,
       });
     } else {
       yield put({
@@ -17,7 +17,9 @@ function* getProducts(params) {
         payload: [],
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    throw error
+  }
 }
 
 function* getProductById(id) {

@@ -12,11 +12,12 @@ export class Categories {
             body: JSON.stringify({
                 query: `
             {
-              listItemCategories(limit: 10) {
+              listItemCategories {
               items {
               display_name
               id
               name
+              defaultimg_url
               status
               upd_by
               upd_on

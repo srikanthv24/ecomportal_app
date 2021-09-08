@@ -1,34 +1,57 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect } from "react";
+import { Card, Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../store/actions/categories";
+import CategoryList from "./category-list";
 
-import { getCategories } from '../../store/actions'
+var phantom = {
+  display: "block",
+  padding: "20px",
+  height: "70px",
+  width: "100%",
+};
+const Categories = () => {
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories);
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
 
-function Categories(props) {
-    const dispatch = useDispatch();
-    const categoryState = useSelector(state => state.categories);
-
-    const [categories, setCategories] = useState([])
-
-    React.useEffect(() => {
-        if (categoryState && categoryState.categories && categoryState.categories.length > 0) {
-            setCategories(categoryState.categories)
-        } else {
-            if (!categoryState.loading) {
-                dispatch(getCategories())
-            }
-        }
-    }, [categoryState])
-
-    return (
-        <div>
-            <button onClick={() => props.history.push('/createcategory')}>Add Category</button>
-            {
-                categories.map(category => (
-                    <li>{category.name}</li>
-                ))
-            }
+  useEffect(() => {
+    console.log("CATEGORIEEEE", categories);
+  }, [categories]);
+  return (
+    <>
+      <div style={{ ...phantom }} />
+      <Card.Header
+        style={{
+          position: "fixed",
+          top: 118,
+          zIndex: 999,
+          width: '100%',
+          background: "#f5f5f5",
+        }}
+      >
+        <div className="w-100">
+          <div>
+            <p className="h5 m-0 p-0"> Categories</p>
+            <small className="text-muted">{categories.categories.length} Categories found</small>
+          </div>
+          <div>
+            {/* <Button variant="outline-light" active size="lg">
+              <AiOutlineSortAscending />
+            </Button>
+            <Button variant="outline-light" active size="lg">
+              <VscSettings />
+            </Button> */}
+          </div>
         </div>
-    )
-}
+      </Card.Header>
+    <Container fluid>
+      <CategoryList list={categories.categories} />
+    </Container>
+    </>
+  );
+};
 
-export default Categories
+export default Categories;

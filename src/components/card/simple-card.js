@@ -11,7 +11,7 @@ const SimpleCard = () => {
           <div className="d-inline-flex align-items-center">
             <div className="avatar h4 me-3">S</div>
             <div>
-              <span className="h5">Srinivas Prasad</span>
+              <span className="h6">Srinivas Prasad</span>
               <div className="text-muted">12-May-21 to 12-June-21</div>
             </div>
           </div>

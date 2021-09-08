@@ -8,7 +8,6 @@ import {
   Row,
 } from "react-bootstrap";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { MdFavoriteBorder } from "react-icons/md";
 import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,31 +36,37 @@ const ProductDetails = () => {
         <Col sm={12} lg={6}>
           <p className="h4 mt-3">{ProductDetails.display_name}</p>
           <p className=" h6 text-muted">{ProductDetails.category}</p>
-          
-          <div style={{
-            backgroundImage: `url(${
-              ProductDetails.defaultimg_url ||
-              "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-            })`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            width: "100%",
-            height: "250px",
-            
-          }} />
+
+          <div
+            style={{
+              backgroundImage: `url(${
+                ProductDetails.defaultimg_url ||
+                "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
+              })`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              width: "100%",
+              height: "250px",
+            }}
+          />
         </Col>
         <Col sm={12} lg={6}>
           <p className="mt-3">{ProductDetails.description}</p>
           <h1>
+            <small className="text-muted col-12 h6">
+              Including{" "}
+              {String(ProductDetails.tax_methods)
+                .replace("Output", "")
+                .replace("-", "")}
+            </small>
+            <br />
             <BiRupee /> {ProductDetails.saleprice} / {ProductDetails.uom_name}
           </h1>
         </Col>
       </Row>
       <Row>
-        <Col>
-          
-        </Col>
+        {/* <Col></Col> */}
         <Col>
           {!CartItem ? (
             <Button className="w-100" onClick={() => setCartItem(1)}>
@@ -94,6 +99,7 @@ const ProductDetails = () => {
           )}
         </Col>
       </Row>
+      <div style={{ display: "block", height: 20 }} />
     </Container>
   );
 };

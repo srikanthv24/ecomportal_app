@@ -7,11 +7,12 @@ import { useHistory } from "react-router-dom";
 const ProductCard = ({ product }) => {
   const history = useHistory();
   return (
-    <Card
-      style={{ marginBottom: 10}}
-      
-    >
-      <Card.Body variant="top" onClick={() => history.push(`/products/${product.id}`)}>
+    <Card style={{ marginBottom: 10 }}>
+      <Card.Body
+        variant="top"
+        onClick={() => history.push(`/products/${product.id}`)}
+        className="p-1"
+      >
         <div
           style={{
             backgroundImage: `url(${
@@ -23,10 +24,15 @@ const ProductCard = ({ product }) => {
             backgroundPosition: "center",
             height: "120px",
             width: "100%",
+            
           }}
         />
       </Card.Body>
-      <Card.Body style={{ minHeight: 140 }} onClick={() => history.push(`/products/${product.id}`)}>
+      <Card.Body
+      className="pt-2"
+        style={{ minHeight: 140 }}
+        onClick={() => history.push(`/products/${product.id}`)}
+      >
         <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate">
           {product.display_name}
         </Card.Text>
@@ -38,7 +44,13 @@ const ProductCard = ({ product }) => {
             "kdjshfjdsjhfkdskfjksdjfdsjfklsdjflksdjfkjdsklfjldsjflj  "}
         </Card.Text>
         <Card.Text>
+          <span className="d-flex">
+
           <BiRupee /> {product.saleprice} / {product.uom_name}
+          </span>
+        <small className="col-12 text-truncate text-muted">
+          Including {String(product.tax_methods).replace('Output', '').replace('-', '')}
+        </small>
         </Card.Text>
       </Card.Body>
       <Card.Footer
