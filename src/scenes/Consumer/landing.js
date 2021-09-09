@@ -7,6 +7,7 @@ import LandingCarousel from "../../components/carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../../store/actions/products";
 import { getCategories } from "../../store/actions/categories";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const Landing = () => {
           <div className="d-flex justify-content-between">
             <span className="h5">Categories</span>
             <span>
-              <a href="/categories">View all</a>
+              <Link to="/categories">View all</Link>
             </span>
           </div>
         </Card.Header>
@@ -58,7 +59,7 @@ const Landing = () => {
           <div className="d-flex justify-content-between align-items-baseline">
             <span className="h5">Products</span>
             <span>
-              <a href="/products">View all</a>
+              <Link to="/products">View all</Link>
             </span>
           </div>
         </Card.Header>

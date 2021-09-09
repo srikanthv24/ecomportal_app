@@ -13,6 +13,7 @@ import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../store/actions/products";
 import { useParams } from "react-router-dom";
+import ProductPlanner from "./product-planner";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getProductDetails(id));
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     console.log("PROOROR", products.productDetails);
@@ -68,11 +69,17 @@ const ProductDetails = () => {
       <Row>
         {/* <Col></Col> */}
         <Col>
-          {!CartItem ? (
-            <Button className="w-100" onClick={() => setCartItem(1)}>
-              <AiOutlineShoppingCart />
-              {"  "}Add to Cart
-            </Button>
+          {products.productDetails.is_mealplan && <ProductPlanner
+            customerId={"578461ea-bc50-4d40-8c0a-5c4546abc2d7"}
+            productId={""}
+            data={products.productDetails}
+          />}
+          <Button className="w-100" onClick={() => setCartItem(1)}>
+            <AiOutlineShoppingCart />
+            {"  "}Add to Cart
+          </Button>
+
+          {/* {!CartItem ? (
           ) : (
             <InputGroup className="mb-3">
               <Button
@@ -96,7 +103,7 @@ const ProductDetails = () => {
                 <GrAdd />
               </Button>
             </InputGroup>
-          )}
+          )} */}
         </Col>
       </Row>
       <div style={{ display: "block", height: 20 }} />

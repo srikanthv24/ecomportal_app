@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { Link, Redirect, useHistory, useRouteMatch } from "react-router-dom";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -29,8 +29,7 @@ export default function AppBar() {
   const [Query, setQuery] = useState("");
 
   const products = useSelector((state) => state.products);
-console.log('PAAATHH', path)
-
+ 
   const mapValuesForOptions = (options) => {
     let newOptions = [];
     options?.items?.map((item) => {
@@ -133,13 +132,15 @@ console.log('PAAATHH', path)
             padding: "0px 10px",
           }}
         >
-          {path == "/" ? <Button
-            variant="outline-dark"
-            active
-            onClick={() => history.goBack()}
-          >
-            <BiArrowBack />
-          </Button> : null}
+          {path == "/" ? (
+            <Button
+              variant="outline-dark"
+              active
+              onClick={() => history.goBack()}
+            >
+              <BiArrowBack />
+            </Button>
+          ) : null}
           <div style={{ width: "100%" }}>
             <Select
               style={{ width: "100%" }}
@@ -149,7 +150,7 @@ console.log('PAAATHH', path)
               isClearable
               isSearchable
               onChange={(val) => {
-                val && history.push(path + "/" + val.value);
+                val && history.push('/products/' + val.value)
               }}
               options={searchedProducts}
               onInputChange={handleInputChange}

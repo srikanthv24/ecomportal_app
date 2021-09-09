@@ -17,8 +17,7 @@ export const getProducts = `query ($limit: Int!, $nextToken: String) {
       }, 
       nextToken
     } 
-  }`
-  
+  }`;
 
 export const getProductsByCategory = (params) => {
   console.log("PAPAPA", params.payload);
@@ -52,7 +51,7 @@ export const searchProducts = (searchQuery) => {
     query: `{
       listItems (filter: {display_name: {contains: ${JSON.stringify(
         searchQuery.payload
-      )}}}) {
+      )}}}, limit: 1000) {
         items {
           saleprice
           category
@@ -81,6 +80,7 @@ export const getProductDetails = (id) =>
         description
         display_name
         img_url
+        is_mealplan
         tax_methods
         id
         name
@@ -88,6 +88,38 @@ export const getProductDetails = (id) =>
         status
         upd_by
         upd_on
+      variant {​​​​​​​​
+        display_name
+        is_exclusive
+        name
+        is_multiselect
+        variant_item {​​​​​​​​
+          description
+          display_name
+          image
+          name
+          saleprice
+        }​​​​​​​​
+      }
+
         }
         }`,
   });
+
+export const getAddressList = `query ($customerId: String!) {
+    listAddresses (filter: {customer_name: {eq: $customerId}}) {
+    items {
+    customer_name
+    aline1
+    aline2
+    city
+    customer_name
+    community
+    landmark
+    state
+    tag
+    id
+    postalcode
+    }
+    }
+    }`;

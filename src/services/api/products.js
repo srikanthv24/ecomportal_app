@@ -1,8 +1,10 @@
 import {
+  getAddressList,
   getProductDetails,
   getProducts,
   getProductsByCategory,
   searchProducts,
+  
 } from "../graphql/mutations";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -55,4 +57,22 @@ export class Products {
       body: searchProducts(query),
     }).then((res) => res.json());
   };
+
+  static getAddressList = async (id) => {
+    return await fetch('https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+      },
+      body: JSON.stringify({
+        query: getAddressList,
+        variables: {
+          customerId: id,
+        },
+      }),
+    }).then((res) => res.json())
+  }
 }
+
+

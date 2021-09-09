@@ -18,7 +18,7 @@ function* getProducts(params) {
       });
     }
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -62,8 +62,26 @@ function* SearchProduct(query) {
   }
 }
 
+function* getAddresses(params) {
+  try {
+    const addresses = yield call(Products.getAddressList, params.payload.customerId);
+    if (addresses.data) {
+      yield put({
+        type: types.ADDRESS_LIST_SUCCESS,
+        payload: addresses.data,
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: types.ADDRESS_LIST_FAILURE,
+      payload: [],
+    });
+  }
+}
+
 export function* productsSaga() {
   yield takeEvery(types.PRODUCT_DETAILS, getProductById);
   yield takeEvery(types.PRODUCT_LIST, getProducts);
   yield takeEvery(types.PRODUCT_SEARCH, SearchProduct);
+  yield takeEvery(types.ADDRESS_LIST, getAddresses);
 }

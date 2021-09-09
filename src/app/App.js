@@ -6,7 +6,9 @@ import Routes from "./Routes";
 function App() {
   return (
     <div className="App">
+      <AppBar />
       <Routes />
+
       {/* <div className="d-block d-sm-none">
         <Footer>Footer</Footer>
       </div> */}
