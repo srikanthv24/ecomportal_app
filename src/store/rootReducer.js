@@ -3,7 +3,9 @@ import {
     login,
     categories,
     Addresses,
-    Cart
+    Cart,
+    customerReducer,
+    mealPlansReducer
 } from './reducers';
 import { products } from './reducers/products';
 
@@ -13,7 +15,8 @@ const rootReducer = combineReducers({
     products: products,
     Addresses: Addresses,
     Cart: Cart,
-    
+    customer: customerReducer,
+    mealPlans: mealPlansReducer,
 })
 
 export default rootReducer;
