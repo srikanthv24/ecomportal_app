@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../../store/actions/products";
 import { getCategories } from "../../store/actions/categories";
 import { Link } from "react-router-dom";
+import CategoryList from "../Categories/category-list";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -16,12 +17,8 @@ const Landing = () => {
   const categories = useSelector((state) => state.categories);
 
   useEffect(() => {
-    console.log("categoriesXV", categories, products);
-  }, [categories]);
-
-  useEffect(() => {
-    dispatch(getProductsAction({ limit: 10, nextToken: "" }));
-    dispatch(getCategories());
+    dispatch(getProductsAction({ limit: 10, nextToken: "", category: "" }));
+    dispatch(getCategories({limit: 40, nextToken: ""}));
   }, []);
 
   return (
@@ -51,7 +48,8 @@ const Landing = () => {
           </div>
         </Card.Header>
         <Card.Body className="m-0 p-0">
-          <LandingCarousel carouselItems={categories.categories} />
+          {/* <LandingCarousel carouselItems={categories.categories} /> */}
+          <CategoryList list={categories.categories} />
         </Card.Body>
       </Card>
       <Card>

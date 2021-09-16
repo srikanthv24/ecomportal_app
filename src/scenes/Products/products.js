@@ -23,7 +23,17 @@ const Products = () => {
   useEffect(async () => {
     console.log("catId", catId);
     let filter = { category: { eq: catId } };
-    dispatch(getProductsAction({ nextToken: "", limit: 10 }));
+    // if (catId == null) {
+    //   dispatch(getProduct)
+    // } else {
+    // }
+    dispatch(
+      getProductsAction({
+        category: catId,
+        nextToken: "",
+        limit: 10,
+      })
+    );
   }, []);
 
   useEffect(() => {

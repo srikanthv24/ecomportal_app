@@ -1,8 +1,9 @@
 import { types } from '../constants';
 
-export const getCategories = () => {
+export const getCategories = (payload) => {
     return {
         type: types.GET_CATEGORIES,
+        payload
     }
 }
 

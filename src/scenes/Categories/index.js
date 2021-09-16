@@ -28,14 +28,16 @@ const Categories = () => {
           position: "fixed",
           top: 118,
           zIndex: 999,
-          width: '100%',
+          width: "100%",
           background: "#f5f5f5",
         }}
       >
         <div className="w-100">
           <div>
             <p className="h5 m-0 p-0"> Categories</p>
-            <small className="text-muted">{categories.categories.length} Categories found</small>
+            <small className="text-muted">
+              {categories.categories.length} Categories found
+            </small>
           </div>
           <div>
             {/* <Button variant="outline-light" active size="lg">
@@ -47,9 +49,9 @@ const Categories = () => {
           </div>
         </div>
       </Card.Header>
-    <Container fluid>
-      <CategoryList list={categories.categories} />
-    </Container>
+      <Container fluid>
+        <CategoryList list={categories.categories} />
+      </Container>
     </>
   );
 };

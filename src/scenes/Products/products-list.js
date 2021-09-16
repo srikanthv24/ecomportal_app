@@ -31,7 +31,9 @@ const ProductsList = ({ list, items }) => {
     )
       return;
     console.log("Fetch more list items!");
-    dispatch(getProductsAction({ nextToken: list.nextToken, limit: 10 }));
+    if (list.nextToken) {
+      dispatch(getProductsAction({ nextToken: list.nextToken, limit: 10, category: "" }));
+    }
   }
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import ProductDetails from "../scenes/Products/product-details";
 import Login from "../scenes/Login";
 import Categories from "../scenes/Categories";
 import ProductsRoutes from "../scenes/Products";
+import Cart from "../scenes/Cart";
 
 function Routes() {
   return (
@@ -14,6 +15,7 @@ function Routes() {
       <Route exact path="/" component={Landing} />
       <Route path="/products" component={ProductsRoutes} />
       <Route path="/categories" component={Categories} />
+      <Route path="/cart" component={Cart} />
       <Route path="/login" component={Login} />
       {/* <Route exact path="/">
           <Redirect to={"login"} />

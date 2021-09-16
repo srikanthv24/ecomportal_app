@@ -4,7 +4,7 @@ import ProductDetails from "./product-details";
 import Products from "./products";
 
 const ProductsRoutes = () => {
-  const {path} = useRouteMatch()
+  const { path } = useRouteMatch();
   return (
     <Switch>
       <Route exact path={path} component={Products} />

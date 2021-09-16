@@ -4,7 +4,6 @@ import {
   getProducts,
   getProductsByCategory,
   searchProducts,
-  
 } from "../graphql/mutations";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -13,7 +12,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 export class Products {
   static getProducts = async (params) => {
     try {
-      console.log("PARAARARAMS==>", params);
+      console.log("PARAARARAMS==>", JSON.stringify(params.payload.category));
       // console.log("PARAMSSSS", getProductsByCategory(params));
       return await fetch(API_URL, {
         method: "POST",
@@ -25,6 +24,7 @@ export class Products {
         body: JSON.stringify({
           query: getProducts,
           variables: {
+            category: params.payload.category,
             limit: params.payload.limit,
             nextToken: params.payload.nextToken,
           },
@@ -59,20 +59,21 @@ export class Products {
   };
 
   static getAddressList = async (id) => {
-    return await fetch('https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
-      },
-      body: JSON.stringify({
-        query: getAddressList,
-        variables: {
-          customerId: id,
+    return await fetch(
+      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
         },
-      }),
-    }).then((res) => res.json())
-  }
+        body: JSON.stringify({
+          query: getAddressList,
+          variables: {
+            customerId: id,
+          },
+        }),
+      }
+    ).then((res) => res.json());
+  };
 }
-
-

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo_image from "./../../assets/Group 737.png";
 import {
+  Badge,
   Button,
   Col,
   Container,
@@ -29,7 +30,8 @@ export default function AppBar() {
   const [Query, setQuery] = useState("");
 
   const products = useSelector((state) => state.products);
- 
+  const Cart = useSelector((state) => state.Cart);
+
   const mapValuesForOptions = (options) => {
     let newOptions = [];
     options?.items?.map((item) => {
@@ -113,9 +115,12 @@ export default function AppBar() {
                   </NavDropdown>
                 </Col>
                 <Col>
-                  <Nav.Link>
+                  <Nav.Link onClick={() => history.push("/cart")}>
                     <h6 className="text-white">
                       <AiOutlineShoppingCart size={24} />
+                      <Badge bg="secondary" pill>
+                        {Cart.cartDetails.qty}
+                      </Badge>
                     </h6>
                   </Nav.Link>
                 </Col>
@@ -150,7 +155,7 @@ export default function AppBar() {
               isClearable
               isSearchable
               onChange={(val) => {
-                val && history.push('/products/' + val.value)
+                val && history.push("/products/" + val.value);
               }}
               options={searchedProducts}
               onInputChange={handleInputChange}

@@ -7,16 +7,19 @@ const CategoryList = ({ list }) => {
   const history = useHistory();
   return (
     <>
-      <Row style={{ overflow: "auto" }}>
+      <Row style={{ width: "100%" }}>
         {list.length &&
           list.map((category) => (
             <Col
+              key={category.id}
               lg={4}
               md={4}
               sm={6}
               xs={6}
-              key={category.id}
-              className="mt-1 mb-2"
+              className="mt-1 mb-2 p-0"
+              onClick={() =>
+                history.push(`/products?category=${category.display_name}`)
+              }
             >
               <div
                 style={{
@@ -25,8 +28,9 @@ const CategoryList = ({ list }) => {
                   alignItems: "center",
                   justifyContent: "center",
                   flexDirection: "column",
-                //   background: "#ccc",
+                  //   background: "#ccc",
                   height: "100%",
+                  boxSizing: "border-box",
                 }}
               >
                 <div style={{ textAlign: "center" }}>

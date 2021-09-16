@@ -2,8 +2,8 @@ import { types } from '../constants';
 import { Categories } from '../../services/api';
 import { all, takeLatest, put, call } from 'redux-saga/effects';
 
-function* categories() {
-    const response = yield call(Categories.getCategories);
+function* categories(params) {
+    const response = yield call(Categories.getCategories, params);
     if (response) {
         if (response.data && response.data.listItemCategories && response.data.listItemCategories.items) {
             yield put({

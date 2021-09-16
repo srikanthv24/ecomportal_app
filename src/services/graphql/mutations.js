@@ -1,5 +1,5 @@
-export const getProducts = `query ($limit: Int!, $nextToken: String) {
-    listItems (limit: $limit, nextToken: $nextToken) {
+export const getProducts = `query ($limit: Int!, $nextToken: String, ) {
+    listItems ( limit: $limit, nextToken: $nextToken) {
       items {
         saleprice
         category
@@ -123,3 +123,83 @@ export const getAddressList = `query ($customerId: String!) {
     }
     }
     }`;
+
+export const getCategories = `query($limit: Int, $nextToken: String) {
+  listItemCategories (limit: $limit, nextToken: $nextToken){
+      items {
+        defaultimg_url
+        description
+        display_name
+        id
+        img_url
+        name
+        upd_by
+        status
+        upd_on
+      }
+  nextToken
+}}`;
+
+export const getCart = `query ($customerId: ID!) {
+  queryCartsByCustomerIndex(customer: $customerId) {
+    items {
+      customer
+      id
+      qty
+      upd_by
+      upd_on
+    }
+  }
+}`;
+
+export const createCart = `mutation ($customerId: ID!, $qty: Int!, $upd_by: String!, $upd_on: String! ) {
+  createCart(input: {customer: $customerId, qty: $qty, upd_by: $upd_by, upd_on: $upd_on}) {
+    qty
+    id
+    customer
+    upd_by
+    upd_on
+  }
+}`;
+
+export const updateCart = `mutation ($id: ID!, $qty: Int!) {
+  updateCart(input: {id: $id, qty: $qty}) {
+    customer
+    id
+    qty
+    upd_by
+    upd_on
+  }
+}`;
+
+export const getCartItemSchema = `query ($cartId: ID) {
+  listCartItems (filter: {cart: {eq: $cartId}}, limit: 100000){
+    items {
+      cart
+      id
+      item
+      qty
+      sub_data
+    }
+  }
+}`;
+
+export const createCartItem = `mutation ($item: ID!, $cart: ID!, $qty: Int!, $sub_data: String) {
+  createCartItem(input: {item: $item, cart: $cart, qty: $qty, sub_data: $sub_data}) {
+    cart
+    id
+    item
+    qty
+    sub_data
+  }
+}`;
+
+export const updateCartItem = `mutation($cartItemId: ID!, $qty: Int!, $sub_data: String) {
+  updateCartItem(input: {id: $cartItemId, qty: $qty, sub_data: $sub_data}) {
+    id
+    cart
+    item
+    qty
+    sub_data
+  }
+}`;
