@@ -88,13 +88,14 @@ export const getProductDetails = (id) =>
         status
         upd_by
         upd_on
-      variant {​​​​​​​​
+      variants {​​​​​​​​
         display_name
         is_exclusive
         name
         is_multiselect
-        variant_item {​​​​​​​​
+        variant_items {​​​​​​​​
           description
+          default
           display_name
           image
           name

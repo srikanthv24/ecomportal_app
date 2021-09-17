@@ -3,29 +3,41 @@ import { Accordion, Form } from "react-bootstrap";
 import { Calendar } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import { components } from "react-select";
 import { getAddresses } from "../../store/actions";
+import { AddressModal } from "./address-modal";
 
-const ProductPlanner = ({ customerId, productId, data, FormData, handleChange }) => {
+const ProductPlanner = ({
+  customerId,
+  productId,
+  data,
+  FormData,
+  handleChange,
+}) => {
   const [Variants, setVariants] = useState([]);
   const [AddressList, setAddressList] = useState([]);
   const dispatch = useDispatch();
   const Addresses = useSelector((state) => state.Addresses.addressList);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   useEffect(() => {
     let temp = [];
 
     data &&
-      data.variant &&
-      data.variant.map((variant) => {
+      data.variants &&
+      data.variants.map((variant) => {
         let temp1 = [];
-        variant.variant_item.map((varItem) => {
+        variant.variant_items.map((varItem) => {
           temp1.push({
             label: varItem.display_name,
             value: varItem.display_name,
           });
         });
-        temp.push({ ...variant, variant_item: temp1 });
+        temp.push({ ...variant, variant_items: temp1 });
       });
     setVariants(temp);
   }, [data]);
@@ -60,6 +72,20 @@ const ProductPlanner = ({ customerId, productId, data, FormData, handleChange })
     console.log("Addresses-->2", temp);
   }, [Addresses]);
 
+  const SelectMenuButton = (props) => {
+    return (
+      <components.MenuList {...props}>
+        {props.children}
+        <button
+          className="bg-light w-100 border-0 text-start"
+          onClick={handleShow}
+        >
+          Add new address
+        </button>
+      </components.MenuList>
+    );
+  };
+
   let deliverables = [
     { name: "Breakfast", value: "breakfast" },
     { name: "Lunch", value: "lunch" },
@@ -70,6 +96,12 @@ const ProductPlanner = ({ customerId, productId, data, FormData, handleChange })
 
   return (
     <div>
+      <AddressModal
+        customerId={customerId}
+        handleClose={handleClose}
+        handleShow={handleShow}
+        showModal={showModal}
+      />
       {Variants &&
         Variants.map((variant) => {
           return (
@@ -81,7 +113,7 @@ const ProductPlanner = ({ customerId, productId, data, FormData, handleChange })
                 name={variant.display_name}
                 placeholder={variant.display_name}
                 isMulti={variant.is_multiselect}
-                options={variant.variant_item}
+                options={variant.variant_items}
                 value={FormData.variant[variant.display_name]}
                 onChange={(value) => {
                   let temp = {};
@@ -137,41 +169,25 @@ const ProductPlanner = ({ customerId, productId, data, FormData, handleChange })
                     />{" "}
                     Delivery
                   </div>
-                  {/* <Form.Group
-                    className="mb-3"
-                    controlId={deliver.value}
-                    style={{ padding: "0 10px" }}
-                  >
-                    <Form.Check
-                      inline
-                      name={deliver.value}
-                      type="radio"
-                      label="Pickup"
-                      
-                    />
-                    <Form.Check
-                      inline
-                      name={deliver.value}
-                      type="radio"
-                      label="Delivery"
-                      onChange={(ev) => console.log(ev.target.labels)}
-                    />
-                  </Form.Group> */}
-
                   <p className="h6 text-muted mt-3 mb-0 m-2">
                     {deliver.name} Address *
                   </p>
-                  <Select
-                    placeholder={"Address..."}
-                    // isMulti={variant.is_multiselect}
-                    options={AddressList}
-                  />
+                  {FormData.mealplan_type[deliver.value].pickupORdelivery ==
+                    "delivery" && (
+                    <Select
+                      placeholder={"Address..."}
+                      options={AddressList}
+                      components={{ MenuList: SelectMenuButton }}
+                      // onChange={}
+                      value={FormData}
+                    />
+                  )}
                   <div style={{ width: "100%" }}>
                     <p className="h6 text-muted mt-3 mb-0 m-2">Date *</p>
                     <Calendar
                       multiple
                       range
-                      numberOfMonths={2}
+                      // numberOfMonths={2}
                       minDate={new Date()}
                       style={{ width: "100%" }}
                       onChange={(dateObj) => {

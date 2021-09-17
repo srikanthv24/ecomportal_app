@@ -21,7 +21,8 @@ import {
 } from "../../store/actions/cart-item";
 import { updateCart } from "../../store/actions/cart";
 
-const ProductDetails = () => {
+const ProductDetails = ({ productId, isOnboarding = false, myRef = null }) => {
+  let productID = "";
   const { id } = useParams();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
@@ -32,14 +33,32 @@ const ProductDetails = () => {
 
   const [FormData, setFormData] = useState({
     variant: [],
-    mealplan_type: {},
+    mealplan_type: {
+      breakfast: {
+        pickupORdelivery: "pickup",
+      },
+      lunch: {
+        pickupORdelivery: "pickup",
+      },
+      dinner: {
+        pickupORdelivery: "pickup",
+      },
+    },
     notes: "",
   });
 
   useEffect(() => {
-    dispatch(getProductDetails(id));
-  }, [id]);
+    if (id) {
+      productID = id;
+    } else {
+      productID = productId;
+    }
+    dispatch(getProductDetails(productID));
+  }, [id, productId]);
 
+  useEffect(() => {
+    myRef.current = handleCartClick;
+  }, [ProductDetails]);
   useEffect(() => {
     console.log("PROOROR", products.productDetails);
     setProductDetails(products.productDetails);
@@ -56,28 +75,27 @@ const ProductDetails = () => {
     console.log("onIncerement", ifExist);
   }, [products.productDetails, Cart.cartItemList]);
 
-  const handleCartClick = async (productId) => {
-    let ifExist = Cart.cartItemList.filter((item) => item.item == productId);
+  const handleCartClick = async () => {
+    let ifExist = Cart.cartItemList.filter((item) => item.item == ProductDetails.id);
     setExistingProduct(ifExist[0]);
     if (ifExist.length) {
       dispatch(
         updateCardItem({
           productId: ExistingProduct.id,
           qty: ifExist[0].qty + 1,
-          sub_data: FormData
+          sub_data: FormData,
         })
       );
     } else {
       dispatch(
         addCardItem({
-          item: productId,
+          item:  ProductDetails.id,
           cart: Cart.cartDetails.id,
           qty: 1,
-          sub_data: FormData
+          sub_data: FormData,
         })
       );
     }
-
   };
   const onIncrement = () => {
     console.log("onIncerement", ExistingProduct);
@@ -166,32 +184,33 @@ const ProductDetails = () => {
               handleChange={handleChange}
             />
           )}
-          {ExistingProduct.qty ? (
-            <InputGroup className="mb-3">
-              <Button variant="outline-secondary" onClick={onDecrement}>
-                <GrSubtract />
-              </Button>
-              <FormControl
-                aria-label="Example text with two button addons"
-                style={{ textAlign: "center" }}
-                value={ExistingProduct?.qty || ""}
-                type="number"
-                onChange={(ev) => setCartItem(ev.target.value)}
-              />
+          {!isOnboarding &&
+            (ExistingProduct.qty ? (
+              <InputGroup className="mb-3">
+                <Button variant="outline-secondary" onClick={onDecrement}>
+                  <GrSubtract />
+                </Button>
+                <FormControl
+                  aria-label="Example text with two button addons"
+                  style={{ textAlign: "center" }}
+                  value={ExistingProduct?.qty || ""}
+                  type="number"
+                  onChange={(ev) => setCartItem(ev.target.value)}
+                />
 
-              <Button variant="outline-secondary" onClick={onIncrement}>
-                <GrAdd />
+                <Button variant="outline-secondary" onClick={onIncrement}>
+                  <GrAdd />
+                </Button>
+              </InputGroup>
+            ) : (
+              <Button
+                className="w-100"
+                onClick={() => handleCartClick(ProductDetails.id)}
+              >
+                <AiOutlineShoppingCart />
+                {"  "}Add to Cart
               </Button>
-            </InputGroup>
-          ) : (
-            <Button
-              className="w-100"
-              onClick={() => handleCartClick(ProductDetails.id)}
-            >
-              <AiOutlineShoppingCart />
-              {"  "}Add to Cart
-            </Button>
-          )}
+            ))}
 
           {/* {CartItem ? null : (
             <InputGroup className="mb-3">

@@ -36,11 +36,11 @@ export class mealPlans {
             uom_name
             upd_by
             upd_on
-            variant {
+            variants {
               display_name
               is_exclusive
               name
-              variant_item {
+              variant_items {
                 description
                 display_name
                 image
@@ -87,12 +87,12 @@ export class mealPlans {
             tax_methods
             tenure
             uom_name
-            variant {
+            variants {
               display_name
               is_exclusive
               is_multiselect
               name
-              variant_item {
+              variant_items {
                 saleprice
                 image
                 name

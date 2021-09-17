@@ -1,18 +1,19 @@
-const API_URL = "https://rd7pbwckwvb2lgexcirzcswalu.appsync-api.us-east-1.amazonaws.com/graphql/";
+const API_URL =
+  "https://rd7pbwckwvb2lgexcirzcswalu.appsync-api.us-east-1.amazonaws.com/graphql/";
 const API_KEY = "da2-ikrgaao25re4pflusa3hijenoi";
-  //const API_URL = process.env.REACT_APP_API_URL;
-  // const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
-  
+//const API_URL = process.env.REACT_APP_API_URL;
+// const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
+
 export class Customer {
-    static getGender = async () => {
-      return await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
-        },
-        body: JSON.stringify({
-            query: `
+  static getGender = async () => {
+    return await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+      },
+      body: JSON.stringify({
+        query: `
             {
                 __type(name:"Gender"){
                   name
@@ -21,23 +22,26 @@ export class Customer {
                   }
                 }
               }  
-        `})
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            return data
-        })
-    };
+        `,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  };
 
-    static getPhysicalActivity = async () => {
-        return await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
-          },
-          body: JSON.stringify({
-              query: `
+  static getPhysicalActivity = async () => {
+    return await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+      },
+      body: JSON.stringify({
+        query: `
               {
                 __type(name:"Physicalactivity"){
                   name
@@ -46,23 +50,26 @@ export class Customer {
                   }
                 }
               }  
-          `})
-          }).then((response) => {
-              return response.json();
-          }).then((data) => {
-              return data
-          })
-      };
+          `,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  };
 
-      static getDietPreference = async () => {
-        return await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
-          },
-          body: JSON.stringify({
-              query: `
+  static getDietPreference = async () => {
+    return await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+      },
+      body: JSON.stringify({
+        query: `
               {
                 __type(name:"DietPreference"){
                   name
@@ -71,23 +78,26 @@ export class Customer {
                   }
                 }
               }  
-          `})
-          }).then((response) => {
-              return response.json();
-          }).then((data) => {
-              return data
-          })
-      };
+          `,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  };
 
-      static getGoalList = async () => {
-        return await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
-          },
-          body: JSON.stringify({
-              query: `
+  static getGoalList = async () => {
+    return await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+      },
+      body: JSON.stringify({
+        query: `
               {
                 __type(name:"Goal"){
                   name
@@ -96,24 +106,27 @@ export class Customer {
                   }
                 }
               }  
-          `})
-          }).then((response) => {
-              return response.json();
-          }).then((data) => {
-              return data
-          })
-      };
+          `,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  };
 
-      static createCustomer = (data) => {
-        console.log("data to fetch call::::", data);
-        return fetch(`${API_URL}`, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
-            },
-            body: JSON.stringify({
-                query: `mutation {
+  static createCustomer = (data) => {
+    console.log("data to fetch call::::", data);
+    return fetch(`${API_URL}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+      },
+      body: JSON.stringify({
+        query: `mutation {
                   createCustomer(input: {address: "Jublihills", 
                                         dietpreference: ${data.dietpreference}, 
                                         display_name: "${data.name}", 
@@ -131,12 +144,14 @@ export class Customer {
                     id
                   }
                 }
-            `})
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            return data
-        })
-    }
-      
+            `,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  };
 }

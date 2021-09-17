@@ -145,7 +145,7 @@ const ProductPlanner = ({ handleBack, handleNextStep }) => {
     selectedMealPlan && selectedMealPlan.variant &&
     selectedMealPlan.variant.map((variant) => {
         let temp1 = [];
-        variant.variant_item.map((varItem) => {
+        variant.variant_items.map((varItem) => {
           temp1.push({
             label: varItem.display_name,
             value: varItem.display_name,
@@ -214,7 +214,7 @@ const ProductPlanner = ({ handleBack, handleNextStep }) => {
 
                 placeholder={variant.display_name}
                 isMulti={variant.is_multiselect}
-                options={variant.variant_item}
+                options={variant.variant_items}
                 // options={(variant) => { variant.variant_item.map(vi => {
                 //   return {
                 //     label: vi.display_name,

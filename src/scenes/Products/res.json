@@ -1,0 +1,58 @@
+{
+    "customer_id": "",
+    "customer_name": "satya",
+    "item_id": "",
+    "qty": 1,
+    "item_name": "Curd Rice",
+    "saleprice": "",
+    "mealplan_type": {
+        "breakfast": {
+            "address": "address_1",
+            "price": 254.67,
+            "pickupORdelivery": "Pickup"
+        },
+        "lunch": {
+            "address": "address_2",
+            "price": 260,
+            "pickupORdelivery": "Pickup"
+        },
+        "dinner": {
+            "address": "address_2",
+            "price": 260,
+            "pickupORdelivery": "Pickup"
+        }
+    },
+    "order_dates": [
+        "date_1",
+        "date_2",
+        "date_3"
+    ],
+    "notes": "",
+    "variant": [
+        {
+            "name": "Exclusions",
+            "variant_item": [
+                {
+                    "saleprice": 300.12,
+                    "tax": "",
+                    "display_name": "No Onion"
+                },
+                {
+                    "saleprice": 256.08,
+                    "tax": "",
+                    "display_name": "No Salt"
+                }
+            ]
+        },
+        {
+            "name": "Duration",
+            "variant_item": [
+                {
+                    "saleprice": 250.99,
+                    "tax": "",
+                    "display_name": "15 Days"
+                }
+            ]
+        }
+    ]
+}

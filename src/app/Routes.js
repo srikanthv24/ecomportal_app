@@ -9,6 +9,7 @@ import Categories from "../scenes/Categories";
 import ProductsRoutes from "../scenes/Products";
 import Cart from "../scenes/Cart";
 import Subscription from "../scenes/Subscription";
+import LemmeTry from "../scenes/lemmetry";
 
 function Routes() {
   return (
@@ -18,7 +19,7 @@ function Routes() {
       <Route path="/categories" component={Categories} />
       <Route path="/cart" component={Cart} />
       <Route path="/login" component={Login} />
-      <Route path="/subscription" component={Subscription} />
+      <Route path="/subscription" component={LemmeTry} />
       {/* <Route exact path="/">
           <Redirect to={"login"} />
         </Route>
