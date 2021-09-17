@@ -1,7 +1,10 @@
 import { types } from "../constants";
 
 const initialState = {
+  loading: false,
+  error: false,
   addressList: [],
+  postalCodes: [],
 };
 
 export const Addresses = (state = initialState, action) => {
@@ -11,6 +14,65 @@ export const Addresses = (state = initialState, action) => {
 
     case types.ADDRESS_LIST_FAILURE:
       return { ...state, addressList: [] };
+
+      //add new address
+      case types.CREATE_ADDRESS: 
+      return { ...state, loading: true };
+
+    case types.CREATE_ADDRESS_SUCCESS:
+      return { 
+          ...state, 
+          loading : false,
+          addressStatus: action.payload
+        }
+
+    case types.CREATE_ADDRESS_FAILURE:
+      return { 
+          ...state, 
+          loading : false,
+          addressStatus: action.payload,
+        }
+    
+     //delete address
+     case types.DELETE_ADDRESS: 
+     return { ...state, loading: true };
+
+   case types.DELETE_ADDRESS_SUCCESS:
+     return { 
+         ...state, 
+         loading : false,
+         newAddress: action.payload
+       }
+
+   case types.DELETE_ADDRESS_FAILURE:
+     return { 
+         ...state, 
+         loading : false,
+         error: true,
+       }
+
+
+     //postal codes
+     case types.GET_POSTALCODES: 
+     return {
+       ...state, 
+       loading: true
+     }
+
+    case types.GET_POSTALCODES_SUCCESS: 
+      return {
+        ...state, 
+        loading: false,
+        postalCodes: action.payload
+      }
+ 
+     case types.GET_POSTALCODES_FAILURE: 
+     return {
+       ...state, 
+       loading: false,
+       postalCodes: [],
+       error: true
+     }
 
     default:
       return state;

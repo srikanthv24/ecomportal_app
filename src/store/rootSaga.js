@@ -5,6 +5,7 @@ import {
     productsSaga, 
     customerSaga,
     mealPlansSaga,
+    addressesSaga
   } from "./saga";
 import { CartItemSaga } from "./saga/cartItem";
 
@@ -16,6 +17,6 @@ export default function* rootSaga() {
       CartItemSaga(),
       customerSaga(),
       mealPlansSaga(),
-      
+      addressesSaga(),
     ]);
 }

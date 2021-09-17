@@ -6,3 +6,27 @@ export const getAddresses = (payload) => {
     payload,
   };
 };
+
+
+export const postAddress = (payload) => {
+  console.log("post address action is called:::", payload);
+  return {
+    type: types.CREATE_ADDRESS,
+    payload
+  }
+};
+
+// export const deleteAddress = (payload) => {
+//   console.log("post address action is called:::", payload);
+//   return {
+//     type: types.CREATE_ADDRESS,
+//     payload
+//   }
+// }
+
+
+export const getPostalCodes = () => {
+  return {
+    type: types.GET_POSTALCODES
+  };
+};

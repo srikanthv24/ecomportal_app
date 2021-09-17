@@ -15,13 +15,13 @@ import { getMealPlanDetails } from "../../store/actions/mealPlans";
 //import 'react-date-range/dist/theme/default.css'; // theme css file
 //import { DateRange  } from 'react-date-range';
 import Select from 'react-select';
-//import ProductPlanner from "./product-planner";
+import ProductPlanner from "./product-planner";
 
 
 const MealPlanDetails = ({ id, handleNextStep, handleBack }) => {
   const dispatch = useDispatch();
   const mealPlanDetails = useSelector(state => state.mealPlans.details);
-  // const custId = useSelector(state => state.customer.customerId);
+  const custId = useSelector(state => state.customer.customerId);
   const mealPlanId = useSelector(state => state.mealPlans.mealPlanId);
 
   const [mealPlan, setMealPlan] = useState({});
@@ -30,7 +30,7 @@ const MealPlanDetails = ({ id, handleNextStep, handleBack }) => {
   const [ hide, setHide ] = useState(true);
                   
   useEffect(() => {
-    dispatch(getMealPlanDetails(id));
+    dispatch(getMealPlanDetails(mealPlanId));
   }, []);
 
   useEffect(() => {
@@ -68,18 +68,17 @@ const MealPlanDetails = ({ id, handleNextStep, handleBack }) => {
             </Col>
           </Row> 
           <Row>
-               {/* <Col>
-          {products.mealPlanDetails.is_mealplan && <ProductPlanner
-            // customerId={custId}
-            customerId= "578461ea-bc50-4d40-8c0a-5c4546abc2d7"
-            productId={mealPlanId}
-            // data={products.mealPlanDetails}
-            handleBack={handleBack}
-            handleNextStep={handleNextStep}
-          />}
-          </Col> */}
+          <Col>
+              {mealPlanDetails.is_mealplan && <ProductPlanner
+                //customerId={custId}
+                // customerId= "578461ea-bc50-4d40-8c0a-5c4546abc2d7"
+                //productId={mealPlanId}
+                // data={products.mealPlanDetails}
+                handleBack={handleBack}
+                handleNextStep={handleNextStep}
+              />}
+          </Col>
           </Row>
-         
     </Container>
   );
 };
