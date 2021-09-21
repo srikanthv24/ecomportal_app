@@ -20,6 +20,18 @@ import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, Redirect, useHistory, useRouteMatch } from "react-router-dom";
 
+import { CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUserPool } from "amazon-cognito-identity-js";
+import { authLoading } from "../../store/actions/auth";
+
+const poolData ={
+  UserPoolId:"us-east-1_LmIBVgrWX",
+  ClientId: '1elqc1ok4eqb1c9sjlhhiq74sd'
+  // ClientId:"6q6vj7100vmj9tr5s4jrp5cv8i"
+}
+
+const UserPool = new CognitoUserPool(poolData);
+
 export default function AppBar() {
   const { path } = useRouteMatch();
   let history = useHistory();
@@ -51,6 +63,27 @@ export default function AppBar() {
     setQuery(inputValue);
     dispatch(searchProducts(inputValue));
   };
+
+  const logoutCognitoUser = () => {
+    // const currentUser = getCurrentUser();
+    // console.log("current userrrrr:::::", currentUser);
+    // if (currentUser !== null) {
+    //  currentUser.signOut();
+    // }
+
+    // var cognitoUser = UserPool.getCurrentUser();
+    // if (cognitoUser != null) {
+    //     cognitoUser.signOut(
+    //       {   
+    //                    onFailure: error =>   console.log("Logout Failure", error), 
+    //                    onSuccess: result =>   
+    //        console.log('Logout success: ' + result)  
+    // }
+    // )} 
+    localStorage.removeItem("token");
+    history.replace("/login");
+    dispatch(authLoading());
+   }
 
   return (
     <>
@@ -109,7 +142,7 @@ export default function AppBar() {
                     <NavDropdown.Item href="#action5">
                       Your Orders
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action6">
+                    <NavDropdown.Item href="#action6" onClick={logoutCognitoUser}>
                       Sign Out
                     </NavDropdown.Item>
                   </NavDropdown>

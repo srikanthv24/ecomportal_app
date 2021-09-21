@@ -12,16 +12,19 @@ import {
     CssBaseline,
     FormControlLabel,
 } from '@material-ui/core';
+import {Image, Alert} from "react-bootstrap";
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
 import UserPool from './UserPool';
-import { loginSuccess } from '../../store/actions'
+//import { loginSuccess } from '../../store/actions';
+import { loginSuccess, authError, authLoading } from '../../store/actions/auth';
+import Logo from "../../assets/vl-logo.png";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(1),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(0),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -45,36 +48,46 @@ const useStyles = makeStyles((theme) => ({
 function Login(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const loginState = useSelector(state => state.login)
-    const [email, setEmail] = useState("");
+    const { tokenList, loading, error } = useSelector(state => state.auth);
+    const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
 
+    // React.useEffect(() => {
+    //     if (loginState.userData && loginState.userData.accessToken) {
+    //         props.history.push('/categories')
+    //     } else { }
+    // }, [loginState])
+
     React.useEffect(() => {
-        if (loginState.userData && loginState.userData.accessToken) {
+        if (tokenList && tokenList.accessToken) {
             props.history.push('/categories')
         } else { }
-    }, [loginState])
+    }, [tokenList])
+
+    console.log("tokenList:::::::::", tokenList);
 
     const onSubmit = (event) => {
         event.preventDefault();
+        dispatch(authLoading());
         const user = new CognitoUser({
-            Username: email,
+            Username: phone,
             Pool: UserPool,
         });
 
         const authDetails = new AuthenticationDetails({
-            Username: email,
+            Username: phone,
             Password: password,
-
         });
 
         user.authenticateUser(authDetails, {
             onSuccess: (data) => {
                 console.log("OnSuccess: ", data, data.accessToken);
-                dispatch(loginSuccess(data))
+                dispatch(loginSuccess(data));
+                localStorage.setItem("token", data.accessToken.jwtToken);
             },
             onFailure: (err) => {
-                console.log("onFailure: ", err);
+                console.log("onFailure: ", err.message);
+                dispatch(authError(err.message));
             },
             newPasswordRequired: (data) => {
                 console.log("newPasswordRequired: ", data);
@@ -82,29 +95,30 @@ function Login(props) {
         });
     };
 
+
+    if(loading){
+        return <p className="fs-5 fw-bold mt-2 text-center" >Loading....</p>
+      }
+
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            {/* <CssBaseline /> */}
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
+                
+                <div className="text-center mt-4">
+                    <Image src={Logo} className="w-50"/>
+                </div>
+                <p className="fs-4 fw-bold mt-2 text-start">Sign In</p>
                 <form onSubmit={onSubmit} className={classes.form} noValidate>
                     <TextField
                         variant="outlined"
-                        margin="normal"
-                        required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        value={email}
+                        id="phone"
+                        label="Phone Number"
+                        value={phone}
                         autoFocus
-                        onChange={(event) => setEmail(event.target.value)}
+                        onChange={(event) => setPhone(event.target.value)}
+                        autoComplete="off"
                     />
                     <TextField
                         variant="outlined"
@@ -139,11 +153,14 @@ function Login(props) {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/register" variant="body2" >
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
                     </Grid>
+                    {error && 
+                    <Alert variant="danger" className="mt-3">{error}</Alert>
+                    }
                 </form>
             </div>
         </Container>
