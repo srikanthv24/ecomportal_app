@@ -72,7 +72,7 @@ const Register = () => {
         if (data) {
           dispatch(signupSuccess(data));
           console.log("succesfully created the user:::", data);
-          history.push("/login");
+          history.replace("/login");
         } else {
           dispatch(authError(error.message));
           console.log("error in registering user:::", error.message);
@@ -87,7 +87,7 @@ const Register = () => {
 
   return (
     <Row className="m-2">
-      <Col xs={12} sm={12} lg={6}>
+      <Col xs={12} sm={12} lg={6} style={{marginTop:"110px"}}>
         <div className="text-center mt-4">
           <Image src={Logo} className="w-50" />
         </div>
@@ -113,9 +113,9 @@ const Register = () => {
             />
           </FloatingLabel>
 
-          <FloatingLabel name="password" label="Password" className="mt-2">
+          <FloatingLabel name="password" label="Password (max 8 characters)" className="mt-2">
             <Form.Control
-              type="text"
+              type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -130,7 +130,7 @@ const Register = () => {
           <Nav>
             <Nav.Item>
               <Nav.Link href="/login" style={{ paddingLeft: "0" }}>
-              Already have an account? Sign in
+              Already have an account? Sign In
               </Nav.Link>
             </Nav.Item>
           </Nav>

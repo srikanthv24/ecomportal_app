@@ -64,7 +64,7 @@ function Login() {
 
     return (
         <Row className="m-2">
-        <Col xs={12} sm={12} lg={6} >
+        <Col xs={12} sm={12} lg={6} style={{marginTop:"120px"}}>
                 <div className="text-center mt-4">
                     <Image src={Logo} className="w-50"/>
                 </div>
@@ -75,22 +75,17 @@ function Login() {
                         autoFocus
                         type="tel"
                         maxLength={10}
-                        //placeholder="+91"
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
                     />
                 </FloatingLabel>
-                 <FloatingLabel name="password" label="Password" className="mt-2">
+                 <FloatingLabel name="password" label="Password (max 8 characters)" className="mt-2">
                     <Form.Control
-                        type="text"
+                        type="password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </FloatingLabel>
-                    {/* <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    /> */}
                      <Button
                         className="w-100 mt-2 fw-bold"
                         variant="primary"

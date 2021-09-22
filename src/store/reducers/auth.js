@@ -13,7 +13,7 @@ export const AuthReducer = (state = initialState, action) => {
         case types.SIGNUP_SUCCESS:
             return {
                 ...state,
-                isLoggedIn: true,
+                // isLoggedIn: true,
                 loading: false,
                 userData: action.payload
             }

@@ -34,8 +34,8 @@ function Routes() {
     <>
       {isLoggedIn && (
         <>
+           <AppBar />
           <Switch>
-            <AppBar />
             <Route exact path="/" component={Landing} />
             <Route path="/products" component={ProductsRoutes} />
             <Route path="/categories" component={Categories} />
