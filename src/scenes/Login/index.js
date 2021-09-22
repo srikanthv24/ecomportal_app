@@ -3,79 +3,40 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     Link,
     Grid,
-    Avatar,
-    Button,
     Checkbox,
     Container,
     TextField,
-    Typography,
-    CssBaseline,
     FormControlLabel,
 } from '@material-ui/core';
-import {Image, Alert} from "react-bootstrap";
+import { useHistory } from 'react-router';
+import {Image, Alert, Row, Col, Form, FloatingLabel, Button, Nav} from "react-bootstrap";
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
 import UserPool from './UserPool';
-//import { loginSuccess } from '../../store/actions';
 import { loginSuccess, authError, authLoading } from '../../store/actions/auth';
 import Logo from "../../assets/vl-logo.png";
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(1),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(0),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    content: {
-        width: "",
-    }
-}));
-
-function Login(props) {
-    const classes = useStyles();
+function Login() {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { tokenList, loading, error } = useSelector(state => state.auth);
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
 
-    // React.useEffect(() => {
-    //     if (loginState.userData && loginState.userData.accessToken) {
-    //         props.history.push('/categories')
-    //     } else { }
-    // }, [loginState])
-
-    React.useEffect(() => {
-        if (tokenList && tokenList.accessToken) {
-            props.history.push('/categories')
-        } else { }
-    }, [tokenList])
-
     console.log("tokenList:::::::::", tokenList);
 
-    const onSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(authLoading());
         const user = new CognitoUser({
-            Username: phone,
+            Username: `+91${phone}`,
             Pool: UserPool,
         });
 
         const authDetails = new AuthenticationDetails({
-            Username: phone,
+            Username: `+91${phone}`,
             Password: password,
         });
 
@@ -83,7 +44,8 @@ function Login(props) {
             onSuccess: (data) => {
                 console.log("OnSuccess: ", data, data.accessToken);
                 dispatch(loginSuccess(data));
-                localStorage.setItem("token", data.accessToken.jwtToken);
+                sessionStorage.setItem("token", data.accessToken.jwtToken);
+                history.push('/categories')
             },
             onFailure: (err) => {
                 console.log("onFailure: ", err.message);
@@ -101,69 +63,52 @@ function Login(props) {
       }
 
     return (
-        <Container component="main" maxWidth="xs">
-            {/* <CssBaseline /> */}
-            <div className={classes.paper}>
-                
+        <Row className="m-2">
+        <Col xs={12} sm={12} lg={6} >
                 <div className="text-center mt-4">
                     <Image src={Logo} className="w-50"/>
                 </div>
-                <p className="fs-4 fw-bold mt-2 text-start">Sign In</p>
-                <form onSubmit={onSubmit} className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="phone"
-                        label="Phone Number"
-                        value={phone}
+                <p className="fs-5 fw-bold mt-2">Sign In</p>
+                <Form>
+                <FloatingLabel name="phone" label="Phone Number" className="mt-2">
+                    <Form.Control
                         autoFocus
+                        type="tel"
+                        maxLength={10}
+                        //placeholder="+91"
+                        value={phone}
                         onChange={(event) => setPhone(event.target.value)}
-                        autoComplete="off"
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
+                </FloatingLabel>
+                 <FloatingLabel name="password" label="Password" className="mt-2">
+                    <Form.Control
+                        type="text"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
-                    <FormControlLabel
+                </FloatingLabel>
+                    {/* <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
+                    /> */}
+                     <Button
+                        className="w-100 mt-2 fw-bold"
+                        variant="primary"
+                        onClick={handleSubmit}
                     >
-                        LogIn
+                        SignIn
                     </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="/register" variant="body2" >
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
+                    <Nav> 
+                    <Nav.Item >
+                        <Nav.Link href="/register" style={{paddingLeft:"0"}}>Don't have an account? Sign Up</Nav.Link>
+                    </Nav.Item>
+                    </Nav>
                     {error && 
                     <Alert variant="danger" className="mt-3">{error}</Alert>
                     }
-                </form>
-            </div>
-        </Container>
+                </Form>
+        </Col>
+        </Row>
     );
 }
 

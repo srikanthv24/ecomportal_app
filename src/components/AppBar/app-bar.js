@@ -22,7 +22,7 @@ import { Link, Redirect, useHistory, useRouteMatch } from "react-router-dom";
 
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { CognitoUserPool } from "amazon-cognito-identity-js";
-import { authLoading } from "../../store/actions/auth";
+import { getTokenFailure } from "../../store/actions/auth";
 
 const poolData ={
   UserPoolId:"us-east-1_LmIBVgrWX",
@@ -66,10 +66,6 @@ export default function AppBar() {
 
   const logoutCognitoUser = () => {
     // const currentUser = getCurrentUser();
-    // console.log("current userrrrr:::::", currentUser);
-    // if (currentUser !== null) {
-    //  currentUser.signOut();
-    // }
 
     // var cognitoUser = UserPool.getCurrentUser();
     // if (cognitoUser != null) {
@@ -80,9 +76,9 @@ export default function AppBar() {
     //        console.log('Logout success: ' + result)  
     // }
     // )} 
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     history.replace("/login");
-    dispatch(authLoading());
+    dispatch(getTokenFailure());
    }
 
   return (

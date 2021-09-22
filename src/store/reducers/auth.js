@@ -27,7 +27,6 @@ export const AuthReducer = (state = initialState, action) => {
         case types.AUTH_ERROR:
             return {
                 ...state,
-                isLoggedIn:false,
                 loading: false,
                 error: action.payload
             }
@@ -38,6 +37,17 @@ export const AuthReducer = (state = initialState, action) => {
                 loading:false,
                 isLoggedIn: true,
                 tokenList: action.payload
+            }
+        case types.GET_SESSION_TOKEN_SUCCESS:
+            return {
+                ...state,
+                isLoggedIn: true,
+            }
+
+         case types.GET_SESSION_TOKEN_FAILURE:
+            return {
+                ...state,
+                isLoggedIn: false,
             }
 
         default:

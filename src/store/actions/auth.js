@@ -27,3 +27,16 @@ export const loginSuccess = (tokenList) => {
     }
 }
 
+export const getTokenSucces = () => {
+    return {
+        type: types.GET_SESSION_TOKEN_SUCCESS,
+    }
+}
+
+
+export const getTokenFailure = () => {
+    return {
+        type: types.GET_SESSION_TOKEN_FAILURE,
+    }
+}
+
