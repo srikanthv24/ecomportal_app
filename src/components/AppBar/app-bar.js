@@ -19,7 +19,6 @@ import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, Redirect, useHistory, useRouteMatch } from "react-router-dom";
-
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { getTokenFailure } from "../../store/actions/auth";
@@ -27,7 +26,6 @@ import { getTokenFailure } from "../../store/actions/auth";
 const poolData ={
   UserPoolId:"us-east-1_LmIBVgrWX",
   ClientId: '1elqc1ok4eqb1c9sjlhhiq74sd'
-  // ClientId:"6q6vj7100vmj9tr5s4jrp5cv8i"
 }
 
 const UserPool = new CognitoUserPool(poolData);
@@ -124,24 +122,28 @@ export default function AppBar() {
                 </Col>
 
                 <Col>
-                  <NavDropdown
-                    title={<span className="text-white">Hello, Sridevi</span>}
-                    id="navbarScrollingDropdown"
-                  >
-                    <NavDropdown.Item href="#action3">
-                      Account Balance
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Subscriptions
-                    </NavDropdown.Item>
-                    {/* <NavDropdown.Divider /> */}
-                    <NavDropdown.Item href="#action5">
-                      Your Orders
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action6" onClick={logoutCognitoUser}>
-                      Sign Out
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  <Nav>
+                  <div className="customDropDown">
+                    <NavDropdown
+                      title={<span className="text-white">Hello, Sridevi</span>}
+                      id="navbarScrollingDropdown"
+                    >
+                      <NavDropdown.Item href="#" eventKey="1">
+                        Account Balance
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#" eventKey="2">
+                        Subscriptions
+                      </NavDropdown.Item>
+                      {/* <NavDropdown.Divider /> */}
+                      <NavDropdown.Item href="#" eventKey="3">
+                        Your Orders
+                      </NavDropdown.Item>
+                      <NavDropdown.Item onClick={logoutCognitoUser} eventKey="4">
+                        Sign Out
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                    </div>
+                    </Nav>
                 </Col>
                 <Col>
                   <Nav.Link onClick={() => history.push("/cart")}>

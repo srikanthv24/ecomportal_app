@@ -7,7 +7,9 @@ import {
   Col,
   Image,
   Alert,
-  Nav
+  Nav,
+  InputGroup,
+  FormControl,
 } from "react-bootstrap";
 import {
   CognitoUser,
@@ -34,13 +36,21 @@ const Register = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [validated, setValidated] = useState(false);
 
-  const { loading, userData, error } = useSelector((state) => state.auth);
+  const { loading, cognitoUserDetails, error } = useSelector((state) => state.auth);
 
-  console.log("userData:::", userData);
+  console.log("userData:::", cognitoUserDetails);
   console.log("error:::", error);
 
   const handleSubmit = (e) => {
+    // const form = e.currentTarget;
+    //   if (form.checkValidity() === false) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //   }
+    //   setValidated(true);
+
     dispatch(authLoading());
     e.preventDefault();
     console.log("signup btn is pressed", name, phone, password);
@@ -87,39 +97,59 @@ const Register = () => {
 
   return (
     <Row className="m-2">
-      <Col xs={12} sm={12} lg={6} style={{marginTop:"110px"}}>
+      <Col xs={12} sm={12} lg={6} style={{ marginTop: "110px" }}>
         <div className="text-center mt-4">
           <Image src={Logo} className="w-50" />
         </div>
 
         <p className="fs-5 fw-bold mt-2">Create Account</p>
+
         <Form>
-          <FloatingLabel name="phone" label="Phone Number" className="mt-2">
-            <Form.Control
+          <InputGroup className="mb-3" hasValidation>
+            <InputGroup.Text id="phone">+91</InputGroup.Text>
+            <FormControl
+              required
               autoFocus
-              type="tel"
+              type="number"
+              placeholder="Mobile Number"
               maxLength={10}
-              //placeholder="+91"
               value={phone}
               onChange={(event) => setPhone(event.target.value)}
             />
-          </FloatingLabel>
+          </InputGroup>
 
-          <FloatingLabel name="name" label="Name (optional)" className="mt-2">
+          <FloatingLabel
+            controlId="name"
+            label="Name"
+            className="mt-2"
+          >
             <Form.Control
               type="text"
               value={name}
+              placeholder="Name"
+              required
               onChange={(event) => setName(event.target.value)}
+              autoComplete="off"
             />
           </FloatingLabel>
 
-          <FloatingLabel name="password" label="Password (max 8 characters)" className="mt-2">
+          <FloatingLabel
+            controlId="password"
+            label="Password"
+            className="mt-2"
+          >
             <Form.Control
+              required
               type="password"
               value={password}
+              placeholder="password"
               onChange={(event) => setPassword(event.target.value)}
             />
           </FloatingLabel>
+          <Form.Text id="passwordHelpBlock" muted>
+            Your password must be 8-10 characters long, must contain an upper case letter, number and
+            special character.
+          </Form.Text>
           <Button
             className="w-100 mt-3 fw-bold"
             variant="primary"
@@ -130,7 +160,7 @@ const Register = () => {
           <Nav>
             <Nav.Item>
               <Nav.Link href="/login" style={{ paddingLeft: "0" }}>
-              Already have an account? Sign In
+                Already have an account? Sign In
               </Nav.Link>
             </Nav.Item>
           </Nav>

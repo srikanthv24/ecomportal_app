@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import {
-    Link,
-    Grid,
-    Checkbox,
-    Container,
-    TextField,
-    FormControlLabel,
-} from '@material-ui/core';
 import { useHistory } from 'react-router';
-import {Image, Alert, Row, Col, Form, FloatingLabel, Button, Nav} from "react-bootstrap";
-import { makeStyles } from '@material-ui/core/styles';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {Image, Alert, Row, Col, Form, FloatingLabel, Button, Nav, InputGroup, FormControl} from "react-bootstrap";
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-
 import UserPool from './UserPool';
 import { loginSuccess, authError, authLoading } from '../../store/actions/auth';
 import Logo from "../../assets/vl-logo.png";
@@ -70,17 +59,20 @@ function Login() {
                 </div>
                 <p className="fs-5 fw-bold mt-2">Sign In</p>
                 <Form>
-                <FloatingLabel name="phone" label="Phone Number" className="mt-2">
-                    <Form.Control
+                <InputGroup className="mb-3">
+                    <InputGroup.Text id="phone">+91</InputGroup.Text>
+                    <FormControl
                         autoFocus
-                        type="tel"
+                        type="number"
+                        placeholder="Mobile Number"
                         maxLength={10}
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
-                    />
-                </FloatingLabel>
-                 <FloatingLabel name="password" label="Password (max 8 characters)" className="mt-2">
+                        />
+                </InputGroup>
+                 <FloatingLabel controlId="password" label="Password" className="mt-2">
                     <Form.Control
+                        placeholder="password"
                         type="password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}

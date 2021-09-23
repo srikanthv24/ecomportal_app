@@ -4,7 +4,7 @@ const initialState = {
     isLoggedIn: false,
     loading: false,
     error: null,
-    userData: '',
+    cognitoUserDetails: '',
     tokenList: ''
 }
 
@@ -15,13 +15,12 @@ export const AuthReducer = (state = initialState, action) => {
                 ...state,
                 // isLoggedIn: true,
                 loading: false,
-                userData: action.payload
+                //cognitoUserDetails: action.payload
             }
         case types.AUTH_LOADING:
             return {
                 ...state,
                loading:true,
-               error:null
             }
         
         case types.AUTH_ERROR:
