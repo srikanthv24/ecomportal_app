@@ -9,3 +9,6 @@
     box-shadow: none;
     border: none;
 }
+.navbar-nav .customNavBar .dropdown-menu{
+    position: absolute;
+}

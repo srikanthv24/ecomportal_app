@@ -4,6 +4,7 @@ import {
   getCart,
   updateCart,
   updateCartItem,
+  updateCartQty,
 } from "../graphql/mutations";
 
 export class Cart {
@@ -19,7 +20,7 @@ export class Cart {
           body: JSON.stringify({
             query: getCart,
             variables: {
-              customerId: params.payload,
+              customer_id: params.payload.customer_id,
             },
           }),
         }
@@ -30,6 +31,12 @@ export class Cart {
   }
 
   static createCart(params) {
+    // console.log('PARAQMS', `mutation {
+    //   createCart(input: {${params.payload}}) {
+    //     id
+    //   }
+    // }`)
+    let payload = params.payload;
     try {
       return fetch(
         "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
@@ -39,12 +46,16 @@ export class Cart {
             "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
           },
           body: JSON.stringify({
-            query: createCart,
+            query: `mutation ($input: CreateCartInput!){
+              createCart(input: $input) {
+                id
+                customer_id
+              }
+            }`,
             variables: {
-              customerId: params.payload.customerId,
-              qty: params.payload.qty,
-              upd_by: params.payload.upd_by,
-              upd_on: params.payload.upd_on,
+              input: {
+                ...payload,
+              },
             },
           }),
         }
@@ -64,17 +75,48 @@ export class Cart {
             "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
           },
           body: JSON.stringify({
-            query: updateCart,
+            query: `mutation ($id: ID!, $customer_id: ID!, $item: UpdateCartItemInput!) {
+              updateCart(input: {id: $id, customer_id: $customer_id, item: $item}) {
+                id
+                customer_id
+              }
+            }`,
             variables: {
-              id: params.payload.cartId,
-              qty: params.payload.qty,
-              
+              id: params.payload.cart_id,
+              customer_id: params.payload.customer_id,
+              item: params.payload.item
             },
           }),
         }
       ).then((res) => res.json());
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  static updateCartQty(params) {
+    const { id, customer_id, item_id, qty } = params.payload;
+    try {
+      return fetch(
+        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        {
+          method: "POST",
+          headers: {
+            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          },
+          body: JSON.stringify({
+            query: updateCartQty,
+            variables: {
+              id,
+              customer_id,
+              item_id,
+              qty,
+            },
+          }),
+        }
+      ).then(res => res.json());
+    } catch (error) {
+      console.log("<===UpdateCartQtyFailed===>", error);
     }
   }
 }

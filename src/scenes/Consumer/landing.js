@@ -18,7 +18,7 @@ const Landing = () => {
 
   useEffect(() => {
     dispatch(getProductsAction({ limit: 10, nextToken: "", category: "" }));
-    dispatch(getCategories({limit: 40, nextToken: ""}));
+    dispatch(getCategories({ limit: 40, nextToken: "" }));
   }, []);
 
   return (

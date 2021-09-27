@@ -1,58 +1,38 @@
-{
-    "customer_id": "",
-    "customer_name": "satya",
-    "item_id": "",
-    "qty": 1,
-    "item_name": "Curd Rice",
-    "saleprice": "",
-    "mealplan_type": {
-        "breakfast": {
-            "address": "address_1",
-            "price": 254.67,
-            "pickupORdelivery": "Pickup"
-        },
-        "lunch": {
-            "address": "address_2",
-            "price": 260,
-            "pickupORdelivery": "Pickup"
-        },
-        "dinner": {
-            "address": "address_2",
-            "price": 260,
-            "pickupORdelivery": "Pickup"
-        }
-    },
-    "order_dates": [
-        "date_1",
-        "date_2",
-        "date_3"
-    ],
-    "notes": "",
-    "variant": [
-        {
-            "name": "Exclusions",
-            "variant_item": [
-                {
-                    "saleprice": 300.12,
-                    "tax": "",
-                    "display_name": "No Onion"
+mutation {
+    updateCart(input: {
+        id: "c93e8494-f712-439f-bd7c-08b51e1c8ad8",
+        customer_id: "",
+        item: {
+            item_id: "20",
+            qty: 50,
+            sale_val: 1.5,
+            subscription: {
+                address: {
+                    aline2: "banjarahills",
+                    community: "",
+                    city: "Hyderabad",
+                    aline1: "lroad no. 12",
+                    customer_id: "",
+                    customer_name: "mobi",
+                    landmark: "beside almondhouse",
+                    postalcode: "500081",
+                    state: "Telengana",
+                    tag: "Office"
                 },
-                {
-                    "saleprice": 256.08,
-                    "tax": "",
-                    "display_name": "No Salt"
+                isDelivery: true,
+                meal_type: "B",
+                notes: "Please Call",
+                order_dates: "28-09-2021",
+                sale_val: 1.5
+            },
+            variants: {
+                display_name: "Duration",
+                items: {
+                    display_name: "7 days"
                 }
-            ]
-        },
-        {
-            "name": "Duration",
-            "variant_item": [
-                {
-                    "saleprice": 250.99,
-                    "tax": "",
-                    "display_name": "15 Days"
-                }
-            ]
+            }
         }
-    ]
+    }) {
+        id
+    }
 }

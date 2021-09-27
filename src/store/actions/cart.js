@@ -20,3 +20,10 @@ export const updateCart = (payload) => {
         payload
     }
 }
+
+export const updateCartQty = (payload) => {
+    return {
+        type: types.UPDATE_CART_QTY,
+        payload
+    }
+}

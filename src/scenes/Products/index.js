@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import ProductDetails from "./product-details";
+import PlannerWrapper from "../lemmetry/PlannerWrapper";
+// import ProductDetails from "./product-details";
 import Products from "./products";
 
 const ProductsRoutes = () => {
@@ -8,7 +9,10 @@ const ProductsRoutes = () => {
   return (
     <Switch>
       <Route exact path={path} component={Products} />
-      <Route path={`${path}/:id`} component={ProductDetails} />
+      <Route
+        path={`${path}/:id`}
+        component={PlannerWrapper}
+      />
     </Switch>
   );
 };
