@@ -1,49 +1,64 @@
 import React, { useEffect, useState } from "react";
 import { Accordion, Form } from "react-bootstrap";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { components } from "react-select";
 import { getAddresses } from "../../store/actions";
 import { AddressModal } from "./address-modal";
+import moment from "moment";
 
-const ProductPlanner = ({
-  customerId,
-  productId,
-  data,
-  FormData,
-  handleChange,
-}) => {
+const ProductPlanner = ({ customerId, data, control }) => {
   const [Variants, setVariants] = useState([]);
   const [AddressList, setAddressList] = useState([]);
   const dispatch = useDispatch();
   const Addresses = useSelector((state) => state.Addresses.addressList);
 
   const [showModal, setShowModal] = useState(false);
+  const { fields, append, remove } = useFieldArray({
+    control: control,
+    name: "subscription",
+  });
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+  const methods = useFormContext();
+  const { watch, setValue } = methods;
+  const { subscription, variants } = watch();
+  const [VariantValue, setVariantValue] = useState({});
+  const [selectedAddress, setSelectedAddress] = useState({});
+
+  useEffect(() => {
+    console.log("VariantValue", VariantValue);
+  }, [VariantValue]);
 
   useEffect(() => {
     let temp = [];
 
+    console.log("DATAAA", data);
     data &&
       data.variants &&
       data.variants.map((variant) => {
         let temp1 = [];
-        variant.variant_items.map((varItem) => {
+        variant.items.map((varItem) => {
           temp1.push({
+            ...varItem,
+            display_name: varItem.display_name,
             label: varItem.display_name,
             value: varItem.display_name,
           });
         });
-        temp.push({ ...variant, variant_items: temp1 });
+        temp.push({ ...variant, items: temp1 });
       });
+    console.log("setVariants", temp);
     setVariants(temp);
   }, [data]);
 
   useEffect(() => {
-    dispatch(getAddresses({ customerId }));
+    if (customerId) {
+      dispatch(getAddresses({ customerId }));
+    }
   }, [customerId]);
 
   useEffect(() => {
@@ -64,13 +79,12 @@ const ProductPlanner = ({
           address.state +
           ", " +
           address.postalcode;
-        temp.push({ label: label, value: address.id });
+        temp.push({ ...address, label: label, value: address.id });
       });
       setAddressList(temp);
+      console.log("Addresses-->2", temp);
     }
-
-    console.log("Addresses-->2", temp);
-  }, [Addresses]);
+  }, [Addresses.listAddresses]);
 
   const SelectMenuButton = (props) => {
     return (
@@ -92,7 +106,15 @@ const ProductPlanner = ({
     { name: "Dinner", value: "dinner" },
   ];
 
-  console.log("Variant==>", FormData);
+  function upsert(array, item) {
+    // (1)
+    const i = array.findIndex(
+      (_item) => _item.display_name === item.display_name
+    );
+    if (i > -1) array[i] = item;
+    // (2)
+    else array.push(item);
+  }
 
   return (
     <div>
@@ -107,21 +129,53 @@ const ProductPlanner = ({
           return (
             <>
               <p className="h6 text-muted mt-3 mb-0 m-2">
-                {variant.display_name} *
+                {variant.display_name}
               </p>
-              <Select
-                name={variant.display_name}
-                placeholder={variant.display_name}
-                isMulti={variant.is_multiselect}
-                options={variant.variant_items}
-                value={FormData.variant[variant.display_name]}
-                onChange={(value) => {
-                  let temp = {};
+              <Controller
+                control={control}
+                // name={`variants.${variant.display_name}`}
+                render={({ field: { onChange, name, value, ref } }) => (
+                  <Select
+                    name={name}
+                    placeholder={variant.display_name}
+                    isMulti={variant.is_multiselect}
+                    options={variant.items}
+                    value={VariantValue[variant.display_name]}
+                    onChange={(value) => {
+                      setVariantValue({
+                        ...VariantValue,
+                        [variant.display_name]: value,
+                      });
+                      let temp = [...variants];
 
-                  temp[variant.display_name] = value;
+                      if (variants.length) {
+                        console.log("Parent- If");
+                        const i = temp.findIndex(
+                          (_item) => _item.display_name === value.display_name
+                        );
+                        if (i > -1)
+                          temp[i] = {
+                            display_name: variant.display_name,
+                            items: { display_name: value.display_name },
+                          };
+                        // (2)
+                        else
+                          temp.push({
+                            display_name: variant.display_name,
+                            items: { display_name: value.display_name },
+                          });
+                      } else {
+                        console.log("Parent- Else");
+                        temp.push({
+                          display_name: variant.display_name,
+                          items: { display_name: value.display_name },
+                        });
+                      }
 
-                  handleChange("variant", temp);
-                }}
+                      setValue("variants", temp);
+                    }}
+                  />
+                )}
               />
             </>
           );
@@ -129,82 +183,153 @@ const ProductPlanner = ({
 
       <Accordion defaultActiveKey="0" className="mt-4">
         {/* BreakFast */}
-        {deliverables.map((deliver) => {
+        {deliverables.map((deliver, index) => {
           return (
-            <Accordion.Item eventKey={deliver.name}>
-              <Accordion.Header>{deliver.name}</Accordion.Header>
+            <Accordion.Item eventKey={deliver.value} key={index}>
+              <Accordion.Header>
+                <input
+                  type="checkbox"
+                  style={{ marginRight: 5 }}
+                  checked={fields.map((field) =>
+                    field.meal_type == deliver.value ? true : false
+                  )}
+                  // onChange={(ev) => {
+                  //   console.log(ev.target.checked)
+                  //   if (ev.target.checked) {
+                  //     append({ meal_type: deliver.value });
+                  //   } else {
+                  //     remove(index);
+                  //   }
+                  // }}
+                />
+                {String(deliver.value).toUpperCase()}
+              </Accordion.Header>
               <Accordion.Body>
                 <div>
                   <p className="h6 text-muted mt-3 mb-0 m-2">{deliver.name}</p>
-                  <div style={{ margin: 3 }}>
-                    <input
-                      type="radio"
-                      name={deliver.value}
-                      onChange={(ev) =>
-                        handleChange("mealplan_type", {
-                          ...FormData.mealplan_type,
-                          [ev.target.name]: {
-                            ...FormData.mealplan_type[deliver.value],
-                            pickupORdelivery: "Pickup",
-                          },
-                        })
-                      }
-                      style={{ marginRight: 3 }}
-                    />
-                    Pickup
-                  </div>
-                  <div style={{ margin: 3 }}>
-                    <input
-                      type="radio"
-                      name={deliver.value}
-                      onChange={(ev) =>
-                        handleChange("mealplan_type", {
-                          ...FormData.mealplan_type,
-                          [ev.target.name]: {
-                            ...FormData.mealplan_type[deliver.value],
-                            pickupORdelivery: "delivery",
-                          },
-                        })
-                      }
-                    />{" "}
-                    Delivery
-                  </div>
-                  <p className="h6 text-muted mt-3 mb-0 m-2">
-                    {deliver.name} Address *
-                  </p>
-                  {FormData.mealplan_type[deliver.value].pickupORdelivery ==
-                    "delivery" && (
-                    <Select
-                      placeholder={"Address..."}
-                      options={AddressList}
-                      components={{ MenuList: SelectMenuButton }}
-                      // onChange={}
-                      value={FormData}
-                    />
+                  <Controller
+                    control={control}
+                    name={`subscription[${index}].isDelivery`}
+                    render={({ field: { onChange, ...rest } }) => (
+                      <div class="form-check form-switch">
+                        <input
+                          {...rest}
+                          class="form-check-input"
+                          type="checkbox"
+                          id={deliver.value}
+                          onChange={(ev) => onChange(ev.target.checked)}
+                        />
+                        <label class="form-check-label" for={deliver.value}>
+                          {!subscription[index].isDelivery
+                            ? "Pick Up"
+                            : "Deliver"}
+                        </label>
+                      </div>
+                    )}
+                  />
+
+                  {subscription[index].isDelivery && (
+                    <>
+                      <p className="h6 text-muted mt-3 mb-0 m-2">
+                        Delivery Address *
+                      </p>
+                      <Controller
+                        control={control}
+                        name={`subscription[${index}].address`}
+                        render={({ field: { onChange, ...rest } }) => (
+                          <Select
+                            placeholder={"Address..."}
+                            options={AddressList}
+                            components={{ MenuList: SelectMenuButton }}
+                            {...rest}
+                            value={selectedAddress[deliver.value]}
+                            onChange={(address) => {
+                              let addrss = { ...address };
+                              delete addrss.label;
+                              delete addrss.value;
+                              onChange(addrss);
+                              setSelectedAddress({
+                                ...selectedAddress,
+                                [deliver.value]: address,
+                              });
+                            }}
+                          />
+                        )}
+                      />
+                    </>
                   )}
                   <div style={{ width: "100%" }}>
                     <p className="h6 text-muted mt-3 mb-0 m-2">Date *</p>
-                    <Calendar
-                      multiple
-                      range
-                      // numberOfMonths={2}
-                      minDate={new Date()}
-                      style={{ width: "100%" }}
-                      onChange={(dateObj) => {
-                        let temp = [];
-                        dateObj.map((date) => {
-                          temp.push(date.format());
-                        });
-                        handleChange("mealplan_type", {
-                          ...FormData.mealplan_type,
-                          [deliver.value]: {
-                            ...FormData.mealplan_type[deliver.value],
-                            order_dates: temp,
-                          },
-                        });
-                      }}
-                    />
+                    <div style={{ width: "100%", overflow: "scroll" }}>
+                      <Controller
+                        control={control}
+                        name={`subscription[${index}].order_dates`}
+                        render={({ field: { onChange, ...rest } }) => (
+                          <Calendar
+                            key={deliver.value}
+                            multiple
+                            numberOfMonths={2}
+                            minDate={
+                              subscription[index].order_dates[0] || new Date()
+                            }
+                            style={{ width: "100%" }}
+                            maxDate={
+                              new Date(
+                                moment()
+                                  .add(
+                                    VariantValue?.Duration?.duration +
+                                      VariantValue?.Duration?.duration -
+                                      1 || 0,
+                                    "days"
+                                  )
+                                  .calendar()
+                              )
+                            }
+                            onChange={(dateObj) => {
+                              let temp = [];
+                              dateObj.map((date) => {
+                                temp.push(date.format());
+                              });
+                              // handleChange("mealplan_type", {
+                              //   ...FormData.mealplan_type,
+                              //   [deliver.value]: {
+                              //     ...FormData.mealplan_type[deliver.value],
+                              //     order_dates: temp,
+                              //   },
+                              // });
+                              onChange(temp);
+                            }}
+                            {...rest}
+                          />
+                        )}
+                      />
+                    </div>
+                    {/* <span>
+                      Balance days:{" "}
+                      {subscription[index].variants?.Duration?.duration ||
+                        0 - subscription[index].order_dates.length}
+                    </span> */}
                   </div>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlTextarea1"
+                  >
+                    <Form.Label>
+                      <p className="h6 text-muted mt-3 mb-0 m-2">Note: </p>
+                    </Form.Label>
+                    <Controller
+                      control={control}
+                      name={`subscription[${index}].notes`}
+                      render={({ field: { ...rest } }) => (
+                        <Form.Control
+                          as="textarea"
+                          rows={2}
+                          placeholder="note while delivery..."
+                          {...rest}
+                        />
+                      )}
+                    />
+                  </Form.Group>
                 </div>
               </Accordion.Body>
             </Accordion.Item>
@@ -212,18 +337,6 @@ const ProductPlanner = ({
         })}
       </Accordion>
 
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>
-          <p className="h6 text-muted mt-3 mb-0 m-2">Note: </p>
-        </Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={2}
-          placeholder="note while delivery..."
-          value={FormData.notes}
-          onChange={(ev) => handleChange("notes", ev.target.value)}
-        />
-      </Form.Group>
       {/* Meals */}
     </div>
   );

@@ -1,23 +1,51 @@
-export const getProducts = `query ($limit: Int!, $nextToken: String, ) {
-    listItems ( limit: $limit, nextToken: $nextToken) {
-      items {
-        saleprice
-        category
-        defaultimg_url
-        description
+export const getProducts = `query ($limit: Int, $nextToken: String) {
+  listItems (limit: $limit, nextToken: $nextToken){
+    items {
+      id
+      is_mealplan
+      is_recommended
+      category
+      defaultimg_url
+      description
+      display_name
+      img_url
+      meal_prices {
+        breakfast_price
+        dinner_price
+        lunch_price
+      }
+      mealtype
+      name
+      sale_val
+      status
+      tags
+      tax_exclusive
+      tax_methods
+      uom_name
+      upd_by
+      upd_on
+      variants {
+        is_sale_value_absolute
+        is_multiselect
+        input_type
         display_name
-        uom_name
-        id
-        img_url
+        items {
+          default
+          description
+          display_name
+          sale_val
+          name
+          image
+          grace
+          duration
+        }
         name
-        tax_methods
-        status
-        upd_by
-        upd_on
-      }, 
-      nextToken
-    } 
-  }`;
+        sale_val
+      }
+    }
+    nextToken
+  }
+}`;
 
 export const getProductsByCategory = (params) => {
   console.log("PAPAPA", params.payload);
@@ -53,58 +81,100 @@ export const searchProducts = (searchQuery) => {
         searchQuery.payload
       )}}}, limit: 1000) {
         items {
-          saleprice
+          id
+          is_mealplan
+          is_recommended
           category
           defaultimg_url
           description
           display_name
-          id 
           img_url
+          meal_prices {
+            breakfast_price
+            dinner_price
+            lunch_price
+          }
+          mealtype
+      name
+      sale_val
+      status
+      tags
+      tax_exclusive
+      tax_methods
+      uom_name
+      upd_by
+      upd_on
+      variants {
+        is_sale_value_absolute
+        is_multiselect
+        input_type
+        display_name
+        items {
+          default
+          description
+          display_name
+          sale_val
           name
-          status
-          upd_by
-          upd_on
+          image
+          grace
+          duration
         }
+        name
+        sale_val
       }
-    }`,
+    }
+  }
+}`,
   });
 };
 
 export const getProductDetails = (id) =>
   JSON.stringify({
-    query: `{
-    getItem(id: ${JSON.stringify(id)}) {
-        saleprice
+    query: `{​​​​​​​
+      getItem(id: ${JSON.stringify(id)}) {​​​​​​​
+        id
         category
         defaultimg_url
         description
         display_name
         img_url
         is_mealplan
-        tax_methods
-        id
+        is_recommended
+        mealtype
         name
-        uom_name
+        sale_val
         status
+        tags
+        meal_prices {
+          breakfast_price
+          dinner_price
+          lunch_price
+        }
+        tax_exclusive
+        tax_methods
+        uom_name
         upd_by
         upd_on
-      variants {​​​​​​​​
-        display_name
-        is_exclusive
-        name
-        is_multiselect
-        variant_items {​​​​​​​​
-          description
-          default
+        variants {
           display_name
-          image
+          sale_val
           name
-          saleprice
-        }​​​​​​​​
-      }
-
-        }
-        }`,
+          is_sale_value_absolute
+          is_multiselect
+          input_type
+          items {
+            default
+            description
+            display_name
+            duration
+            grace
+            image
+            sale_val
+            name
+          }​​​​​​​
+        }​​​​​​​
+      }​​​​​​​
+    }​​​​​​​`,
   });
 
 export const getAddressList = `query ($customerId: String!) {
@@ -141,27 +211,49 @@ export const getCategories = `query($limit: Int, $nextToken: String) {
   nextToken
 }}`;
 
-export const getCart = `query ($customerId: ID!) {
-  queryCartsByCustomerIndex(customer: $customerId) {
+export const getCart = `query ($customer_id: ID!){
+  queryCartsByCustomerIndex(customer_id: $customer_id) {
     items {
-      customer
+      customer_id
       id
-      qty
-      upd_by
-      upd_on
+      items {
+        defaultimg_url
+        item_name
+        tax_methods
+        uom_name
+        category
+        item_id
+        qty
+        sale_val
+        subscription {
+          address {
+              aline1
+          }
+          isDelivery
+          meal_type
+          notes
+          order_dates
+          sale_val
+        }
+        variants {
+          display_name
+          items {
+            display_name
+          }
+        }
+      }
     }
   }
 }`;
 
-export const createCart = `mutation ($customerId: ID!, $qty: Int!, $upd_by: String!, $upd_on: String! ) {
-  createCart(input: {customer: $customerId, qty: $qty, upd_by: $upd_by, upd_on: $upd_on}) {
-    qty
+export const createCart = (params) => {
+  console.log("PARQAMS", params);
+  return `mutation {
+  createCart(input: ${params.payload}) {
     id
-    customer
-    upd_by
-    upd_on
   }
 }`;
+};
 
 export const updateCart = `mutation ($id: ID!, $qty: Int!) {
   updateCart(input: {id: $id, qty: $qty}) {
@@ -174,33 +266,89 @@ export const updateCart = `mutation ($id: ID!, $qty: Int!) {
 }`;
 
 export const getCartItemSchema = `query ($cartId: ID) {
-  listCartItems (filter: {cart: {eq: $cartId}}, limit: 100000){
+  listCartItems (filter: {cart_id: {eq: $cartId}}, limit: 100000){
     items {
-      cart
+      cart_id
       id
-      item
+      defaultimage_url
+      sale_val
+      uom_name
+      tax_methods
       qty
-      sub_data
+      subscription {
+        img
+        customer_id
+        customer_name
+        is_mealplan
+        item_id
+        item_name
+        qty
+        sale_val
+        mealplan {
+          address {
+            aline1
+            aline2
+            city
+            community
+            customer_id
+            customer_name
+            landmark
+            postalcode
+            state
+            tag
+          }
+          isDelivery
+          meal_type
+          notes
+          order_dates
+          sale_val
+          variants {
+            items {
+              description
+              display_name
+              image
+              sale_val
+            }
+            name
+            sale_val
+          }
+        }
+      }
     }
   }
 }`;
 
-export const createCartItem = `mutation ($item: ID!, $cart: ID!, $qty: Int!, $sub_data: String) {
-  createCartItem(input: {item: $item, cart: $cart, qty: $qty, sub_data: $sub_data}) {
-    cart
+export const createCartItem = (
+  data
+) => `mutation ($item: ID!, $cart: ID!, $qty: Int!, $Subscription_data: SubscriptionData) {
+  createCartItem(input: {item_id: $item, cart_id: $cart, qty: $qty, subscription_data: $Subscription_data}) {
     id
-    item
+    cart_id
+    item_id
     qty
-    sub_data
+    
   }
 }`;
 
-export const updateCartItem = `mutation($cartItemId: ID!, $qty: Int!, $sub_data: String) {
-  updateCartItem(input: {id: $cartItemId, qty: $qty, sub_data: $sub_data}) {
+export const updateCartItem = (params) => `mutation {
+  updateCart(input: {id: "c93e8494-f712-439f-bd7c-08b51e1c8ad8", customer_id: "", item: {item_id: "20", qty: 50, sale_val: 1.5, subscription: {address: {aline2: "banjarahills", community: "", city: "Hyderabad", aline1: "lroad no. 12", customer_id: "", customer_name: "mobi", landmark: "beside almondhouse", postalcode: "500081", state: "Telengana", tag: "Office"}, isDelivery: true, meal_type: "B", notes: "Please Call", order_dates: "28-09-2021", sale_val: 1.5}, variants: {display_name: "Duration", items: {display_name: "7 days"}}}}) {
     id
-    cart
-    item
-    qty
-    sub_data
+    customer_id
+  }
+}`;
+
+export const deleteCartItem = `mutation($ID: ID!){
+  deleteCartItem(input:{
+    id:$ID
+  })
+  {
+    id
+  }
+}`;
+
+export const updateCartQty = `mutation ($id: ID!, $customer_id: ID!, $item_id: ID!, $qty: Int){
+  updateCart(input: {id: $id, customer_id: $customer_id, item_id: $item_id, qty: $qty}) {
+    id
+    customer_id
   }
 }`;

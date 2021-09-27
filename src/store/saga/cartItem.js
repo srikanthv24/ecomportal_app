@@ -1,8 +1,6 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { Cart } from "../../services/api/Cart";
 import { CartItem } from "../../services/api/CartItem";
-import { getCart } from "../actions/cart";
-import { getCartItems } from "../actions/cart-item";
 import { types } from "../constants";
 
 function* getCartItem(params) {
@@ -29,7 +27,7 @@ function* CreateCartItem(params) {
   try {
     const response = yield call(CartItem.createCartItem, params);
     console.log("CartItemCreated", response);
-    yield put(getCartItems({ cartId: response.data.createCartItem.cart }));
+    
     yield put({
       type: types.ADD_CART_ITEM_SUCCESS,
       payload: {},
@@ -47,7 +45,7 @@ function* UpdateCartItem(params) {
   try {
     const response = yield call(CartItem.updateCartItem, params);
     console.log("CartItemCreated", response);
-    yield put(getCartItems({ cartId: response.data.updateCartItem.cart }));
+    
     yield put({
       type: types.UPDATE_CART_ITEM_SUCCESS,
       payload: {},
@@ -61,8 +59,22 @@ function* UpdateCartItem(params) {
   }
 }
 
+function* DeleteCartItem(params) {
+  try {
+    const response = yield call(CartItem.deleteCartItem, params);
+    yield put({
+      type: types.DELETE_CART_ITEM_SUCCESS,
+      payload: response,
+    });
+    
+  } catch (error) {
+    console.log('Failed cartitem delete', error)
+  }
+}
+
 export function* CartItemSaga() {
   yield takeEvery(types.ADD_CART_ITEM, CreateCartItem);
   yield takeEvery(types.UPDATE_CART_ITEM, UpdateCartItem);
   yield takeEvery(types.GET_CART_ITEM, getCartItem);
+  yield takeEvery(types.DELETE_CART_ITEM, DeleteCartItem);
 }

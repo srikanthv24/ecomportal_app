@@ -40,13 +40,12 @@ const ProductCard = ({ product }) => {
           {product.category}
         </small>
         <Card.Text className="col-12 text-truncate">
-          {product.description +
-            "kdjshfjdsjhfkdskfjksdjfdsjfklsdjflksdjfkjdsklfjldsjflj  "}
+          {product.description}
         </Card.Text>
         <Card.Text>
           <span className="d-flex">
 
-          <BiRupee /> {product.saleprice} / {product.uom_name}
+          <BiRupee /> {Number(product.sale_val).toFixed(2)} / {product.uom_name}
           </span>
         <small className="col-12 text-truncate text-muted">
           Including {String(product.tax_methods).replace('Output', '').replace('-', '')}

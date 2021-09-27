@@ -28,10 +28,8 @@ const LemmeTry = () => {
 
   const handleMyStepper = () => {
     if (activeStep === 0) {
-      console.log("dispatch fn from stepper component:::", userData);
       dispatch(createCustomer(userData));
     }
-
     handleNext();
   };
 
@@ -53,6 +51,7 @@ const LemmeTry = () => {
           <PlannerWrapper
             handleBack={handleBack}
             handleNextStep={handleMyStepper}
+            isOnboarding={true}
           />
         ) : null}
       </div>

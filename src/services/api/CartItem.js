@@ -1,32 +1,12 @@
-import { createCartItem, getCartItemSchema, updateCartItem } from "../graphql/mutations";
+import {
+  createCartItem,
+  deleteCartItem,
+  getCartItemSchema,
+  updateCartItem,
+} from "../graphql/mutations";
 
 export class CartItem {
-  
-  
-    static getCartItem(params) {
-        try {
-          return fetch(
-            "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
-            {
-              method: "POST",
-              headers: {
-                "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-              },
-              body: JSON.stringify({
-                query: getCartItemSchema,
-                variables: {
-                  cartId: params.payload.cartId,
-                },
-              }),
-            }
-          ).then((res) => res.json());
-        } catch (error) {
-          console.log(error);
-        }
-      }
-  
-  
-    static createCartItem(params) {
+  static getCartItem(params) {
     try {
       return fetch(
         "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
@@ -36,12 +16,33 @@ export class CartItem {
             "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
           },
           body: JSON.stringify({
-            query: createCartItem,
+            query: getCartItemSchema,
+            variables: {
+              cartId: params.payload.cartId,
+            },
+          }),
+        }
+      ).then((res) => res.json());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static createCartItem(params) {
+    try {
+      return fetch(
+        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        {
+          method: "POST",
+          headers: {
+            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          },
+          body: JSON.stringify({
+            query: createCartItem(params.payload.sub_data),
             variables: {
               item: params.payload.item,
               cart: params.payload.cart,
               qty: Number(params.payload.qty),
-              sub_data: JSON.stringify(params.payload.sub_data)
             },
           }),
         }
@@ -65,7 +66,7 @@ export class CartItem {
             variables: {
               cartItemId: params.payload.productId,
               qty: params.payload.qty,
-              sub_data: JSON.stringify(params.payload.sub_data)
+              sub_data: JSON.stringify(params.payload.sub_data),
             },
           }),
         }
@@ -73,5 +74,25 @@ export class CartItem {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  static deleteCartItem(params) {
+    try {
+      return fetch(
+        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        {
+          method: "POST",
+          headers: {
+            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          },
+          body: JSON.stringify({
+            query: deleteCartItem,
+            variables: {
+              ID: params.payload.cartItemId,
+            },
+          }),
+        }
+      ).then((res) => res.json());
+    } catch (error) {}
   }
 }

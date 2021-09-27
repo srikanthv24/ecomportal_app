@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppBar from "../components/AppBar/app-bar";
 import Footer from "../components/footer";
-import { createCart, getCart } from "../store/actions/cart";
+import { getCart } from "../store/actions/cart";
 import Routes from "./Routes";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   const Cart = useSelector((state) => state.Cart);
 
   useEffect(() => {
-    dispatch(getCart("1d3a8d5c-ce41-45d1-80bd-6befa6c46f84"));
+    dispatch(getCart({ customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16" }));
   }, []);
 
   useEffect(() => {

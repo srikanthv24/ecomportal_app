@@ -15,7 +15,7 @@ var phantom = {
   width: "100%",
 };
 const ProductsList = ({ list, items }) => {
-  console.log("LIST==", list, items);
+  
   const dispatch = useDispatch();
   const [Loading, setLoading] = useState(true);
   useEffect(() => {
@@ -30,7 +30,7 @@ const ProductsList = ({ list, items }) => {
       document.documentElement.offsetHeight
     )
       return;
-    console.log("Fetch more list items!");
+    console.log("Fetch more list items!", list);
     if (list.nextToken) {
       dispatch(getProductsAction({ nextToken: list.nextToken, limit: 10, category: "" }));
     }

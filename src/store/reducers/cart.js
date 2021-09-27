@@ -1,7 +1,9 @@
 import { types } from "../constants";
 
 const initialState = {
-  cartDetails: {},
+  cartDetails: {
+    items: [{ items: [] }],
+  },
   cartItemList: [],
   cartLoading: false,
   cartItemsLoading: false,
@@ -16,7 +18,7 @@ export const Cart = (state = initialState, action) => {
         ...state,
         cartItemList: action.payload.listCartItems.items,
         cartItemsLoading: false,
-        cartLoading: false
+        cartLoading: false,
       };
 
     case types.GET_CART_ITEM_FAILURE:

@@ -20,3 +20,10 @@ export const updateCardItem = (payload) => {
         payload
     }
 }
+
+export const deleteCartItem = (payload) => {
+    return {
+        type: types.DELETE_CART_ITEM,
+        payload
+    }
+}

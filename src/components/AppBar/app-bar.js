@@ -124,6 +124,7 @@ export default function AppBar() {
                 <Col>
                   <Nav>
                   <div className="customDropDown">
+                  {/* <div className="customNavBar"> */}
                     <NavDropdown
                       title={<span className="text-white">Hello, Sridevi</span>}
                       id="navbarScrollingDropdown"
@@ -144,13 +145,28 @@ export default function AppBar() {
                     </NavDropdown>
                     </div>
                     </Nav>
+                      {/* <NavDropdown.Item href="#action3">
+                        Account Balance
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action4">
+                        Subscriptions
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item href="#action5">
+                        Your Orders
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action6">
+                        Sign Out
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </div> */}
                 </Col>
                 <Col>
                   <Nav.Link onClick={() => history.push("/cart")}>
                     <h6 className="text-white">
                       <AiOutlineShoppingCart size={24} />
                       <Badge bg="secondary" pill>
-                        {Cart.cartDetails.qty}
+                        {Cart?.cartDetails?.items.length && Cart?.cartDetails?.items[0]?.items?.length}
                       </Badge>
                     </h6>
                   </Nav.Link>

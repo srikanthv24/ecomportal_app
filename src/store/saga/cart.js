@@ -1,35 +1,36 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { Cart } from "../../services/api/Cart";
-import { createCart } from "../actions/cart";
+import { createCart, getCart } from "../actions/cart";
 import { types } from "../constants";
 
 function* GetCart(params) {
   try {
     const response = yield call(Cart.getCart, params);
-    
-    if (!response.data.queryCartsByCustomerIndex.items.length) {
-      yield put(
-        createCart({
-          customerId: params.payload,
-          qty: 0,
-          upd_by: "",
-          upd_on: "",
-        })
-      );
-      yield put({
-        type: types.GET_CART_SUCCESS,
-        payload: response.data.queryCartsByCustomerIndex.items[0],
-      });
-    } else {
-      yield put({
-        type: types.GET_CART_SUCCESS,
-        payload: response.data.queryCartsByCustomerIndex.items[0],
-      });
-    }
+    console.log("<=GETCART=>", response);
+
+    // if (!response.data.queryCartsByCustomerIndex.items.length) {
+    //   yield put(
+    //     createCart({
+    //       customerId: params.payload,
+    //       qty: 0,
+    //       upd_by: "",
+    //       upd_on: "",
+    //     })
+    //   );
+    //   yield put({
+    //     type: types.GET_CART_SUCCESS,
+    //     payload: response.data.queryCartsByCustomerIndex.items,
+    //   });
+    // } else {
+    // }
+    yield put({
+      type: types.GET_CART_SUCCESS,
+      payload: response.data.queryCartsByCustomerIndex,
+    });
   } catch (error) {
     yield put({
       type: types.GET_CART_FAILURE,
-      payload: {},
+      payload: [],
     });
     console.log(error);
   }
@@ -55,10 +56,7 @@ function* UpdateCart(params) {
   try {
     const response = yield call(Cart.updateCart, params);
     console.log("CartItemUpdated", response);
-    yield put({
-      type: types.UPDATE_CART_SUCCESS,
-      payload: response.data,
-    });
+    yield put(getCart({ customer_id: response.data.updateCart.customer_id }));
   } catch (error) {
     yield put({
       type: types.UPDATE_CART_FAILURE,
@@ -68,8 +66,19 @@ function* UpdateCart(params) {
   }
 }
 
+function* updateCartQty(params) {
+  try {
+    const response = yield call(Cart.updateCartQty, params);
+    console.log("UPDATE_CART_QTY_RESPONSE==>", response);
+    yield put(getCart({ customer_id: response.data.updateCart.customer_id }));
+  } catch (error) {
+    console.log("<==UpdateCartQtyFailed==>", error);
+  }
+}
+
 export function* CartSaga() {
   yield takeEvery(types.CREATE_CART, CreateCart);
   yield takeEvery(types.UPDATE_CART, UpdateCart);
   yield takeLatest(types.GET_CART, GetCart);
+  yield takeEvery(types.UPDATE_CART_QTY, updateCartQty);
 }

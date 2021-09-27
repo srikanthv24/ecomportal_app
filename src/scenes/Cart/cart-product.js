@@ -10,37 +10,45 @@ import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { Products } from "../../services/api/products";
-import { updateCart } from "../../store/actions/cart";
-import { updateCardItem } from "../../store/actions/cart-item";
+import { updateCart, updateCartQty } from "../../store/actions/cart";
+import { deleteCartItem, updateCardItem } from "../../store/actions/cart-item";
 
 const CardProduct = ({ productId, pushPrice, cartDetails }) => {
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ProductDetails, setProductDetails] = useState({});
 
+  console.log("123XYZ", Cart);
+
   useEffect(() => {
-    Products.ProductDetails({ payload: productId.item }).then((res) => {
-      console.log(res.data.getItem.saleprice);
-      pushPrice(res.data.getItem.saleprice * productId.qty);
-      setProductDetails(res.data.getItem);
-    });
-  }, [productId.item]);
+    // Products.ProductDetails({ payload: productId.item_id }).then((res) => {
+    //   console.log('QASDA', res.data.getItem);
+    //   setProductDetails(res.data.getItem);
+    // });
+
+    // console.log('productId, pushPrice, cartDetails', productId, pushPrice, cartDetails)
+    setProductDetails(productId);
+    pushPrice((productId.sale_val && productId.sale_val) * productId.qty);
+  }, [productId]);
 
   const onIncrement = () => {
-    dispatch(updateCart({ cartId: cartDetails.id, qty: cartDetails.qty + 1 }));
+    console.log(ProductDetails);
     dispatch(
-      updateCardItem({
-        productId: productId.id,
+      updateCartQty({
+        id: Cart.cartDetails.items[0].id,
+        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        item_id: productId.item_id,
         qty: productId.qty + 1,
       })
     );
   };
 
   const onDecrement = () => {
-    dispatch(updateCart({ cartId: cartDetails.id, qty: cartDetails.qty - 1 }));
     dispatch(
-      updateCardItem({
-        productId: productId.id,
+      updateCartQty({
+        id: Cart.cartDetails.items[0].id,
+        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        item_id: productId.item_id,
         qty: productId.qty - 1,
       })
     );
@@ -73,7 +81,7 @@ const CardProduct = ({ productId, pushPrice, cartDetails }) => {
         </Card.Body>
         <Card.Body className="pt-2">
           <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate">
-            {ProductDetails.display_name}
+            {ProductDetails.item_name}
           </Card.Text>
           <small className="col-12 text-truncate text-muted">
             {ProductDetails.category}
@@ -82,7 +90,7 @@ const CardProduct = ({ productId, pushPrice, cartDetails }) => {
           <Card.Text>
             <span className="d-flex justify-content-start">
               <span className="d-flex">
-                <BiRupee /> {Number(ProductDetails.saleprice).toFixed(2)} /{" "}
+                <BiRupee /> {Number(ProductDetails.sale_val).toFixed(2)} /{" "}
                 {ProductDetails.uom_name}
               </span>
             </span>

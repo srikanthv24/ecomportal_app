@@ -11,46 +11,52 @@ export class mealPlans {
         },
         body: JSON.stringify({
             query: `{
-        listItems(filter: { is_mealplan: { eq: true } }, limit: 1000) {
-          items {
-            category
-            defaultimg_url
-            description
-            display_name
-            duration
-            id
-            img_url
-            is_mealplan
-            meal_prices {
-              breakfast_price
-              lunch_price
-              dinner_price
-            }
-            mealtype
-            name
-            saleprice
-            status
-            tags
-            tax_methods
-            tenure
-            uom_name
-            upd_by
-            upd_on
-            variants {
-              display_name
-              is_exclusive
-              name
-              variant_items {
-                description
-                display_name
-                image
-                name
-                saleprice
+              listItems(filter: {is_mealplan: {eq: true}}, limit: 10000) {
+                items {
+                  id
+                  is_mealplan
+                  is_recommended
+                  category
+                  defaultimg_url
+                  description
+                  display_name
+                  img_url
+                  meal_prices {
+                    breakfast_price
+                    dinner_price
+                    lunch_price
+                  }
+                  mealtype
+                  name
+                  sale_val
+                  status
+                  tags
+                  tax_exclusive
+                  tax_methods
+                  uom_name
+                  upd_by
+                  upd_on
+                  variants {
+                    is_sale_value_absolute
+                    is_multiselect
+                    input_type
+                    display_name
+                    items {
+                      default
+                      description
+                      display_name
+                      sale_val
+                      name
+                      image
+                      grace
+                      duration
+                    }
+                    name
+                    sale_val
+                  }
+                }
               }
-            }
-          }
-        }
-      }`
+            }`
           })
       }).then((res) => res.json());
     };

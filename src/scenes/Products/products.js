@@ -24,7 +24,13 @@ const Products = () => {
     console.log("catId", catId);
     let filter = { category: { eq: catId } };
     // if (catId == null) {
-    //   dispatch(getProduct)
+    //   dispatch(
+    //     getProductsAction({
+    //       category: catId,
+    //       nextToken: "",
+    //       limit: 10,
+    //     })
+    //   );
     // } else {
     // }
     dispatch(
@@ -34,7 +40,7 @@ const Products = () => {
         limit: 10,
       })
     );
-  }, []);
+  }, [catId]);
 
   useEffect(() => {
     let temp =
