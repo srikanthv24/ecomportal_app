@@ -15,7 +15,6 @@ var phantom = {
   width: "100%",
 };
 const ProductsList = ({ list, items }) => {
-  
   const dispatch = useDispatch();
   const [Loading, setLoading] = useState(true);
   useEffect(() => {
@@ -32,7 +31,13 @@ const ProductsList = ({ list, items }) => {
       return;
     console.log("Fetch more list items!", list);
     if (list.nextToken) {
-      dispatch(getProductsAction({ nextToken: list.nextToken, limit: 10, category: "" }));
+      dispatch(
+        getProductsAction({
+          nextToken: list.nextToken,
+          limit: 10,
+          category: "",
+        })
+      );
     }
   }
 
@@ -81,7 +86,7 @@ const ProductsList = ({ list, items }) => {
     });
   }
 
-  if (!list.items.length) {
+  if (!list && !list.items.length) {
     return <h3>No products found!!</h3>;
   }
   return (

@@ -1,11 +1,24 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import OwlCurousel from "./owl-curousel";
 
-const LandingCarousel = ({ carouselItems, multiItem }) => {
-  const history = useHistory()
+const LandingCarousel = ({ carouselItems, multiItem, loading }) => {
+  const history = useHistory();
   console.log("CarouselItems", carouselItems, multiItem);
+
+  if (loading) {
+    return (
+      <span
+        style={{ width: "100%", height: 200 }}
+        className="d-flex justify-content-center align-items-center flex-column"
+      >
+        <Spinner animation="border" variant="primary" />
+
+        <span className="h6 text-muted">Loading...</span>
+      </span>
+    );
+  }
 
   return multiItem ? (
     <div>
@@ -16,7 +29,12 @@ const LandingCarousel = ({ carouselItems, multiItem }) => {
       {carouselItems.length &&
         carouselItems.map((item) => {
           return (
-            <Carousel.Item key={item.id} onClick={() => history.push(`/products?category=${item.display_name}`)}>
+            <Carousel.Item
+              key={item.id}
+              onClick={() =>
+                history.push(`/products?category=${item.display_name}`)
+              }
+            >
               <div
                 style={{
                   backgroundImage: `url(${

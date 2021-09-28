@@ -137,22 +137,19 @@ const Cart = () => {
 
     const req = {
       type: "createorder",
-      amount: 500,
+      amount: 5000,
       currency: "INR",
-      receipt: "Receipt #1",
-      // upi_link: "true",
-      // method: 'upi',
-      // upi: {
-      //   vpa: "8121153287@ybl",
-      //   flow: "collect"
-      // }
+      receipt: "Receipt #20",
+      cart_id: "1232434",
+      customer_id: "343513454",
+      phone: "8121153287",
     };
 
     console.log(req);
     const result = await fetch(
       "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
-      { method: "POST", body: req }
-    );
+      { method: "POST", body: JSON.stringify(req) }
+    ).then((res) => res.json());
 
     console.log(req);
     console.log("RESS", result);
@@ -162,7 +159,7 @@ const Cart = () => {
     }
 
     // Getting the order details back
-    const { amount, id: order_id, currency } = result.data;
+    const { amount, id: order_id, currency } = result;
     const options = {
       key: "rzp_test_QmipkFQ5tachW2", // Enter the Key ID generated from the Dashboard
       amount: 5000,
@@ -187,8 +184,8 @@ const Cart = () => {
         console.log(data);
         const result = await fetch(
           "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
-          { body: data, method: "POST" }
-        );
+          { body: JSON.stringify(data), method: "POST" }
+        ).then(res => res.json());
         // alert(result.data.msg);
         console.log(result);
 

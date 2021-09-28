@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoNotifications } from "react-icons/io5";
 import "./styles.css";
-import { Alert, Card, Container } from "react-bootstrap";
+import { Alert, Card, Col, Container, Spinner } from "react-bootstrap";
 import SimpleCard from "../../components/card/simple-card";
 import LandingCarousel from "../../components/carousel";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +21,7 @@ const Landing = () => {
     dispatch(getCategories({ limit: 40, nextToken: "" }));
   }, []);
 
+  console.log("categories-TEMP", categories);
   return (
     <div>
       <Container>
@@ -49,7 +50,11 @@ const Landing = () => {
         </Card.Header>
         <Card.Body className="m-0 p-0">
           {/* <LandingCarousel carouselItems={categories.categories} /> */}
-          <CategoryList list={categories.categories} />
+
+          <CategoryList
+            list={categories.categories}
+            loading={categories.loading}
+          />
         </Card.Body>
       </Card>
       <Card>
@@ -65,6 +70,7 @@ const Landing = () => {
           <LandingCarousel
             multiItem
             carouselItems={products?.productList?.items || []}
+            loading={products.loading}
           />
         </Card.Body>
       </Card>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Container } from "react-bootstrap";
+import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../store/actions/categories";
 import CategoryList from "./category-list";
@@ -13,13 +13,11 @@ var phantom = {
 const Categories = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
+  
   useEffect(() => {
-    dispatch(getCategories({limit: 50, nextToken: ""}));
+    dispatch(getCategories({ limit: 50, nextToken: "" }));
   }, []);
 
-  useEffect(() => {
-    console.log("CATEGORIEEEE", categories);
-  }, [categories]);
   return (
     <>
       <div style={{ ...phantom }} />
@@ -50,7 +48,7 @@ const Categories = () => {
         </div>
       </Card.Header>
       <Container fluid>
-        <CategoryList list={categories.categories} />
+        <CategoryList list={categories.categories} loading={categories.loading} />
       </Container>
     </>
   );

@@ -1,38 +1,184 @@
-mutation {
-    updateCart(input: {
-        id: "c93e8494-f712-439f-bd7c-08b51e1c8ad8",
-        customer_id: "",
-        item: {
-            item_id: "20",
-            qty: 50,
-            sale_val: 1.5,
-            subscription: {
-                address: {
-                    aline2: "banjarahills",
-                    community: "",
-                    city: "Hyderabad",
-                    aline1: "lroad no. 12",
-                    customer_id: "",
-                    customer_name: "mobi",
-                    landmark: "beside almondhouse",
-                    postalcode: "500081",
-                    state: "Telengana",
-                    tag: "Office"
-                },
-                isDelivery: true,
-                meal_type: "B",
-                notes: "Please Call",
-                order_dates: "28-09-2021",
-                sale_val: 1.5
-            },
-            variants: {
-                display_name: "Duration",
-                items: {
-                    display_name: "7 days"
+{
+    "data": {
+        "queryCartsByCustomerIndex": {
+            "items": [
+                {
+                    "customer_id": "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+                    "id": "af81f2ec-8cf8-436b-b08d-261a418a25ec",
+                    "items": [
+                        {
+                            "item_id": "3ac86ce2-3666-4358-bbdf-d1777fce9412",
+                            "qty": 9,
+                            "sale_val": 1.5,
+                            "subscription": null,
+                            "variants": [
+                                {
+                                    "display_name": "",
+                                    "items": [
+                                        {
+                                            "display_name": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "item_id": "1",
+                            "qty": 2,
+                            "sale_val": 0.0,
+                            "subscription": [
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "breakfast",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "lunch",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "dinner",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                }
+                            ],
+                            "variants": []
+                        },
+                        {
+                            "item_id": "82b3f59c-6170-41da-a390-2e698b217512",
+                            "qty": 2,
+                            "sale_val": 0.0,
+                            "subscription": [
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "breakfast",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "lunch",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "dinner",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                }
+                            ],
+                            "variants": []
+                        },
+                        {
+                            "item_id": "b35553f2-3499-4bd7-8da0-27ec9d8faf8c",
+                            "qty": 1,
+                            "sale_val": 0.0,
+                            "subscription": [
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "breakfast",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "lunch",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": null,
+                                    "isDelivery": false,
+                                    "meal_type": "dinner",
+                                    "notes": "",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                }
+                            ],
+                            "variants": []
+                        },
+                        {
+                            "item_id": "78f9ec8f-e1e8-4bb3-ba4d-e6efb0cb9b30",
+                            "qty": 1,
+                            "sale_val": 0.0,
+                            "subscription": [
+                                {
+                                    "address": {
+                                        "aline1": "1-33/A",
+                                        "aline2": "Sunshine Apartment"
+                                    },
+                                    "isDelivery": true,
+                                    "meal_type": "breakfast",
+                                    "notes": "NOtes for breakfast",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": {
+                                        "aline1": "1-33/A",
+                                        "aline2": "Sunshine Apartment"
+                                    },
+                                    "isDelivery": true,
+                                    "meal_type": "lunch",
+                                    "notes": "Note for lunch",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                },
+                                {
+                                    "address": {
+                                        "aline1": "D.no: 501",
+                                        "aline2": "brindavan residency"
+                                    },
+                                    "isDelivery": true,
+                                    "meal_type": "dinner",
+                                    "notes": "Note for dinner...",
+                                    "order_dates": [],
+                                    "sale_val": null
+                                }
+                            ],
+                            "variants": [
+                                {
+                                    "display_name": "Exclusions",
+                                    "items": [
+                                        {
+                                            "display_name": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "display_name": "Duration",
+                                    "items": [
+                                        {
+                                            "display_name": "14 Days"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 }
-            }
+            ]
         }
-    }) {
-        id
     }
 }
