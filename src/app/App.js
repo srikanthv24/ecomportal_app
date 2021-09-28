@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppBar />
+      {/* <AppBar /> */}
       <Routes />
     </div>
   );
