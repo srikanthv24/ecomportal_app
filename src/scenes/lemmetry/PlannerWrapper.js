@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, FormControl, InputGroup } from "react-bootstrap";
+import { Button, FormControl, InputGroup, Spinner } from "react-bootstrap";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GrAdd, GrSubtract } from "react-icons/gr";
@@ -20,6 +20,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   const [ExistingProduct, setExistingProduct] = useState({ qty: 0 });
   const products = useSelector((state) => state.products);
   const Cart = useSelector((state) => state.Cart);
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   const methods = useForm({
     defaultValues: {
@@ -33,6 +34,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
           meal_type: "breakfast",
           notes: "",
           order_dates: [],
+          is_included: false,
         },
         {
           address: {},
@@ -40,6 +42,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
           meal_type: "lunch",
           notes: "",
           order_dates: [],
+          is_included: false,
         },
         {
           address: {},
@@ -47,6 +50,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
           meal_type: "dinner",
           notes: "",
           order_dates: [],
+          is_included: false,
         },
       ],
       variants: [],
@@ -56,25 +60,30 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   const { control, handleSubmit, reset, setValue } = methods;
 
   const handleCartSubmit = (data) => {
-    console.log("<=DATA=>", data);
-    dispatch(
-      updateCart({
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
-        cart_id: Cart.cartDetails.items[0].id,
-        item: data,
-      })
-    );
+    let payload = { ...data };
+    let filteredPayload = payload.subscription.filter((item) => {
+      if (item.is_included) {
+        delete item.is_included;
+        return item;
+      }
+    });
 
-    // dispatch(createCart({customer_id: '2b534ed8-809a-4fb5-937c-c8f29c994b16', items: data}))
-    // dispatch(
-    //   updateCartQty({
-    //     id: "c54fe728-efeb-4554-a7bd-01ace03853e3",
-    //     customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
-    //     item_id: "3ac86ce2-3666-4358-bbdf-d1777fce9412",
-    //     qty: 12,
-    //   })
-    // );
-    // dispatch(getCart({ customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16" }));
+    if (Cart.cartDetails.items.length && Cart.cartDetails.items[0].id) {
+      dispatch(
+        updateCart({
+          customer_id: userDetails.sub,
+          cart_id: Cart.cartDetails.items[0].id,
+          item: { ...data, subscription: filteredPayload },
+        })
+      );
+    } else {
+      dispatch(
+        createCart({
+          customer_id: userDetails.sub,
+          items: [{ ...data, subscription: filteredPayload }],
+        })
+      );
+    }
   };
 
   useEffect(() => {
@@ -97,7 +106,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
     dispatch(
       updateCartQty({
         id: Cart.cartDetails.items[0].id,
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        customer_id: userDetails.sub,
         item_id: ExistingProduct.item_id,
         qty: ExistingProduct.qty + 1,
       })
@@ -113,7 +122,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
     dispatch(
       updateCartQty({
         id: Cart.cartDetails.items[0].id,
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        customer_id: userDetails.sub,
         item_id: ExistingProduct.item_id,
         qty: ExistingProduct.qty - 1,
       })
@@ -123,6 +132,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   return (
     <FormProvider {...methods}>
       <ProductDetails productId={mealPlanId.mealPlanId} control={control} />
+
       {isOnboarding ? (
         <div className="d-flex mt-2">
           <Button onClick={handleBack} className="w-50 m-1" variant="secondary">
@@ -141,14 +151,22 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
               className="w-50 m-1"
               onClick={handleSubmit(handleCartSubmit)}
             >
-              Add to Cart
+              {Cart.cartLoading ? (
+                <Spinner animation="border" role="status" />
+              ) : (
+                "Add to Cart"
+              )}
             </Button>
           )}
         </div>
       ) : ExistingProduct.qty ? (
         <InputGroup className="mb-3">
           <Button variant="outline-secondary" onClick={onDecrement}>
-            <GrSubtract />
+            {Cart.cartLoading ? (
+              <Spinner animation="border" role="status" />
+            ) : (
+              <GrSubtract />
+            )}
           </Button>
           <FormControl
             aria-label="Example text with two button addons"
@@ -159,15 +177,24 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
           />
 
           <Button variant="outline-secondary" onClick={onIncrement}>
-            <GrAdd />
+            {Cart.cartLoading ? (
+              <Spinner animation="border" role="status" />
+            ) : (
+              <GrAdd />
+            )}
           </Button>
         </InputGroup>
-      ) : (
-        <Button className="w-100" onClick={handleSubmit(handleCartSubmit)}>
-          <AiOutlineShoppingCart />
-          {"  "}Add to Cart
-        </Button>
-      )}
+      ) : null}
+
+      <Button className="w-100 m-1" onClick={handleSubmit(handleCartSubmit)}>
+        <AiOutlineShoppingCart />
+        {"  "}
+        {Cart.cartLoading ? (
+          <Spinner animation="border" role="status" />
+        ) : (
+          "Add to Cart"
+        )}
+      </Button>
     </FormProvider>
   );
 };

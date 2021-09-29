@@ -34,7 +34,7 @@ function Login() {
                 console.log("OnSuccess: ", data, data.accessToken);
                 dispatch(loginSuccess(data));
                 sessionStorage.setItem("token", data.accessToken.jwtToken);
-                history.push('/categories')
+                history.push('/')
             },
             onFailure: (err) => {
                 console.log("onFailure: ", err.message);

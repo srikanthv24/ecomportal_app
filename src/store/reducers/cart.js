@@ -2,7 +2,7 @@ import { types } from "../constants";
 
 const initialState = {
   cartDetails: {
-    items: [{ items: [] }],
+    items: [],
   },
   cartItemList: [],
   cartLoading: false,
@@ -65,6 +65,13 @@ export const Cart = (state = initialState, action) => {
       };
     case types.UPDATE_CART_FAILURE:
       return { ...state, cartDetails: {} };
+
+    case types.UPDATE_CART:
+      return { ...state, cartLoading: true };
+    case types.UPDATE_CART_QTY:
+      return { ...state, cartLoading: true };
+    case types.GET_CART:
+      return { ...state, cartLoading: true };
 
     default:
       return state;

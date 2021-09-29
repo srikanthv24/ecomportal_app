@@ -28,6 +28,7 @@ const ProductDetails = ({
   const { id } = useParams();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   const [ProductDetails, setProductDetails] = useState({});
 
@@ -39,7 +40,7 @@ const ProductDetails = ({
     item_id: "",
     qty: 0,
     subscription_data: {
-      customer_id: "30fa6997-8d8f-4f8b-ba8e-d85c7c821ecf",
+      customer_id: userDetails.sub,
       customer_name: "CK",
       is_mealplan: false,
       item_id: "3ac86ce2-3666-4358-bbdf-d1777fce9412",
@@ -155,7 +156,7 @@ const ProductDetails = ({
           <Col>
             {products.productDetails.is_mealplan && (
               <ProductPlanner
-                customerId={"578461ea-bc50-4d40-8c0a-5c4546abc2d7"}
+                
                 productId={""}
                 data={products.productDetails}
                 FormData={FormData}

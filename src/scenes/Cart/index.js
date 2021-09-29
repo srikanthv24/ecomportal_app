@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Spinner } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { getCart } from "../../store/actions/cart";
 import CardProduct from "./cart-product";
 
@@ -19,19 +20,17 @@ var phantom2 = {
 };
 
 const Cart = () => {
+  const history = useHistory();
   let total = 0;
   // let totalPrice = 0;
   const Cart = useSelector((state) => state.Cart);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
-    dispatch(getCart({ customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16" }));
+    dispatch(getCart({ customer_id: userDetails.sub }));
   }, []);
-
-  useEffect(() => {
-    console.log("cartItemList==>", Cart);
-  }, [Cart.cartDetails]);
 
   const calculatePrice = (price) => {
     setTotalPrice((prevstate) => prevstate + price);
@@ -62,7 +61,7 @@ const Cart = () => {
       </Card.Header>
       <div div style={{ padding: 10 }}>
         <>
-          {Cart?.cartDetails?.items?.length &&
+          {Cart?.cartDetails?.items?.length ? (
             Cart.cartDetails?.items[0]?.items?.map((item) => {
               if (item) {
                 console.log("ITEM-->", item);
@@ -78,7 +77,15 @@ const Cart = () => {
                   pushPrice={(p) => calculatePrice(p)}
                 />
               ) : null;
-            })}
+            })
+          ) : (
+            <div className="d-flex flex-column justify-content-center align-items-center mt-4">
+              <h5>No Items found!</h5>
+              <Button onClick={() => history.push("/")}>
+                Explore products now
+              </Button>
+            </div>
+          )}
           <div style={phantom} />
           <div
             style={{
@@ -140,9 +147,9 @@ const Cart = () => {
       amount: 5000,
       currency: "INR",
       receipt: "Receipt #20",
-      cart_id: "1232434",
-      customer_id: "343513454",
-      phone: "8121153287",
+      cart_id: Cart.cartDetails.items[0].id,
+      customer_id: userDetails.sub,
+      phone: userDetails.phone_number,
     };
 
     console.log(req);
@@ -162,17 +169,17 @@ const Cart = () => {
     const { amount, id: order_id, currency } = result;
     const options = {
       key: "rzp_test_QmipkFQ5tachW2", // Enter the Key ID generated from the Dashboard
-      amount: 5000,
+      amount: amount,
       currency: currency,
-      name: "VL",
-      description: "hello",
+      name: userDetails.name,
+      
       order_id: order_id,
       upi_link: true,
       handler: async function (response) {
         console.log("response", response);
         const data = {
           type: "success",
-          phone: 8121153287,
+          phone: userDetails.phone_number,
           amount: amount.toString(),
           orderCreationId: order_id,
           razorpayPaymentId: response.razorpay_payment_id,
@@ -185,7 +192,7 @@ const Cart = () => {
         const result = await fetch(
           "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
           { body: JSON.stringify(data), method: "POST" }
-        ).then(res => res.json());
+        ).then((res) => res.json());
         // alert(result.data.msg);
         console.log(result);
 
@@ -196,8 +203,8 @@ const Cart = () => {
         }
       },
       prefill: {
-        name: "santosh",
-        contact: "8121153287",
+        name: userDetails.name,
+        contact: userDetails.phone_number,
         // email: '@gmail.com',
       },
       notes: {

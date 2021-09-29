@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppBar from "../components/AppBar/app-bar";
 import Footer from "../components/footer";
+import UserPool from "../scenes/Login/UserPool";
+import { getCognitoUser } from "../services/getCognitoUser";
+import { updateUserDetails } from "../store/actions/auth";
 import { getCart } from "../store/actions/cart";
 import Routes from "./Routes";
 
@@ -11,7 +14,43 @@ function App() {
   const Cart = useSelector((state) => state.Cart);
 
   useEffect(() => {
-    dispatch(getCart({ customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16" }));
+    const userpool = UserPool.getCurrentUser();
+    console.log("USERPOOL-GETCURRENTUSER", userpool);
+
+    let cognitoUser = getCognitoUser({
+      Pool: UserPool,
+      Username: userpool.username,
+    });
+
+    cognitoUser.getSession((err, res) => {
+      console.log("ERR-RESS", err, res);
+    });
+
+    cognitoUser.getUserAttributes((err, result) => {
+      let temp = {};
+      if (result) {
+        result.map((item) => {
+          console.log("MyData", item);
+          switch (item.Name) {
+            case "name":
+              temp.name = item.Value;
+              break;
+            case "phone_number":
+              temp.phone_number = item.Value;
+              break;
+            case "sub":
+              temp.sub = item.Value;
+              break;
+            default:
+              return temp;
+          }
+        });
+        dispatch(updateUserDetails(temp));
+        dispatch(getCart({ customer_id: temp.sub }));
+      }
+      console.log("SUCCESSSSSS", result);
+      console.log("FAILEEEDDDD", err);
+    });
   }, []);
 
   useEffect(() => {

@@ -1,3 +1,5 @@
+/* eslint-disable no-extend-native */
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import { Accordion, Form } from "react-bootstrap";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
@@ -14,6 +16,7 @@ const ProductPlanner = ({ customerId, data, control }) => {
   const [AddressList, setAddressList] = useState([]);
   const dispatch = useDispatch();
   const Addresses = useSelector((state) => state.Addresses.addressList);
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   const [showModal, setShowModal] = useState(false);
   const { fields, append, remove } = useFieldArray({
@@ -56,10 +59,10 @@ const ProductPlanner = ({ customerId, data, control }) => {
   }, [data]);
 
   useEffect(() => {
-    if (customerId) {
-      dispatch(getAddresses({ customerId }));
+    if (userDetails.sub) {
+      dispatch(getAddresses({ customerId: userDetails.sub }));
     }
-  }, [customerId]);
+  }, [userDetails.sub]);
 
   useEffect(() => {
     console.log("Addresses-->", Addresses);
@@ -106,16 +109,7 @@ const ProductPlanner = ({ customerId, data, control }) => {
     { name: "Dinner", value: "dinner" },
   ];
 
-  function upsert(array, item) {
-    // (1)
-    const i = array.findIndex(
-      (_item) => _item.display_name === item.display_name
-    );
-    if (i > -1) array[i] = item;
-    // (2)
-    else array.push(item);
-  }
-
+  console.log("FIELDS==>", fields);
   return (
     <div>
       <AddressModal
@@ -190,23 +184,21 @@ const ProductPlanner = ({ customerId, data, control }) => {
                 <input
                   type="checkbox"
                   style={{ marginRight: 5 }}
-                  checked={fields.map((field) =>
-                    field.meal_type == deliver.value ? true : false
-                  )}
-                  // onChange={(ev) => {
-                  //   console.log(ev.target.checked)
-                  //   if (ev.target.checked) {
-                  //     append({ meal_type: deliver.value });
-                  //   } else {
-                  //     remove(index);
-                  //   }
-                  // }}
+                  checked={subscription[index].is_included}
+                  onChange={(ev) => {
+                    let temp = [...subscription];
+                    temp[index] = {
+                      ...temp[index],
+                      is_included: ev.target.checked,
+                    };
+                    setValue("subscription", temp);
+                  }}
                 />
                 {String(deliver.value).toUpperCase()}
               </Accordion.Header>
               <Accordion.Body>
-                <div>
-                  <p className="h6 text-muted mt-3 mb-0 m-2">{deliver.name}</p>
+                <div className="d-flex justify-content-between align-items-center mt-3 mb-0 m-2">
+                  <p className="h6 text-muted">{deliver.name}</p>
                   <Controller
                     control={control}
                     name={`subscription[${index}].isDelivery`}
@@ -227,7 +219,8 @@ const ProductPlanner = ({ customerId, data, control }) => {
                       </div>
                     )}
                   />
-
+                </div>
+                <div>
                   {subscription[index].isDelivery && (
                     <>
                       <p className="h6 text-muted mt-3 mb-0 m-2">
@@ -259,6 +252,7 @@ const ProductPlanner = ({ customerId, data, control }) => {
                     </>
                   )}
                   <div style={{ width: "100%" }}>
+                    
                     <p className="h6 text-muted mt-3 mb-0 m-2">Date *</p>
                     <div style={{ width: "100%", overflow: "scroll" }}>
                       <Controller
@@ -275,11 +269,9 @@ const ProductPlanner = ({ customerId, data, control }) => {
                             style={{ width: "100%" }}
                             maxDate={
                               new Date(
-                                moment()
-                                  .add(
-                                    VariantValue?.Duration?.duration +
-                                      VariantValue?.Duration?.duration -
-                                      1 || 0,
+                                moment(subscription[index].order_dates[0])
+                                  .add(VariantValue?.Duration?.grace + 
+                                    VariantValue?.Duration?.duration - 1 || 0,
                                     "days"
                                   )
                                   .calendar()
@@ -304,6 +296,10 @@ const ProductPlanner = ({ customerId, data, control }) => {
                         )}
                       />
                     </div>
+                    <span style={{fontWeight: 600, fontSize: 12}}>
+                      {VariantValue?.Duration?.duration ? `Selected ${subscription[index].order_dates.length} dates from
+                       ${" "}${VariantValue?.Duration?.duration || 0} days.` : 'Please select duration for subscription'}
+                    </span>
                     {/* <span>
                       Balance days:{" "}
                       {subscription[index].variants?.Duration?.duration ||

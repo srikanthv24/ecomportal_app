@@ -19,14 +19,14 @@ import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, Redirect, useHistory, useRouteMatch } from "react-router-dom";
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser } from "amazon-cognito-identity-js";
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { getTokenFailure } from "../../store/actions/auth";
 
-const poolData ={
-  UserPoolId:"us-east-1_LmIBVgrWX",
-  ClientId: '1elqc1ok4eqb1c9sjlhhiq74sd'
-}
+const poolData = {
+  UserPoolId: "us-east-1_LmIBVgrWX",
+  ClientId: "1elqc1ok4eqb1c9sjlhhiq74sd",
+};
 
 const UserPool = new CognitoUserPool(poolData);
 
@@ -41,6 +41,7 @@ export default function AppBar() {
 
   const products = useSelector((state) => state.products);
   const Cart = useSelector((state) => state.Cart);
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   const mapValuesForOptions = (options) => {
     let newOptions = [];
@@ -68,16 +69,16 @@ export default function AppBar() {
     // var cognitoUser = UserPool.getCurrentUser();
     // if (cognitoUser != null) {
     //     cognitoUser.signOut(
-    //       {   
-    //                    onFailure: error =>   console.log("Logout Failure", error), 
-    //                    onSuccess: result =>   
-    //        console.log('Logout success: ' + result)  
+    //       {
+    //                    onFailure: error =>   console.log("Logout Failure", error),
+    //                    onSuccess: result =>
+    //        console.log('Logout success: ' + result)
     // }
-    // )} 
+    // )}
     sessionStorage.removeItem("token");
     history.replace("/login");
     dispatch(getTokenFailure());
-   }
+  };
 
   return (
     <>
@@ -123,29 +124,36 @@ export default function AppBar() {
 
                 <Col>
                   <Nav>
-                  <div className="customDropDown">
-                  {/* <div className="customNavBar"> */}
-                    <NavDropdown
-                      title={<span className="text-white">Hello, Sridevi</span>}
-                      id="navbarScrollingDropdown"
-                    >
-                      <NavDropdown.Item href="#" eventKey="1">
-                        Account Balance
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#" eventKey="2">
-                        Subscriptions
-                      </NavDropdown.Item>
-                      {/* <NavDropdown.Divider /> */}
-                      <NavDropdown.Item href="#" eventKey="3">
-                        Your Orders
-                      </NavDropdown.Item>
-                      <NavDropdown.Item onClick={logoutCognitoUser} eventKey="4">
-                        Sign Out
-                      </NavDropdown.Item>
-                    </NavDropdown>
+                    {/* <div className="customDropDown"> */}
+                    <div className="customNavBar">
+                      <NavDropdown
+                        title={
+                          <span className="text-white">
+                            Hello, {userDetails.name}
+                          </span>
+                        }
+                        id="navbarScrollingDropdown"
+                      >
+                        <NavDropdown.Item href="#" eventKey="1">
+                          Account Balance
+                        </NavDropdown.Item>
+                        <NavDropdown.Item href="#" eventKey="2">
+                          Subscriptions
+                        </NavDropdown.Item>
+                        {/* <NavDropdown.Divider /> */}
+                        <NavDropdown.Item href="#" eventKey="3">
+                          Your Orders
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          onClick={logoutCognitoUser}
+                          eventKey="4"
+                        >
+                          Sign Out
+                        </NavDropdown.Item>
+                      </NavDropdown>
                     </div>
-                    </Nav>
-                      {/* <NavDropdown.Item href="#action3">
+                  </Nav>
+                  {/* <NavDropdown.Item href="#action3">
                         Account Balance
                       </NavDropdown.Item>
                       <NavDropdown.Item href="#action4">
@@ -166,7 +174,8 @@ export default function AppBar() {
                     <h6 className="text-white">
                       <AiOutlineShoppingCart size={24} />
                       <Badge bg="secondary" pill>
-                        {Cart?.cartDetails?.items.length && Cart?.cartDetails?.items[0]?.items?.length}
+                        {Cart?.cartDetails?.items?.length &&
+                          Cart?.cartDetails?.items[0]?.items?.length}
                       </Badge>
                     </h6>
                   </Nav.Link>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Landing } from "../scenes/Consumer";
@@ -42,7 +43,7 @@ function Routes() {
             <Route path="/cart" component={Cart} />
             <Route path="/subscription" component={LemmeTry} />
             <Route path="*">
-              <Redirect to={"/categories"} />
+              <Redirect to={"/"} />
             </Route>
           </Switch>
         </>

@@ -9,14 +9,15 @@ import {
 import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import { Products } from "../../services/api/products";
-import { updateCart, updateCartQty } from "../../store/actions/cart";
-import { deleteCartItem, updateCardItem } from "../../store/actions/cart-item";
+import { updateCartQty } from "../../store/actions/cart";
+import { useHistory } from "react-router-dom";
 
 const CardProduct = ({ productId, pushPrice, cartDetails }) => {
+  const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ProductDetails, setProductDetails] = useState({});
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   console.log("123XYZ", Cart);
 
@@ -36,7 +37,7 @@ const CardProduct = ({ productId, pushPrice, cartDetails }) => {
     dispatch(
       updateCartQty({
         id: Cart.cartDetails.items[0].id,
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        customer_id: userDetails.sub,
         item_id: productId.item_id,
         qty: productId.qty + 1,
       })
@@ -47,7 +48,7 @@ const CardProduct = ({ productId, pushPrice, cartDetails }) => {
     dispatch(
       updateCartQty({
         id: Cart.cartDetails.items[0].id,
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        customer_id: userDetails.sub,
         item_id: productId.item_id,
         qty: productId.qty - 1,
       })
@@ -64,7 +65,11 @@ const CardProduct = ({ productId, pushPrice, cartDetails }) => {
           flexDirection: "row",
         }}
       >
-        <Card.Body variant="top" className="p-1">
+        <Card.Body
+          variant="top"
+          className="p-1"
+          onClick={() => history.push("/products/" + ProductDetails.item_id)}
+        >
           <div
             style={{
               backgroundImage: `url(${
@@ -80,7 +85,10 @@ const CardProduct = ({ productId, pushPrice, cartDetails }) => {
           />
         </Card.Body>
         <Card.Body className="pt-2">
-          <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate">
+          <Card.Text
+            className="h6 mb-0 pb-0 col-12 text-truncate"
+            onClick={() => history.push("/products/" + ProductDetails.item_id)}
+          >
             {ProductDetails.item_name}
           </Card.Text>
           <small className="col-12 text-truncate text-muted">
@@ -102,41 +110,45 @@ const CardProduct = ({ productId, pushPrice, cartDetails }) => {
             </small>
           </Card.Text>
 
-          <InputGroup size="sm">
-            <Button
-              size="sm"
-              variant="outline-secondary"
-              onClick={() => (!Cart.cartItemsLoading ? onDecrement() : null)}
-              disabled={Cart.cartItemsLoading}
-            >
-              {Cart.cartItemsLoading ? (
-                <Spinner animation="border" variant="primary" />
-              ) : (
-                <GrSubtract />
-              )}
-            </Button>
-            <FormControl
-              size="sm"
-              aria-label="Example text with two button addons"
-              style={{ textAlign: "center" }}
-              value={productId.qty}
-              type="number"
-              readOnly
-            />
+          {Cart.cartLoading ? (
+            <Spinner animation="border" variant="primary" />
+          ) : (
+            <InputGroup size="sm">
+              <Button
+                size="sm"
+                variant="outline-secondary"
+                onClick={() => (!Cart.cartLoading ? onDecrement() : null)}
+                disabled={Cart.cartLoading}
+              >
+                {Cart.cartLoading ? (
+                  <Spinner animation="border" variant="primary" />
+                ) : (
+                  <GrSubtract />
+                )}
+              </Button>
+              <FormControl
+                size="sm"
+                aria-label="Example text with two button addons"
+                style={{ textAlign: "center" }}
+                value={productId.qty}
+                type="number"
+                readOnly
+              />
 
-            <Button
-              variant="outline-secondary"
-              size="sm"
-              onClick={() => (!Cart.cartItemsLoading ? onIncrement() : null)}
-              disabled={Cart.cartItemsLoading}
-            >
-              {Cart.cartItemsLoading ? (
-                <Spinner animation="border" variant="primary" />
-              ) : (
-                <GrAdd />
-              )}
-            </Button>
-          </InputGroup>
+              <Button
+                variant="outline-secondary"
+                size="sm"
+                onClick={() => (!Cart.cartLoading ? onIncrement() : null)}
+                disabled={Cart.cartLoading}
+              >
+                {Cart.cartLoading ? (
+                  <Spinner animation="border" variant="primary" />
+                ) : (
+                  <GrAdd />
+                )}
+              </Button>
+            </InputGroup>
+          )}
         </Card.Body>
       </Card>
     </div>

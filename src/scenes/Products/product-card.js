@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, FormControl, InputGroup } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  FormControl,
+  InputGroup,
+  Spinner,
+} from "react-bootstrap";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
@@ -12,9 +18,12 @@ const ProductCard = ({ product }) => {
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ExistingProduct, setExistingProduct] = useState({ qty: 0 });
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
+    console.log("Cart.cartDetails", Cart.cartDetails);
     Cart.cartDetails &&
+      Cart.cartDetails.items.length &&
       Cart.cartDetails.items[0].items.map((item, index) => {
         // eslint-disable-next-line no-unused-expressions
         item && item.item_id == product.id
@@ -28,7 +37,7 @@ const ProductCard = ({ product }) => {
     console.log("Cart=?", product);
     dispatch(
       updateCart({
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        customer_id: userDetails.sub,
         cart_id: Cart.cartDetails.items[0].id,
         item: { item_id: product.id, qty: 1, sale_val: product.sale_val },
       })
@@ -39,7 +48,7 @@ const ProductCard = ({ product }) => {
     dispatch(
       updateCartQty({
         id: Cart.cartDetails.items[0].id,
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        customer_id: userDetails.sub,
         item_id: ExistingProduct.item_id,
         qty: ExistingProduct.qty + 1,
       })
@@ -50,7 +59,7 @@ const ProductCard = ({ product }) => {
     dispatch(
       updateCartQty({
         id: Cart.cartDetails.items[0].id,
-        customer_id: "2b534ed8-809a-4fb5-937c-c8f29c994b16",
+        customer_id: userDetails.sub,
         item_id: ExistingProduct.item_id,
         qty: ExistingProduct.qty - 1,
       })
@@ -112,7 +121,11 @@ const ProductCard = ({ product }) => {
         {ExistingProduct.qty ? (
           <InputGroup className="mb-3">
             <Button variant="outline-secondary" onClick={onDecrement}>
-              <GrSubtract />
+              {Cart.cartLoading ? (
+                <Spinner animation="border" role="status" />
+              ) : (
+                <GrSubtract />
+              )}
             </Button>
             <FormControl
               aria-label="Example text with two button addons"
@@ -123,12 +136,21 @@ const ProductCard = ({ product }) => {
             />
 
             <Button variant="outline-secondary" onClick={onIncrement}>
-              <GrAdd />
+              {Cart.cartLoading ? (
+                <Spinner animation="border" role="status" />
+              ) : (
+                <GrAdd />
+              )}
             </Button>
           </InputGroup>
         ) : (
           <Button size="sm" style={{ width: "100%" }} onClick={handleAddToCart}>
-            <AiOutlineShoppingCart /> Add to Cart
+            <AiOutlineShoppingCart />{" "}
+            {Cart.cartLoading ? (
+              <Spinner animation="border" role="status" />
+            ) : (
+              "Add to Cart"
+            )}
           </Button>
         )}
       </Card.Footer>
