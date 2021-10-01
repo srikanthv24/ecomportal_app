@@ -19,7 +19,7 @@ export const getProducts = `query ($limit: Int, $nextToken: String) {
       sale_val
       status
       tags
-      tax_exclusive
+      tax_inclusive
       tax_methods
       uom_name
       upd_by
@@ -99,7 +99,7 @@ export const searchProducts = (searchQuery) => {
       sale_val
       status
       tags
-      tax_exclusive
+      tax_inclusive
       tax_methods
       uom_name
       upd_by
@@ -150,7 +150,7 @@ export const getProductDetails = (id) =>
           dinner_price
           lunch_price
         }
-        tax_exclusive
+        tax_inclusive
         tax_methods
         uom_name
         upd_by
@@ -245,6 +245,46 @@ export const getCart = `query ($customer_id: ID!){
     }
   }
 }`;
+
+export const CartSummary = `query ($customer_id: ID!){
+  queryCartsByCustomerIndex(customer_id: $customer_id) {
+    items {
+      customer_id
+      customer_mobile
+      customer_name
+      id
+      grand_total
+      items {
+        defaultimg_url
+        item_name
+        tax_methods
+        sub_total
+        tax_amount
+        uom_name
+        category
+        item_id
+        qty
+        sale_val
+        subscription {
+          address {
+              aline1
+          }
+          isDelivery
+          meal_type
+          notes
+          order_dates
+          sale_val
+        }
+        variants {
+          display_name
+          items {
+            display_name
+          }
+        }
+      }
+    }
+  }
+}`
 
 export const createCart = (params) => {
   console.log("PARQAMS", params);

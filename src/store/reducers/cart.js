@@ -7,6 +7,10 @@ const initialState = {
   cartItemList: [],
   cartLoading: false,
   cartItemsLoading: false,
+  cartSummary: {
+    isLoading: false,
+    data: { items: [{ items: [] }] },
+  },
 };
 
 export const Cart = (state = initialState, action) => {
@@ -72,6 +76,18 @@ export const Cart = (state = initialState, action) => {
       return { ...state, cartLoading: true };
     case types.GET_CART:
       return { ...state, cartLoading: true };
+
+    case types.GET_CART_SUMMARY:
+      return { ...state, cartSummary: { isLoading: true } };
+
+    case types.GET_CART_SUMMARY_SUCCESS:
+      return {
+        ...state,
+        cartSummary: { isLoading: false, data: action.payload },
+      };
+
+    case types.GET_CART_SUMMARY_FAILURE:
+      return { ...state, cartSummary: { isLoading: false, data: {} } };
 
     default:
       return state;

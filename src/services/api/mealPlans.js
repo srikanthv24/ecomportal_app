@@ -31,7 +31,7 @@ export class mealPlans {
                   sale_val
                   status
                   tags
-                  tax_exclusive
+                  tax_inclusive
                   tax_methods
                   uom_name
                   upd_by

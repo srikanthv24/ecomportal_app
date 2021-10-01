@@ -7,11 +7,12 @@ import Login from "../scenes/Login";
 import Categories from "../scenes/Categories";
 import ProductsRoutes from "../scenes/Products";
 import Cart from "../scenes/Cart";
-import Subscription from "../scenes/Subscription";
 import LemmeTry from "../scenes/lemmetry";
 import Register from "../scenes/Register";
 import { useSelector, useDispatch } from "react-redux";
 import { getTokenSucces, getTokenFailure } from "../store/actions/auth";
+import CartSummary from "../scenes/Cart/cart-summary";
+import Orders from "../scenes/Orders";
 
 function Routes() {
   const dispatch = useDispatch();
@@ -42,6 +43,8 @@ function Routes() {
             <Route path="/categories" component={Categories} />
             <Route path="/cart" component={Cart} />
             <Route path="/subscription" component={LemmeTry} />
+            <Route path="/cart-summary" component={CartSummary} />
+            <Route path="/orders" component={Orders} />
             <Route path="*">
               <Redirect to={"/"} />
             </Route>

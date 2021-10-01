@@ -1,4 +1,6 @@
+
 import {
+  CartSummary,
   createCart,
   createCartItem,
   getCart,
@@ -28,6 +30,26 @@ export class Cart {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  static getCartSummary(params) {
+    try {
+      return fetch(
+        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        {
+          method: "POST",
+          headers: {
+            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          },
+          body: JSON.stringify({
+            query: CartSummary,
+          variables: { 
+              customer_id: params.payload.customer_id,
+            },
+          }),
+        }
+      ).then((res) => res.json());
+    } catch (error) {}
   }
 
   static createCart(params) {
@@ -84,7 +106,7 @@ export class Cart {
             variables: {
               id: params.payload.cart_id,
               customer_id: params.payload.customer_id,
-              item: params.payload.item
+              item: params.payload.item,
             },
           }),
         }
@@ -114,7 +136,7 @@ export class Cart {
             },
           }),
         }
-      ).then(res => res.json());
+      ).then((res) => res.json());
     } catch (error) {
       console.log("<===UpdateCartQtyFailed===>", error);
     }

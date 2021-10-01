@@ -99,7 +99,11 @@ const Cart = () => {
               zIndex: 10000,
             }}
           >
-            <Button style={{ width: "100%" }} onClick={handleContinue}>
+            <Button
+              style={{ width: "100%" }}
+              // onClick={handleContinue}
+              onClick={() => history.push("/cart-summary")}
+            >
               Proceed to Buy ({total} item)
             </Button>
           </div>
@@ -108,116 +112,6 @@ const Cart = () => {
     </>
   );
 
-  function loadScript(src) {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-      document.body.appendChild(script);
-    });
-  }
-
-  async function handleContinue() {
-    const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
-
-    console.log("RESPOINSNS", res);
-
-    if (!res) {
-      alert("Razorpay SDK failed to load. Are you online?");
-      return;
-    }
-
-    // creating a new order
-    // const req = {
-    //   orderCreationId: order_id,
-    //   razorpayPaymentId: response.razorpay_payment_id,
-    //   razorpayOrderId: response.razorpay_order_id,
-    //   razorpaySignature: response.razorpay_signature,
-    // };
-
-    const req = {
-      type: "createorder",
-      amount: 5000,
-      currency: "INR",
-      receipt: "Receipt #20",
-      cart_id: Cart.cartDetails.items[0].id,
-      customer_id: userDetails.sub,
-      phone: userDetails.phone_number,
-    };
-
-    console.log(req);
-    const result = await fetch(
-      "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
-      { method: "POST", body: JSON.stringify(req) }
-    ).then((res) => res.json());
-
-    console.log(req);
-    console.log("RESS", result);
-    if (!result) {
-      alert("Server error. Are you online?");
-      return;
-    }
-
-    // Getting the order details back
-    const { amount, id: order_id, currency } = result;
-    const options = {
-      key: "rzp_test_QmipkFQ5tachW2", // Enter the Key ID generated from the Dashboard
-      amount: amount,
-      currency: currency,
-      name: userDetails.name,
-      
-      order_id: order_id,
-      upi_link: true,
-      handler: async function (response) {
-        console.log("response", response);
-        const data = {
-          type: "success",
-          phone: userDetails.phone_number,
-          amount: amount.toString(),
-          orderCreationId: order_id,
-          razorpayPaymentId: response.razorpay_payment_id,
-          razorpayOrderId: response.razorpay_order_id,
-          razorpaySignature: response.razorpay_signature,
-          description: "VL",
-        };
-
-        console.log(data);
-        const result = await fetch(
-          "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
-          { body: JSON.stringify(data), method: "POST" }
-        ).then((res) => res.json());
-        // alert(result.data.msg);
-        console.log(result);
-
-        if (result.status === 200) {
-          console.log("200");
-        } else {
-          console.log("401");
-        }
-      },
-      prefill: {
-        name: userDetails.name,
-        contact: userDetails.phone_number,
-        // email: '@gmail.com',
-      },
-      notes: {
-        address: "VL",
-      },
-      theme: {
-        color: "#488DB7",
-      },
-    };
-
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
-  }
 };
 
 export default Cart;

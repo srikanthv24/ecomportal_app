@@ -42,7 +42,7 @@ const MealCard = ({ product, handleNextStep }) => {
           {product.description}
         </Card.Text>
         <Card.Text>
-          <BiRupee /> {product.saleprice} / {product.uom_name}
+          <BiRupee /> {product.sale_val} / {product.uom_name}
         </Card.Text>
       </Card.Body>
     </Card>

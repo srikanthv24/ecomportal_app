@@ -77,9 +77,26 @@ function* updateCartQty(params) {
   }
 }
 
+function* getCartSummary(params) {
+  try {
+    const response = yield call(Cart.getCartSummary, params);
+    yield put({
+      type: types.GET_CART_SUMMARY_SUCCESS,
+      payload: response.data.queryCartsByCustomerIndex,
+    });
+  } catch (error) {
+    yield put({
+      type: types.GET_CART_SUMMARY_FAILURE,
+      payload: [],
+    });
+    console.log(error);
+  }
+}
+
 export function* CartSaga() {
   yield takeEvery(types.CREATE_CART, CreateCart);
   yield takeEvery(types.UPDATE_CART, UpdateCart);
   yield takeLatest(types.GET_CART, GetCart);
   yield takeEvery(types.UPDATE_CART_QTY, updateCartQty);
+  yield takeEvery(types.GET_CART_SUMMARY, getCartSummary);
 }

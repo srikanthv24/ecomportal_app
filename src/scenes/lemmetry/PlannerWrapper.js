@@ -87,7 +87,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   };
 
   useEffect(() => {
-    if (Cart?.cartDetails?.items.length) {
+    if (Cart?.cartDetails?.items?.length) {
       console.log("Cart?.cartDetails", Cart?.cartDetails);
       let ifExist = Cart.cartDetails.items[0].items.filter((item) => {
         if (item) {
@@ -133,68 +133,74 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
     <FormProvider {...methods}>
       <ProductDetails productId={mealPlanId.mealPlanId} control={control} />
 
-      {isOnboarding ? (
-        <div className="d-flex mt-2">
-          <Button onClick={handleBack} className="w-50 m-1" variant="secondary">
-            Back
-          </Button>
-          {ExistingProduct.qty ? (
+      <div className="w-100">
+        {isOnboarding ? (
+          <div className="d-flex mt-2">
             <Button
+              onClick={handleBack}
               className="w-50 m-1"
-              variant="success"
-              onClick={() => history.push("/cart")}
+              variant="secondary"
             >
-              Go to Cart
+              Back
             </Button>
-          ) : (
-            <Button
-              className="w-50 m-1"
-              onClick={handleSubmit(handleCartSubmit)}
-            >
+            {ExistingProduct.qty ? (
+              <Button
+                className="w-50 m-1"
+                variant="success"
+                onClick={() => history.push("/cart")}
+              >
+                Go to Cart
+              </Button>
+            ) : (
+              <Button
+                className="w-50 m-1"
+                onClick={handleSubmit(handleCartSubmit)}
+              >
+                {Cart.cartLoading ? (
+                  <Spinner animation="border" role="status" />
+                ) : (
+                  "Add to Cart"
+                )}
+              </Button>
+            )}
+          </div>
+        ) : ExistingProduct.qty ? (
+          <InputGroup className="mb-3">
+            <Button variant="outline-secondary" onClick={onDecrement}>
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
-                "Add to Cart"
+                <GrSubtract />
               )}
             </Button>
+            <FormControl
+              aria-label="Example text with two button addons"
+              style={{ textAlign: "center" }}
+              value={ExistingProduct?.qty || ""}
+              type="number"
+              // onChange={(ev) => setCartItem(ev.target.value)}
+            />
+
+            <Button variant="outline-secondary" onClick={onIncrement}>
+              {Cart.cartLoading ? (
+                <Spinner animation="border" role="status" />
+              ) : (
+                <GrAdd />
+              )}
+            </Button>
+          </InputGroup>
+        ) : null}
+
+        <Button className="m-1" onClick={handleSubmit(handleCartSubmit)}>
+          <AiOutlineShoppingCart />
+          {"  "}
+          {Cart.cartLoading ? (
+            <Spinner animation="border" role="status" />
+          ) : (
+            "Add to Cart"
           )}
-        </div>
-      ) : ExistingProduct.qty ? (
-        <InputGroup className="mb-3">
-          <Button variant="outline-secondary" onClick={onDecrement}>
-            {Cart.cartLoading ? (
-              <Spinner animation="border" role="status" />
-            ) : (
-              <GrSubtract />
-            )}
-          </Button>
-          <FormControl
-            aria-label="Example text with two button addons"
-            style={{ textAlign: "center" }}
-            value={ExistingProduct?.qty || ""}
-            type="number"
-            // onChange={(ev) => setCartItem(ev.target.value)}
-          />
-
-          <Button variant="outline-secondary" onClick={onIncrement}>
-            {Cart.cartLoading ? (
-              <Spinner animation="border" role="status" />
-            ) : (
-              <GrAdd />
-            )}
-          </Button>
-        </InputGroup>
-      ) : null}
-
-      <Button className="w-100 m-1" onClick={handleSubmit(handleCartSubmit)}>
-        <AiOutlineShoppingCart />
-        {"  "}
-        {Cart.cartLoading ? (
-          <Spinner animation="border" role="status" />
-        ) : (
-          "Add to Cart"
-        )}
-      </Button>
+        </Button>
+      </div>
     </FormProvider>
   );
 };
