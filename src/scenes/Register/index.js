@@ -29,6 +29,8 @@ import {
 } from "../../store/actions/auth";
 import { useHistory } from "react-router";
 // import { authError } from "../../store/actions/auth";
+import VLogo from "../../assets/Vibrant-Living-logo.png";
+import '../Login/styles.css';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -96,15 +98,14 @@ const Register = () => {
   }
 
   return (
-    <Row className="m-2">
-      <Col xs={12} sm={12} lg={6} style={{ marginTop: "110px" }}>
+    <div className="container text-center login-container">
+    <Row>
+      <Col xs={12} sm={12} lg={12}>
         <div className="text-center mt-4">
-          <Image src={Logo} className="w-50" />
+            <Image src={VLogo} height="80" />
         </div>
-
-        <p className="fs-5 fw-bold mt-2">Create Account</p>
-
-        <Form>
+        <p className="fs-5 fw-bold mt-4 mb-3 secondary-color">Create Account</p>
+        <Form className="customform"> 
           <InputGroup className="mb-3" hasValidation>
             <InputGroup.Text id="phone">+91</InputGroup.Text>
             <FormControl
@@ -144,6 +145,7 @@ const Register = () => {
               value={password}
               placeholder="password"
               onChange={(event) => setPassword(event.target.value)}
+              className="mb-3"
             />
           </FloatingLabel>
           <Form.Text id="passwordHelpBlock" muted>
@@ -151,7 +153,7 @@ const Register = () => {
             special character.
           </Form.Text>
           <Button
-            className="w-100 mt-3 fw-bold"
+           className="w-100 mb-3 mt-3 custom-btn"
             variant="primary"
             onClick={handleSubmit}
           >
@@ -172,6 +174,7 @@ const Register = () => {
         )}
       </Col>
     </Row>
+    </div>
   );
 };
 
