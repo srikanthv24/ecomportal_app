@@ -23,13 +23,14 @@ const Landing = () => {
 
   console.log("categories-TEMP", categories);
   return (
-    <div>
+    <div className="content-body">
+      <section className="page-content">
       <Container>
         {show && (
           <Alert
             key={"1"}
             variant={"danger"}
-            className="me-2 mt-3"
+            className=""
             onClose={() => setShow(false)}
             dismissible
           >
@@ -38,13 +39,22 @@ const Landing = () => {
           </Alert>
         )}
       </Container>
-      <SimpleCard />
-      <Card>
-        <Card.Header>
+      </section>
+
+      <section className="page-content bg-1">
+        <Container>
+          <SimpleCard />
+        </Container>
+      </section>
+
+      <section className="page-content py-5 bg-2">
+      <Container>
+      <Card style={{border:'none'}}>
+        <Card.Header className="no-bg">
           <div className="d-flex justify-content-between">
-            <span className="h5">Categories</span>
+            <span className="content-title" >Categories</span>
             <span>
-              <Link to="/categories">View all</Link>
+              <Link to="/categories" className="viewall-txt">View all</Link>
             </span>
           </div>
         </Card.Header>
@@ -57,12 +67,17 @@ const Landing = () => {
           />
         </Card.Body>
       </Card>
-      <Card>
-        <Card.Header>
+      </Container>
+      </section>
+
+      <section className="page-content bg-3">
+      <Container>
+      <Card style={{border:'none', backgroundColor:'transparent'}}>
+      <Card.Header className="no-bg">
           <div className="d-flex justify-content-between align-items-baseline">
-            <span className="h5">Products</span>
+            <span className="content-title">Products</span>
             <span>
-              <Link to="/products">View all</Link>
+              <Link to="/products" className="viewall-txt">View all</Link>
             </span>
           </div>
         </Card.Header>
@@ -74,6 +89,8 @@ const Landing = () => {
           />
         </Card.Body>
       </Card>
+      </Container>
+      </section>
     </div>
   );
 };
