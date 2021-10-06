@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import lemmetry from "../../assets/lemmetry.jpg";
 import test from "../../assets/default_thumbnail.png";
+import './styles.css';
 
 const CategoryList = ({ list, loading }) => {
   const history = useHistory();
@@ -20,12 +21,13 @@ const CategoryList = ({ list, loading }) => {
           return (
             <Col
               key={"letmetry"}
-              lg={4}
+              lg={3}
               md={4}
               sm={6}
               xs={6}
-              className="mt-1 mb-2 p-0"
+              className="mt-1 mb-2"
             >
+              <div className="category-item">
               <div
                 style={{
                   textAlign: "center",
@@ -68,6 +70,7 @@ const CategoryList = ({ list, loading }) => {
                   </p>
                 </div>
               </div>
+              </div>
             </Col>
           );
         })}
@@ -82,13 +85,14 @@ const CategoryList = ({ list, loading }) => {
       >
         <Col
           key={"letmetry"}
-          lg={4}
+          lg={3}
           md={4}
           sm={6}
           xs={6}
-          className="mt-1 mb-2 p-0"
+          className="mt-2 mb-3"
           onClick={() => history.push("/subscription")}
         >
+          <div className="category-item">
           <div
             style={{
               textAlign: "center",
@@ -134,20 +138,22 @@ const CategoryList = ({ list, loading }) => {
               </h6>
             </div>
           </div>
+          </div>
         </Col>
         {list.length &&
           list.map((category) => (
             <Col
               key={category.id}
-              lg={4}
+              lg={3}
               md={4}
               sm={6}
               xs={6}
-              className="mt-1 mb-2 p-0"
+              className="mt-2 mb-3"
               onClick={() =>
                 history.push(`/products?category=${category.display_name}`)
               }
             >
+              <div className="category-item">
               <div
                 style={{
                   textAlign: "center",
@@ -195,6 +201,7 @@ const CategoryList = ({ list, loading }) => {
                     {category.display_name}
                   </h6>
                 </div>
+              </div>
               </div>
             </Col>
           ))}

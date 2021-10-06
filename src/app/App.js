@@ -13,45 +13,48 @@ function App() {
   const dispatch = useDispatch();
   const Cart = useSelector((state) => state.Cart);
 
+
+
+
   useEffect(() => {
     const userpool = UserPool.getCurrentUser();
     console.log("USERPOOL-GETCURRENTUSER", userpool);
-
+    if (userpool != null) {
     let cognitoUser = getCognitoUser({
-      Pool: UserPool,
-      Username: userpool.username,
+    Pool: UserPool,
+    Username: userpool.username,
     });
-
     cognitoUser.getSession((err, res) => {
-      console.log("ERR-RESS", err, res);
+    console.log("ERR-RESS", err, res);
     });
-
     cognitoUser.getUserAttributes((err, result) => {
-      let temp = {};
-      if (result) {
-        result.map((item) => {
-          console.log("MyData", item);
-          switch (item.Name) {
-            case "name":
-              temp.name = item.Value;
-              break;
-            case "phone_number":
-              temp.phone_number = item.Value;
-              break;
-            case "sub":
-              temp.sub = item.Value;
-              break;
-            default:
-              return temp;
-          }
-        });
-        dispatch(updateUserDetails(temp));
-        dispatch(getCart({ customer_id: temp.sub }));
-      }
-      console.log("SUCCESSSSSS", result);
-      console.log("FAILEEEDDDD", err);
+    let temp = {};
+    if (result) {
+    result.map((item) => {
+    console.log("MyData", item);
+    switch (item.Name) {
+    case "name":
+    temp.name = item.Value;
+    break;
+    case "phone_number":
+    temp.phone_number = item.Value;
+    break;
+    case "sub":
+    temp.sub = item.Value;
+    break;
+    default:
+    return temp;
+    }
     });
-  }, []);
+    dispatch(updateUserDetails(temp));
+    dispatch(getCart({ customer_id: temp.sub }));
+    }
+    console.log("SUCCESSSSSS", result);
+    console.log("FAILEEEDDDD", err);
+    });
+    }
+    }, []);
+    
 
   useEffect(() => {
     console.log("CART===>", Cart);

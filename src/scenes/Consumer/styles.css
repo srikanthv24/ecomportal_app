@@ -5,3 +5,37 @@
     align-items: center;
     flex-direction: row;
 }
+.content-body{
+    padding-top: 20px;
+    background:#fff;
+}
+.page-content{
+    padding: 20px 0px;
+    background-color:rgba(255, 255, 255, 0.75) !important;
+    
+}
+.bg-1{
+    background-color: #f9f9f9 !important;
+}
+.bg-2{
+    background-color: #f4f4f4;
+}
+.bg-3{
+    background-color: #f9f9f9 !important;
+}
+.content-title{
+    font-family: 'Raleway';
+    font-size: 1.875rem;
+    color:#424141;
+    font-weight: 600;
+}
+.viewall-txt{
+    font-family: 'Raleway';
+    font-size: 18px;
+    color:#f05922;
+    font-weight: 500;
+}
+.no-bg{
+    background-color: transparent !important;
+    border-bottom: none !important;
+}

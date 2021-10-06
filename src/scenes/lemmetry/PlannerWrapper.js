@@ -153,7 +153,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
               </Button>
             ) : (
               <Button
-                className="w-50 m-1"
+                className="w-50 m-1" style={{ width: "100%", background:'#F05922', borderColor:'#f05922' }}
                 onClick={handleSubmit(handleCartSubmit)}
               >
                 {Cart.cartLoading ? (
@@ -191,7 +191,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
           </InputGroup>
         ) : null}
 
-        <Button className="m-1" onClick={handleSubmit(handleCartSubmit)}>
+        <Button className="m-1" style={{ width: "100%", background:'#F05922', borderColor:'#f05922' }} onClick={handleSubmit(handleCartSubmit)}>
           <AiOutlineShoppingCart />
           {"  "}
           {Cart.cartLoading ? (

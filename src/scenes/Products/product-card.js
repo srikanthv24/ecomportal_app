@@ -120,7 +120,7 @@ const ProductCard = ({ product }) => {
       >
         {ExistingProduct.qty ? (
           <InputGroup className="mb-3">
-            <Button variant="outline-secondary" onClick={onDecrement}>
+            <Button onClick={onDecrement}>
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
@@ -135,7 +135,7 @@ const ProductCard = ({ product }) => {
               // onChange={(ev) => setCartItem(ev.target.value)}
             />
 
-            <Button variant="outline-secondary" onClick={onIncrement}>
+            <Button onClick={onIncrement}>
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
@@ -144,7 +144,7 @@ const ProductCard = ({ product }) => {
             </Button>
           </InputGroup>
         ) : (
-          <Button size="sm" style={{ width: "100%" }} onClick={handleAddToCart}>
+          <Button size="sm" className="cutom-btn" style={{ width: "100%", background:'#F05922', borderColor:'#f05922' }} onClick={handleAddToCart}>
             <AiOutlineShoppingCart />{" "}
             {Cart.cartLoading ? (
               <Spinner animation="border" role="status" />
