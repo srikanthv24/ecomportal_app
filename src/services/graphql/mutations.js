@@ -212,9 +212,10 @@ export const getCategories = `query($limit: Int, $nextToken: String) {
 }}`;
 
 export const getCart = `query ($customer_id: ID!){
-  queryCartsByCustomerIndex(customer_id: $customer_id) {
+  queryCartsByCustomerIndex(customer_id: $customer_id, status: UNPAID) {
     items {
       customer_id
+      status
       id
       items {
         defaultimg_url
@@ -254,6 +255,7 @@ export const CartSummary = `query ($customer_id: ID!){
       customer_name
       id
       grand_total
+      status
       items {
         defaultimg_url
         item_name
@@ -284,7 +286,7 @@ export const CartSummary = `query ($customer_id: ID!){
       }
     }
   }
-}`
+}`;
 
 export const createCart = (params) => {
   console.log("PARQAMS", params);
@@ -386,9 +388,43 @@ export const deleteCartItem = `mutation($ID: ID!){
   }
 }`;
 
-export const updateCartQty = `mutation ($id: ID!, $customer_id: ID!, $item_id: ID!, $qty: Int){
-  updateCart(input: {id: $id, customer_id: $customer_id, item_id: $item_id, qty: $qty}) {
+export const updateCartQty = `mutation ($customer_id: ID!, $item_id: ID!, $qty: Int) UpdateCartItemQty(input: {qty: $qty, cart_id: $cart_id, item_id: $item_id}) {
+  id
+  customer_id
+  customer_mobile
+  customer_name
+  items {
+  defaultimg_url
+  category
+  qty
+  item_id
+  sale_val
+  sub_total
+  item_name
+  is_mealplan
+  }
+  status
+  grand_total
+  upd_by
+  upd_on
+  }
+  }`;
+
+export const Orders = `query ($cutomer_mobile: String){
+  listSubscriptions(filter: {customer_mobile: {eq: $cutomer_mobile}}) {
     id
-    customer_id
+    customer {
+      mobile
+      display_name
+    }
+    B_balance
+    D_balance
+    L_balance
+    start_date
+    product {
+      display_name
+      category
+    }
+    finish_date
   }
 }`;

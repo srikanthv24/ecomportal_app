@@ -68,11 +68,11 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
       }
     });
 
-    if (Cart.cartDetails.items.length && Cart.cartDetails.items[0].id) {
+    if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
       dispatch(
         updateCart({
           customer_id: userDetails.sub,
-          cart_id: Cart.cartDetails.items[0].id,
+          cart_id: Cart?.cartDetails?.items[0]?.id,
           item: { ...data, subscription: filteredPayload },
         })
       );
@@ -89,12 +89,12 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   useEffect(() => {
     if (Cart?.cartDetails?.items?.length) {
       console.log("Cart?.cartDetails", Cart?.cartDetails);
-      let ifExist = Cart.cartDetails.items[0].items.filter((item) => {
+      let ifExist = Cart?.cartDetails?.items[0]?.items.filter((item) => {
         if (item) {
           return item.item_id == products.productDetails.id;
         }
       });
-      if (ifExist.length) {
+      if (ifExist?.length) {
         setExistingProduct(ifExist[0] || { qty: 0 });
       }
 

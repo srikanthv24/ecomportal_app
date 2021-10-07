@@ -19,17 +19,7 @@ function Routes() {
   const history = useHistory();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  useEffect(async () => {
-    const getToken = await sessionStorage.getItem("token");
-    console.log("inside get token from sessionStorage:::", getToken);
-
-    if (getToken == null) {
-      dispatch(getTokenFailure());
-    } else {
-      dispatch(getTokenSucces());
-    }
-  }, []);
-
+ 
   console.log("is logged in status:::", isLoggedIn);
 
   return (

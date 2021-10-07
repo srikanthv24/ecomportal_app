@@ -8,6 +8,7 @@ import {
     addressesSaga
   } from "./saga";
 import { CartItemSaga } from "./saga/cartItem";
+import { OrdersSaga } from "./saga/orders";
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +19,6 @@ export default function* rootSaga() {
       customerSaga(),
       mealPlansSaga(),
       addressesSaga(),
+      OrdersSaga()
     ]);
 }

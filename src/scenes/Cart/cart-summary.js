@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
 import { GrEdit } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +8,7 @@ import Select from "react-select";
 import { getAddresses } from "../../store/actions";
 import { getCartSummary } from "../../store/actions/cart";
 import CartSummaryItem from "./cart-summary-item";
+import { showAlert } from "../../store/actions/alert";
 
 var phantom = {
   display: "block",
@@ -75,11 +77,28 @@ const CartSummary = () => {
             0}{" "}
           Items
         </p>
-        <section style={{ maxHeight: 340, width: "100%", overflow: "auto" }}>
-          {cartSummary?.data?.items.length &&
+        <section
+          style={{
+            height: 340,
+            maxHeight: 340,
+            width: "100%",
+            overflow: "auto",
+          }}
+        >
+          {cartSummary.isLoading ? (
+            <div
+              className="d-flex flex-column align-items-center justify-content-center w-100"
+              style={{ height: "100% " }}
+            >
+              <Spinner animation="grow" variant="primary" />
+              Loading...
+            </div>
+          ) : (
+            cartSummary?.data?.items.length &&
             cartSummary?.data?.items[0]?.items?.map((item) => {
               return <CartSummaryItem ProductDetails={item} />;
-            })}
+            })
+          )}
         </section>
         <section className="mt-3">
           <div className="d-flex align-items-baseline justify-content-between">
@@ -109,6 +128,9 @@ const CartSummary = () => {
               {AddressSelected.state}, {AddressSelected.postalcode}.
             </p>
           )}
+          <small className="text-muted">
+            <b>Note:</b> This delivery address is for non-subscription products.
+          </small>
         </section>
         <section className="mt-4">
           <span className="d-flex justify-content-between align-items-center">
@@ -189,17 +211,11 @@ const CartSummary = () => {
       return;
     }
 
-    // creating a new order
-    // const req = {
-    //   orderCreationId: order_id,
-    //   razorpayPaymentId: response.razorpay_payment_id,
-    //   razorpayOrderId: response.razorpay_order_id,
-    //   razorpaySignature: response.razorpay_signature,
-    // };
-
     const req = {
       type: "createorder",
-      amount: parseFloat(parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)),
+      amount: parseInt(
+        parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
+      ),
       currency: "INR",
       receipt: "Receipt #20",
       cart_id: Cart.cartDetails.items[0].id,
@@ -230,16 +246,28 @@ const CartSummary = () => {
       amount: amount,
       currency: currency,
       name: userDetails.name,
-
       order_id: order_id,
       upi_link: true,
       handler: async function (response) {
         console.log("response", response);
+        dispatch(
+          showAlert({
+            message: (
+              <div>
+                Transaction ID: <br />
+                <b>{response.razorpay_payment_id}</b>
+              </div>
+            ),
+            variant: "success",
+            title: "Payment Success",
+          })
+        );
         const data = {
           type: "success",
           phone: userDetails.phone_number,
           amount: amount.toString(),
           orderCreationId: order_id,
+          cart_id: Cart.cartDetails.items[0].id,
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
           razorpaySignature: response.razorpay_signature,
@@ -254,10 +282,29 @@ const CartSummary = () => {
         // alert(result.data.msg);
         console.log("REDD=>", result);
 
-        if (result.status === 200) {
+        if (result.status === "success") {
           console.log("200");
+          // toast("Payment Successful!", {
+          //   type: "success",
+          //   theme: "dark",
+          //   position: "bottom-right",
+          // });
+          // dispatch(
+          //   showAlert({
+          //     message: "aksjlkdjslkd",
+          //     variant: "success",
+          //     title: "Payment Success",
+          //   })
+          // );
         } else {
           console.log("401");
+          // dispatch(
+          //   showAlert({
+          //     message: "Message",
+          //     variant: "error",
+          //     title: "Payment Failed",
+          //   })
+          // );
         }
       },
       prefill: {
@@ -274,6 +321,10 @@ const CartSummary = () => {
     };
 
     const paymentObject = new window.Razorpay(options);
+
+    paymentObject.on("payment.failed", (response) =>
+      console.log("FailedResponse", response)
+    );
     paymentObject.open();
   }
 };

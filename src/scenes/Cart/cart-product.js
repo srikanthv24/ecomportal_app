@@ -12,14 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCartQty } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
 
-const CardProduct = ({ productId, pushPrice, cartDetails }) => {
+const CardProduct = ({ productId, pushPrice }) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ProductDetails, setProductDetails] = useState({});
   const userDetails = useSelector((state) => state.auth.userDetails);
-
-  console.log("123XYZ", Cart);
 
   useEffect(() => {
     // Products.ProductDetails({ payload: productId.item_id }).then((res) => {

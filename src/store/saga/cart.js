@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
 import { Cart } from "../../services/api/Cart";
 import { createCart, getCart } from "../actions/cart";
@@ -56,7 +57,15 @@ function* UpdateCart(params) {
   try {
     const response = yield call(Cart.updateCart, params);
     console.log("CartItemUpdated", response);
-    yield put(getCart({ customer_id: response.data.updateCart.customer_id }));
+    if (response.data.updateCart == null) {
+      toast("Failed Adding to cart, please try again!", {
+        type: "error",
+        theme: "dark",
+        position: 'bottom-center'
+      });
+    } else {
+      yield put(getCart({ customer_id: response.data.updateCart.customer_id }));
+    }
   } catch (error) {
     yield put({
       type: types.UPDATE_CART_FAILURE,

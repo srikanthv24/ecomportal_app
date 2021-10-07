@@ -7,6 +7,8 @@ import {
     mealPlansReducer,
     AuthReducer
 } from './reducers';
+import { AlertReducer } from './reducers/alert';
+import { Orders } from './reducers/orders';
 import { products } from './reducers/products';
 
 const rootReducer = combineReducers({
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
     customer: customerReducer,
     mealPlans: mealPlansReducer,
     auth: AuthReducer,
+    AlertReducer: AlertReducer,
+    Orders: Orders
 })
 
 export default rootReducer;

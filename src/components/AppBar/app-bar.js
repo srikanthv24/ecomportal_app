@@ -141,7 +141,10 @@ export default function AppBar() {
                           Subscriptions
                         </NavDropdown.Item>
                         {/* <NavDropdown.Divider /> */}
-                        <NavDropdown.Item href="#" eventKey="3">
+                        <NavDropdown.Item
+                          onClick={() => history.push("/orders/")}
+                          eventKey="3"
+                        >
                           Your Orders
                         </NavDropdown.Item>
                         <NavDropdown.Item

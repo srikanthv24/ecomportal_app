@@ -23,8 +23,8 @@ const ProductCard = ({ product }) => {
   useEffect(() => {
     console.log("Cart.cartDetails", Cart.cartDetails);
     Cart.cartDetails &&
-      Cart.cartDetails.items.length &&
-      Cart.cartDetails.items[0].items.map((item, index) => {
+      Cart?.cartDetails?.items?.length &&
+      Cart?.cartDetails?.items[0]?.items.map((item, index) => {
         // eslint-disable-next-line no-unused-expressions
         item && item.item_id == product.id
           ? setExistingProduct({ ...product, ...item, qty: item.qty })
