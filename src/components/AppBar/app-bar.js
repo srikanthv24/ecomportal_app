@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo_image from "./../../assets/Group 737.png";
+import vlLogo from "./../../assets/Vibrant-Living-logo.png";
 import {
   Badge,
   Button,
@@ -85,30 +86,30 @@ export default function AppBar() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        bg="dark"
-        variant="dark"
+        bg="light"
+        variant="light"
         sticky="top"
       >
-        <Container fluid>
+        <Container fluid className="flex-nowrap custom-nav">
           <Navbar.Brand href="/">
             <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
-              className="mr-5 border-0"
+              className="mr-5 border-0 px-0 text-danger"
             />
             <img
               alt=""
-              src={logo_image}
-              height="55"
-              className="d-inline-block align-top ml-5"
+              src={vlLogo}
+              height="50"
+              className="d-inline-block align-top mx-2"
             />
           </Navbar.Brand>
           {/* <Navbar.Collapse id="responsive-navbar-nav">
         </Navbar.Collapse> */}
 
           <Nav>
-            <Container>
+            <Container fluid>
               <Row>
-                <Col className="d-none d-lg-block">
+                <Col className="d-lg-block search-section">
                   {/* <InputGroup>
                     <FormControl
                       aria-label="search..."
@@ -120,15 +121,51 @@ export default function AppBar() {
                       <AiOutlineSearch />
                     </InputGroup.Text>
                   </InputGroup> */}
+                  <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "0px 10px",
+          }}
+        >
+          {path == "/" ? (
+            <Button
+            className="back-btn"
+              active
+              onClick={() => history.goBack()}
+            >
+              <BiArrowBack />
+            </Button>
+          ) : null}
+          <div style={{ width: "100%" }}>
+            <Select
+              style={{ width: "100%", borderRadius: ".25rem 0px 0px .25rem !important" }}
+              className="custom-select-box"
+              placeholder="search product..."
+              closeMenuOnSelect={false}
+              inputValue={Query}
+              isClearable
+              isSearchable
+              onChange={(val) => {
+                val && history.push("/products/" + val.value);
+              }}
+              options={searchedProducts}
+              onInputChange={handleInputChange}
+            />
+          </div>
+        </div>
+      
                 </Col>
 
-                <Col>
+                <Col className="d-flex flex-nowrap px-0 profile-menu">
                   <Nav>
                     {/* <div className="customDropDown"> */}
                     <div className="customNavBar">
                       <NavDropdown
                         title={
-                          <span className="text-white">
+                          <span className="text-black profile-name-txt">
                             Hello, {userDetails.name}
                           </span>
                         }
@@ -171,61 +208,28 @@ export default function AppBar() {
                       </NavDropdown.Item>
                     </NavDropdown>
                   </div> */}
-                </Col>
-                <Col>
+
                   <Nav.Link
-                    onClick={
-                      () => history.push("/cart")
-                      // history.push("/orders")
-                    }
-                  >
-                    <h6 className="text-white">
-                      <AiOutlineShoppingCart size={24} />
-                      <Badge bg="secondary" pill>
-                        {Cart?.cartDetails?.items?.length &&
-                          Cart?.cartDetails?.items[0]?.items?.length}
-                      </Badge>
-                    </h6>
+                      onClick={
+                        () => history.push("/cart")
+                        // history.push("/orders")
+                      }
+                    >
+                      <h6 className="text-black nav-menu-cart">
+                        <AiOutlineShoppingCart size={24} />
+                        <Badge pill>
+                          {Cart?.cartDetails?.items?.length &&
+                            Cart?.cartDetails?.items[0]?.items?.length}
+                        </Badge>
+                      </h6>
                   </Nav.Link>
                 </Col>
+                {/* <Col></Col> */}
               </Row>
             </Container>
           </Nav>
         </Container>
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "0px 10px",
-          }}
-        >
-          {path == "/" ? (
-            <Button
-              variant="outline-dark"
-              active
-              onClick={() => history.goBack()}
-            >
-              <BiArrowBack />
-            </Button>
-          ) : null}
-          <div style={{ width: "100%" }}>
-            <Select
-              style={{ width: "100%" }}
-              placeholder="search product..."
-              closeMenuOnSelect={false}
-              inputValue={Query}
-              isClearable
-              isSearchable
-              onChange={(val) => {
-                val && history.push("/products/" + val.value);
-              }}
-              options={searchedProducts}
-              onInputChange={handleInputChange}
-            />
-          </div>
-        </div>
+       
       </Navbar>
     </>
   );

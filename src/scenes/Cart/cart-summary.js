@@ -72,7 +72,7 @@ const CartSummary = () => {
       <div className="m-2">
         <p className="h3">Cart Summary</p>
         <p className="h6 text-muted">
-          {(cartSummary?.data?.items.length &&
+          {(cartSummary?.data?.items?.length &&
             cartSummary?.data?.items[0]?.items?.length) ||
             0}{" "}
           Items
@@ -85,7 +85,7 @@ const CartSummary = () => {
             overflow: "auto",
           }}
         >
-          {cartSummary.isLoading ? (
+          {cartSummary?.isLoading ? (
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100"
               style={{ height: "100% " }}
@@ -94,7 +94,7 @@ const CartSummary = () => {
               Loading...
             </div>
           ) : (
-            cartSummary?.data?.items.length &&
+            cartSummary?.data?.items?.length &&
             cartSummary?.data?.items[0]?.items?.map((item) => {
               return <CartSummaryItem ProductDetails={item} />;
             })
@@ -215,7 +215,7 @@ const CartSummary = () => {
       type: "createorder",
       amount: parseInt(
         parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
-      ),
+      ) * 100,
       currency: "INR",
       receipt: "Receipt #20",
       cart_id: Cart.cartDetails.items[0].id,

@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  Container,
-  FormControl,
-  InputGroup,
-  Row,
-} from "react-bootstrap";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { Col, Row } from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../store/actions/products";
 import { useParams } from "react-router-dom";
 import ProductPlanner from "./product-planner";
-import { GrAdd, GrSubtract } from "react-icons/gr";
-import { updateCardItem } from "../../store/actions/cart-item";
-import { updateCart } from "../../store/actions/cart";
 import { FormProvider, useFormContext } from "react-hook-form";
 
 const ProductDetails = ({
@@ -118,7 +107,7 @@ const ProductDetails = ({
 
   return (
     <FormProvider {...methods}>
-      <Container fluid>
+      <div>
         <Row>
           <Col sm={12} lg={6}>
             <p className="h4 mt-3">{ProductDetails.display_name}</p>
@@ -156,7 +145,6 @@ const ProductDetails = ({
           <Col>
             {products.productDetails.is_mealplan && (
               <ProductPlanner
-                
                 productId={""}
                 data={products.productDetails}
                 FormData={FormData}
@@ -167,7 +155,7 @@ const ProductDetails = ({
           </Col>
         </Row>
         <div style={{ display: "block", height: 20 }} />
-      </Container>
+      </div>
     </FormProvider>
   );
 };

@@ -11,7 +11,11 @@ import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { updateCart, updateCartQty } from "../../store/actions/cart";
+import {
+  createCart,
+  updateCart,
+  updateCartQty,
+} from "../../store/actions/cart";
 
 const ProductCard = ({ product }) => {
   const history = useHistory();
@@ -35,13 +39,23 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = () => {
     console.log("Cart=?", product);
-    dispatch(
-      updateCart({
-        customer_id: userDetails.sub,
-        cart_id: Cart.cartDetails.items[0].id,
-        item: { item_id: product.id, qty: 1, sale_val: product.sale_val },
-      })
-    );
+    if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+      dispatch(
+        updateCart({
+          customer_id: userDetails.sub,
+          cart_id: Cart?.cartDetails?.items[0]?.id,
+          item: { item_id: product.id, qty: 1, sale_val: product.sale_val },
+        })
+      );
+    } else {
+      dispatch(
+        createCart({
+          customer_id: userDetails.sub,
+          items: [{ ...product, qty: 1 }],
+          accessToken: sessionStorage.getItem("token")
+        })
+      );
+    }
   };
 
   const onIncrement = () => {
@@ -120,7 +134,7 @@ const ProductCard = ({ product }) => {
       >
         {ExistingProduct.qty ? (
           <InputGroup className="mb-3">
-            <Button variant="outline-secondary" onClick={onDecrement}>
+            <Button onClick={onDecrement}>
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
@@ -135,7 +149,7 @@ const ProductCard = ({ product }) => {
               // onChange={(ev) => setCartItem(ev.target.value)}
             />
 
-            <Button variant="outline-secondary" onClick={onIncrement}>
+            <Button onClick={onIncrement}>
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
@@ -144,7 +158,16 @@ const ProductCard = ({ product }) => {
             </Button>
           </InputGroup>
         ) : (
-          <Button size="sm" style={{ width: "100%" }} onClick={handleAddToCart}>
+          <Button
+            size="sm"
+            className="cutom-btn"
+            style={{
+              width: "100%",
+              background: "#F05922",
+              borderColor: "#f05922",
+            }}
+            onClick={handleAddToCart}
+          >
             <AiOutlineShoppingCart />{" "}
             {Cart.cartLoading ? (
               <Spinner animation="border" role="status" />

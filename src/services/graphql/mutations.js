@@ -212,10 +212,10 @@ export const getCategories = `query($limit: Int, $nextToken: String) {
 }}`;
 
 export const getCart = `query ($customer_id: ID!){
-  queryCartsByCustomerIndex(customer_id: $customer_id, status: UNPAID) {
+  queryCartsByCustomerIndex(customer_id: $customer_id) {
     items {
       customer_id
-      status
+      pay_status
       id
       items {
         defaultimg_url
@@ -255,7 +255,7 @@ export const CartSummary = `query ($customer_id: ID!){
       customer_name
       id
       grand_total
-      status
+      pay_status
       items {
         defaultimg_url
         item_name
@@ -297,8 +297,8 @@ export const createCart = (params) => {
 }`;
 };
 
-export const updateCart = `mutation ($id: ID!, $qty: Int!) {
-  updateCart(input: {id: $id, qty: $qty}) {
+export const updateCart = `mutation ($cart_id: ID!, $qty: Int!) {
+  updateCart(input: {cart_id: $cart_id, qty: $qty}) {
     customer
     id
     qty
@@ -388,7 +388,7 @@ export const deleteCartItem = `mutation($ID: ID!){
   }
 }`;
 
-export const updateCartQty = `mutation ($customer_id: ID!, $item_id: ID!, $qty: Int) UpdateCartItemQty(input: {qty: $qty, cart_id: $cart_id, item_id: $item_id}) {
+export const updateCartQty = `mutation ($item_id: ID!, $qty: Int!, $cart_id: ID!) { UpdateCartItemQty(input: {qty: $qty, cart_id: $cart_id, item_id: $item_id}) {
   id
   customer_id
   customer_mobile
@@ -403,7 +403,7 @@ export const updateCartQty = `mutation ($customer_id: ID!, $item_id: ID!, $qty: 
   item_name
   is_mealplan
   }
-  status
+  pay_status
   grand_total
   upd_by
   upd_on

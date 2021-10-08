@@ -1,5 +1,5 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-// import './App.css';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UserPool from "../scenes/Login/UserPool";
@@ -68,8 +68,6 @@ function App() {
 
   useEffect(async () => {
     const getToken = await sessionStorage.getItem("token");
-    console.log("inside get token from sessionStorage:::", getToken);
-
     if (getToken == null) {
       dispatch(getTokenFailure());
     } else {
@@ -79,7 +77,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <AppBar /> */}
       <ModalComponent
         show={AlertReducer.showAlert}
         type={AlertReducer.variant}
