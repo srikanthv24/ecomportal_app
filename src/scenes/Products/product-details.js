@@ -38,7 +38,7 @@ const ProductDetails = ({
         {
           address: {},
           isDelivery: false,
-          meal_type: "breakfast",
+          meal_type: "B",
           notes: "",
           order_dates: [],
           price: 0,
@@ -51,7 +51,7 @@ const ProductDetails = ({
         {
           address: {},
           isDelivery: false,
-          meal_type: "lunch",
+          meal_type: "L",
           notes: "",
           order_dates: [],
           price: 0,
@@ -64,7 +64,7 @@ const ProductDetails = ({
         {
           address: {},
           isDelivery: false,
-          meal_type: "dinner",
+          meal_type: "D",
           notes: "",
           order_dates: [],
           price: 0,

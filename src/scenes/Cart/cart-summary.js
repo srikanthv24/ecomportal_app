@@ -6,7 +6,7 @@ import { GrEdit } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { getAddresses } from "../../store/actions";
-import { getCartSummary } from "../../store/actions/cart";
+import { getCartSummary, getCart } from "../../store/actions/cart";
 import CartSummaryItem from "./cart-summary-item";
 import { showAlert } from "../../store/actions/alert";
 
@@ -213,9 +213,10 @@ const CartSummary = () => {
 
     const req = {
       type: "createorder",
-      amount: parseInt(
-        parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
-      ) * 100,
+      amount:
+        parseInt(
+          parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
+        ) * 100,
       currency: "INR",
       receipt: "Receipt #20",
       cart_id: Cart.cartDetails.items[0].id,
@@ -284,27 +285,10 @@ const CartSummary = () => {
 
         if (result.status === "success") {
           console.log("200");
-          // toast("Payment Successful!", {
-          //   type: "success",
-          //   theme: "dark",
-          //   position: "bottom-right",
-          // });
-          // dispatch(
-          //   showAlert({
-          //     message: "aksjlkdjslkd",
-          //     variant: "success",
-          //     title: "Payment Success",
-          //   })
-          // );
+          dispatch(getCartSummary({ customer_id: userDetails.sub }));
+          dispatch(getCart({ customer_id: userDetails.sub }));
         } else {
           console.log("401");
-          // dispatch(
-          //   showAlert({
-          //     message: "Message",
-          //     variant: "error",
-          //     title: "Payment Failed",
-          //   })
-          // );
         }
       },
       prefill: {

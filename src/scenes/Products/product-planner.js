@@ -41,15 +41,15 @@ const ProductPlanner = ({ customerId, data, control }) => {
 
     console.log("DATAAA", data);
     data &&
-      data.variants &&
-      data.variants.map((variant) => {
+      data?.variants &&
+      data?.variants?.map((variant) => {
         let temp1 = [];
-        variant.items.map((varItem) => {
+        variant?.items.map((varItem) => {
           temp1.push({
             ...varItem,
-            display_name: varItem.display_name,
-            label: varItem.display_name,
-            value: varItem.display_name,
+            display_name: varItem?.display_name,
+            label: varItem?.display_name,
+            value: varItem?.display_name,
           });
         });
         temp.push({ ...variant, items: temp1 });
@@ -252,7 +252,6 @@ const ProductPlanner = ({ customerId, data, control }) => {
                     </>
                   )}
                   <div style={{ width: "100%" }}>
-                    
                     <p className="h6 text-muted mt-3 mb-0 m-2">Date *</p>
                     <div style={{ width: "100%", overflow: "scroll" }}>
                       <Controller
@@ -270,8 +269,10 @@ const ProductPlanner = ({ customerId, data, control }) => {
                             maxDate={
                               new Date(
                                 moment(subscription[index].order_dates[0])
-                                  .add(VariantValue?.Duration?.grace + 
-                                    VariantValue?.Duration?.duration - 1 || 0,
+                                  .add(
+                                    VariantValue?.Duration?.grace +
+                                      VariantValue?.Duration?.duration -
+                                      1 || 0,
                                     "days"
                                   )
                                   .calendar()
@@ -296,9 +297,13 @@ const ProductPlanner = ({ customerId, data, control }) => {
                         )}
                       />
                     </div>
-                    <span style={{fontWeight: 600, fontSize: 12}}>
-                      {VariantValue?.Duration?.duration ? `Selected ${subscription[index].order_dates.length} dates from
-                       ${" "}${VariantValue?.Duration?.duration || 0} days.` : 'Please select duration for subscription'}
+                    <span style={{ fontWeight: 600, fontSize: 12 }}>
+                      {VariantValue?.Duration?.duration
+                        ? `Selected ${
+                            subscription[index].order_dates.length
+                          } dates from
+                       ${" "}${VariantValue?.Duration?.duration || 0} days.`
+                        : "Please select duration for subscription"}
                     </span>
                     {/* <span>
                       Balance days:{" "}
