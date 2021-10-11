@@ -39,7 +39,7 @@ const OwlCurousel = ({ carouselItems }) => {
             key={item.id}
             onClick={() => history.push(`/products/${item.id}`)}
           >
-            <Col lg={6} sm={12} xs={12}>
+            <Col sm={12} xs={12}>
               <div className="item" key={item.id}>
                 {/* <h4>{item.display_name}</h4> */}
                 <ProductCard product={item} />

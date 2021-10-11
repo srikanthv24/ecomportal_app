@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import lemmetry from "../../assets/lemmetry.jpg";
 import test from "../../assets/default_thumbnail.png";
-import './styles.css';
+import "./styles.css";
 
 const CategoryList = ({ list, loading }) => {
   const history = useHistory();
@@ -28,48 +28,48 @@ const CategoryList = ({ list, loading }) => {
               className="mt-1 mb-2"
             >
               <div className="category-item">
-              <div
-                style={{
-                  textAlign: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  //   background: "#ccc",
-                  height: "100%",
-                  boxSizing: "border-box",
-                }}
-                className="placeholder-glow"
-              >
-                <div style={{ textAlign: "center" }}>
-                  <div
-                    style={{
-                      backgroundImage: `url(${"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"})`,
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      height: "120px",
-                      width: "120px",
-                      borderRadius: "10%",
-                      margin: 5,
-                      textAlign: "center",
-                    }}
-                    className="placeholder-glow"
-                  />
-                </div>
                 <div
                   style={{
-                    height: 50,
-                    maxHeight: 50,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                    textAlign: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    //   background: "#ccc",
+                    height: "100%",
+                    boxSizing: "border-box",
                   }}
+                  className="placeholder-glow"
                 >
-                  <p className="text-muted placeholder-glow">
-                    <span class="placeholder col-12">SAMPLE DATA.....</span>
-                  </p>
+                  <div style={{ textAlign: "center" }}>
+                    <div
+                      style={{
+                        backgroundImage: `url(${"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"})`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        height: "120px",
+                        width: "120px",
+                        borderRadius: "10%",
+                        margin: 5,
+                        textAlign: "center",
+                      }}
+                      className="placeholder-glow"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      height: 50,
+                      maxHeight: 50,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    <p className="text-muted placeholder-glow">
+                      <span class="placeholder col-12">SAMPLE DATA.....</span>
+                    </p>
+                  </div>
                 </div>
-              </div>
               </div>
             </Col>
           );
@@ -93,51 +93,54 @@ const CategoryList = ({ list, loading }) => {
           onClick={() => history.push("/subscription")}
         >
           <div className="category-item">
-          <div
-            style={{
-              textAlign: "center",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              height: "100%",
-              boxSizing: "border-box",
-            }}
-          >
-            <div style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  backgroundImage: `url(${
-                    lemmetry ||
-                    "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-                  })`,
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                  height: "120px",
-                  width: "120px",
-                  borderRadius: "10%",
-                  margin: 5,
-                  textAlign: "center",
-                }}
-              />
-            </div>
             <div
               style={{
-                height: 50,
-                maxHeight: 50,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                height: "100%",
+                boxSizing: "border-box",
               }}
             >
-              <h6
-                className="text-muted"
-                style={{ lineHeight: 1.5, textOverflow: "ellipsis" }}
+              <div style={{ textAlign: "center" }}>
+                <div
+                  style={{
+                    backgroundImage: `url(${
+                      lemmetry ||
+                      "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
+                    })`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    height: "120px",
+                    width: "120px",
+                    borderRadius: "10%",
+                    margin: 5,
+                    textAlign: "center",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  height: 50,
+                  maxHeight: 50,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
               >
-                Let me try!
-              </h6>
+                <h6
+                  style={{
+                    lineHeight: 1.5,
+                    textOverflow: "ellipsis",
+                    color: "#212121",
+                  }}
+                >
+                  Let me try!
+                </h6>
+              </div>
             </div>
-          </div>
           </div>
         </Col>
         {list.length &&
@@ -154,54 +157,66 @@ const CategoryList = ({ list, loading }) => {
               }
             >
               <div className="category-item">
-              <div
-                style={{
-                  textAlign: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  //   background: "#ccc",
-                  height: "100%",
-                  boxSizing: "border-box",
-                }}
-              >
-                <div style={{ textAlign: "center" }}>
-                  <div
-                    key={category.id}
-                    style={{
-                      backgroundImage: `url(${
-                        category.defaultimg_url ? category.defaultimg_url : test
-                      })`,
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      height: "128px",
-                      width: "128px",
-                      borderRadius: "10%",
-                      margin: 5,
-                      textAlign: "center",
-                    }}
-                  >
-                    <img src={category.defaultimg_url ? category.defaultimg_url : test} style={{maxWidth:'128px', maxHeight:'128px'}} />
-                  </div>
-                </div>
                 <div
                   style={{
-                    height: 50,
-                    maxHeight: 50,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                    textAlign: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    //   background: "#ccc",
+                    height: "100%",
+                    boxSizing: "border-box",
                   }}
                 >
-                  <h6
-                    
-                    style={{ lineHeight: 1.5, textOverflow: "ellipsis", color:'#212121' }}
+                  <div style={{ textAlign: "center" }}>
+                    <div
+                      key={category.id}
+                      style={{
+                        backgroundImage: `url(${
+                          category.defaultimg_url
+                            ? category.defaultimg_url
+                            : test
+                        })`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        height: "128px",
+                        width: "128px",
+                        borderRadius: "10%",
+                        margin: 5,
+                        textAlign: "center",
+                      }}
+                    >
+                      <img
+                        src={
+                          category.defaultimg_url
+                            ? category.defaultimg_url
+                            : test
+                        }
+                        style={{ maxWidth: "128px", maxHeight: "128px" }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      height: 50,
+                      maxHeight: 50,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
                   >
-                    {category.display_name}
-                  </h6>
+                    <h6
+                      style={{
+                        lineHeight: 1.5,
+                        textOverflow: "ellipsis",
+                        color: "#212121",
+                      }}
+                    >
+                      {category.display_name}
+                    </h6>
+                  </div>
                 </div>
-              </div>
               </div>
             </Col>
           ))}

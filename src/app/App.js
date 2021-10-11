@@ -9,7 +9,7 @@ import {
   getTokenSucces,
   updateUserDetails,
 } from "../store/actions/auth";
-import { Button } from "react-bootstrap";
+import { Button, Offcanvas } from "react-bootstrap";
 import { getCart } from "../store/actions/cart";
 import Routes from "./Routes";
 import { ToastContainer } from "react-toastify";

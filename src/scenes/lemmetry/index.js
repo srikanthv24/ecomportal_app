@@ -7,12 +7,21 @@ import MealPlans from "../Subscription/second-step";
 import { useDispatch, useSelector } from "react-redux";
 import { createCustomer } from "../../store/actions/customer";
 import PlannerWrapper from "./PlannerWrapper";
+import { makeStyles } from "@material-ui/core";
 
 function getSteps() {
   return ["Your details", "Select a Meal", "Plan Meal"];
 }
 
+const useStyles = makeStyles({
+  stepIcon: {
+    // background: "orange",
+    color: "#f05922 !important",
+  },
+});
+
 const LemmeTry = () => {
+  const classes = useStyles();
   const steps = getSteps();
   const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
@@ -38,7 +47,17 @@ const LemmeTry = () => {
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel
+              StepIconProps={{
+                classes: {
+                  active: classes.stepIcon,
+                  completed: classes.stepIcon,
+
+                },
+              }}
+            >
+              {label}
+            </StepLabel>
           </Step>
         ))}
       </Stepper>

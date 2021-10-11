@@ -87,7 +87,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
         createCart({
           customer_id: userDetails.sub,
           items: [{ ...data, subscription: filteredPayload }],
-          accessToken: sessionStorage.getItem("token")
+          accessToken: sessionStorage.getItem("token"),
         })
       );
     }
@@ -154,7 +154,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
               {ExistingProduct.qty ? (
                 <Button
                   className="w-50 m-1"
-                  variant="success"
+                  // variant="success"
+                  style={{ background: "#f05922" }}
                   onClick={() => history.push("/cart")}
                 >
                   Go to Cart
@@ -179,7 +180,11 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
             </div>
           ) : ExistingProduct.qty ? (
             <InputGroup className="mb-3">
-              <Button variant="outline-secondary" onClick={onDecrement}>
+              <Button
+                variant="outline-secondary"
+                style={{ background: "#f05922" }}
+                onClick={onDecrement}
+              >
                 {Cart.cartLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
@@ -194,7 +199,11 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                 // onChange={(ev) => setCartItem(ev.target.value)}
               />
 
-              <Button variant="outline-secondary" onClick={onIncrement}>
+              <Button
+                variant="outline-secondary"
+                style={{ background: "#f05922" }}
+                onClick={onIncrement}
+              >
                 {Cart.cartLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
@@ -204,23 +213,25 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
             </InputGroup>
           ) : null}
 
-          <Button
-            className="m-1"
-            style={{
-              width: "100%",
-              background: "#F05922",
-              borderColor: "#f05922",
-            }}
-            onClick={handleSubmit(handleCartSubmit)}
-          >
-            <AiOutlineShoppingCart />
-            {"  "}
-            {Cart.cartLoading ? (
-              <Spinner animation="border" role="status" />
-            ) : (
-              "Add to Cart"
-            )}
-          </Button>
+          {isOnboarding ? null : (
+            <Button
+              className="m-1"
+              style={{
+                width: "100%",
+                background: "#F05922",
+                borderColor: "#f05922",
+              }}
+              onClick={handleSubmit(handleCartSubmit)}
+            >
+              <AiOutlineShoppingCart />
+              {"  "}
+              {Cart.cartLoading ? (
+                <Spinner animation="border" role="status" />
+              ) : (
+                "Add to Cart"
+              )}
+            </Button>
+          )}
         </div>
       </Container>
     </FormProvider>

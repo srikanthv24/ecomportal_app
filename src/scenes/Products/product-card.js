@@ -52,7 +52,7 @@ const ProductCard = ({ product }) => {
         createCart({
           customer_id: userDetails.sub,
           items: [{ ...product, qty: 1 }],
-          accessToken: sessionStorage.getItem("token")
+          accessToken: sessionStorage.getItem("token"),
         })
       );
     }
@@ -116,8 +116,10 @@ const ProductCard = ({ product }) => {
         </Card.Text>
         <Card.Text>
           <span className="d-flex">
-            <BiRupee /> {Number(product.sale_val).toFixed(2)} /{" "}
-            {product.uom_name}
+            <span>
+              <BiRupee /> {Number(product.sale_val).toFixed(2)} /
+              {product.uom_name}
+            </span>
           </span>
           <small className="col-12 text-truncate text-muted">
             Including{" "}
@@ -125,13 +127,7 @@ const ProductCard = ({ product }) => {
           </small>
         </Card.Text>
       </Card.Body>
-      <Card.Footer
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          backgroundColor: "transparent",
-        }}
-      >
+      <div style={{ marginTop: 10 }}>
         {ExistingProduct.qty ? (
           <InputGroup className="mb-3">
             <Button onClick={onDecrement}>
@@ -176,7 +172,7 @@ const ProductCard = ({ product }) => {
             )}
           </Button>
         )}
-      </Card.Footer>
+      </div>
     </Card>
   );
 };

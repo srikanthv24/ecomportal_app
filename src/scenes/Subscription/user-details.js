@@ -158,15 +158,15 @@ export default function UserDetails({
       </Form>
 
       <div className="d-flex mt-2">
-        <Button
+       {!activeStep == 0 ? <Button
           disabled={activeStep === 0}
           onClick={handleBack}
           className="w-50 m-1"
           variant="secondary"
         >
           Back
-        </Button>
-        <Button className="w-50 m-1" variant="primary" onClick={handleNextStep}>
+        </Button> : <div className="w-50 m-1" />}
+        <Button className="w-50 m-1" onClick={handleNextStep} style={{background: '#f05922', borderColor: "#f05922"}}>
           Next
         </Button>
       </div>

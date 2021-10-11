@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
-import logo_image from "./../../assets/Group 737.png";
 import vlLogo from "./../../assets/Vibrant-Living-logo.png";
 import {
   Badge,
   Button,
   Col,
   Container,
-  FormControl,
-  InputGroup,
   Nav,
   Navbar,
   NavDropdown,
+  Offcanvas,
   Row,
+  ListGroup,
 } from "react-bootstrap";
 import "./styles.css";
-import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
-import { Link, Redirect, useHistory, useRouteMatch } from "react-router-dom";
-import { CognitoUser } from "amazon-cognito-identity-js";
+import { useHistory, useRouteMatch } from "react-router-dom";
+
 import { CognitoUserPool } from "amazon-cognito-identity-js";
+import { IoCloseOutline } from "react-icons/io5";
 import { getTokenFailure } from "../../store/actions/auth";
+import ProfileImg from "./../../assets/thumbnail-profile-pic.jpg";
 
 const poolData = {
   UserPoolId: "us-east-1_LmIBVgrWX",
@@ -36,6 +37,7 @@ export default function AppBar() {
   let history = useHistory();
   const [SeacrhQuery, setSeacrhQuery] = useState("");
   const [searchOn, setSearchOn] = useState(false);
+  const [showMenu, setMenu] = useState(false);
   const [searchedProducts, setSearchedProducts] = useState([]);
   const dispatch = useDispatch();
   const [Query, setQuery] = useState("");
@@ -91,146 +93,165 @@ export default function AppBar() {
         sticky="top"
       >
         <Container fluid className="flex-nowrap custom-nav">
-          <Navbar.Brand href="/">
+          <div>
             <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
-              className="mr-5 border-0 px-0 text-danger"
+              // className="border-0 px-0"
+              onClick={() => setMenu(true)}
             />
-            <img
-              alt=""
-              src={vlLogo}
-              height="50"
-              className="d-inline-block align-top mx-2"
-            />
-          </Navbar.Brand>
+            <Navbar.Brand href="/">
+              <img
+                alt=""
+                src={vlLogo}
+                height="50"
+                className="d-inline-block align-top mx-2"
+              />
+            </Navbar.Brand>
+          </div>
           {/* <Navbar.Collapse id="responsive-navbar-nav">
-        </Navbar.Collapse> */}
+  </Navbar.Collapse> */}
 
           <Nav>
             <Container fluid>
               <Row>
                 <Col className="d-lg-block search-section">
                   {/* <InputGroup>
-                    <FormControl
-                      aria-label="search..."
-                      placeholder="Search..."
-                      value={SeacrhQuery}
-                      onChange={handleChange}
-                    /> */}
+      <FormControl
+        aria-label="search..."
+        placeholder="Search..."
+        value={SeacrhQuery}
+        onChange={handleChange}
+      /> */}
                   {/* <InputGroup.Text>
-                      <AiOutlineSearch />
-                    </InputGroup.Text>
-                  </InputGroup> */}
+        <AiOutlineSearch />
+      </InputGroup.Text>
+    </InputGroup> */}
                   <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "0px 10px",
-          }}
-        >
-          {path == "/" ? (
-            <Button
-            className="back-btn"
-              active
-              onClick={() => history.goBack()}
-            >
-              <BiArrowBack />
-            </Button>
-          ) : null}
-          <div style={{ width: "100%" }}>
-            <Select
-              style={{ width: "100%", borderRadius: ".25rem 0px 0px .25rem !important" }}
-              className="custom-select-box"
-              placeholder="search product..."
-              closeMenuOnSelect={false}
-              inputValue={Query}
-              isClearable
-              isSearchable
-              onChange={(val) => {
-                val && history.push("/products/" + val.value);
-              }}
-              options={searchedProducts}
-              onInputChange={handleInputChange}
-            />
-          </div>
-        </div>
-      
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "0px 10px",
+                    }}
+                  >
+                    {path == "/" ? (
+                      <Button
+                        className="back-btn"
+                        active
+                        onClick={() => history.goBack()}
+                      >
+                        <BiArrowBack />
+                      </Button>
+                    ) : null}
+                    <div style={{ width: "100%" }}>
+                      <Select
+                        style={{
+                          width: "100%",
+                          borderRadius: ".25rem 0px 0px .25rem !important",
+                        }}
+                        className="custom-select-box"
+                        placeholder="search product..."
+                        closeMenuOnSelect={false}
+                        inputValue={Query}
+                        isClearable
+                        isSearchable
+                        onChange={(val) => {
+                          val && history.push("/products/" + val.value);
+                        }}
+                        options={searchedProducts}
+                        onInputChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
                 </Col>
 
                 <Col className="d-flex flex-nowrap px-0 profile-menu">
-                  <Nav>
-                    {/* <div className="customDropDown"> */}
+                  <Nav.Link>
                     <div className="customNavBar">
-                      <NavDropdown
-                        title={
-                          <span className="text-black profile-name-txt">
-                            Hello, {userDetails.name}
-                          </span>
-                        }
-                        id="navbarScrollingDropdown"
-                      >
-                        <NavDropdown.Item href="#" eventKey="1">
-                          Account Balance
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="#" eventKey="2">
-                          Subscriptions
-                        </NavDropdown.Item>
-                        {/* <NavDropdown.Divider /> */}
-                        <NavDropdown.Item
-                          onClick={() => history.push("/orders/")}
-                          eventKey="3"
-                        >
-                          Your Orders
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          onClick={logoutCognitoUser}
-                          eventKey="4"
-                        >
-                          Sign Out
-                        </NavDropdown.Item>
-                      </NavDropdown>
+                      <strong className="text-black profile-name-txt">
+                        Hello, {userDetails.name}
+                      </strong>
                     </div>
-                  </Nav>
-                  {/* <NavDropdown.Item href="#action3">
-                        Account Balance
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action4">
-                        Subscriptions
-                      </NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action5">
-                        Your Orders
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action6">
-                        Sign Out
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                  </div> */}
+                  </Nav.Link>
 
-                  <Nav.Link
-                      onClick={
-                        () => history.push("/cart")
-                        // history.push("/orders")
-                      }
-                    >
-                      <h6 className="text-black nav-menu-cart">
-                        <AiOutlineShoppingCart size={24} />
-                        <Badge pill>
-                          {Cart?.cartDetails?.items?.length &&
-                            Cart?.cartDetails?.items[0]?.items?.length}
-                        </Badge>
-                      </h6>
+                  <Nav.Link onClick={() => history.push("/cart")}>
+                    <h6 className="text-black nav-menu-cart">
+                      <AiOutlineShoppingCart size={24} />
+                      <Badge pill>
+                        {Cart?.cartDetails?.items?.length &&
+                          Cart?.cartDetails?.items[0]?.items?.length}
+                      </Badge>
+                    </h6>
                   </Nav.Link>
                 </Col>
-                {/* <Col></Col> */}
               </Row>
             </Container>
           </Nav>
         </Container>
-       
       </Navbar>
+
+      <Offcanvas
+        show={showMenu}
+        onHide={() => setMenu(false)}
+        backdrop={true}
+        style={{ width: 350 }}
+      >
+        <Offcanvas.Header closeButton />
+        <Offcanvas.Body>
+          <div style={{ position: "relative", height: 180 }}>
+            <div style={{ height: 100, background: "rgba(240, 89, 34, 0.4)" }}>
+              {/* <span style={{ padding: 5, right: 0, top: 0, color: '#FFF', position: 'absolute', fontSize: 25 }}>
+                <IoCloseOutline />
+              </span> */}
+            </div>
+            <div
+              style={{
+                height: 100,
+                background: "orange",
+                width: 100,
+                borderRadius: "50%",
+                background: `url(${ProfileImg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                position: "absolute",
+                top: 50,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            ></div>
+          </div>
+          <h6 className="text-center">
+            {userDetails.name} <br /> {userDetails.phone_number}
+          </h6>
+
+          <ListGroup variant="flush">
+            <ListGroup.Item
+              onClick={() => {
+                setMenu(false);
+                history.push("/");
+              }}
+            >
+              Home
+            </ListGroup.Item>
+            <ListGroup.Item>My Profile</ListGroup.Item>
+            <ListGroup.Item>Subscriptions</ListGroup.Item>
+            <ListGroup.Item
+              onClick={() => {
+                setMenu(false);
+                history.push("/orders/");
+              }}
+            >
+              My Orders
+            </ListGroup.Item>
+            <ListGroup.Item onClick={logoutCognitoUser}>Log Out</ListGroup.Item>
+          </ListGroup>
+        </Offcanvas.Body>
+      </Offcanvas>
     </>
   );
 }
