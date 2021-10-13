@@ -21,6 +21,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
   const onDelete = () => {
     dispatch(
       updateCartQty({
+        cart_item_id: ProductDetails.cart_item_id,
         id: Cart?.cartDetails?.items[0]?.id,
         customer_id: userDetails.sub,
         item_id: ProductDetails.item_id,

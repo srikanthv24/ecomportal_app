@@ -224,6 +224,7 @@ export const getCart = `query ($customer_id: ID!){
         uom_name
         category
         item_id
+        cart_item_id
         qty
         sale_val
         subscription {
@@ -260,6 +261,7 @@ export const CartSummary = `query ($customer_id: ID!){
         defaultimg_url
         item_name
         tax_methods
+        cart_item_id
         sub_total
         tax_amount
         uom_name
@@ -388,7 +390,7 @@ export const deleteCartItem = `mutation($ID: ID!){
   }
 }`;
 
-export const updateCartQty = `mutation ($item_id: ID!, $qty: Int!, $cart_id: ID!) { UpdateCartItemQty(input: {qty: $qty, cart_id: $cart_id, item_id: $item_id}) {
+export const updateCartQty = `mutation ($item_id: ID!, $qty: Int!, $cart_id: ID!, $cart_item_id: ID!) { UpdateCartItemQty(input: {qty: $qty, cart_id: $cart_id, item_id: $item_id, cart_item_id: $cart_item_id}) {
   id
   customer_id
   customer_mobile
@@ -396,6 +398,7 @@ export const updateCartQty = `mutation ($item_id: ID!, $qty: Int!, $cart_id: ID!
   items {
   defaultimg_url
   category
+  cart_item_id
   qty
   item_id
   sale_val

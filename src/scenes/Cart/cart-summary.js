@@ -221,7 +221,7 @@ const CartSummary = () => {
       receipt: "Receipt #20",
       cart_id: Cart.cartDetails.items[0].id,
       customer_id: userDetails.sub,
-      phone: userDetails.phone_number,
+      phone: userDetails.phone_number.substring(3),
     };
 
     console.log(req);
@@ -265,7 +265,7 @@ const CartSummary = () => {
         );
         const data = {
           type: "success",
-          phone: userDetails.phone_number,
+          phone: userDetails.phone_number.substring(3),
           amount: amount.toString(),
           orderCreationId: order_id,
           cart_id: Cart.cartDetails.items[0].id,
@@ -293,7 +293,7 @@ const CartSummary = () => {
       },
       prefill: {
         name: userDetails.name,
-        contact: userDetails.phone_number,
+        contact: userDetails.phone_number.substring(3),
         // email: '@gmail.com',
       },
       notes: {

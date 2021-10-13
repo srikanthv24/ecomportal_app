@@ -12,6 +12,7 @@ const ProductDetails = ({
   productId,
   isOnboarding = false,
   myRef = null,
+  variantsSelected
 }) => {
   let productID = "";
   const { id } = useParams();
@@ -129,7 +130,7 @@ const ProductDetails = ({
           </Col>
           <Col sm={12} lg={6}>
             <p className="mt-3">{ProductDetails.description}</p>
-            <h1>
+            {/* <h1>
               <small className="text-muted col-12 h6">
                 Including{" "}
                 {String(ProductDetails.tax_methods)
@@ -138,7 +139,7 @@ const ProductDetails = ({
               </small>
               <br />
               <BiRupee /> {ProductDetails.sale_val} / {ProductDetails.uom_name}
-            </h1>
+            </h1> */}
           </Col>
         </Row>
         <Row>
@@ -150,6 +151,7 @@ const ProductDetails = ({
                 FormData={FormData}
                 handleChange={handleChange}
                 control={control}
+                variantsSelected={variantsSelected}
               />
             )}
           </Col>

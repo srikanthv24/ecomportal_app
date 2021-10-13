@@ -10,13 +10,16 @@ import PlannerWrapper from "./PlannerWrapper";
 import { makeStyles } from "@material-ui/core";
 
 function getSteps() {
-  return ["Your details", "Select a Meal", "Plan Meal"];
+  return ["Profile", "Meal Plan", "Schedule"];
 }
 
 const useStyles = makeStyles({
   stepIcon: {
     // background: "orange",
     color: "#f05922 !important",
+  },
+  stepLabel: {
+    marginTop: 5,
   },
 });
 
@@ -52,7 +55,8 @@ const LemmeTry = () => {
                 classes: {
                   active: classes.stepIcon,
                   completed: classes.stepIcon,
-
+                  label: classes.stepLabel,
+                  alternativeLabel: classes.stepLabel,
                 },
               }}
             >

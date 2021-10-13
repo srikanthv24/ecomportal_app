@@ -34,6 +34,7 @@ const CardProduct = ({ productId, pushPrice }) => {
     console.log(ProductDetails);
     dispatch(
       updateCartQty({
+        cart_item_id: productId.cart_item_id,
         id: Cart.cartDetails.items[0].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,
@@ -45,6 +46,7 @@ const CardProduct = ({ productId, pushPrice }) => {
   const onDecrement = () => {
     dispatch(
       updateCartQty({
+        cart_item_id: productId.cart_item_id,
         id: Cart.cartDetails.items[0].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,

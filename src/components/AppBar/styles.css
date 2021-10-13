@@ -9,48 +9,59 @@
     box-shadow: none;
     border: none;
 }
-.navbar-nav .customNavBar .dropdown-menu{
+
+.navbar-nav .customNavBar .dropdown-menu {
     position: absolute;
 }
-.nav-menu-cart{
+
+.nav-menu-cart {
     position: relative;
     margin-left: 10px;
 }
-.nav-menu-cart .badge{
-    background-color:#f05922 !important;
+
+.nav-menu-cart .badge {
+    background-color: #f05922 !important;
     position: absolute;
-    top:-8px;
-    left:20px;
+    top: -8px;
+    left: 20px;
 }
-.profile-name-txt{
+
+.profile-name-txt {
     font-size: 14px;
-    color:#424141 !important;
-    
+    color: #424141 !important;
+
 }
-.customNavBar a{
+
+.customNavBar a {
     text-decoration: none !important;
 }
-.back-btn{
+
+.back-btn {
     background-color: #f05922 !important;
     border-color: #f05922 !important;
     border-radius: .25rem 0px 0px .25rem !important;
 }
-.back-btn > svg{
+
+.back-btn>svg {
     font-size: 20px !important;
 }
-.custom-select-box .css-yk16xz-control{
+
+.custom-select-box .css-yk16xz-control {
     border-radius: 0px .25rem .25rem 0px !important;
 }
+
 @media screen and (max-width:600px) {
-    .custom-nav{
+    .custom-nav {
         align-items: flex-start !important;
         min-height: 110px;
     }
-    .profile-menu{
+
+    .profile-menu {
         min-height: 70px;
         margin-right: 20px;
     }
-    .search-section{
+
+    .search-section {
         order: 2;
         position: absolute;
         top: 75px;
@@ -58,6 +69,14 @@
         left: 0px;
     }
 }
-@media (min-width: 992px){
-    .search-section{min-width:400px}
+
+@media (min-width: 992px) {
+    .search-section {
+        min-width: 400px
+    }
+}
+
+
+.MuiStepLabel-label {
+    margin-top: 5px !important;
 }

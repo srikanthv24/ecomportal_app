@@ -61,6 +61,7 @@ const ProductCard = ({ product }) => {
   const onIncrement = () => {
     dispatch(
       updateCartQty({
+        cart_item_id: ExistingProduct.cart_item_id,
         id: Cart.cartDetails.items[0].id,
         customer_id: userDetails.sub,
         item_id: ExistingProduct.item_id,
@@ -72,6 +73,7 @@ const ProductCard = ({ product }) => {
   const onDecrement = () => {
     dispatch(
       updateCartQty({
+        cart_item_id: ExistingProduct.cart_item_id,
         id: Cart.cartDetails.items[0].id,
         customer_id: userDetails.sub,
         item_id: ExistingProduct.item_id,

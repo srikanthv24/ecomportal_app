@@ -117,7 +117,7 @@ export class Cart {
   }
 
   static updateCartQty(params) {
-    const { id, customer_id, item_id, qty } = params.payload;
+    const { id, customer_id, item_id, qty, cart_item_id } = params.payload;
     try {
       return fetch(
         "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
@@ -129,6 +129,7 @@ export class Cart {
           body: JSON.stringify({
             query: updateCartQty,
             variables: {
+              cart_item_id,
               cart_id: id,
               item_id,
               qty,

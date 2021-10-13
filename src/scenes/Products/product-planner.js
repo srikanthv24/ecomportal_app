@@ -11,7 +11,7 @@ import { getAddresses } from "../../store/actions";
 import { AddressModal } from "./address-modal";
 import moment from "moment";
 
-const ProductPlanner = ({ customerId, data, control }) => {
+const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
   const [Variants, setVariants] = useState([]);
   const [AddressList, setAddressList] = useState([]);
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const ProductPlanner = ({ customerId, data, control }) => {
   const userDetails = useSelector((state) => state.auth.userDetails);
 
   const [showModal, setShowModal] = useState(false);
-  const { fields, append, remove } = useFieldArray({
+  const { fields } = useFieldArray({
     control: control,
     name: "subscription",
   });
@@ -31,11 +31,6 @@ const ProductPlanner = ({ customerId, data, control }) => {
   const { subscription, variants } = watch();
   const [VariantValue, setVariantValue] = useState({});
   const [selectedAddress, setSelectedAddress] = useState({});
-
-  useEffect(() => {
-    console.log("VariantValue", VariantValue);
-  }, [VariantValue]);
-
   useEffect(() => {
     let temp = [];
 
@@ -51,6 +46,45 @@ const ProductPlanner = ({ customerId, data, control }) => {
             label: varItem?.display_name,
             value: varItem?.display_name,
           });
+          if (varItem.default) {
+            setVariantValue({
+              ...VariantValue,
+              [variant.display_name]: {
+                ...varItem,
+                display_name: varItem?.display_name,
+                label: varItem?.display_name,
+                value: varItem?.display_name,
+              },
+            });
+
+            let temp = [...variants];
+
+            if (variants.length) {
+              console.log("Parent- If");
+              const i = temp.findIndex(
+                (_item) => _item.display_name === varItem.display_name
+              );
+              if (i > -1)
+                temp[i] = {
+                  display_name: variant.display_name,
+                  items: { display_name: varItem.display_name },
+                };
+              // (2)
+              else
+                temp.push({
+                  display_name: variant.display_name,
+                  items: { display_name: varItem.display_name },
+                });
+            } else {
+              console.log("Parent- Else");
+              temp.push({
+                display_name: variant.display_name,
+                items: { display_name: varItem.display_name },
+              });
+            }
+
+            setValue("variants", temp);
+          }
         });
         temp.push({ ...variant, items: temp1 });
       });
@@ -63,6 +97,8 @@ const ProductPlanner = ({ customerId, data, control }) => {
       dispatch(getAddresses({ customerId: userDetails.sub }));
     }
   }, [userDetails.sub]);
+
+  console.log("VariantValue", VariantValue);
 
   useEffect(() => {
     console.log("Addresses-->", Addresses);
@@ -110,6 +146,45 @@ const ProductPlanner = ({ customerId, data, control }) => {
   ];
 
   console.log("FIELDS==>", fields);
+
+  useEffect(() => {
+    console.log("VariantValue__1", VariantValue);
+    let temp = [...variants];
+
+    for (const variant in VariantValue) {
+      let tempObj;
+      console.log("VariantValue__11", variant);
+      if (Array.isArray(VariantValue[variant])) {
+        let tempArr = [];
+        VariantValue[variant].map((itm) => {
+          tempArr.push({ display_name: itm.display_name });
+        });
+        tempObj = {
+          display_name: variant,
+          items: tempArr,
+        };
+      } else {
+        tempObj = {
+          display_name: variant,
+          items: { display_name: VariantValue[variant].display_name },
+        };
+      }
+      let indx = temp.findIndex((item) => item.display_name == variant);
+
+      if (indx > -1) {
+        temp[indx] = tempObj;
+      } else {
+        temp.push(tempObj);
+      }
+
+      console.log("VariantValue__111", tempObj);
+    }
+
+    console.log("VariantValue__1111", temp);
+    setValue("variants", temp);
+    variantsSelected(VariantValue)
+  }, [VariantValue]);
+
   return (
     <div>
       <AddressModal
@@ -140,33 +215,6 @@ const ProductPlanner = ({ customerId, data, control }) => {
                         ...VariantValue,
                         [variant.display_name]: value,
                       });
-                      let temp = [...variants];
-
-                      if (variants.length) {
-                        console.log("Parent- If");
-                        const i = temp.findIndex(
-                          (_item) => _item.display_name === value.display_name
-                        );
-                        if (i > -1)
-                          temp[i] = {
-                            display_name: variant.display_name,
-                            items: { display_name: value.display_name },
-                          };
-                        // (2)
-                        else
-                          temp.push({
-                            display_name: variant.display_name,
-                            items: { display_name: value.display_name },
-                          });
-                      } else {
-                        console.log("Parent- Else");
-                        temp.push({
-                          display_name: variant.display_name,
-                          items: { display_name: value.display_name },
-                        });
-                      }
-
-                      setValue("variants", temp);
                     }}
                   />
                 )}
@@ -198,7 +246,6 @@ const ProductPlanner = ({ customerId, data, control }) => {
               </Accordion.Header>
               <Accordion.Body>
                 <div className="d-flex justify-content-between align-items-center mt-3 mb-0 m-2">
-                  <p className="h6 text-muted">{deliver.name}</p>
                   <Controller
                     control={control}
                     name={`subscription[${index}].isDelivery`}
@@ -252,7 +299,25 @@ const ProductPlanner = ({ customerId, data, control }) => {
                     </>
                   )}
                   <div style={{ width: "100%" }}>
-                    <p className="h6 text-muted mt-3 mb-0 m-2">Date *</p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <span style={{ fontWeight: 600, fontSize: 12 }}>
+                        Choose dates for {deliver.value}
+                      </span>
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          fontSize: 12,
+                          color: "#f05922",
+                        }}
+                      >
+                        {VariantValue?.Duration?.duration
+                          ? `selected ${
+                              subscription[index].order_dates.length
+                            } /
+                       ${" "}${VariantValue?.Duration?.duration || 0} days.`
+                          : null}
+                      </span>
+                    </div>
                     <div style={{ width: "100%", overflow: "scroll" }}>
                       <Controller
                         control={control}
@@ -297,14 +362,7 @@ const ProductPlanner = ({ customerId, data, control }) => {
                         )}
                       />
                     </div>
-                    <span style={{ fontWeight: 600, fontSize: 12 }}>
-                      {VariantValue?.Duration?.duration
-                        ? `Selected ${
-                            subscription[index].order_dates.length
-                          } dates from
-                       ${" "}${VariantValue?.Duration?.duration || 0} days.`
-                        : "Please select duration for subscription"}
-                    </span>
+
                     {/* <span>
                       Balance days:{" "}
                       {subscription[index].variants?.Duration?.duration ||

@@ -23,7 +23,14 @@ function App() {
   const dispatch = useDispatch();
   const AlertReducer = useSelector((state) => state.AlertReducer);
 
-  useEffect(() => {
+  useEffect(async () => {
+    const getToken = await sessionStorage.getItem("token");
+    if (getToken == null) {
+      dispatch(getTokenFailure());
+    } else {
+      dispatch(getTokenSucces());
+    }
+
     console.log("AlertReducer", AlertReducer);
     const userpool = UserPool.getCurrentUser();
     console.log("USERPOOL-GETCURRENTUSER", userpool);
@@ -63,15 +70,6 @@ function App() {
         console.log("SUCCESSSSSS", result);
         console.log("FAILEEEDDDD", err);
       });
-    }
-  }, []);
-
-  useEffect(async () => {
-    const getToken = await sessionStorage.getItem("token");
-    if (getToken == null) {
-      dispatch(getTokenFailure());
-    } else {
-      dispatch(getTokenSucces());
     }
   }, []);
 

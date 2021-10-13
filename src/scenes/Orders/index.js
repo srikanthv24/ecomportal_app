@@ -9,6 +9,7 @@ const Orders = () => {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.auth.userDetails);
   const OrdersList = useSelector((state) => state.Orders.ordersList);
+
   const order_list = [
     {
       defaultimg_url:
@@ -31,7 +32,7 @@ const Orders = () => {
 
   useEffect(() => {
     // dispatch(getOrders({ customer_number: userDetails.phone_number.substring(3) }));
-    dispatch(getOrders({ customer_number: "6300275771" }));
+    dispatch(getOrders({ customer_number: userDetails.phone_number.substring(3) }));
   }, []);
 
   return (

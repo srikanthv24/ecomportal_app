@@ -44,6 +44,11 @@ function* CreateCart(params) {
       type: types.CREATE_CART_SUCCESS,
       payload: response.data,
     });
+
+    yield put({
+      type: types.GET_CART,
+      payload: { customer_id: response.data.createCart.customer_id },
+    });
   } catch (error) {
     yield put({
       type: types.CREATE_CART_FAILURE,
@@ -61,7 +66,7 @@ function* UpdateCart(params) {
       toast("Failed Adding to cart, please try again!", {
         type: "error",
         theme: "dark",
-        position: 'bottom-center'
+        position: "bottom-center",
       });
     } else {
       yield put(getCart({ customer_id: response.data.updateCart.customer_id }));

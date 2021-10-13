@@ -175,7 +175,7 @@ export default function AppBar() {
                     </div>
                   </Nav.Link>
 
-                  <Nav.Link onClick={() => history.push("/cart")}>
+                  <Nav.Link onClick={() => history.push("/cart-summary")}>
                     <h6 className="text-black nav-menu-cart">
                       <AiOutlineShoppingCart size={24} />
                       <Badge pill>

@@ -29,7 +29,7 @@ const Cart = () => {
   const userDetails = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
-    dispatch(getCart({ customer_id: userDetails.sub }));
+    dispatch(getCart({ customer_id: userDetails?.sub }));
   }, []);
 
   const calculatePrice = (price) => {
@@ -53,7 +53,7 @@ const Cart = () => {
           <div>
             <p className="h5 m-0 p-0"> Cart</p>
             <small className="text-muted">
-              Sub-Total: {Number(totalPrice).toFixed(2)}
+              Sub-Total: {Number(totalPrice)?.toFixed(2)}
             </small>
           </div>
           <div></div>
@@ -62,17 +62,17 @@ const Cart = () => {
       <div div style={{ padding: 10 }}>
         <>
           {Cart?.cartDetails?.items?.length ? (
-            Cart.cartDetails?.items[0]?.items?.map((item) => {
+            Cart?.cartDetails?.items[0]?.items?.map((item) => {
               if (item) {
                 console.log("ITEM-->", item);
                 total = total + item.qty;
               }
 
-              return item && item.qty ? (
+              return item && item?.qty ? (
                 <CardProduct
                   key={item.id}
                   productId={item && item}
-                  cartDetails={Cart.cartDetails}
+                  cartDetails={Cart?.cartDetails}
                   totalQty={total}
                   pushPrice={(p) => calculatePrice(p)}
                 />
