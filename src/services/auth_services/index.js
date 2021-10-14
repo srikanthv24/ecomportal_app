@@ -80,11 +80,9 @@ class AuthService {
         function (error, data) {
           if (data) {
             console.log("succesfully created the user:::", data);
-            // dispatch(signupSuccess(data));
-            // history.replace("/login");
+
             resolve(data);
           } else {
-            // dispatch(authError(error.message));
             console.log("error in registering user:::", error.message);
             reject(error);
           }
@@ -95,11 +93,12 @@ class AuthService {
 
   getUser() {
     return new Promise((resolve, reject) => {
-      console.log("getUser()", this.currentUser);
-      if (this.currentUser != null) {
+      let currentUser = UserPool.getCurrentUser();
+      console.log("getUser()", currentUser);
+      if (currentUser != null) {
         let cognitoUser = getCognitoUser({
           Pool: UserPool,
-          Username: this.currentUser.username,
+          Username: currentUser.username,
         });
 
         cognitoUser.getSession((err, res) => {
@@ -125,7 +124,7 @@ class AuthService {
                   return temp;
               }
             });
-            resolve([temp]);
+            resolve(temp);
           } else {
             reject(err);
           }

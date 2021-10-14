@@ -19,14 +19,13 @@ function Routes() {
   const history = useHistory();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
- 
   console.log("is logged in status:::", isLoggedIn);
 
   return (
     <>
       {isLoggedIn && (
         <>
-           <AppBar />
+          <AppBar />
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/products" component={ProductsRoutes} />

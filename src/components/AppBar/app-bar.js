@@ -24,6 +24,7 @@ import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { IoCloseOutline } from "react-icons/io5";
 import { getTokenFailure } from "../../store/actions/auth";
 import ProfileImg from "./../../assets/thumbnail-profile-pic.jpg";
+import auth_services from "../../services/auth_services";
 
 const poolData = {
   UserPoolId: "us-east-1_LmIBVgrWX",
@@ -67,17 +68,7 @@ export default function AppBar() {
   };
 
   const logoutCognitoUser = () => {
-    // const currentUser = getCurrentUser();
-
-    // var cognitoUser = UserPool.getCurrentUser();
-    // if (cognitoUser != null) {
-    //     cognitoUser.signOut(
-    //       {
-    //                    onFailure: error =>   console.log("Logout Failure", error),
-    //                    onSuccess: result =>
-    //        console.log('Logout success: ' + result)
-    // }
-    // )}
+    auth_services.logout();
     sessionStorage.removeItem("token");
     history.replace("/login");
     dispatch(getTokenFailure());

@@ -178,7 +178,7 @@ const CartSummary = () => {
             onClick={handleContinue}
           >
             Confirm and Pay <BiRupee />
-            {Number(cartSummary?.data?.items[0]?.grand_total).toFixed(2)}
+            {Number(cartSummary?.data && cartSummary?.data?.items[0]?.grand_total).toFixed(2)}
           </Button>
         </div>
       </div>
@@ -216,7 +216,7 @@ const CartSummary = () => {
       amount:
         parseInt(
           parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
-        ) * 100,
+        ),
       currency: "INR",
       receipt: "Receipt #20",
       cart_id: Cart.cartDetails.items[0].id,

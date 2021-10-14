@@ -22,7 +22,7 @@ import ProductDetails from "../Products/product-details";
 
 var phantom = {
   display: "block",
-  padding: "100px",
+  padding: "60px",
   height: "10px",
   width: "100%",
 };
@@ -257,6 +257,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   //   }, [subscription]);
 
   useEffect(() => {
+    console.log('subscription__', variants)
     let temp = 0;
     let tempArr = [];
     let duration = VarItems?.Duration?.duration;
@@ -316,54 +317,16 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
             background: "#FFF",
           }}
         >
-          <div className="w-100 px-3">
-            {/* <div className="bg-info ">
+          {products.productDetails.is_mealplan && (
+            <div className="w-100 px-3">
               <div className="d-flex justify-content-between align-items-center">
-                <p className="h6">Breakfast Amount :</p>
-                <p>
-                  <BiRupee />{" "}
-                  {parseFloat(
-                    BreakUps[0]?.sale_val / VarItems?.Duration?.duration
-                  ).toFixed(2)}
-                  X {VarItems?.Duration?.duration} = <BiRupee />{" "}
-                  {parseFloat(BreakUps[0]?.sale_val).toFixed(2)}
+                <p className="h6">Subscription Amount :</p>
+                <p className="h5">
+                  <BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)}
                 </p>
               </div>
-              {BreakUps[1]?.sale_val && (
-                <div className="d-flex justify-content-between align-items-center">
-                  <p className="h6">Lunch Amount :</p>
-                  <p>
-                    <BiRupee />{" "}
-                    {parseFloat(
-                      BreakUps[1]?.sale_val / VarItems?.Duration?.duration
-                    ).toFixed(2)}
-                    X {VarItems?.Duration?.duration} = <BiRupee />{" "}
-                    {parseFloat(BreakUps[1]?.sale_val).toFixed(2)}
-                  </p>
-                </div>
-              )}
-              {BreakUps[2]?.sale_val && (
-                <div className="d-flex justify-content-between align-items-center">
-                  <p className="h6">Dinner Amount :</p>
-                  <p>
-                    <BiRupee />{" "}
-                    {parseFloat(
-                      BreakUps[2]?.sale_val / VarItems?.Duration?.duration
-                    ).toFixed(2)}
-                    X {VarItems?.Duration?.duration} = <BiRupee />{" "}
-                    {parseFloat(BreakUps[2]?.sale_val).toFixed(2)}
-                  </p>
-                </div>
-              )}
-            </div> */}
-
-            <div className="d-flex justify-content-between align-items-center">
-              <p className="h6">Subscription Amount :</p>
-              <p className="h5">
-                <BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)}
-              </p>
             </div>
-          </div>
+          )}
           <div className="w-100">
             {isOnboarding ? (
               <div className="d-flex mt-2">
@@ -407,6 +370,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                   variant="outline-secondary"
                   style={{ background: "#f05922" }}
                   onClick={onDecrement}
+                  size="sm"
                 >
                   {Cart.cartLoading ? (
                     <Spinner animation="border" role="status" />
@@ -426,6 +390,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                   variant="outline-secondary"
                   style={{ background: "#f05922" }}
                   onClick={onIncrement}
+                  size="sm"
                 >
                   {Cart.cartLoading ? (
                     <Spinner animation="border" role="status" />
@@ -451,7 +416,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                 {Cart.cartLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
-                  "Add as new item"
+                  "Add to cart"
                 )}
               </Button>
             )}

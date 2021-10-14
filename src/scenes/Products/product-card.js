@@ -132,7 +132,7 @@ const ProductCard = ({ product }) => {
       <div style={{ marginTop: 10 }}>
         {ExistingProduct.qty ? (
           <InputGroup className="mb-3">
-            <Button onClick={onDecrement}>
+            <Button onClick={onDecrement} size="sm" >
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
@@ -144,10 +144,12 @@ const ProductCard = ({ product }) => {
               style={{ textAlign: "center" }}
               value={ExistingProduct?.qty || ""}
               type="number"
+              size="sm"
+              className="mb-0"
               // onChange={(ev) => setCartItem(ev.target.value)}
             />
 
-            <Button onClick={onIncrement}>
+            <Button onClick={onIncrement} size="sm">
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (

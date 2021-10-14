@@ -13,13 +13,16 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import UserPool from "./UserPool";
-import { loginSuccess, authError, authLoading } from "../../store/actions/auth";
-import Logo from "../../assets/vl-logo.png";
+import {
+  loginSuccess,
+  authError,
+  authLoading,
+  updateUserDetails,
+} from "../../store/actions/auth";
 import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "./styles.css";
 import "./styles.css";
+import auth_services from "../../services/auth_services";
 
 function Login() {
   const history = useHistory();
@@ -30,34 +33,28 @@ function Login() {
 
   console.log("tokenList:::::::::", tokenList);
 
+  const getUserDetails = () => {
+    auth_services.getUser().then((res) => {
+      dispatch(updateUserDetails(res));
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(authLoading());
-    const user = new CognitoUser({
-      Username: `+91${phone}`,
-      Pool: UserPool,
-    });
-
-    const authDetails = new AuthenticationDetails({
-      Username: `+91${phone}`,
-      Password: password,
-    });
-
-    user.authenticateUser(authDetails, {
-      onSuccess: (data) => {
-        console.log("OnSuccess: ", data, data.accessToken);
-        dispatch(loginSuccess(data));
-        sessionStorage.setItem("token", data.accessToken.jwtToken);
-        history.push('/')
-      },
-      onFailure: (err) => {
+    auth_services
+      .login(phone, password)
+      .then((res) => {
+        getUserDetails();
+        console.log("OnSuccess: ", res, res.accessToken);
+        dispatch(loginSuccess(res));
+        sessionStorage.setItem("token", res.accessToken.jwtToken);
+        history.push("/");
+      })
+      .catch((err) => {
         console.log("onFailure: ", err.message);
         dispatch(authError(err.message));
-      },
-      newPasswordRequired: (data) => {
-        console.log("newPasswordRequired: ", data);
-      },
-    });
+      });
   };
 
   if (loading) {
