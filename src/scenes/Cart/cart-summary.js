@@ -216,7 +216,7 @@ const CartSummary = () => {
       amount:
         parseInt(
           parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
-        ),
+        ) * 100,
       currency: "INR",
       receipt: "Receipt #20",
       cart_id: Cart.cartDetails.items[0].id,
@@ -251,6 +251,7 @@ const CartSummary = () => {
       upi_link: true,
       handler: async function (response) {
         console.log("response", response);
+        dispatch(getCart({ customer_id: userDetails.sub }));
         dispatch(
           showAlert({
             message: (

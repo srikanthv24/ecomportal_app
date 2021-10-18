@@ -59,6 +59,7 @@ function App() {
             <Button
               onClick={() => {
                 dispatch(hideAlert());
+                dispatch(getCart({ customer_id: userDetails.sub }));
                 history.push("/orders");
               }}
             >
