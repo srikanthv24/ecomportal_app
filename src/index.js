@@ -10,6 +10,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store";
 // import { createBrowserHistory } from "history";
 
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "./aws-exports";
+Amplify.configure(awsconfig);
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

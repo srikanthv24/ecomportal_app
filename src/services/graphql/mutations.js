@@ -1,5 +1,5 @@
-export const getProducts = `query ($limit: Int, $nextToken: String) {
-  listItems (limit: $limit, nextToken: $nextToken){
+export const getProducts = `query ($limit: Int, $nextToken: String, $category: String) {
+  listItems (filter: {category: {eq: $category}}, limit: $limit, nextToken: $nextToken){
     items {
       id
       is_mealplan

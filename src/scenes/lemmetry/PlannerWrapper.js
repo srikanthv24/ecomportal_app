@@ -257,7 +257,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   //   }, [subscription]);
 
   useEffect(() => {
-    console.log('subscription__', variants)
+    console.log("subscription__", variants);
     let temp = 0;
     let tempArr = [];
     let duration = VarItems?.Duration?.duration;

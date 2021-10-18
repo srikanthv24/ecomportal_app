@@ -1,7 +1,15 @@
 /* eslint-disable no-extend-native */
 /* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
-import { Accordion, Form } from "react-bootstrap";
+import {
+  Accordion,
+  Form,
+  OverlayTrigger,
+  Popover,
+  Button,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +18,7 @@ import { components } from "react-select";
 import { getAddresses } from "../../store/actions";
 import { AddressModal } from "./address-modal";
 import moment from "moment";
+import { BsInfoCircle } from "react-icons/bs";
 
 const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
   const [Variants, setVariants] = useState([]);
@@ -17,7 +26,11 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
   const dispatch = useDispatch();
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const userDetails = useSelector((state) => state.auth.userDetails);
-
+  const [startDate, setStartDate] = useState({
+    breakfast: [],
+    lunch: [],
+    dinner: [],
+  });
   const [showModal, setShowModal] = useState(false);
   const { fields } = useFieldArray({
     control: control,
@@ -182,7 +195,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 
     console.log("VariantValue__1111", temp);
     setValue("variants", temp);
-    variantsSelected(VariantValue)
+    variantsSelected(VariantValue);
   }, [VariantValue]);
 
   return (
@@ -245,6 +258,24 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
                 {String(deliver.value).toUpperCase()}
               </Accordion.Header>
               <Accordion.Body>
+                <span className="d-flex justify-content-between align-items-center">
+                  <span>You will be having a cyclic menu. </span>
+                  <OverlayTrigger
+                    trigger="hover"
+                    key="lunch"
+                    placement={"bottom"}
+                    overlay={
+                      <Popover id="lunch">
+                        <Popover.Header as="h3">Menu</Popover.Header>
+                        <Popover.Body>No Items in Menu Yet.</Popover.Body>
+                      </Popover>
+                    }
+                  >
+                    <Button variant="transparent">
+                      <BsInfoCircle />
+                    </Button>
+                  </OverlayTrigger>
+                </span>
                 <div className="d-flex justify-content-between align-items-center mt-3 mb-0 m-2">
                   <Controller
                     control={control}
@@ -298,77 +329,110 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
                       />
                     </>
                   )}
-                  <div style={{ width: "100%" }}>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <span style={{ fontWeight: 600, fontSize: 12 }}>
-                        Choose dates for {deliver.value}
-                      </span>
-                      <span
-                        style={{
-                          fontWeight: 600,
-                          fontSize: 12,
-                          color: "#f05922",
-                        }}
-                      >
-                        {VariantValue?.Duration?.duration
-                          ? `selected ${
-                              subscription[index].order_dates.length
-                            } /
-                       ${" "}${VariantValue?.Duration?.duration || 0} days.`
-                          : null}
-                      </span>
-                    </div>
-                    <div style={{ width: "100%", overflow: "scroll" }}>
-                      <Controller
-                        control={control}
-                        name={`subscription[${index}].order_dates`}
-                        render={({ field: { onChange, ...rest } }) => (
-                          <Calendar
-                            key={deliver.value}
-                            multiple
-                            numberOfMonths={2}
-                            minDate={
-                              subscription[index].order_dates[0] || new Date()
-                            }
-                            style={{ width: "100%" }}
-                            maxDate={
-                              new Date(
-                                moment(subscription[index].order_dates[0])
-                                  .add(
-                                    VariantValue?.Duration?.grace +
-                                      VariantValue?.Duration?.duration -
-                                      1 || 0,
-                                    "days"
-                                  )
-                                  .calendar()
-                              )
-                            }
-                            onChange={(dateObj) => {
-                              let temp = [];
-                              dateObj.map((date) => {
-                                temp.push(date.format());
-                              });
-                              // handleChange("mealplan_type", {
-                              //   ...FormData.mealplan_type,
-                              //   [deliver.value]: {
-                              //     ...FormData.mealplan_type[deliver.value],
-                              //     order_dates: temp,
-                              //   },
-                              // });
-                              onChange(temp);
-                            }}
-                            {...rest}
-                          />
-                        )}
-                      />
-                    </div>
 
-                    {/* <span>
+                  <InputGroup className="my-2">
+                    <InputGroup.Text>Start Date</InputGroup.Text>
+                    <FormControl
+                      type="date"
+                      min={moment(new Date()).format("YYYY-MM-DD")}
+                      // max={moment(new Date()).format("YYYY-MM-DD")}
+                      value={startDate[deliver]}
+                      onChange={(ev) => {
+                        setStartDate({
+                          ...startDate,
+                          [deliver]: ev.target.value,
+                        });
+                        let temp = [];
+                        for (
+                          let i = 0;
+                          i < VariantValue?.Duration?.duration;
+                          i++
+                        ) {
+                          temp.push(
+                            moment(ev.target.value)
+                              .add(i, "days")
+                              .format("YYYY/MM/DD")
+                          );
+                        }
+                        setValue(`subscription[${index}].order_dates`, temp);
+                      }}
+                    />
+                  </InputGroup>
+
+                  {startDate[deliver]?.length && (
+                    <div style={{ width: "100%" }}>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span style={{ fontWeight: 600, fontSize: 12 }}>
+                          Choose dates for {deliver.value}
+                        </span>
+                        <span
+                          style={{
+                            fontWeight: 600,
+                            fontSize: 12,
+                            color: "#f05922",
+                          }}
+                        >
+                          {VariantValue?.Duration?.duration
+                            ? `selected ${
+                                subscription[index].order_dates.length
+                              } /
+                       ${" "}${VariantValue?.Duration?.duration || 0} days.`
+                            : null}
+                        </span>
+                      </div>
+
+                      <div style={{ width: "100%", overflow: "scroll" }}>
+                        <Controller
+                          control={control}
+                          name={`subscription[${index}].order_dates`}
+                          render={({ field: { onChange, ...rest } }) => (
+                            <Calendar
+                              key={deliver.value}
+                              multiple
+                              numberOfMonths={2}
+                              minDate={
+                                subscription[index].order_dates[0] || new Date()
+                              }
+                              style={{ width: "100%" }}
+                              maxDate={
+                                new Date(
+                                  moment(subscription[index].order_dates[0])
+                                    .add(
+                                      VariantValue?.Duration?.grace +
+                                        VariantValue?.Duration?.duration -
+                                        1 || 0,
+                                      "days"
+                                    )
+                                    .calendar()
+                                )
+                              }
+                              onChange={(dateObj) => {
+                                let temp = [];
+                                dateObj.map((date) => {
+                                  temp.push(date.format());
+                                });
+                                // handleChange("mealplan_type", {
+                                //   ...FormData.mealplan_type,
+                                //   [deliver.value]: {
+                                //     ...FormData.mealplan_type[deliver.value],
+                                //     order_dates: temp,
+                                //   },
+                                // });
+                                onChange(temp);
+                              }}
+                              {...rest}
+                            />
+                          )}
+                        />
+                      </div>
+
+                      {/* <span>
                       Balance days:{" "}
                       {subscription[index].variants?.Duration?.duration ||
                         0 - subscription[index].order_dates.length}
                     </span> */}
-                  </div>
+                    </div>
+                  )}
                   <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlTextarea1"

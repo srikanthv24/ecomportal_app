@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch, Link } from "react-router-dom";
 
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { IoCloseOutline } from "react-icons/io5";
@@ -90,13 +90,15 @@ export default function AppBar() {
               // className="border-0 px-0"
               onClick={() => setMenu(true)}
             />
-            <Navbar.Brand href="/">
-              <img
-                alt=""
-                src={vlLogo}
-                height="50"
-                className="d-inline-block align-top mx-2"
-              />
+            <Navbar.Brand>
+              <Link to="/">
+                <img
+                  alt=""
+                  src={vlLogo}
+                  height="50"
+                  className="d-inline-block align-top mx-2"
+                />
+              </Link>
             </Navbar.Brand>
           </div>
           {/* <Navbar.Collapse id="responsive-navbar-nav">
