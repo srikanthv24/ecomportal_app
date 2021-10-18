@@ -109,7 +109,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
     if (userDetails.sub) {
       dispatch(getAddresses({ customerId: userDetails.sub }));
     }
-  }, [userDetails.sub]);
+  }, []);
 
   console.log("VariantValue", VariantValue);
 
@@ -136,18 +136,19 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
       setAddressList(temp);
       console.log("Addresses-->2", temp);
     }
-  }, [Addresses.listAddresses]);
+  }, [Addresses?.listAddresses?.items]);
 
   const SelectMenuButton = (props) => {
     return (
       <components.MenuList {...props}>
         {props.children}
-        <button
-          className="bg-light w-100 border-0 text-start"
+        <Button
+          variant="outline-dark"
+          className="w-100"
           onClick={handleShow}
         >
-          Add new address
-        </button>
+          Add New address
+        </Button>
       </components.MenuList>
     );
   };
@@ -201,7 +202,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
   return (
     <div>
       <AddressModal
-        customerId={customerId}
+        customerId={userDetails.sub}
         handleClose={handleClose}
         handleShow={handleShow}
         showModal={showModal}

@@ -12,7 +12,7 @@ import { showAlert } from "../../store/actions/alert";
 
 var phantom = {
   display: "block",
-  padding: "30px",
+  padding: "10px",
   height: "10px",
   width: "100%",
 };
@@ -79,8 +79,8 @@ const CartSummary = () => {
         </p>
         <section
           style={{
-            height: 340,
-            maxHeight: 340,
+            height: '30%',
+            maxHeight: '30%',
             width: "100%",
             overflow: "auto",
           }}
@@ -100,7 +100,7 @@ const CartSummary = () => {
             })
           )}
         </section>
-        <section className="mt-3">
+        {/* <section className="mt-3">
           <div className="d-flex align-items-baseline justify-content-between">
             <p className="h6 text-muted">Deliver to</p>
             {!ChangeAddress && (
@@ -131,7 +131,7 @@ const CartSummary = () => {
           <small className="text-muted">
             <b>Note:</b> This delivery address is for non-subscription products.
           </small>
-        </section>
+        </section> */}
         <section className="mt-4">
           <span className="d-flex justify-content-between align-items-center">
             <p>Sub-total</p>
@@ -178,7 +178,9 @@ const CartSummary = () => {
             onClick={handleContinue}
           >
             Confirm and Pay <BiRupee />
-            {Number(cartSummary?.data && cartSummary?.data?.items[0]?.grand_total).toFixed(2)}
+            {Number(
+              cartSummary?.data && cartSummary?.data?.items[0]?.grand_total
+            ).toFixed(2)}
           </Button>
         </div>
       </div>

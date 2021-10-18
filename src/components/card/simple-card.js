@@ -16,10 +16,9 @@ const SimpleCard = () => {
           </a>
         </div>
       </Card.Header>
-      
+
       <Card.Body>
-      {show && (
-        <Container>
+        {show && (
           <div className="d-flex align-items-center justify-content-between text-danger">
             <p>
               <IoNotifications /> Renew the subscription ending in 5 days.
@@ -28,23 +27,30 @@ const SimpleCard = () => {
               <IoCloseOutline />
             </p>
           </div>
-        </Container>
-      )}
+        )}
         <div className="d-inline-flex align-items-center justify-content-between w-100">
           <div className="d-inline-flex align-items-center">
             <div className="avatar h4 me-3">S</div>
             <div>
               <span className="h6 fw-normal">Srinivas Prasad</span>
-              <div className="text-muted">12-May-21 to 12-June-21</div>
+              <div
+                className="text-muted"
+                style={{
+                  overflow: "wrap",
+                  wordBreak: "break-word",
+                  fontSize: 12,
+                }}
+              >
+                12-May-21 to 12-June-21
+              </div>
             </div>
           </div>
           <div>
-            <span className="fw-bold">
+            <span className="fw-bold" style={{ fontSize: 14 }}>
               <BiRupee /> 28000.00
             </span>
           </div>
         </div>
-       
       </Card.Body>
     </Card>
   );

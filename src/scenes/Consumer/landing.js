@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { IoNotifications } from "react-icons/io5";
 import "./styles.css";
-import { Alert, Card, Col, Container, Button, Row, Badge } from "react-bootstrap";
+import {
+  Alert,
+  Card,
+  Col,
+  Container,
+  Button,
+  Row,
+  Badge,
+} from "react-bootstrap";
 import SimpleCard from "../../components/card/simple-card";
 import LandingCarousel from "../../components/carousel";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,16 +45,22 @@ const Landing = () => {
           </Button> */}
           <Card style={{ border: "none" }}>
             <Card.Header className="no-bg">
+              <div className="w-100">
+              <Link
+                to="/subscription"
+                className="viewall-txt"
+                
+              >
+                <Badge bg="secondary">Choose my meal</Badge>
+              </Link>
+              </div>
               <div className="d-flex justify-content-between">
                 <span className="content-title">Categories</span>
 
                 <span>
-                  <Link to="/subscription" className="viewall-txt">
-                    <Badge bg="secondary">Choose my meal</Badge>
-                  </Link>
-                </span>
+                  {/* </span>
 
-                <span>
+                <span> */}
                   <Link to="/categories" className="viewall-txt">
                     View all
                   </Link>

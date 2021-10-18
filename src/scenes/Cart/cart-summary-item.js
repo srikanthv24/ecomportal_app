@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Spinner,
@@ -17,6 +17,15 @@ const CartSummaryItem = ({ ProductDetails }) => {
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
   const dispatch = useDispatch();
+  const [isExpanded, setisExpanded] = useState(false);
+
+  const [Addresses, setAddresses] = useState({
+    B: "Pickup",
+    L: "Pickup",
+    D: "Pickup",
+  });
+
+  const [Duration, setDuration] = useState(null);
 
   const onDelete = () => {
     dispatch(
@@ -29,141 +38,175 @@ const CartSummaryItem = ({ ProductDetails }) => {
       })
     );
   };
+
+  useEffect(() => {
+    let temp = { ...Addresses };
+    ProductDetails.subscription.map((item) => {
+      if (item.isDelivery) {
+        temp[item?.meal_type] =
+          item.address.aline1 + ", " + item.address.aline2;
+      }
+    });
+    setAddresses(temp);
+
+    // data.queryCartsByCustomerIndex.items[0].items[1].variants[0].items[0].display_name
+    ProductDetails.variants.map((item) => {
+      if (item.display_name == "Duration") {
+        setDuration(item.items[0].display_name);
+      }
+    });
+  }, [ProductDetails]);
+
   return (
-    <Card
-      style={{
-        marginBottom: 10,
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexDirection: "row",
-      }}
-    >
-      <Card.Body
-        variant="top"
-        className="p-1 d-flex flex-column align-items-center justify-content-center"
-        style={{ width: "30%" }}
-        // onClick={() => history.push("/products/" + ProductDetails.item_id)}
-      >
-        <div
-          style={{
-            backgroundImage: `url(${
-              ProductDetails.defaultimg_url ||
-              "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-            })`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            height: "100px",
-            width: "100px",
-            borderRadius: "50%",
-            margin: 10,
-          }}
-        />
-        {/* 
-        {Cart.cartLoading ? (
-          <Spinner animation="border" variant="primary" />
-        ) : (
-          <InputGroup size="sm">
-            <Button
-              size="sm"
-              variant="outline-secondary"
-              //   onClick={() => (!Cart.cartLoading ? onDecrement() : null)}
-              disabled={Cart.cartLoading}
-            >
-              {Cart.cartLoading ? (
-                <Spinner animation="border" variant="primary" />
-              ) : (
-                <GrSubtract />
-              )}
-            </Button>
-            <FormControl
-              size="sm"
-              aria-label="Example text with two button addons"
-              style={{ textAlign: "center" }}
-              value={ProductDetails.qty}
-              type="number"
-              readOnly
-            />
+    <div>
+      <Card className="my-1">
+        <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
+          <div
+            style={{
+              backgroundImage: `url(${
+                ProductDetails.defaultimg_url ||
+                "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
+              })`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              height: "100px",
+              width: "100px",
+              borderRadius: "50%",
+              margin: 10,
+            }}
+          />
+          <div style={{width: '70%'}}>
+            <Card.Text className="fs-9 mb-0 pb-0 col-12 text-truncate">
+              {ProductDetails.item_name}
+            </Card.Text>
+            <p className="fs-9 p-0 m-0 col-12 text-truncate text-muted">
+              {ProductDetails.category}
+            </p>
 
-            <Button
-              variant="outline-secondary"
-              size="sm"
-              //   onClick={() => (!Cart.cartLoading ? onIncrement() : null)}
-              disabled={Cart.cartLoading}
-            >
-              {Cart.cartLoading ? (
-                <Spinner animation="border" variant="primary" />
-              ) : (
-                <GrAdd />
-              )}
-            </Button>
-          </InputGroup>
-        )} */}
-      </Card.Body>
-      <Card.Body className="pt-2" style={{ width: "70%" }}>
-        <Card.Text
-          className="fs-9 mb-0 pb-0 col-12 text-truncate"
-          //   onClick={() => history.push("/products/" + ProductDetails.item_id)}
-        >
-          {ProductDetails.item_name}
-        </Card.Text>
-        <p className="fs-9 p-0 m-0 col-12 text-truncate text-muted">
-          {ProductDetails.category}
-        </p>
+            <small className="col-12 text-muted">
+              Including{" "}
+              {String(ProductDetails.tax_methods)
+                .replace("Output", "")
+                .replace("-", "")}
+            </small>
+            <p>
+              <span style={{ fontSize: "12px", color: "#212121", wordWrap: 'break-word' }}>
+                (Qty: {ProductDetails.qty} X <BiRupee />
+                {Number(ProductDetails.subscription[0].sale_val).toFixed(
+                  2
+                )} / {ProductDetails.uom_name}) + Tax:{" "}
+                {ProductDetails.tax_amount} ={" "}
+              </span>
 
-        {/* <span className="d-flex justify-content-start">
-          <small className="d-flex">
-            <BiRupee /> {Number(ProductDetails.sale_val).toFixed(2)} /{" "}
-            {ProductDetails.uom_name}
-          </small>
-        </span> */}
-        <small className="col-12 text-muted">
-          Including{" "}
-          {String(ProductDetails.tax_methods)
-            .replace("Output", "")
-            .replace("-", "")}
-        </small>
-        <p>
-          <span style={{ fontSize: "12px", color: "#212121" }}>
-            (Qty: {ProductDetails.qty} X <BiRupee />
-            {Number(ProductDetails.sale_val).toFixed(2)} /{" "}
-            {ProductDetails.uom_name}) + Tax: {ProductDetails.tax_amount}
-          </span>
-          <br /> ={" "}
-          <span
-            style={{ fontSize: "14px", color: "#000000", fontWeight: "700" }}
-          >
-            <BiRupee />
-            {ProductDetails.sub_total}
-          </span>
-        </p>
-        <div
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#000000",
+                  fontWeight: "700",
+                }}
+              >
+                <BiRupee />
+                {ProductDetails.sub_total}
+              </div>
+            </p>
+
+            {isExpanded && (
+              <>
+                <span style={{ fontSize: 12, fontWeight: 600 }}>
+                  Subscribed for {Duration}
+                </span>
+                {Addresses.B && (
+                  <div className="d-flex flex-column my-2">
+                    <span style={{ fontSize: 12 }} className="text-muted">
+                      Breakfast Address
+                    </span>
+                    <span style={{ fontSize: 12, fontWeight: 600 }}>
+                      {Addresses.B}
+                    </span>
+                  </div>
+                )}
+
+                {Addresses.L && (
+                  <div className="d-flex flex-column my-2">
+                    <span style={{ fontSize: 12 }} className="text-muted">
+                      Lunch Address
+                    </span>
+                    <span style={{ fontSize: 12, fontWeight: 600 }}>
+                      {Addresses.L}
+                    </span>
+                  </div>
+                )}
+                {Addresses.D && (
+                  <div className="d-flex flex-column my-2">
+                    <span style={{ fontSize: 12 }} className="text-muted">
+                      Dinner Address
+                    </span>
+                    <span style={{ fontSize: 12, fontWeight: 600 }}>
+                      {Addresses.D}
+                    </span>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </Card.Body>
+        <Card.Footer
           style={{
-            borderRadius: "50%",
-            position: "absolute",
-            bottom: 10,
-            right: 10,
+            padding: 5,
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItem: "center",
           }}
         >
-          <Button
-            style={{ borderRadius: "50%", marginLeft: 10 }}
-            variant="outline-primary"
-            size="sm"
-            onClick={() => history.push("/cart")}
+              <Button
+              style={{ borderRadius: "50%", marginLeft: 10 }}
+              variant="outline-primary"
+              size="sm"
+              onClick={() => history.push("/cart")}
+            >
+              <BsPencil />
+            </Button>
+          {isExpanded ? (
+            <a
+              variant="link"
+              className="w-100 text-center"
+              onClick={() => setisExpanded(false)}
+            >
+              view less
+            </a>
+          ) : (
+            <a
+              variant="link"
+              className="w-100 text-center"
+              onClick={() => setisExpanded(true)}
+            >
+              view more
+            </a>
+          )}
+          <div
+            style={{
+              borderRadius: "50%",
+              display: "inline-flex",
+              // position: "absolute",
+              // bottom: 10,
+              // right: 10,
+            }}
           >
-            <BsPencil />
-          </Button>
-          <Button
-            style={{ borderRadius: "50%", marginLeft: 10 }}
-            variant="outline-danger"
-            size="sm"
-            onClick={onDelete}
-          >
-            <BsTrashFill />
-          </Button>
-        </div>
-      </Card.Body>
-    </Card>
+        
+            <Button
+              style={{ borderRadius: "50%", marginLeft: 10 }}
+              variant="outline-danger"
+              size="sm"
+              onClick={onDelete}
+            >
+              <BsTrashFill />
+            </Button>
+          </div>
+        </Card.Footer>
+      </Card>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ export const AddressModal = ({
   const [pinCodes, setPinCodes] = useState([]);
 
   //pincode filter
-  const [filteredPinCode, setFilteredPinCode] = useState([]);
+  const [filteredPinCode, setFilteredPinCode] = useState(0);
 
   useEffect(() => {
     dispatch(getPostalCodes());
@@ -50,6 +50,7 @@ export const AddressModal = ({
     if (e.target.value) {
       const filter = pinCodes.filter((obj) => obj.postalcode == e.target.value);
       filter.length && handleAddress("postalcode", filter[0].postalcode);
+      console.log("filterfilter", filter);
       setFilteredPinCode(filter);
     }
   }
@@ -82,7 +83,7 @@ export const AddressModal = ({
           <h1 className="fs-3 text-start mt-3">Add a new address</h1>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <>
             <FloatingLabel
               //controlId="floatingInput"
               style={{ padding: "0" }}
@@ -101,7 +102,14 @@ export const AddressModal = ({
               />
             </FloatingLabel>
 
-            {filteredPinCode.length && filteredPinCode[0].postalcode ? (
+            {filteredPinCode === 0 && (
+              <div className="p-3 mb-2 bg-info text-dark">
+                Validate Pincode for Delivery
+              </div>
+            )}
+            {filteredPinCode &&
+            filteredPinCode?.length &&
+            filteredPinCode[0]?.postalcode ? (
               <div>
                 <FloatingLabel
                   //controlId="floatingInput"
@@ -218,12 +226,14 @@ export const AddressModal = ({
                   />
                 </FloatingLabel>
               </div>
-            ) : (
+            ) : null}
+
+            {filteredPinCode.length === 0 && (
               <div className="p-3 mb-2 bg-info text-dark">
-                Sorry, we are not serving in your area
+                Sorry currently our services are not available in your location.
               </div>
             )}
-          </Form>
+          </>
         </Modal.Body>
         {filteredPinCode.length && filteredPinCode[0].postalcode ? (
           <Modal.Footer>
