@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getTokenSucces, getTokenFailure } from "../store/actions/auth";
 import CartSummary from "../scenes/Cart/cart-summary";
 import Orders from "../scenes/Orders";
+import { Spinner } from "react-bootstrap";
 
 function Routes() {
   const dispatch = useDispatch();
@@ -20,36 +21,49 @@ function Routes() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   console.log("is logged in status:::", isLoggedIn);
+  const userDetails = useSelector((state) => state.auth.userDetails);
+  const [AppLoading, setAppLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAppLoading(false);
+    }, 2000);
+  }, []);
 
   return (
     <>
-      {isLoggedIn && (
-        <>
-          <AppBar />
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/products" component={ProductsRoutes} />
-            <Route path="/categories" component={Categories} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/subscription" component={LemmeTry} />
-            <Route path="/cart-summary" component={CartSummary} />
-            <Route path="/orders" component={Orders} />
-            <Route path="*">
-              <Redirect to={"/"} />
-            </Route>
-          </Switch>
-        </>
-      )}
-      {!isLoggedIn && (
-        <>
-          <Switch>
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="*">
-              <Redirect to={"/login"} />
-            </Route>
-          </Switch>
-        </>
+      <AppBar />
+      {AppLoading ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: 'column',
+            alignItems: "center",
+            justifyContent: "center",
+            height: 500,
+          }}
+        >
+          <Spinner animation="grow" variant="primary" />
+          Loading...
+        </div>
+      ) : (
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route path="/products" component={ProductsRoutes} />
+          <Route path="/categories" component={Categories} />
+          <Route path="/subscription" component={LemmeTry} />
+
+          {userDetails.sub && (
+            <>
+              <Route path="/cart-summary" component={CartSummary} />
+              <Route path="/cart" component={Cart} />
+              <Route path="/orders" component={Orders} />{" "}
+            </>
+          )}
+          <Route path="*">
+            <Redirect to={"/"} />
+          </Route>
+        </Switch>
       )}
     </>
   );

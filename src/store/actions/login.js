@@ -1,4 +1,4 @@
-import { types } from '../constants';
+import { types } from "../constants";
 
 // export const loginSuccess = (userDetails) => {
 //     return {
@@ -8,8 +8,20 @@ import { types } from '../constants';
 // }
 
 export const clearLoginState = (message) => {
-    return {
-        type: types.CLEAR_LOGIN_STATE,
-        payload: message
-    }
-}
+  return {
+    type: types.CLEAR_LOGIN_STATE,
+    payload: message,
+  };
+};
+
+export const showLogin = () => {
+  return {
+    type: types.SHOW_LOGIN_MODAL,
+  };
+};
+
+export const hideLogin = () => {
+  return {
+    type: types.HIDE_LOGIN_MODAL,
+  };
+};

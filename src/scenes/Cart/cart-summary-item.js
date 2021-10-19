@@ -6,6 +6,7 @@ import {
   FormControl,
   InputGroup,
 } from "react-bootstrap";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { BiRupee } from "react-icons/bi";
 import { BsPencil, BsTrash, BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,7 +45,15 @@ const CartSummaryItem = ({ ProductDetails }) => {
     ProductDetails.subscription.map((item) => {
       if (item.isDelivery) {
         temp[item?.meal_type] =
-          item.address.aline1 + ", " + item.address.aline2;
+          item.address.aline1 +
+          ", " +
+          item.address.aline2 +
+          ", " +
+          item.landmark +
+          ", "  +
+          item.address.city   +
+          ", " +
+          item.postalcode;
       }
     });
     setAddresses(temp);
@@ -76,7 +85,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
               margin: 10,
             }}
           />
-          <div style={{width: '70%'}}>
+          <div style={{ width: "70%" }}>
             <Card.Text className="fs-9 mb-0 pb-0 col-12 text-truncate">
               {ProductDetails.item_name}
             </Card.Text>
@@ -91,9 +100,15 @@ const CartSummaryItem = ({ ProductDetails }) => {
                 .replace("-", "")}
             </small>
             <p>
-              <span style={{ fontSize: "12px", color: "#212121", wordWrap: 'break-word' }}>
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#212121",
+                  wordWrap: "break-word",
+                }}
+              >
                 (Qty: {ProductDetails.qty} X <BiRupee />
-                {Number(ProductDetails.subscription[0].sale_val).toFixed(
+                {Number(ProductDetails?.subscription[0]?.sale_val).toFixed(
                   2
                 )} / {ProductDetails.uom_name}) + Tax:{" "}
                 {ProductDetails.tax_amount} ={" "}
@@ -112,7 +127,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
             </p>
 
             {isExpanded && (
-              <>
+              <div>
                 <span style={{ fontSize: 12, fontWeight: 600 }}>
                   Subscribed for {Duration}
                 </span>
@@ -147,7 +162,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
                     </span>
                   </div>
                 )}
-              </>
+              </div>
             )}
           </div>
         </Card.Body>
@@ -160,30 +175,30 @@ const CartSummaryItem = ({ ProductDetails }) => {
             alignItem: "center",
           }}
         >
-              <Button
-              style={{ borderRadius: "50%", marginLeft: 10 }}
-              variant="outline-primary"
-              size="sm"
-              onClick={() => history.push("/cart")}
-            >
-              <BsPencil />
-            </Button>
+          <Button
+            style={{ borderRadius: "50%", marginLeft: 10 }}
+            variant="outline-primary"
+            size="sm"
+            onClick={() => history.push("/cart")}
+          >
+            <BsPencil />
+          </Button>
           {isExpanded ? (
-            <a
+            <span
               variant="link"
-              className="w-100 text-center"
+              className="w-100 text-center text-primary"
               onClick={() => setisExpanded(false)}
             >
-              view less
-            </a>
+              <AiFillCaretUp /> view less
+            </span>
           ) : (
-            <a
+            <span
               variant="link"
-              className="w-100 text-center"
+              className="w-100 text-center text-primary"
               onClick={() => setisExpanded(true)}
             >
-              view more
-            </a>
+              <AiFillCaretDown /> view more
+            </span>
           )}
           <div
             style={{
@@ -194,7 +209,6 @@ const CartSummaryItem = ({ ProductDetails }) => {
               // right: 10,
             }}
           >
-        
             <Button
               style={{ borderRadius: "50%", marginLeft: 10 }}
               variant="outline-danger"

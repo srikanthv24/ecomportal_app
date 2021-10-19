@@ -23,6 +23,7 @@ import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "./styles.css";
 import "./styles.css";
 import auth_services from "../../services/auth_services";
+import { hideLogin } from "../../store/actions";
 
 function Login() {
   const history = useHistory();
@@ -49,7 +50,7 @@ function Login() {
         console.log("OnSuccess: ", res, res.accessToken);
         dispatch(loginSuccess(res));
         sessionStorage.setItem("token", res.accessToken.jwtToken);
-        history.push("/");
+        dispatch(hideLogin())
       })
       .catch((err) => {
         console.log("onFailure: ", err.message);
@@ -97,16 +98,17 @@ function Login() {
               className="w-100 mb-3 custom-btn"
               variant="primary"
               onClick={handleSubmit}
+              size="sm"
             >
               SignIn
             </Button>
-            <Nav className="text-center">
+            {/* <Nav className="text-center">
               <Nav.Item>
                 <Nav.Link href="/register" style={{ paddingLeft: "0" }}>
                   Don't have an account? Sign Up
                 </Nav.Link>
               </Nav.Item>
-            </Nav>
+            </Nav> */}
             {error && (
               <Alert variant="danger" className="mt-3">
                 {error}

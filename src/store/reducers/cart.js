@@ -9,7 +9,7 @@ const initialState = {
   cartItemsLoading: false,
   cartSummary: {
     isLoading: false,
-    data: { items: [{ items: [] }] },
+    data: { items: [] },
   },
 };
 

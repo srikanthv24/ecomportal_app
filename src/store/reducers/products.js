@@ -1,10 +1,10 @@
 import { types } from "../constants";
 
 const initialState = {
-  productList: [],
+  productList: { items: [] },
   productDetails: {},
   searchResults: [],
-  loading: false
+  loading: false,
 };
 
 export const products = (state = initialState, action) => {

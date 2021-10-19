@@ -272,6 +272,11 @@ export const CartSummary = `query ($customer_id: ID!){
         subscription {
           address {
               aline1
+              aline2
+              city
+              tag
+              landmark
+              postalcode
           }
           isDelivery
           meal_type

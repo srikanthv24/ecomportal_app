@@ -119,8 +119,7 @@ const ProductCard = ({ product }) => {
         <Card.Text>
           <span className="d-flex">
             <span>
-              <BiRupee /> {Number(product.sale_val).toFixed(2)} /
-              {product.uom_name}
+              <BiRupee /> {Number(product.sale_val).toFixed(2)} / {product.uom_name}
             </span>
           </span>
           <small className="col-12 text-truncate text-muted">
@@ -132,7 +131,7 @@ const ProductCard = ({ product }) => {
       <div style={{ marginTop: 10 }}>
         {ExistingProduct.qty ? (
           <InputGroup className="mb-3">
-            <Button onClick={onDecrement} size="sm" >
+            <Button onClick={onDecrement} size="sm"  style={{background: '#f05922', border: 'none', color: '#FFF'}}>
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
@@ -149,7 +148,7 @@ const ProductCard = ({ product }) => {
               // onChange={(ev) => setCartItem(ev.target.value)}
             />
 
-            <Button onClick={onIncrement} size="sm">
+            <Button onClick={onIncrement} size="sm" style={{background: '#f05922', border: 'none', color: '#FFF'}}>
               {Cart.cartLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (

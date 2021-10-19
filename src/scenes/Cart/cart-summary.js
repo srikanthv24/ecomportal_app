@@ -8,7 +8,9 @@ import Select from "react-select";
 import { getAddresses } from "../../store/actions";
 import { getCartSummary, getCart } from "../../store/actions/cart";
 import CartSummaryItem from "./cart-summary-item";
-import { showAlert } from "../../store/actions/alert";
+import { hideAlert, showAlert } from "../../store/actions/alert";
+import { useHistory } from "react-router";
+import ModalComponent from "../../components/Modal/modal";
 
 var phantom = {
   display: "block",
@@ -18,9 +20,11 @@ var phantom = {
 };
 
 const CartSummary = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
+  const AlertReducer = useSelector((state) => state.AlertReducer);
   const Cart = useSelector((state) => state.Cart);
   const [AddressSelected, setAddressSelected] = useState({});
   const [AddressList, setAddressList] = useState([]);
@@ -60,8 +64,9 @@ const CartSummary = () => {
   const cartSummary = useSelector((state) => state.Cart.cartSummary);
 
   useEffect(() => {
-    dispatch(getCartSummary({ customer_id: userDetails.sub }));
-  }, []);
+    if (userDetails.sub)
+      dispatch(getCartSummary({ customer_id: userDetails.sub }));
+  }, [userDetails.sub]);
 
   useEffect(() => {
     console.log("CartSummary--+>", cartSummary);
@@ -69,6 +74,27 @@ const CartSummary = () => {
 
   return (
     <div>
+      <ModalComponent
+        show={AlertReducer.showAlert}
+        type={AlertReducer.variant}
+        Body={AlertReducer.alertMessage.body}
+        Title={AlertReducer.alertMessage.title}
+        handleClose={() => dispatch(hideAlert())}
+        footer={
+          <div>
+            <Button
+              onClick={() => {
+                dispatch(hideAlert());
+                dispatch(getCart({ customer_id: userDetails.sub }));
+                history.push("/orders");
+              }}
+            >
+              Go to Orders
+            </Button>
+          </div>
+        }
+      />
+
       <div className="m-2">
         <p className="h3">Cart Summary</p>
         <p className="h6 text-muted">
@@ -79,8 +105,8 @@ const CartSummary = () => {
         </p>
         <section
           style={{
-            height: '30%',
-            maxHeight: '30%',
+            height: 250,
+            maxHeight: 250,
             width: "100%",
             overflow: "auto",
           }}
@@ -93,11 +119,23 @@ const CartSummary = () => {
               <Spinner animation="grow" variant="primary" />
               Loading...
             </div>
-          ) : (
-            cartSummary?.data?.items?.length &&
+          ) : cartSummary?.data?.items?.length ? (
             cartSummary?.data?.items[0]?.items?.map((item) => {
               return <CartSummaryItem ProductDetails={item} />;
             })
+          ) : (
+            <div className="flex-column text-center">
+              <div className="h5 d-flex justify-content-center align-items-center">
+                No Items added to cart
+              </div>
+              <Button
+                onClick={() => history.push("/")}
+                variant="outline-primary"
+                size="sm"
+              >
+                Explore products
+              </Button>
+            </div>
           )}
         </section>
         {/* <section className="mt-3">
@@ -157,8 +195,9 @@ const CartSummary = () => {
             <p className="fw-bold">Total</p>
             <p className="fw-bold">
               <BiRupee />{" "}
-              {cartSummary?.data?.items?.length &&
-                Number(cartSummary?.data?.items[0]?.grand_total).toFixed(2)}
+              {(cartSummary?.data?.items?.length &&
+                Number(cartSummary?.data?.items[0]?.grand_total).toFixed(2)) ||
+                0.0}
             </p>
           </span>
         </section>
@@ -176,10 +215,14 @@ const CartSummary = () => {
             className="w-100"
             style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
             onClick={handleContinue}
+            // disabled={cartSummary?.data?.items?.length}
+            disabled={cartSummary?.data?.items?.length ? false : true}
           >
             Confirm and Pay <BiRupee />
             {Number(
-              cartSummary?.data && cartSummary?.data?.items[0]?.grand_total
+              cartSummary?.data &&
+                cartSummary?.data.items &&
+                cartSummary?.data?.items[0]?.grand_total
             ).toFixed(2)}
           </Button>
         </div>

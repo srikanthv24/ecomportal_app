@@ -54,6 +54,15 @@ export const AuthReducer = (state = initialState, action) => {
         isLoggedIn: false,
       };
 
+    case "CLEAR_USER_DETAILS":
+      return {
+        ...state,
+        userDetails: {
+          name: "",
+          phone_number: "",
+          sub: "",
+        },
+      };
     case types.UPDATE_USER_DETAILS:
       return {
         ...state,

@@ -12,6 +12,7 @@ import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { showLogin } from "../../store/actions";
 import {
   createCart,
   getCart,
@@ -91,23 +92,27 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 
     console.log({ ...data, subscription: filteredPayload });
 
-    if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-      dispatch(
-        updateCart({
-          customer_id: userDetails.sub,
-          cart_id: Cart?.cartDetails?.items[0]?.id,
-          item: { ...data, subscription: filteredPayload },
-        })
-      );
+    if (userDetails.sub) {
+      if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+        dispatch(
+          updateCart({
+            customer_id: userDetails.sub,
+            cart_id: Cart?.cartDetails?.items[0]?.id,
+            item: { ...data, subscription: filteredPayload },
+          })
+        );
+      } else {
+        console.log("MYToken--", sessionStorage.getItem("token"));
+        dispatch(
+          createCart({
+            customer_id: userDetails.sub,
+            items: [{ ...data, subscription: filteredPayload }],
+            accessToken: sessionStorage.getItem("token"),
+          })
+        );
+      }
     } else {
-      console.log("MYToken--", sessionStorage.getItem("token"));
-      dispatch(
-        createCart({
-          customer_id: userDetails.sub,
-          items: [{ ...data, subscription: filteredPayload }],
-          accessToken: sessionStorage.getItem("token"),
-        })
-      );
+      dispatch(showLogin());
     }
   };
 
@@ -300,21 +305,27 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   };
   return (
     <FormProvider {...methods}>
-      <Container fluid>
-        <ProductDetails
-          productId={mealPlanId.mealPlanId}
-          control={control}
-          variantsSelected={variantsSelected}
-        />
+      <div>
+        <Container fluid>
+          <ProductDetails
+            productId={mealPlanId.mealPlanId}
+            control={control}
+            variantsSelected={variantsSelected}
+          />
+        </Container>
 
         <div style={phantom} />
         <div
           style={{
+            width: "100%",
             position: "fixed",
             bottom: 0,
             left: 0,
             right: 8,
             background: "#FFF",
+            zIndex: 5,
+            paddingTop: 10,
+            boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
           }}
         >
           {products.productDetails.is_mealplan && (
@@ -327,9 +338,9 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
               </div>
             </div>
           )}
-          <div className="w-100">
+          <div className="d-flex align-items-center justify-content-between w-100">
             {isOnboarding ? (
-              <div className="d-flex mt-2">
+              <>
                 <Button
                   onClick={handleBack}
                   className="w-50 m-1"
@@ -341,8 +352,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                   <Button
                     className="w-50 m-1"
                     // variant="success"
-                    style={{ background: "#f05922" }}
-                    onClick={() => history.push("/cart")}
+                    style={{ background: "#f05922", border: "none" }}
+                    onClick={() => history.push("/cart-summary")}
                   >
                     Go to Cart
                   </Button>
@@ -363,12 +374,12 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                     )}
                   </Button>
                 )}
-              </div>
+              </>
             ) : ExistingProduct.qty ? (
-              <InputGroup className="mb-3">
+              <InputGroup className="p-2 w-50">
                 <Button
                   variant="outline-secondary"
-                  style={{ background: "#f05922" }}
+                  style={{ borderColor: "#f05922", color: "#f05922" }}
                   onClick={onDecrement}
                   size="sm"
                 >
@@ -380,7 +391,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                 </Button>
                 <FormControl
                   aria-label="Example text with two button addons"
-                  style={{ textAlign: "center" }}
+                  style={{ textAlign: "center", border: "none" }}
                   value={ExistingProduct?.qty || ""}
                   type="number"
                   // onChange={(ev) => setCartItem(ev.target.value)}
@@ -388,7 +399,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 
                 <Button
                   variant="outline-secondary"
-                  style={{ background: "#f05922" }}
+                  style={{ borderColor: "#f05922", color: "#f05922" }}
                   onClick={onIncrement}
                   size="sm"
                 >
@@ -422,7 +433,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
             )}
           </div>
         </div>
-      </Container>
+      </div>
     </FormProvider>
   );
 };

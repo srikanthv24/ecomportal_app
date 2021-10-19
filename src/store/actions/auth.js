@@ -45,3 +45,9 @@ export const updateUserDetails = (payload) => {
     payload,
   };
 };
+
+export const clearUserDetails = () => {
+  return {
+    type: "CLEAR_USER_DETAILS"
+  }
+}

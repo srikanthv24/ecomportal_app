@@ -22,9 +22,15 @@ import { useHistory, useRouteMatch, Link } from "react-router-dom";
 
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import { IoCloseOutline } from "react-icons/io5";
-import { getTokenFailure } from "../../store/actions/auth";
+import {
+  clearUserDetails,
+  getTokenFailure,
+  updateUserDetails,
+} from "../../store/actions/auth";
 import ProfileImg from "./../../assets/thumbnail-profile-pic.jpg";
 import auth_services from "../../services/auth_services";
+import { showLogin } from "../../store/actions";
+import { Redirect } from "react-router";
 
 const poolData = {
   UserPoolId: "us-east-1_LmIBVgrWX",
@@ -70,8 +76,10 @@ export default function AppBar() {
   const logoutCognitoUser = () => {
     auth_services.logout();
     sessionStorage.removeItem("token");
-    history.replace("/login");
+    dispatch(clearUserDetails());
     dispatch(getTokenFailure());
+    setMenu(false);
+    history.push("/");
   };
 
   return (
@@ -159,25 +167,31 @@ export default function AppBar() {
                   </div>
                 </Col>
 
-                <Col className="d-flex flex-nowrap px-0 profile-menu">
-                  <Nav.Link>
-                    <div className="customNavBar">
-                      <strong className="text-black profile-name-txt">
-                        Hello, {userDetails.name}
-                      </strong>
-                    </div>
-                  </Nav.Link>
+                {userDetails.sub ? (
+                  <Col className="d-flex flex-nowrap px-0 profile-menu">
+                    <Nav.Link>
+                      <div className="customNavBar">
+                        <strong className="text-black profile-name-txt">
+                          Hello, {userDetails.name}
+                        </strong>
+                      </div>
+                    </Nav.Link>
 
-                  <Nav.Link onClick={() => history.push("/cart-summary")}>
-                    <h6 className="text-black nav-menu-cart">
-                      <AiOutlineShoppingCart size={24} />
-                      <Badge pill>
-                        {Cart?.cartDetails?.items?.length &&
-                          Cart?.cartDetails?.items[0]?.items?.length}
-                      </Badge>
-                    </h6>
+                    <Nav.Link onClick={() => history.push("/cart-summary")}>
+                      <h6 className="text-black nav-menu-cart">
+                        <AiOutlineShoppingCart size={24} />
+                        <Badge pill>
+                          {Cart?.cartDetails?.items?.length &&
+                            Cart?.cartDetails?.items[0]?.items?.length}
+                        </Badge>
+                      </h6>
+                    </Nav.Link>
+                  </Col>
+                ) : (
+                  <Nav.Link onClick={() => dispatch(showLogin())}>
+                    <p className="text-black nav-menu-cart">Login / Signup</p>
                   </Nav.Link>
-                </Col>
+                )}
               </Row>
             </Container>
           </Nav>

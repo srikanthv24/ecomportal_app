@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Offcanvas, Row } from "react-bootstrap";
 import { AiOutlineSortAscending } from "react-icons/ai";
@@ -23,16 +25,6 @@ const Products = () => {
   useEffect(async () => {
     console.log("catId", catId);
     let filter = { category: { eq: catId } };
-    // if (catId == null) {
-    //   dispatch(
-    //     getProductsAction({
-    //       category: catId,
-    //       nextToken: "",
-    //       limit: 10,
-    //     })
-    //   );
-    // } else {
-    // }
     dispatch(
       getProductsAction({
         category: catId,
@@ -43,10 +35,16 @@ const Products = () => {
   }, [catId]);
 
   useEffect(() => {
-    let temp =
-      (products && products.productList && products?.productList?.items) || [];
-    setProducts([...Products, ...temp]);
+    
+    if(products.productList.items) {
+      setProducts(products.productList.items);
+    }
   }, [products.productList]);
+
+  let dummyList = new Array(10, {});
+
+  console.log("Producty", products.productList.items, Products);
+
   return (
     <>
       <Container fluid>
@@ -79,7 +77,45 @@ const Products = () => {
           </Card.Header>
           <Col xs={12} lg={9} style={{ overflow: "auto" }}>
             <Row>
-              <ProductsList list={products.productList} items={Products} />
+              {products.loading ? (
+                dummyList.map(() => {
+                  return (
+                    <Col lg={4} md={4} sm={6} xs={6} className="m-0 p-1">
+                      <div class="card" aria-hidden="true">
+                        <div
+                          style={{
+                            // backgroundImage: `url(${"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
+                            height: "120px",
+                            width: "100%",
+                          }}
+                        />
+                        <div class="card-body">
+                          <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                          </h5>
+                          <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                          </p>
+                          <a
+                            href="#"
+                            tabindex="-1"
+                            class="btn btn-primary disabled placeholder col-6"
+                          ></a>
+                        </div>
+                      </div>
+                    </Col>
+                  );
+                })
+              ) : (
+                <ProductsList list={products.productList} items={Products} />
+              )}
             </Row>
           </Col>
         </Row>

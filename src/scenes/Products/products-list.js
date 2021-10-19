@@ -46,49 +46,11 @@ const ProductsList = ({ list, items }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [list]);
 
-  let dummyList = new Array(10, {});
-
-  if (Loading) {
-    return dummyList.map(() => {
-      return (
-        <Col lg={4} md={4} sm={6} xs={6} className="m-0 p-1">
-          <div class="card" aria-hidden="true">
-            <div
-              style={{
-                backgroundImage: `url(${"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                height: "120px",
-                width: "100%",
-              }}
-            />
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a
-                href="#"
-                tabindex="-1"
-                class="btn btn-primary disabled placeholder col-6"
-              ></a>
-            </div>
-          </div>
-        </Col>
-      );
-    });
-  }
-
   if (!list && !list.items.length) {
     return <h3>No products found!!</h3>;
   }
+
+  console.log("Producttyyyyyyyy", items);
   return (
     <>
       {items.length &&

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IoNotifications } from "react-icons/io5";
+import { GiMeal } from "react-icons/gi";
 import "./styles.css";
 import {
   Alert,
@@ -46,13 +46,14 @@ const Landing = () => {
           <Card style={{ border: "none" }}>
             <Card.Header className="no-bg">
               <div className="w-100">
-              <Link
-                to="/subscription"
-                className="viewall-txt"
-                
-              >
-                <Badge bg="secondary">Choose my meal</Badge>
-              </Link>
+                <Link to="/subscription" className="viewall-txt">
+                  <Button
+                    style={{ background: "#f05922", borderColor: "#f05910" }}
+                    className="w-100"
+                  >
+                    <GiMeal size="30" /> Choose my meal
+                  </Button>
+                </Link>
               </div>
               <div className="d-flex justify-content-between">
                 <span className="content-title">Categories</span>

@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
 import { Cart } from "../../services/api/Cart";
-import { createCart, getCart } from "../actions/cart";
+import { createCart, getCart, getCartSummary as getCartSummaryAction } from "../actions/cart";
 import { types } from "../constants";
 
 function* GetCart(params) {
@@ -86,6 +86,7 @@ function* updateCartQty(params) {
     const state = yield select();
     console.log("UPDATE_CART_QTY_RESPONSE==>", response);
     yield put(getCart({ customer_id: state.auth.userDetails.sub }));
+    yield put(getCartSummaryAction({ customer_id: state.auth.userDetails.sub }));
   } catch (error) {
     console.log("<==UpdateCartQtyFailed==>", error);
   }

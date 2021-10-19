@@ -15,10 +15,11 @@ import { Calendar } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { components } from "react-select";
-import { getAddresses } from "../../store/actions";
+import { getAddresses, showLogin } from "../../store/actions";
 import { AddressModal } from "./address-modal";
 import moment from "moment";
 import { BsInfoCircle } from "react-icons/bs";
+import { GrAdd } from "react-icons/gr";
 
 const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
   const [Variants, setVariants] = useState([]);
@@ -109,7 +110,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
     if (userDetails.sub) {
       dispatch(getAddresses({ customerId: userDetails.sub }));
     }
-  }, []);
+  }, [userDetails.sub]);
 
   console.log("VariantValue", VariantValue);
 
@@ -142,12 +143,8 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
     return (
       <components.MenuList {...props}>
         {props.children}
-        <Button
-          variant="outline-dark"
-          className="w-100"
-          onClick={handleShow}
-        >
-          Add New address
+        <Button variant="outline-dark" className="w-100" onClick={handleShow}>
+          <GrAdd /> New address
         </Button>
       </components.MenuList>
     );
@@ -237,11 +234,15 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
           );
         })}
 
-      <Accordion defaultActiveKey="0" className="mt-4">
+      <Accordion defaultActiveKey="0" className="mt-4" style={{ zIndex: 2 }}>
         {/* BreakFast */}
         {deliverables.map((deliver, index) => {
           return (
-            <Accordion.Item eventKey={deliver.value} key={index}>
+            <Accordion.Item
+              eventKey={deliver.value}
+              key={index}
+              style={{ zIndex: 2 }}
+            >
               <Accordion.Header>
                 <input
                   type="checkbox"
@@ -287,8 +288,15 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
                           {...rest}
                           class="form-check-input"
                           type="checkbox"
+                          checked={subscription[index].isDelivery}
                           id={deliver.value}
-                          onChange={(ev) => onChange(ev.target.checked)}
+                          onChange={(ev) => {
+                            if (userDetails.sub) {
+                              onChange(ev.target.checked);
+                            } else {
+                              dispatch(showLogin());
+                            }
+                          }}
                         />
                         <label class="form-check-label" for={deliver.value}>
                           {!subscription[index].isDelivery
