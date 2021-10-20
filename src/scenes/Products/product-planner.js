@@ -116,9 +116,9 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 
   useEffect(() => {
     console.log("Addresses-->", Addresses);
-    let temp = [];
-
+    
     if (Addresses.listAddresses) {
+      let temp = [];
       console.log("Im Print", Addresses.listAddresses.items);
       const items = Addresses.listAddresses.items;
       items.map((address) => {
@@ -133,8 +133,8 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
           ", " +
           address.postalcode;
         temp.push({ ...address, label: label, value: address.id });
+        setAddressList(temp);
       });
-      setAddressList(temp);
       console.log("Addresses-->2", temp);
     }
   }, [Addresses?.listAddresses?.items]);
@@ -263,7 +263,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
                 <span className="d-flex justify-content-between align-items-center">
                   <span>You will be having a cyclic menu. </span>
                   <OverlayTrigger
-                    trigger="hover"
+                    trigger={"focus"}
                     key="lunch"
                     placement={"bottom"}
                     overlay={
@@ -283,22 +283,25 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
                     control={control}
                     name={`subscription[${index}].isDelivery`}
                     render={({ field: { onChange, ...rest } }) => (
-                      <div class="form-check form-switch">
+                      <div className="form-check form-switch">
                         <input
                           {...rest}
-                          class="form-check-input"
+                          className="form-check-input"
                           type="checkbox"
                           checked={subscription[index].isDelivery}
                           id={deliver.value}
                           onChange={(ev) => {
                             if (userDetails.sub) {
+                              dispatch(
+                                getAddresses({ customerId: userDetails.sub })
+                              );
                               onChange(ev.target.checked);
                             } else {
                               dispatch(showLogin());
                             }
                           }}
                         />
-                        <label class="form-check-label" for={deliver.value}>
+                        <label className="form-check-label" for={deliver.value}>
                           {!subscription[index].isDelivery
                             ? "Pick Up"
                             : "Deliver"}

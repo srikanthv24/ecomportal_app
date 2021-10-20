@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
-import { GrEdit } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
 import { getAddresses } from "../../store/actions";
 import { getCartSummary, getCart } from "../../store/actions/cart";
 import CartSummaryItem from "./cart-summary-item";
@@ -26,20 +24,17 @@ const CartSummary = () => {
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
   const Cart = useSelector((state) => state.Cart);
-  const [AddressSelected, setAddressSelected] = useState({});
-  const [AddressList, setAddressList] = useState([]);
-  const [ChangeAddress, setChangeAddress] = useState(false);
 
   useEffect(() => {
     dispatch(getAddresses({ customerId: userDetails.sub }));
   }, []);
 
   useEffect(() => {
-    console.log("Addresses-->", Addresses);
+    
     let temp = [];
 
     if (Addresses.listAddresses) {
-      console.log("Im Print", Addresses.listAddresses.items);
+    
       const items = Addresses.listAddresses.items;
       items.map((address) => {
         let label =
@@ -53,12 +48,10 @@ const CartSummary = () => {
           ", " +
           address.postalcode;
         temp.push({ ...address, label: label, value: address.id });
-        if (address.tag == "Home" || address.tag == "home") {
-          setAddressSelected(address);
-        }
+        
       });
-      setAddressList(temp);
-      console.log("Addresses-->2", temp);
+      
+      
     }
   }, [Addresses.listAddresses]);
   const cartSummary = useSelector((state) => state.Cart.cartSummary);
@@ -68,9 +61,6 @@ const CartSummary = () => {
       dispatch(getCartSummary({ customer_id: userDetails.sub }));
   }, [userDetails.sub]);
 
-  useEffect(() => {
-    console.log("CartSummary--+>", cartSummary);
-  }, [cartSummary]);
 
   return (
     <div>
@@ -138,38 +128,7 @@ const CartSummary = () => {
             </div>
           )}
         </section>
-        {/* <section className="mt-3">
-          <div className="d-flex align-items-baseline justify-content-between">
-            <p className="h6 text-muted">Deliver to</p>
-            {!ChangeAddress && (
-              <Button
-                variant="light"
-                size="small"
-                onClick={() => setChangeAddress(true)}
-              >
-                <GrEdit size={14} /> Change
-              </Button>
-            )}
-          </div>
-          {ChangeAddress ? (
-            <Select
-              options={AddressList}
-              onChange={(val) => {
-                setAddressSelected(val);
-                setChangeAddress(false);
-              }}
-            />
-          ) : (
-            <p className="fs-6 fw-bold pl-2 pr-2">
-              {AddressSelected.aline1}, {AddressSelected.aline2},
-              {AddressSelected.landmark}, {AddressSelected.city},
-              {AddressSelected.state}, {AddressSelected.postalcode}.
-            </p>
-          )}
-          <small className="text-muted">
-            <b>Note:</b> This delivery address is for non-subscription products.
-          </small>
-        </section> */}
+      
         <section className="mt-4">
           <span className="d-flex justify-content-between align-items-center">
             <p>Sub-total</p>

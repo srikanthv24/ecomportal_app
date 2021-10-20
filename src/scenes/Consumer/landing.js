@@ -1,42 +1,39 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import { GiMeal } from "react-icons/gi";
 import "./styles.css";
-import {
-  Alert,
-  Card,
-  Col,
-  Container,
-  Button,
-  Row,
-  Badge,
-} from "react-bootstrap";
+import { Card, Col, Container, Button, Row } from "react-bootstrap";
 import SimpleCard from "../../components/card/simple-card";
 import LandingCarousel from "../../components/carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../../store/actions/products";
 import { getCategories } from "../../store/actions/categories";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CategoryList from "../Categories/category-list";
 
 const Landing = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   const products = useSelector((state) => state.products);
   const categories = useSelector((state) => state.categories);
 
   useEffect(() => {
-    dispatch(getProductsAction({ limit: 10, nextToken: "", category: "" }));
+    dispatch(getProductsAction({ limit: 10, nextToken: "" }));
     dispatch(getCategories({ limit: 40, nextToken: "" }));
   }, []);
+
+  // eslint-disable-next-line no-array-constructor
   let dummyList = new Array(10, {});
 
   console.log("categories-TEMP", categories);
   return (
     <Container fluid="sm" className="content-body">
-      <section className="page-content bg-1">
-        <SimpleCard />
-      </section>
+      {userDetails.sub && (
+        <section className="page-content bg-1">
+          <SimpleCard />
+        </section>
+      )}
 
       <section className="page-content py-3">
         <Container>
@@ -75,10 +72,10 @@ const Landing = () => {
                   style={{ width: "100%" }}
                   className="p-0 m-0 d-flex align-items-center justify-content-center"
                 >
-                  {dummyList.map(() => {
+                  {dummyList.map((item, index) => {
                     return (
                       <Col
-                        key={"letmetry"}
+                        key={index}
                         lg={3}
                         md={4}
                         sm={6}
@@ -124,7 +121,7 @@ const Landing = () => {
                               }}
                             >
                               <p className="text-muted placeholder-glow">
-                                <span class="placeholder col-12">
+                                <span className="placeholder col-12">
                                   SAMPLE DATA.....
                                 </span>
                               </p>

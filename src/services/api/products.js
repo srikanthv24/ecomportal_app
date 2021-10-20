@@ -1,35 +1,49 @@
 import {
   getAddressList,
+  getAllProducts,
   getProductDetails,
   getProducts,
-  getProductsByCategory,
   searchProducts,
 } from "../graphql/mutations";
 
 const API_URL = process.env.REACT_APP_API_URL;
-// const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
 
 export class Products {
   static getProducts = async (params) => {
     try {
-      console.log("PARAARARAMS==>", JSON.stringify(params.payload.category));
-      // console.log("PARAMSSSS", getProductsByCategory(params));
-      return await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
-        },
-        // body: params.payload ? getProductsByCategory(params) : getProducts(),
-        body: JSON.stringify({
-          query: getProducts,
-          variables: {
-            category: params.payload.category,
-            limit: params.payload.limit,
-            nextToken: params.payload.nextToken,
+      if (params.payload.category) {
+        return await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
           },
-        }),
-      }).then((res) => res.json());
+          body: JSON.stringify({
+            query: getProducts,
+            variables: {
+              category: params.payload.category,
+              limit: params.payload.limit,
+              nextToken: params.payload.nextToken,
+            },
+          }),
+        }).then((res) => res.json());
+      } else {
+        return await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+          },
+          body: JSON.stringify({
+            query: getAllProducts,
+            variables: {
+              category: params.payload.category,
+              limit: params.payload.limit,
+              nextToken: params.payload.nextToken,
+            },
+          }),
+        }).then((res) => res.json());
+      }
     } catch (error) {
       throw error;
     }
