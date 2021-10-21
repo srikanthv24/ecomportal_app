@@ -36,7 +36,7 @@ const Products = () => {
 	}, [catId]);
 
 	useEffect(() => {
-		if (products.productList.items) {
+		if (products.productList && products.productList.items) {
 			setProducts(products.productList.items);
 		}
 	}, [products.productList]);
@@ -44,7 +44,7 @@ const Products = () => {
 	// eslint-disable-next-line no-array-constructor
 	let dummyList = new Array(10, {});
 
-	console.log("Producty", products.productList.items, Products);
+	// console.log("Producty", products.productList.items, Products);
 
 	return (
 		<>

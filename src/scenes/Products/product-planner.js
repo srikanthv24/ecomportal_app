@@ -19,6 +19,7 @@ import { Calendar } from "react-multi-date-picker";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
 import { GrAdd } from "react-icons/gr";
+import { BiRupee } from "react-icons/bi";
 import { BsInfoCircle } from "react-icons/bs";
 
 import useQuery from "../../hooks/useQuery";
@@ -67,20 +68,20 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		if (!productState.loading && productState.addons && productState.addons.length > 0) {
 			let a = JSON.parse(JSON.stringify(productState.addons)).map(add => {
 				return {
-					label: `${add.display_name}---$${add.sale_val}`,
+					label: <div style={{ display: "flex" }}>
+						<span>{add.display_name}</span>
+						<span style={{ marginLeft: "auto" }}><BiRupee />{add.sale_val ? add.sale_val : 0}</span>
+					</div>,
 					value: add.id,
 					price: add.sale_val
 				}
 			})
-			console.log("it is addons a in products planner", a);
 			setAddons(a)
 		}
 	}, [productState])
 
 	useEffect(() => {
 		let temp = [];
-
-		console.log("DATAAA", data);
 		data &&
 			data?.variants &&
 			data?.variants?.map((variant) => {
@@ -106,7 +107,6 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 						let temp = [...variants];
 
 						if (variants.length) {
-							console.log("Parent- If");
 							const i = temp.findIndex(
 								(_item) => _item.display_name === varItem.display_name
 							);
@@ -122,7 +122,6 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 									items: { display_name: varItem.display_name },
 								});
 						} else {
-							console.log("Parent- Else");
 							temp.push({
 								display_name: variant.display_name,
 								items: { display_name: varItem.display_name },
@@ -134,7 +133,6 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 				});
 				temp.push({ ...variant, items: temp1 });
 			});
-		console.log("setVariants", temp);
 		setVariants(temp);
 	}, [data]);
 
@@ -144,14 +142,10 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		}
 	}, [userDetails.sub]);
 
-	console.log("VariantValue", VariantValue);
-
 	useEffect(() => {
-		console.log("Addresses-->", Addresses);
 		let temp = [];
 
 		if (Addresses.listAddresses) {
-			console.log("Im Print", Addresses.listAddresses.items);
 			const items = Addresses.listAddresses.items;
 			items.map((address) => {
 				let label =
@@ -167,7 +161,6 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 				temp.push({ ...address, label: label, value: address.id });
 			});
 			setAddressList(temp);
-			console.log("Addresses-->2", temp);
 		}
 	}, [Addresses?.listAddresses?.items]);
 
@@ -188,15 +181,11 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		{ name: "Dinner", value: "dinner" },
 	];
 
-	console.log("FIELDS==>", fields);
-
 	useEffect(() => {
-		console.log("VariantValue__1", VariantValue);
 		let temp = [...variants];
 
 		for (const variant in VariantValue) {
 			let tempObj;
-			console.log("VariantValue__11", variant);
 			if (Array.isArray(VariantValue[variant])) {
 				let tempArr = [];
 				VariantValue[variant].map((itm) => {
@@ -219,11 +208,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 			} else {
 				temp.push(tempObj);
 			}
-
-			console.log("VariantValue__111", tempObj);
 		}
-
-		console.log("VariantValue__1111", temp);
 		setValue("variants", temp);
 		variantsSelected(VariantValue);
 	}, [VariantValue]);
@@ -509,7 +494,6 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 														className="mb-3 text-start"
 														{...rest}
 														onChange={(value) => {
-															console.log("addons change", value)
 															setSelectedAddons(value);
 															onChange(value);
 														}}

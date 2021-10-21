@@ -120,8 +120,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		}
 	};
 
-	console.log("ExistingProduct", ExistingProduct);
-
 	useEffect(() => {
 		let temp = [...subscription];
 		if (ExistingProduct?.subscription?.length) {
@@ -228,16 +226,30 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 						sale_val: (products.productDetails.meal_prices.breakfast_price + aprice) * duration,
 					};
 				} else if (subscribed.meal_type == "D") {
+					let aprice = 0;
+					if (subscribed.addon && subscribed.addon.length > 0) {
+						subscribed.addon.forEach(element => {
+							if (element.price) {
+								aprice += element.price;
+							}
+						});
+					}
 					subscribed = {
 						...subscribed,
-						sale_val:
-							products.productDetails.meal_prices.dinner_price * duration,
+						sale_val: (products.productDetails.meal_prices.dinner_price + aprice) * duration,
 					};
 				} else if (subscribed.meal_type == "L") {
+					let aprice = 0;
+					if (subscribed.addon && subscribed.addon.length > 0) {
+						subscribed.addon.forEach(element => {
+							if (element.price) {
+								aprice += element.price;
+							}
+						});
+					}
 					subscribed = {
 						...subscribed,
-						sale_val:
-							products.productDetails.meal_prices.lunch_price * duration,
+						sale_val: (products.productDetails.meal_prices.lunch_price + aprice) * duration,
 					};
 				}
 				console.log("itm.sale_val____11", subscribed);
