@@ -2,15 +2,15 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 
 export class mealPlans {
-    static getMealPlans = async () => {
-      return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
-        },
-        body: JSON.stringify({
-            query: `{
+	static getMealPlans = async () => {
+		return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+			},
+			body: JSON.stringify({
+				query: `{
               listItems(filter: {is_mealplan: {eq: true}}, limit: 10000) {
                 items {
                   id
@@ -57,19 +57,19 @@ export class mealPlans {
                 }
               }
             }`
-          })
-      }).then((res) => res.json());
-    };
+			})
+		}).then((res) => res.json());
+	};
 
-    static mealPlanDetails = async (id) => {
-      return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
-        },
-        body: JSON.stringify({
-          query: `{
+	static mealPlanDetails = async (id) => {
+		return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+			},
+			body: JSON.stringify({
+				query: `{
           getItem(id: ${JSON.stringify(id)}) {
             category
             defaultimg_url
@@ -108,7 +108,7 @@ export class mealPlans {
             }
           }
               }`})
-      }).then((res) => res.json());
-    };
-  
+		}).then((res) => res.json());
+	};
+
 }

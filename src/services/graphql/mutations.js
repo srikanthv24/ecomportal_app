@@ -48,12 +48,12 @@ export const getProducts = `query ($limit: Int, $nextToken: String, $category: S
 }`;
 
 export const getProductsByCategory = (params) => {
-  console.log("PAPAPA", params.payload);
-  return JSON.stringify({
-    query: `{
+	console.log("PAPAPA", params.payload);
+	return JSON.stringify({
+		query: `{
     listItems (filter: {category: {eq: ${JSON.stringify(
-      params.payload.filter.category.eq
-    )}}}) {
+			params.payload.filter.category.eq
+		)}}}) {
       items {
         saleprice
         category
@@ -71,15 +71,15 @@ export const getProductsByCategory = (params) => {
       }
     } 
   }`,
-  });
+	});
 };
 
 export const searchProducts = (searchQuery) => {
-  return JSON.stringify({
-    query: `{
+	return JSON.stringify({
+		query: `{
       listItems (filter: {display_name: {contains: ${JSON.stringify(
-        searchQuery.payload
-      )}}}, limit: 1000) {
+			searchQuery.payload
+		)}}}, limit: 1000) {
         items {
           id
           is_mealplan
@@ -125,12 +125,12 @@ export const searchProducts = (searchQuery) => {
     }
   }
 }`,
-  });
+	});
 };
 
 export const getProductDetails = (id) =>
-  JSON.stringify({
-    query: `{​​​​​​​
+	JSON.stringify({
+		query: `{​​​​​​​
       getItem(id: ${JSON.stringify(id)}) {​​​​​​​
         id
         category
@@ -175,7 +175,7 @@ export const getProductDetails = (id) =>
         }​​​​​​​
       }​​​​​​​
     }​​​​​​​`,
-  });
+	});
 
 export const getAddressList = `query ($customerId: String!) {
     listAddresses (filter: {customer_name: {eq: $customerId}}) {
@@ -296,8 +296,8 @@ export const CartSummary = `query ($customer_id: ID!){
 }`;
 
 export const createCart = (params) => {
-  console.log("PARQAMS", params);
-  return `mutation {
+	console.log("PARQAMS", params);
+	return `mutation {
   createCart(input: ${params.payload}) {
     id
   }
@@ -368,7 +368,7 @@ export const getCartItemSchema = `query ($cartId: ID) {
 }`;
 
 export const createCartItem = (
-  data
+	data
 ) => `mutation ($item: ID!, $cart: ID!, $qty: Int!, $Subscription_data: SubscriptionData) {
   createCartItem(input: {item_id: $item, cart_id: $cart, qty: $qty, subscription_data: $Subscription_data}) {
     id
