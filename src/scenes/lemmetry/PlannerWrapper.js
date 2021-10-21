@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import {
 	Button,
 	FormControl,
@@ -6,7 +8,7 @@ import {
 	Spinner,
 	Container,
 } from "react-bootstrap";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
@@ -15,7 +17,6 @@ import { useHistory } from "react-router-dom";
 import { showLogin } from "../../store/actions";
 import {
 	createCart,
-	getCart,
 	updateCart,
 	updateCartQty,
 } from "../../store/actions/cart";
@@ -80,7 +81,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		},
 	});
 
-	const { control, handleSubmit, reset, setValue, watch } = methods;
+	const { control, handleSubmit, setValue, watch } = methods;
 
 	const { subscription, variants } = watch();
 
@@ -202,67 +203,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 			})
 		);
 	};
-	console.log("itm.sale_val___", subscription);
-
-	//   useEffect(() => {
-	//     let calculations = {
-	//       total: 0,
-	//       breakfast: {
-	//         days: 0,
-	//         total: 0,
-	//         price: 0,
-	//       },
-	//       lunch: {
-	//         days: 0,
-	//         total: 0,
-	//         price: 0,
-	//       },
-	//       dinner: {
-	//         days: 0,
-	//         total: 0,
-	//         price: 0,
-	//       },
-	//     };
-	// const temmp = variants.filter(item => item.display_name == 'Duration');
-
-	//     subscription.length &&
-	//       subscription.map((item) => {
-
-	//         // const { breakfast_price, lunch_price, dinner_price } =
-	//         //   products?.productDetails?.meal_prices;
-
-	//         if (item.meal_type == "B") {
-	//           calculations.breakfast.price =
-	//             products?.productDetails?.meal_prices?.breakfast_price;
-	//           calculations.breakfast.days = item?.order_dates?.length;
-	//           calculations.breakfast.total =
-	//             products?.productDetails?.meal_prices?.breakfast_price *
-	//             item?.order_dates?.length;
-	//         } else if (item.meal_type == "L") {
-	//           calculations.lunch.price =
-	//             products?.productDetails?.meal_prices?.lunch_price;
-	//           calculations.lunch.days = item?.order_dates?.length;
-
-	//           calculations.lunch.total =
-	//             products?.productDetails?.meal_prices?.breakfast_price *
-	//             item?.order_dates?.length;
-	//         } else if (item.meal_type == "D") {
-	//           calculations.dinner.price =
-	//             products?.productDetails?.meal_prices?.dinner_price;
-	//           calculations.dinner.days = item?.order_dates?.length;
-
-	//           calculations.dinner.total =
-	//             products?.productDetails?.meal_prices?.breakfast_price *
-	//             item?.order_dates?.length;
-	//         }
-	//       });
-	//     calculations.total =
-	//       calculations.breakfast.total +
-	//       calculations.lunch.total +
-	//       calculations.dinner.total;
-	//     setCalculations(calculations);
-	//     console.log("Calculations==>", calculations, subscription);
-	//   }, [subscription]);
 
 	useEffect(() => {
 		console.log("subscription__", variants);
@@ -425,6 +365,19 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 						{isOnboarding ? null : (
 							<Button
 								className="m-1"
+								disabled={
+									products.productDetails.is_mealplan
+										? subscription.filter((item) => item.is_included).length
+											? subscription.filter((item) => item.isDelivery).length
+												? !subscription.filter(
+													(item) => item.address.aline1 && item
+												).length
+													? true
+													: false
+												: false
+											: true
+										: false
+								}
 								style={{
 									width: "100%",
 									background: "#F05922",

@@ -47,6 +47,55 @@ export const getProducts = `query ($limit: Int, $nextToken: String, $category: S
   }
 }`;
 
+export const getAllProducts = `query ($limit: Int, $nextToken: String) {
+  listItems (limit: $limit, nextToken: $nextToken){
+    items {
+      id
+      is_mealplan
+      is_recommended
+      category
+      defaultimg_url
+      description
+      display_name
+      img_url
+      meal_prices {
+        breakfast_price
+        dinner_price
+        lunch_price
+      }
+      mealtype
+      name
+      sale_val
+      status
+      tags
+      tax_inclusive
+      tax_methods
+      uom_name
+      upd_by
+      upd_on
+      variants {
+        is_sale_value_absolute
+        is_multiselect
+        input_type
+        display_name
+        items {
+          default
+          description
+          display_name
+          sale_val
+          name
+          image
+          grace
+          duration
+        }
+        name
+        sale_val
+      }
+    }
+    nextToken
+  }
+}`;
+
 export const getProductsByCategory = (params) => {
 	console.log("PAPAPA", params.payload);
 	return JSON.stringify({

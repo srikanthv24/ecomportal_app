@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -25,7 +26,6 @@ const ProductCard = ({ product }) => {
   const userDetails = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
-    console.log("Cart.cartDetails", Cart.cartDetails);
     Cart.cartDetails &&
       Cart?.cartDetails?.items?.length &&
       Cart?.cartDetails?.items[0]?.items.map((item, index) => {
@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
         item && item.item_id == product.id
           ? setExistingProduct({ ...product, ...item, qty: item.qty })
           : null;
-        return;
+        return null;
       });
   }, [Cart.cartDetails]);
 

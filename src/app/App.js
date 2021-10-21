@@ -1,29 +1,24 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTokenFailure,
   getTokenSucces,
   updateUserDetails,
 } from "../store/actions/auth";
-import { Button, Container, Modal, Spinner } from "react-bootstrap";
+import { Button, Container, Modal } from "react-bootstrap";
 import { getCart } from "../store/actions/cart";
 import Routes from "./Routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ModalComponent from "../components/Modal/modal";
-import { hideAlert } from "../store/actions/alert";
-import { useHistory } from "react-router";
 import auth_services from "../services/auth_services";
 import { getOrders } from "../store/actions/orders";
-import Login from "../scenes/Login";
 import { GrClose } from "react-icons/gr";
 import LoginModal from "../components/LoginModal";
 import { hideLogin } from "../store/actions";
 
 function App() {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.auth.userDetails);

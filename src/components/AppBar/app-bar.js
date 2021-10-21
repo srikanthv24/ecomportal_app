@@ -7,7 +7,6 @@ import {
   Container,
   Nav,
   Navbar,
-  NavDropdown,
   Offcanvas,
   Row,
   ListGroup,
@@ -19,31 +18,14 @@ import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
-
-import { CognitoUserPool } from "amazon-cognito-identity-js";
-import { IoCloseOutline } from "react-icons/io5";
-import {
-  clearUserDetails,
-  getTokenFailure,
-  updateUserDetails,
-} from "../../store/actions/auth";
+import { clearUserDetails, getTokenFailure } from "../../store/actions/auth";
 import ProfileImg from "./../../assets/thumbnail-profile-pic.jpg";
 import auth_services from "../../services/auth_services";
 import { showLogin } from "../../store/actions";
-import { Redirect } from "react-router";
-
-const poolData = {
-  UserPoolId: "us-east-1_LmIBVgrWX",
-  ClientId: "1elqc1ok4eqb1c9sjlhhiq74sd",
-};
-
-const UserPool = new CognitoUserPool(poolData);
 
 export default function AppBar() {
   const { path } = useRouteMatch();
   let history = useHistory();
-  const [SeacrhQuery, setSeacrhQuery] = useState("");
-  const [searchOn, setSearchOn] = useState(false);
   const [showMenu, setMenu] = useState(false);
   const [searchedProducts, setSearchedProducts] = useState([]);
   const dispatch = useDispatch();
@@ -57,13 +39,13 @@ export default function AppBar() {
     let newOptions = [];
     options?.items?.map((item) => {
       newOptions.push({ value: item.id, label: item.display_name });
+      return null;
     });
     console.log("NewOPtions", newOptions);
     setSearchedProducts(newOptions);
   };
 
-  useEffect(async () => {
-    console.log("products.searchResults", products.searchResults);
+  useEffect(() => {
     mapValuesForOptions(products.searchResults);
   }, [products.searchResults]);
 
@@ -109,24 +91,10 @@ export default function AppBar() {
               </Link>
             </Navbar.Brand>
           </div>
-          {/* <Navbar.Collapse id="responsive-navbar-nav">
-  </Navbar.Collapse> */}
-
           <Nav>
             <Container fluid>
               <Row>
                 <Col className="d-lg-block search-section">
-                  {/* <InputGroup>
-      <FormControl
-        aria-label="search..."
-        placeholder="Search..."
-        value={SeacrhQuery}
-        onChange={handleChange}
-      /> */}
-                  {/* <InputGroup.Text>
-        <AiOutlineSearch />
-      </InputGroup.Text>
-    </InputGroup> */}
                   <div
                     style={{
                       display: "flex",
@@ -136,7 +104,7 @@ export default function AppBar() {
                       padding: "0px 10px",
                     }}
                   >
-                    {path == "/" ? (
+                    {path === "/" ? (
                       <Button
                         className="back-btn"
                         active
@@ -207,15 +175,12 @@ export default function AppBar() {
         <Offcanvas.Header closeButton />
         <Offcanvas.Body>
           <div style={{ position: "relative", height: 180 }}>
-            <div style={{ height: 100, background: "rgba(240, 89, 34, 0.4)" }}>
-              {/* <span style={{ padding: 5, right: 0, top: 0, color: '#FFF', position: 'absolute', fontSize: 25 }}>
-                <IoCloseOutline />
-              </span> */}
-            </div>
+            <div
+              style={{ height: 100, background: "rgba(240, 89, 34, 0.4)" }}
+            ></div>
             <div
               style={{
                 height: 100,
-                background: "orange",
                 width: 100,
                 borderRadius: "50%",
                 background: `url(${ProfileImg})`,
@@ -245,17 +210,29 @@ export default function AppBar() {
             >
               Home
             </ListGroup.Item>
-            <ListGroup.Item>My Profile</ListGroup.Item>
-            <ListGroup.Item>Subscriptions</ListGroup.Item>
-            <ListGroup.Item
-              onClick={() => {
-                setMenu(false);
-                history.push("/orders/");
-              }}
-            >
-              My Orders
-            </ListGroup.Item>
-            <ListGroup.Item onClick={logoutCognitoUser}>Log Out</ListGroup.Item>
+            {userDetails.sub ? (
+              <>
+                <ListGroup.Item>My Profile</ListGroup.Item>
+                <ListGroup.Item>Subscriptions</ListGroup.Item>
+                <ListGroup.Item
+                  onClick={() => {
+                    setMenu(false);
+                    history.push("/orders/");
+                  }}
+                >
+                  My Orders
+                </ListGroup.Item>
+              </>
+            ) : null}
+            {userDetails.sub ? (
+              <ListGroup.Item onClick={logoutCognitoUser}>
+                Log Out
+              </ListGroup.Item>
+            ) : (
+              <ListGroup.Item onClick={() => dispatch(showLogin())}>
+                Log In
+              </ListGroup.Item>
+            )}
           </ListGroup>
         </Offcanvas.Body>
       </Offcanvas>
