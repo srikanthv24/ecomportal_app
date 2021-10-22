@@ -73,7 +73,8 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 						<span style={{ marginLeft: "auto" }}><BiRupee />{add.sale_val ? add.sale_val : 0}</span>
 					</div>,
 					value: add.id,
-					price: add.sale_val
+					price: add.sale_val,
+					item_id: add.id
 				}
 			})
 			setAddons(a)
@@ -483,10 +484,10 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 											<p className="h6 text-muted mt-3 mb-2 m-2">Addons: </p>
 											<Controller
 												control={control}
-												name={`subscription[${index}].addon`}
+												name={`subscription[${index}].addon_items`}
 												render={({ field: { onChange, ...rest } }) => (
 													<Select
-														name="addon"
+														name="addon_items"
 														placeholder="Choose addons"
 														isMulti={true}
 														isSearchable={true}
