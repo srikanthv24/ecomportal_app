@@ -51,7 +51,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 			subscription: [
 				{
 					address: {},
-					addon: [],
+					addon_items: [],
 					isDelivery: false,
 					meal_type: "B",
 					notes: "",
@@ -60,7 +60,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				},
 				{
 					address: {},
-					addon: [],
+					addon_items: [],
 					isDelivery: false,
 					meal_type: "L",
 					notes: "",
@@ -69,7 +69,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				},
 				{
 					address: {},
-					addon: [],
+					addon_items: [],
 					isDelivery: false,
 					meal_type: "D",
 					notes: "",
@@ -90,6 +90,14 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		let filteredPayload = payload.subscription.filter((item) => {
 			if (item.is_included) {
 				delete item.is_included;
+				if (item.addon_items && item.addon_items.length > 0) {
+					console.log("inside loop at cart function");
+					item.addon_items = item.addon_items.map(element => {
+						return {
+							item_id: element.item_id
+						}
+					})
+				}
 				return item;
 			}
 		});
@@ -214,8 +222,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 			if (subscribed.is_included) {
 				if (subscribed.meal_type == "B") {
 					let aprice = 0;
-					if (subscribed.addon && subscribed.addon.length > 0) {
-						subscribed.addon.forEach(element => {
+					if (subscribed.addon_items && subscribed.addon_items.length > 0) {
+						subscribed.addon_items.forEach(element => {
 							if (element.price) {
 								aprice += element.price;
 							}
@@ -227,8 +235,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 					};
 				} else if (subscribed.meal_type == "D") {
 					let aprice = 0;
-					if (subscribed.addon && subscribed.addon.length > 0) {
-						subscribed.addon.forEach(element => {
+					if (subscribed.addon_items && subscribed.addon_items.length > 0) {
+						subscribed.addon_items.forEach(element => {
 							if (element.price) {
 								aprice += element.price;
 							}
@@ -240,8 +248,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 					};
 				} else if (subscribed.meal_type == "L") {
 					let aprice = 0;
-					if (subscribed.addon && subscribed.addon.length > 0) {
-						subscribed.addon.forEach(element => {
+					if (subscribed.addon_items && subscribed.addon_items.length > 0) {
+						subscribed.addon_items.forEach(element => {
 							if (element.price) {
 								aprice += element.price;
 							}
@@ -259,7 +267,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		});
 		setBreakUps(tempArr);
 		setSubscriptionTotal(temp);
-	}, [subscription, subscription[0].addon, subscription[1].addon, subscription[2].addon]);
+	}, [subscription, subscription[0].addon_items, subscription[1].addon_items, subscription[2].addon_items]);
 
 	const variantsSelected = (varItems) => {
 		console.log("itm.sale_val_____", varItems);
