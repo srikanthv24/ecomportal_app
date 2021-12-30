@@ -48,6 +48,7 @@ const ProductDetails = ({
 						sale_val: 0,
 						items: [],
 					},
+					addon_items: []
 				},
 				{
 					address: {},
@@ -61,6 +62,7 @@ const ProductDetails = ({
 						sale_val: 0,
 						items: [],
 					},
+					addon_items: []
 				},
 				{
 					address: {},
@@ -74,6 +76,7 @@ const ProductDetails = ({
 						sale_val: 0,
 						items: [],
 					},
+					addon_items: []
 				},
 			],
 			qty: 0,
@@ -105,6 +108,8 @@ const ProductDetails = ({
 			setFormData({ ...FormData, [key]: value });
 		}
 	};
+
+	console.log("FormData", FormData);
 
 	return (
 		<FormProvider {...methods}>

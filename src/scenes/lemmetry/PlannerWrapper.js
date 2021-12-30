@@ -86,6 +86,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 	const { subscription, variants } = watch();
 
 	const handleCartSubmit = (data) => {
+		console.log("use_form_data", data);
 		let payload = { ...data };
 		let filteredPayload = payload.subscription.filter((item) => {
 			if (item.is_included) {
@@ -225,7 +226,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 					if (subscribed.addon_items && subscribed.addon_items.length > 0) {
 						subscribed.addon_items.forEach(element => {
 							if (element.price) {
-								aprice += element.price;
+								aprice += element.price * element.qty;
 							}
 						});
 					}
@@ -238,7 +239,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 					if (subscribed.addon_items && subscribed.addon_items.length > 0) {
 						subscribed.addon_items.forEach(element => {
 							if (element.price) {
-								aprice += element.price;
+								aprice += element.price * element.qty;
 							}
 						});
 					}
@@ -251,7 +252,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 					if (subscribed.addon_items && subscribed.addon_items.length > 0) {
 						subscribed.addon_items.forEach(element => {
 							if (element.price) {
-								aprice += element.price;
+								aprice += element.price * element.qty;
 							}
 						});
 					}

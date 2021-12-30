@@ -47,6 +47,11 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 	const [addonSearch, setAddonSearch] = useState('');
 	const [addons, setAddons] = useState([]);
 	const [selectedAddons, setSelectedAddons] = useState([]);
+	const [AddOnView, setAddOnView] = useState({
+		B: [],
+		L: [],
+		D: [],
+	  });
 
 	const { fields } = useFieldArray({
 		control: control,
@@ -74,7 +79,8 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 					</div>,
 					value: add.id,
 					price: add.sale_val,
-					item_id: add.id
+					item_id: add.id,
+					item_name:add.display_name
 				}
 			})
 			setAddons(a)
@@ -177,9 +183,9 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 	};
 
 	let deliverables = [
-		{ name: "Breakfast", value: "breakfast" },
-		{ name: "Lunch", value: "lunch" },
-		{ name: "Dinner", value: "dinner" },
+		{ name: "Breakfast", value: "breakfast",id: "B" },
+		{ name: "Lunch", value: "lunch", id:"L" },
+		{ name: "Dinner", value: "dinner", id: "D" },
 	];
 
 	useEffect(() => {
@@ -213,6 +219,77 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		setValue("variants", temp);
 		variantsSelected(VariantValue);
 	}, [VariantValue]);
+
+
+	const handleAddOns = (index, item, value, onChange) => {
+		console.log("index-item-value", index, item,value);
+		console.log("onChange", onChange)
+		let temp = [...AddOnView[item]];
+
+		console.log("xxzxzx", temp);
+
+		onChange(temp);
+
+		let ifNotExist = temp.filter((itmm, indx) => {
+			console.log("yyyy",itmm)
+			if (itmm.value === value.value) {
+			  return itmm;
+			}
+		  });
+
+		  console.log("ifNotExist", ifNotExist);
+
+		 ifNotExist.map((itm, idx) => {
+			if (itm.value === value.value) {
+				itm.qty = itm.qty + 1;
+				let tempIndex = temp.findIndex(
+				(tempItem) => tempItem.value == value.value
+				);
+				temp[tempIndex] = itm;
+				console.log("updating", {
+				...AddOnView,
+				[item]: temp,
+				});
+				setAddOnView({
+				...AddOnView,
+				[item]: temp,
+				});
+				//setValue([index, `addon_items`], temp, "subscription");
+			}
+
+		})
+
+		if(!ifNotExist.length) {
+			temp.push({ ...value, qty: 1 });
+			// setValue([index, `addon_items`], temp, "subscription");
+			setAddOnView({
+			  ...AddOnView,
+			  [item]: temp,
+			})
+		}
+	 	//setSelectedAddons(value);
+		// onChange(value);
+	}
+
+	const updatedQuantity = (q, idxx, session, index) => {
+		console.log("check", q, idxx, session);
+		let temp = AddOnView[session].map((itm, idx) => {
+		  if (idx === idxx) {
+		 	let obj = { ...itm, qty: Number(q) };
+		 	console.log("checkMate", obj);
+		 	return obj;
+		   } else {
+		 	return itm;
+		   }
+		 });
+		 console.log("temppppp", temp);
+		setAddOnView({ ...AddOnView, [session]: temp });
+		setValue(`subscription[${index}].addon_items`,temp);
+	  };
+
+	console.log("AddOnView",AddOnView);
+	console.log("productState", productState);
+	console.log("gloabalState_subscription",subscription );
 
 	return (
 		<div>
@@ -479,6 +556,53 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 											)}
 										/>
 									</Form.Group>
+									<div style={{width:"100%", backgroundColor:"yellow"}}>
+										{AddOnView[deliver.id]?.map((addonItem, idxx) => {
+											return (
+											<p style={{display:"flex", justifyContent:"space-between"}}> 
+												<span>{addonItem?.item_name}</span>
+
+											<InputGroup style={{width:"60px", }}>
+												<FormControl
+												
+													value={addonItem.qty}
+													onChange={(e) => {
+														const q = e.target.value;
+														if (q != null) {
+														  updatedQuantity(
+															q,
+															idxx,
+															deliver.id,
+															index
+														  );
+														}
+													  }}
+												/>
+											</InputGroup>
+											<span
+												 onClick={() => {
+												   console.log(
+													 "index clicked",
+													 idxx,
+													 AddOnView
+												   );
+												   //   console.log("remove clicked",AddOnView)
+												   let newaddons = AddOnView[deliver.id].splice(idxx, 1);
+												   let newaddons2 = AddOnView[deliver.id].filter((item) => item !== newaddons);
+			   
+												   console.log("remove clicked", newaddons2);
+			   
+												   setAddOnView({...AddOnView,[deliver.id]: newaddons2});
+												   setValue(`subscription[${index}].addon_items`,newaddons2);
+												 }}
+											>
+												X
+											</span>
+											</p> 
+											);
+										})
+										}
+									</div>
 									{addons && addons.length > 0 &&
 										<>
 											<p className="h6 text-muted mt-3 mb-2 m-2">Addons: </p>
@@ -489,15 +613,24 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 													<Select
 														name="addon_items"
 														placeholder="Choose addons"
-														isMulti={true}
+														//isMulti={true}
 														isSearchable={true}
 														options={addons}
 														className="mb-3 text-start"
 														{...rest}
+														// onChange={(value) => {
+														// 	console.log("value-inside-select", value);
+														// 	let temp = value.map(val => {
+														// 		return {...val, qty: 1}
+														// 	})
+														// 	setSelectedAddons(temp);
+														// 	onChange(temp);
+
+														// }}
 														onChange={(value) => {
-															setSelectedAddons(value);
-															onChange(value);
-														}}
+															handleAddOns(index, deliver.id, value, onChange)
+															}
+														}
 													/>
 
 												)}
