@@ -21,10 +21,12 @@ import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { GrAdd } from "react-icons/gr";
 import { BiRupee } from "react-icons/bi";
 import { BsInfoCircle } from "react-icons/bs";
+import { MdCancel } from "react-icons/md";
 
 import useQuery from "../../hooks/useQuery";
 import { AddressModal } from "./address-modal";
 import { getAddresses, showLogin, getAddons } from "../../store/actions";
+
 
 const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 	let query = useQuery();
@@ -556,13 +558,13 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 											)}
 										/>
 									</Form.Group>
-									<div style={{width:"100%", backgroundColor:"yellow"}}>
+									<div style={{width:"100%"}}>
 										{AddOnView[deliver.id]?.map((addonItem, idxx) => {
 											return (
 											<p style={{display:"flex", justifyContent:"space-between"}}> 
 												<span>{addonItem?.item_name}</span>
 
-											<InputGroup style={{width:"60px", }}>
+											<InputGroup style={{width:"50px",  position: "relative",}}>
 												<FormControl
 												
 													value={addonItem.qty}
@@ -580,6 +582,11 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 												/>
 											</InputGroup>
 											<span
+												  style={{
+													position: "absolute",
+													cursor: "pointer",
+													right: "30px",
+												  }}
 												 onClick={() => {
 												   console.log(
 													 "index clicked",
@@ -596,7 +603,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 												   setValue(`subscription[${index}].addon_items`,newaddons2);
 												 }}
 											>
-												X
+												<MdCancel style={{marginTop:"-17px"}}/>
 											</span>
 											</p> 
 											);

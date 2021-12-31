@@ -94,16 +94,20 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				if (item.addon_items && item.addon_items.length > 0) {
 					console.log("inside loop at cart function");
 					item.addon_items = item.addon_items.map(element => {
-						return {
-							item_id: element.item_id
-						}
+						delete element.label;
+						delete element.price;
+						delete element.value;
+						return element;
+						// return {
+						// 	item_id: element.item_id
+						// }
 					})
 				}
 				return item;
 			}
 		});
 
-		console.log({ ...data, subscription: filteredPayload });
+		console.log("filtered Payload",{ ...data, subscription: filteredPayload });
 
 		if (userDetails.sub) {
 			if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
