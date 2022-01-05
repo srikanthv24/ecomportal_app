@@ -123,7 +123,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				dispatch(
 					createCart({
 						customer_id: userDetails.sub,
-						items: [{ ...data, subscription: filteredPayload }],
+						item: [{ ...data, subscription: filteredPayload }],
 						accessToken: sessionStorage.getItem("token"),
 					})
 				);
