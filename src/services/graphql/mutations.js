@@ -226,10 +226,10 @@ export const getProductDetails = (id) =>
     }​​​​​​​`,
 	});
 
-export const getAddressList = `query ($customerId: String!) {
-    listAddresses (filter: {customer_name: {eq: $customerId}}) {
+export const getAddressList = `query ($customerId: ID!) {
+    listAddresses (filter: {customer_id: {eq: $customerId}}) {
     items {
-    customer_name
+    customer_id
     aline1
     aline2
     city
