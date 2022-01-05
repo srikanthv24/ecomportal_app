@@ -48,7 +48,7 @@ const Products = () => {
 
 	return (
 		<>
-			<Container fluid>
+			<Container fluid style={{background:"#F9F3DF"}}>
 				<Row style={{ overflow: "auto" }}>
 					<div style={{ ...phantom }} />
 					<Card.Header
@@ -56,7 +56,7 @@ const Products = () => {
 							position: "fixed",
 							top: 118,
 							zIndex: 999,
-							background: "#f5f5f5",
+							background: "#F9F3DF",
 						}}
 					>
 						<div className="d-flex justify-content-between align-items-center">
@@ -67,10 +67,10 @@ const Products = () => {
 								</small>
 							</div>
 							<div>
-								<Button variant="outline-light" active size="lg">
+								<Button variant="outline-light" active size="lg" style={{background:"#F9F3DF", borderColor:"#f0ead6 !important"}}>
 									<AiOutlineSortAscending />
 								</Button>
-								<Button variant="outline-light" active size="lg">
+								<Button variant="outline-light" active size="lg" style={{background:"#F9F3DF", borderColor:"#f0ead6 !important"}}>
 									<VscSettings />
 								</Button>
 							</div>
@@ -89,7 +89,7 @@ const Products = () => {
 														backgroundSize: "cover",
 														backgroundRepeat: "no-repeat",
 														backgroundPosition: "center",
-														height: "120px",
+														height: "150px",
 														width: "100%",
 													}}
 												/>

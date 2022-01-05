@@ -28,20 +28,20 @@ const Landing = () => {
 
   console.log("categories-TEMP", categories);
   return (
-    <Container fluid="sm" className="content-body">
+    <Container fluid="sm" className="content-body" style={{background: "rgb(249, 243, 223)"}}>
       {userDetails.sub && (
         <section className="page-content bg-1">
           <SimpleCard />
         </section>
       )}
 
-      <section className="page-content py-3">
-        <Container>
+      <section className="page-content1 py-3" style={{background: "rgb(249, 243, 223)"}}>
+        <Container style={{background: "rgb(249, 243, 223)"}}>
           {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
             
           </Button> */}
           <Card style={{ border: "none" }}>
-            <Card.Header className="no-bg">
+            <Card.Header className="no-bg1" style={{background: "rgb(249, 243, 223)"}}>
               <div className="w-100">
                 <Link to="/subscription" className="viewall-txt">
                   <Button
@@ -52,102 +52,115 @@ const Landing = () => {
                   </Button>
                 </Link>
               </div>
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between align-items-center">
                 <span className="content-title">Categories</span>
-
                 <span>
                   {/* </span>
 
                 <span> */}
-                  <Link to="/categories" className="viewall-txt">
+                  <Link to="/categories" className="viewall-txt mb-0">
                     View all
                   </Link>
                 </span>
               </div>
             </Card.Header>
-            <Card.Body className="m-0 p-0">
+            <Card.Body className="m-0 p-0" style={{background: "rgb(249, 243, 223)"}}>
               {/* <LandingCarousel carouselItems={categories.categories} /> */}
               {categories.loading ? (
                 <Row
-                  style={{ width: "100%" }}
-                  className="p-0 m-0 d-flex align-items-center justify-content-center"
-                >
-                  {dummyList.map((item, index) => {
-                    return (
-                      <Col
-                        key={index}
-                        lg={3}
-                        md={4}
-                        sm={6}
-                        xs={6}
-                        className="mt-1 mb-2"
-                      >
-                        <div className="category-item">
-                          <div
-                            style={{
-                              textAlign: "center",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexDirection: "column",
-                              //   background: "#ccc",
-                              height: "100%",
-                              boxSizing: "border-box",
-                            }}
-                            className="placeholder-glow"
-                          >
-                            <div style={{ textAlign: "center" }}>
-                              <div
-                                style={{
-                                  backgroundImage: `url(${"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"})`,
-                                  backgroundSize: "cover",
-                                  backgroundRepeat: "no-repeat",
-                                  backgroundPosition: "center",
-                                  height: "120px",
-                                  width: "120px",
-                                  borderRadius: "10%",
-                                  margin: 5,
-                                  textAlign: "center",
-                                }}
-                                className="placeholder-glow"
-                              />
-                            </div>
+                style={{ width: "100%" }}
+                className="p-0 m-0 d-flex align-items-center justify-content-center"
+              >
+                {dummyList.map((item, index) => {
+                  return (
+                    <Col
+                      key={index}
+                      lg={3}
+                      md={4}
+                      sm={6}
+                      xs={6}
+                      className="mt-1 mb-2"
+                    >
+                      <div className="category-item1">
+                        <div
+                          style={{
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            //   background: "#ccc",
+                            height: "100%",
+                            boxSizing: "border-box",
+                          }}
+                          className="placeholder-glow1"
+                        >
+                          <div style={{ textAlign: "center" }}>
                             <div
                               style={{
-                                height: 50,
-                                maxHeight: 50,
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
+                                backgroundImage: `url(${"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"})`,
+                                backgroundSize: "cover",
+                                backgroundRepeat: "no-repeat",
+                                backgroundPosition: "center",
+                                height: "120px",
+                                width: "120px",
+                                borderRadius: "10%",
+                                margin: 5,
+                                textAlign: "center",
                               }}
-                            >
-                              <p className="text-muted placeholder-glow">
-                                <span className="placeholder col-12">
-                                  SAMPLE DATA.....
-                                </span>
-                              </p>
-                            </div>
+                              className="placeholder-glow1"
+                            />
+                          </div>
+                          <div
+                            style={{
+                              height: 50,
+                              maxHeight: 50,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {/* <p className="text-muted1 placeholder-glow1">
+                              <span className="placeholder1 col-12">
+                                SAMPLE DATA.....
+                              </span>
+                            </p> */}
+                            <h6
+                      style={{
+                        fontSize:'20px',
+                        fontFamily: "Playfair Display",
+                        fontWeight:700,
+                        lineHeight:"25px",
+                        textOverflow: "ellipsis",
+                        color: "#352817",
+                      }}
+                    >
+                      SAMPLE DATA.....
+                    </h6>
                           </div>
                         </div>
-                      </Col>
-                    );
-                  })}
-                </Row>
+                      </div>
+                    </Col>
+                  );
+                })}
+              </Row>
               ) : (
                 <CategoryList list={categories.categories} />
+               
+
               )}
             </Card.Body>
           </Card>
         </Container>
       </section>
-
-      <section className="page-content bg-3">
+      <hr className="abcd" />
+      <section className="page-content" style={{background: "rgb(249, 243, 223)"}}>
         <Container>
           <Card style={{ border: "none", backgroundColor: "transparent" }}>
             <Card.Header className="no-bg">
               <div className="d-flex justify-content-between align-items-baseline">
                 <span className="content-title">Products</span>
                 <span>
-                  <Link to="/products" className="viewall-txt">
+                  <Link to="/products" className="viewall-txt mb-0">
                     View all
                   </Link>
                 </span>

@@ -19,9 +19,10 @@ import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
 import { clearUserDetails, getTokenFailure } from "../../store/actions/auth";
-import ProfileImg from "./../../assets/thumbnail-profile-pic.jpg";
+import ProfileImg from "./../../assets/thumbnail-profile-pic.png";
 import auth_services from "../../services/auth_services";
 import { showLogin } from "../../store/actions";
+import arrowRightIcon from "./../../assets/arrow-right.png";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -69,9 +70,9 @@ export default function AppBar() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        bg="light"
+        // bg="light"
         variant="light"
-        sticky="top"
+        sticky="top" style={{background:"#F9F3DF"}}
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>
@@ -172,12 +173,11 @@ export default function AppBar() {
         backdrop={true}
         style={{ width: 350 }}
       >
-        <Offcanvas.Header closeButton />
-        <Offcanvas.Body>
+        
+        <Offcanvas.Body style={{padding:'0px',position:'relative', background:'#FFF'}}>
+        <Offcanvas.Header closeButton className="closeBtn" style={{position:'absolute',top:'0px',right:'0px',zIndex:'100', color:'#ffffff'}} />
           <div style={{ position: "relative", height: 180 }}>
-            <div
-              style={{ height: 100, background: "rgba(240, 89, 34, 0.4)" }}
-            ></div>
+            <div style={{ height: 150, background: "#F38144" }}></div>
             <div
               style={{
                 height: 100,
@@ -188,7 +188,7 @@ export default function AppBar() {
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 position: "absolute",
-                top: 50,
+                top: 100,
                 bottom: 0,
                 left: 0,
                 right: 0,
@@ -208,12 +208,18 @@ export default function AppBar() {
                 history.push("/");
               }}
             >
-              Home
+             
+              <div className="d-flex align-items-center" style={{justifyContent:"space-between"}}>
+                Home
+                <img src={arrowRightIcon} alt="icon" height="18" />
+              </div>
             </ListGroup.Item>
             {userDetails.sub ? (
               <>
-                <ListGroup.Item>My Profile</ListGroup.Item>
-                <ListGroup.Item>Subscriptions</ListGroup.Item>
+                <ListGroup.Item className="menuItem">
+                 My Profile
+                  </ListGroup.Item>
+                <ListGroup.Item className="menuItem">Subscriptions</ListGroup.Item>
                 <ListGroup.Item
                   onClick={() => {
                     setMenu(false);
@@ -225,12 +231,18 @@ export default function AppBar() {
               </>
             ) : null}
             {userDetails.sub ? (
-              <ListGroup.Item onClick={logoutCognitoUser}>
+              <ListGroup.Item onClick={logoutCognitoUser}>                
+                <div className="d-flex align-items-center" style={{justifyContent:"space-between"}}>
                 Log Out
+                <img src={arrowRightIcon} alt="icon" height="18" />
+              </div>
               </ListGroup.Item>
             ) : (
-              <ListGroup.Item onClick={() => dispatch(showLogin())}>
+              <ListGroup.Item onClick={() => dispatch(showLogin())}>                
+              <div className="d-flex align-items-center" style={{justifyContent:"space-between"}}>
                 Log In
+                <img src={arrowRightIcon} alt="icon" height="18" />
+              </div>
               </ListGroup.Item>
             )}
           </ListGroup>

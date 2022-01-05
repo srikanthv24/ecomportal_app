@@ -82,11 +82,11 @@ const ProductCard = ({ product }) => {
     );
   };
   return (
-    <Card style={{ marginBottom: 10 }}>
+    <Card style={{ marginBottom: 30, borderColor:'transparent',padding:'0px',background:'transparent' }}>
       <Card.Body
         variant="top"
         onClick={() => history.push(`/products/${product.id}`)}
-        className="p-1"
+        className="p-2"
       >
         <div
           style={{
@@ -99,25 +99,26 @@ const ProductCard = ({ product }) => {
             backgroundPosition: "center",
             height: "120px",
             width: "100%",
+            borderRadius:"15px"
           }}
         />
       </Card.Body>
       <Card.Body
-        className="pt-2"
+        className="pt-1 text-center px-1"
         style={{ minHeight: 140 }}
         onClick={() => history.push(`/products/${product.id}`)}
       >
-        <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate">
+        <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate text-center" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "700", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product.display_name}
         </Card.Text>
-        <small className="col-12 text-truncate text-muted">
+        <small className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product.category}
         </small>
-        <Card.Text className="col-12 text-truncate">
+        <Card.Text className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product.description}
         </Card.Text>
         <Card.Text>
-          <span className="d-flex">
+          <span className="d-flex justify-content-center" style={{fontSize:"15px",lineHeight:"20px",color:"#352817",fontWeight:"400",fontFamily: 'Roboto Condensed'}}>
             <span>
               <BiRupee /> {Number(product.sale_val).toFixed(2)} / {product.uom_name}
             </span>
@@ -161,9 +162,8 @@ const ProductCard = ({ product }) => {
             size="sm"
             className="cutom-btn"
             style={{
-              width: "100%",
-              background: "#F05922",
-              borderColor: "#f05922",
+              minWidth: "140px",margin:'0 auto',display:'flex',fontSize:"15px", fontWeight:"500",fontFamily: 'Roboto Condensed',textTransform:"uppercase",
+              background: 'transparent', border: '2px solid #362918', color: '#352817',borderRadius:"90px", padding:'15px',alignItems:"center",justifyContent:"space-around"
             }}
             onClick={handleAddToCart}
           >

@@ -56,7 +56,7 @@ const CardProduct = ({ productId, pushPrice }) => {
   };
 
   return (
-    <div>
+    <div style={{background: "rgb(249, 243, 223)"}}>
       <Card
         style={{
           marginBottom: 10,
@@ -81,12 +81,13 @@ const CardProduct = ({ productId, pushPrice }) => {
               backgroundPosition: "center",
               height: "120px",
               width: "120px",
+              borderRadius:'40px'
             }}
           />
         </Card.Body>
         <Card.Body className="pt-2">
           <Card.Text
-            className="h6 mb-0 pb-0 col-12 text-truncate"
+            className="h6 mb-0 pb-0 col-12 text-truncate"             
             onClick={() => history.push("/products/" + ProductDetails.item_id)}
           >
             {ProductDetails.item_name}
