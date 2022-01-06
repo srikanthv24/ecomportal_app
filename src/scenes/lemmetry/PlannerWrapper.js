@@ -115,9 +115,9 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				dispatch(
 					updateCart({
 						customer_id: userDetails.sub,
-						// cart_id: Cart?.cartDetails?.items[0]?.id,
+						 cart_id: Cart?.cartDetails?.items[0]?.id,
 						id:Cart?.cartDetails?.items[0]?.id,
-						ciid: Cart?.cartDetails?.items[0]?.ciid,
+						cart_item_id: Cart?.cartDetails?.items[0]?.ciid,
 						item: { ...data, subscription: filteredPayload },
 					})
 				);

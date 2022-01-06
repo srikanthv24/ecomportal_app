@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Login from "./../../scenes/Login";
-import Register from "./../../scenes/Register/register";
+import Register from "./../../scenes/Register";
 import "./styles.css";
 
 import { Button, Tabs, Tab, Nav } from "react-bootstrap";

@@ -12,7 +12,8 @@ import { BsPencil, BsTrash, BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { updateCartQty } from "../../store/actions/cart";
-
+import {deleteCartItem} from "../../store/actions/cart-item";
+ 
 const CartSummaryItem = ({ ProductDetails }) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
@@ -30,12 +31,11 @@ const CartSummaryItem = ({ ProductDetails }) => {
 
   const onDelete = () => {
     dispatch(
-      updateCartQty({
-        cart_item_id: ProductDetails.cart_item_id,
+        deleteCartItem(
+        {
+        cart_item_id: Cart?.cartDetails?.items[0].ciid,
         id: Cart?.cartDetails?.items[0]?.id,
         customer_id: userDetails.sub,
-        item_id: ProductDetails.item_id,
-        qty: 0,
       })
     );
   };

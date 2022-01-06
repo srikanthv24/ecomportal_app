@@ -295,6 +295,7 @@ export const getCart = `query ($customer_id: ID!){
         }
       }
     }
+    grand_total
   }
 }`;
 
@@ -343,6 +344,7 @@ export const CartSummary = `query ($customer_id: ID!){
         }
       }
     }
+    grand_total
   }
 }`;
 
@@ -437,27 +439,26 @@ export const updateCartItem = (params) => `mutation {
   }
 }`;
 
-export const deleteCartItem = `mutation($ID: ID!){
-  deleteCartItem(input:{
-    id:$ID
+export const deleteCartItem = `mutation($id: ID!,$ciid: ID!){
+  deleteCart(input:{
+    id:$id
+    ciid :$ciid
   })
   {
     id
   }
 }`;
 
-export const updateCartQty = `mutation ($item_id: ID!, $qty: Int!, $cart_id: ID!, $cart_item_id: ID!) { UpdateCartItemQty(input: {qty: $qty, cart_id: $cart_id, item_id: $item_id, cart_item_id: $cart_item_id}) {
+export const updateCartQty = `mutation ( $qty: Int!, $id: ID!, $ciid: ID!) { UpdateCartItemQty(input: {qty: $qty, id: $id, ciid: $ciid}) {
   id
   customer_id
   customer_mobile
   customer_name
-  items {
+  item {
   defaultimg_url
   category
-  cart_item_id
   qty
   item_id
-  sale_val
   sub_total
   item_name
   is_mealplan
