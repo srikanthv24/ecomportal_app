@@ -150,7 +150,8 @@ export default function AppBar() {
                         <AiOutlineShoppingCart size={24} />
                         <Badge pill>
                           {Cart?.cartDetails?.items?.length &&
-                            Cart?.cartDetails?.items[0]?.items?.length}
+                            // Cart?.cartDetails?.items[0]?.items?.length}
+                            Cart?.cartDetails?.items?.length}
                         </Badge>
                       </h6>
                     </Nav.Link>
