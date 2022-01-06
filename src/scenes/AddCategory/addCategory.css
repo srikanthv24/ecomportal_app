@@ -1,0 +1,17 @@
+.root {
+    margin-top: 10px;
+}
+
+.paper {
+    width: "100%";
+}
+
+.grid {
+    padding: "20px";
+}
+
+.heading {
+    font-size: "40px";
+    padding: "10px";
+    margin-left: "5px";
+}

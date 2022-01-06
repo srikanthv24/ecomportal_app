@@ -1,0 +1,42 @@
+.avatar {
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f05922;
+    color: cornsilk;
+}
+.subscription-section{
+    max-width: 100%;
+    margin: 20px auto 20px;
+    padding: 0px;
+}
+.content-title{
+    font-family: 'Raleway';
+    font-size: 1.875rem;
+    color:#424141;
+    font-weight: 600;
+}
+.viewmore-txt{
+    font-family: 'Raleway';
+    font-size: 18px;
+    color:#f05922;
+    font-weight: 500;
+}
+.no-bg{
+    background-color: transparent !important;
+    border: none !important;
+}
+@media screen and (max-width:600px) {
+    .subscription-section{
+        max-width: 100%;
+        margin: 20px auto 20px;
+        padding: 0px;
+    }
+    .content-title{
+        font-size: calc(1.3125rem + 0.75vw);
+    }
+}
