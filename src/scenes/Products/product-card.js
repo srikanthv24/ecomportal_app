@@ -23,14 +23,15 @@ const ProductCard = ({ product }) => {
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ExistingProduct, setExistingProduct] = useState({ qty: 0 });
+  const [ButtonLoading,setButtonLoading] = useState(false)
   const userDetails = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
-    Cart.cartDetails &&
+    Cart?.cartDetails &&
       Cart?.cartDetails?.items?.length &&
-      Cart?.cartDetails?.items[0]?.items.map((item, index) => {
+      Cart?.cartDetails?.items?.map((item, index) => {
         // eslint-disable-next-line no-unused-expressions
-        item && item.item_id == product.id
+        item.item && item?.item?.item_id == product.id
           ? setExistingProduct({ ...product, ...item, qty: item.qty })
           : null;
         return null;
@@ -56,6 +57,7 @@ const ProductCard = ({ product }) => {
         })
       );
     }
+    setButtonLoading(true)
   };
 
   const onIncrement = () => {
@@ -81,6 +83,8 @@ const ProductCard = ({ product }) => {
       })
     );
   };
+
+  console.log("kokoko",Cart)
   return (
     <Card style={{ marginBottom: 30, borderColor:'transparent',padding:'0px',background:'transparent' }}>
       <Card.Body
@@ -168,7 +172,7 @@ const ProductCard = ({ product }) => {
             onClick={handleAddToCart}
           >
             <AiOutlineShoppingCart />{" "}
-            {Cart.cartLoading ? (
+            {Cart.cartLoading  ? (
               <Spinner animation="border" role="status" />
             ) : (
               "Add to Cart"

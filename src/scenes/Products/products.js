@@ -106,7 +106,7 @@ const Products = () => {
 													</p>
 													<a
 														href="#"
-														tabindex="-1"
+														tabIndex="-1"
 														className="btn btn-primary disabled placeholder col-6"
 													></a>
 												</div>
