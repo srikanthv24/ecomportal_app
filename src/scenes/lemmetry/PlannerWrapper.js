@@ -110,11 +110,14 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		console.log("filtered Payload",{ ...data, subscription: filteredPayload });
 
 		if (userDetails.sub) {
-			if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+			// if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+				if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
 				dispatch(
 					updateCart({
 						customer_id: userDetails.sub,
-						cart_id: Cart?.cartDetails?.items[0]?.id,
+						// cart_id: Cart?.cartDetails?.items[0]?.id,
+						id:Cart?.cartDetails?.items[0]?.id,
+						ciid: Cart?.cartDetails?.items[0]?.ciid,
 						item: { ...data, subscription: filteredPayload },
 					})
 				);
@@ -173,9 +176,9 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 
 		if (Cart?.cartDetails?.items?.length) {
 			console.log("Cart?.cartDetails", Cart?.cartDetails);
-			let ifExist = Cart?.cartDetails?.items[0]?.items.filter((item) => {
+			let ifExist = Cart?.cartDetails?.items.filter((item) => {
 				if (item) {
-					return item.item_id == products.productDetails.id;
+					return item.item.item_id == products.productDetails.id;
 				}
 			});
 			if (ifExist?.length) {

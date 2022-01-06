@@ -97,14 +97,16 @@ export class Cart {
             "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
           },
           body: JSON.stringify({
-            query: `mutation ($cart_id: ID!, $customer_id: ID!, $item: UpdateCartItemInput!) {
-              updateCart(input: {cart_id: $cart_id, customer_id: $customer_id, item: $item}) {
+            query: `mutation ($id: ID!,$ciid: ID!, $customer_id: ID!, $item: UpdateCartItemInput!) {
+              updateCart(input: {id: $id, ciid: $ciid, customer_id: $customer_id, item: $item}) {
                 id
                 customer_id
               }
             }`,
             variables: {
-              cart_id: params.payload.cart_id,
+              // cart_id: params.payload.cart_id,
+              id: params.payload.id,
+              ciid: params.payload.ciid,
               customer_id: params.payload.customer_id,
               item: params.payload.item,
             },

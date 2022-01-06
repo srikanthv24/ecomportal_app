@@ -66,13 +66,13 @@ const Cart = () => {
               Cart?.cartDetails?.items?.map((item) => {
               if (item) {
                 console.log("ITEM-->", item);
-                total = total + item.qty;
+                total = total + item.item.qty;
               }
 
-              return item && item?.qty ? (
+              return item.item && item.item?.qty ? (
                 <CardProduct
-                  key={item.id}
-                  productId={item && item}
+                  key={item.item.id}
+                  productId={item && item.item}
                   cartDetails={Cart?.cartDetails}
                   totalQty={total}
                   pushPrice={(p) => calculatePrice(p)}
