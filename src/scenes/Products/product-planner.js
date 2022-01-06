@@ -310,7 +310,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 							</p>
 							<Controller
 								control={control}
-								// name={`variants.${variant.display_name}`}
+								name={`variants.${variant.display_name}`}
 								render={({ field: { onChange, name, value, ref } }) => (
 									<Select
 										name={name}
@@ -380,10 +380,10 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 										control={control}
 										name={`subscription[${index}].isDelivery`}
 										render={({ field: { onChange, ...rest } }) => (
-											<div class="form-check form-switch">
+											<div className="form-check form-switch">
 												<input
 													{...rest}
-													class="form-check-input"
+													className="form-check-input"
 													type="checkbox"
 													checked={subscription[index].isDelivery}
 													id={deliver.value}
@@ -395,7 +395,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 														}
 													}}
 												/>
-												<label class="form-check-label" for={deliver.value}>
+												<label className="form-check-label" for={deliver.value}>
 													{!subscription[index].isDelivery
 														? "Pick Up"
 														: "Deliver"}
