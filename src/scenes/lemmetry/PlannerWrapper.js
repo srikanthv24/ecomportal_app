@@ -111,17 +111,17 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 
 		if (userDetails.sub) {
 			// if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-				if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-				dispatch(
-					updateCart({
-						customer_id: userDetails.sub,
-						 cart_id: Cart?.cartDetails?.items[0]?.id,
-						id:Cart?.cartDetails?.items[0]?.id,
-						cart_item_id: Cart?.cartDetails?.items[0]?.ciid,
-						item: { ...data, subscription: filteredPayload },
-					})
-				);
-			} else {
+			// 	if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+			// 	dispatch(
+			// 		updateCart({
+			// 			customer_id: userDetails.sub,
+			// 			 cart_id: Cart?.cartDetails?.items[0]?.id,
+			// 			id:Cart?.cartDetails?.items[0]?.id,
+			// 			cart_item_id: Cart?.cartDetails?.items[0]?.ciid,
+			// 			item: { ...data, subscription: filteredPayload },
+			// 		})
+			// 	);
+			// } else {
 				console.log("MYToken--", sessionStorage.getItem("token"));
 				dispatch(
 					createCart({
@@ -130,7 +130,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 						accessToken: sessionStorage.getItem("token"),
 					})
 				);
-			}
+			// }
 		} else {
 			dispatch(showLogin());
 		}
