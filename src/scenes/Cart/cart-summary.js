@@ -89,7 +89,8 @@ const CartSummary = () => {
         <p className="h3">Cart Summary</p>
         <p className="h6 text-muted">
           {(cartSummary?.data?.items?.length &&
-            cartSummary?.data?.items[0]?.items?.length) ||
+            // cartSummary?.data?.items[0]?.items?.length) ||
+            cartSummary?.data?.items?.length) ||
             0}{" "}
           Items
         </p>
@@ -110,8 +111,9 @@ const CartSummary = () => {
               Loading...
             </div>
           ) : cartSummary?.data?.items?.length ? (
-            cartSummary?.data?.items[0]?.items?.map((item) => {
-              return <CartSummaryItem ProductDetails={item} />;
+            // cartSummary?.data?.items[0]?.items?.map((item) => {
+              cartSummary?.data?.items?.map((item) => {
+              return <CartSummaryItem ProductDetails={item.item} />;
             })
           ) : (
             <div className="flex-column text-center">
