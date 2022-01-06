@@ -54,13 +54,13 @@ export const Cart = (state = initialState, action) => {
 		case types.GET_CART_FAILURE:
 			return { ...state, cartLoading: false, cartDetails: {} };
 
-		case types.CREATE_CART_SUCCESS:
+		case types.CREATE_CART_SUCCESS:	
 			return {
-				...state,
+				...state,cartLoading: false,
 				cartDetails: { ...action.payload.createCart },
 			};
 		case types.CREATE_CART_FAILURE:
-			return { ...state, cartDetails: {} };
+			return { ...state,cartLoading: false, cartDetails: {} };
 
 		case types.UPDATE_CART_SUCCESS:
 			return {
@@ -68,7 +68,7 @@ export const Cart = (state = initialState, action) => {
 				cartDetails: { ...action.payload.updateCart },
 			};
 		case types.UPDATE_CART_FAILURE:
-			return { ...state, cartDetails: {} };
+			return { ...state, cartLoading: false,cartDetails: {} };
 
 		case types.UPDATE_CART:
 			return { ...state, cartLoading: true };

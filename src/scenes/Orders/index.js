@@ -36,9 +36,9 @@ const Orders = () => {
   }, []);
 
   return (
-    <section style={{ padding: 5 }}>
-      <p className="h5 m-2">Your Orders</p>
-      {OrdersList?.length &&
+    <section className="bg-1" style={{minHeight:'calc(100vh - 126px)',padding: 5}}>
+      <p className="h5 m-2 page-title">Your Orders</p>
+      {OrdersList?.length > 0 ?
         OrdersList?.map((order) => {
           return (
             <Card
@@ -93,7 +93,7 @@ const Orders = () => {
               </Row>
             </Card>
           );
-        })}
+        }) :<small className="text-muted value-txt px-2">No Orders</small>}
     </section>
   );
 };

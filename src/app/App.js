@@ -17,6 +17,7 @@ import { getOrders } from "../store/actions/orders";
 import { GrClose } from "react-icons/gr";
 import LoginModal from "../components/LoginModal";
 import { hideLogin } from "../store/actions";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();

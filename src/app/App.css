@@ -1,11 +1,11 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -35,4 +35,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+.custom-btn-secondary{
+  background: rgb(240, 89, 34) !important;
+  border-color: rgb(240, 89, 34) !important;
+}
+.bg-1{
+  background:rgb(249, 243, 223) !important;
+}
+.page-title{
+  font-family: 'Roboto Condensed';
+    font-size: 25px !important;
+    color: rgba(35, 27, 16, 0.25);
+    font-weight: 700 !important;
+    text-transform: uppercase;
+}
+.value-txt{
+  font-family: 'Roboto Condensed';
+  font-size: 14px !important;
+  color: rgba(35, 27, 16, 0.25);
+  font-weight: 500 !important;
 }

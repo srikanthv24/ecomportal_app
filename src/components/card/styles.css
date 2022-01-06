@@ -15,10 +15,11 @@
     padding: 0px;
 }
 .content-title{
-    font-family: 'Raleway';
-    font-size: 1.875rem;
-    color:#424141;
-    font-weight: 600;
+    font-family: 'Roboto Condensed';
+    font-size: 20px;
+    color:rgba(35, 27, 16, 0.25);
+    font-weight: 700;
+    text-transform: uppercase;
 }
 .viewmore-txt{
     font-family: 'Raleway';

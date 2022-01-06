@@ -173,8 +173,8 @@ const CartSummary = () => {
           }}
         >
           <Button
-            className="w-100"
-            style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
+            className="w-100 custom-btn-secondary"
+            style={{ boxShadow: "1px 2px 3px #ededed", padding:5 }}
             onClick={handleContinue}
             // disabled={cartSummary?.data?.items?.length}
             disabled={cartSummary?.data?.items?.length ? false : true}
