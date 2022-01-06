@@ -51,7 +51,7 @@ const ProductCard = ({ product }) => {
       dispatch(
         createCart({
           customer_id: userDetails.sub,
-          items: [{ ...product, qty: 1 }],
+          item: [{ ...product, qty: 1 }],
           accessToken: sessionStorage.getItem("token"),
         })
       );

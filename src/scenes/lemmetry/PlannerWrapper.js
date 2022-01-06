@@ -47,7 +47,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		defaultValues: {
 			item_id: "",
 			qty: 1,
-			sale_val: 0,
+			// sale_val: 0,
 			subscription: [
 				{
 					address: {},
@@ -123,7 +123,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				dispatch(
 					createCart({
 						customer_id: userDetails.sub,
-						items: [{ ...data, subscription: filteredPayload }],
+						item: { ...data, subscription: filteredPayload },
 						accessToken: sessionStorage.getItem("token"),
 					})
 				);

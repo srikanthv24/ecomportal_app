@@ -26,7 +26,7 @@ function* GetCart(params) {
 		// }
 		yield put({
 			type: types.GET_CART_SUCCESS,
-			payload: response.data.queryCartsByCustomerIndex,
+			payload: response.data.listCarts,
 		});
 	} catch (error) {
 		yield put({
@@ -103,7 +103,7 @@ function* getCartSummary(params) {
 		const response = yield call(Cart.getCartSummary, params);
 		yield put({
 			type: types.GET_CART_SUMMARY_SUCCESS,
-			payload: response.data.queryCartsByCustomerIndex,
+			payload: response.data.listCarts,
 		});
 	} catch (error) {
 		yield put({

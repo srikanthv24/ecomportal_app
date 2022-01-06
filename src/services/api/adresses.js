@@ -3,7 +3,6 @@
 
 export class Adresses {
   static getAddressList = async (id) => {
-    console.log('getAddressListgetAddressListgetAddressList', id)
     return await fetch(
       "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
       {
@@ -18,10 +17,11 @@ export class Adresses {
             id.customerId
           )}}}) {
           items {   
-          customer_name
+          customer_id
           aline1
           aline2
           city
+          area_code
           customer_name
           community
           landmark

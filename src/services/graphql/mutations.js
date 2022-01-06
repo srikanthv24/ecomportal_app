@@ -226,10 +226,10 @@ export const getProductDetails = (id) =>
     }​​​​​​​`,
 	});
 
-export const getAddressList = `query ($customerId: String!) {
-    listAddresses (filter: {customer_name: {eq: $customerId}}) {
+export const getAddressList = `query ($customerId: ID!) {
+    listAddresses (filter: {customer_id: {eq: $customerId}}) {
     items {
-    customer_name
+    customer_id
     aline1
     aline2
     city
@@ -261,12 +261,12 @@ export const getCategories = `query($limit: Int, $nextToken: String) {
 }}`;
 
 export const getCart = `query ($customer_id: ID!){
-  queryCartsByCustomerIndex(customer_id: $customer_id) {
+    listCarts(filter: {customer_id: {eq: $customer_id},pay_status:{eq:"UNPAID"}}) {
     items {
       customer_id
       pay_status
       id
-      items {
+      item {
         defaultimg_url
         item_name
         tax_methods
@@ -298,7 +298,7 @@ export const getCart = `query ($customer_id: ID!){
 }`;
 
 export const CartSummary = `query ($customer_id: ID!){
-  queryCartsByCustomerIndex(customer_id: $customer_id) {
+  listCarts(filter: {customer_id: {eq: $customer_id},pay_status:{eq:"UNPAID"}}) {
     items {
       customer_id
       customer_mobile
@@ -306,7 +306,7 @@ export const CartSummary = `query ($customer_id: ID!){
       id
       grand_total
       pay_status
-      items {
+      item {
         defaultimg_url
         item_name
         tax_methods
