@@ -11,7 +11,7 @@ import { BiRupee } from "react-icons/bi";
 import { BsPencil, BsTrash, BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { updateCartQty } from "../../store/actions/cart";
+import { getCartSummary } from "../../store/actions/cart";
 import {deleteCartItem} from "../../store/actions/cart-item";
  
 const CartSummaryItem = ({ ProductDetails }) => {
@@ -28,7 +28,6 @@ const CartSummaryItem = ({ ProductDetails }) => {
   });
 
   const [Duration, setDuration] = useState(null);
-
   const onDelete = () => {
     dispatch(
         deleteCartItem(
@@ -39,6 +38,10 @@ const CartSummaryItem = ({ ProductDetails }) => {
       })
     );
   };
+
+  
+
+
 
   useEffect(() => {
     let temp = { ...Addresses };
@@ -214,7 +217,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
               variant="outline-danger"
               size="sm"
               onClick={onDelete}
-            >
+            > 
               <BsTrashFill />
             </Button>
           </div>

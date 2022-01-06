@@ -69,8 +69,8 @@ function* DeleteCartItem(params) {
       payload: response,
     });
     yield put({
-      type: types.GET_CART,
-      payload: { customer_id: params.payload.customer_id },
+      type: types.GET_CART_SUMMARY,
+      payload:  params.payload,
     });
   } catch (error) {
     console.log('Failed cartitem delete', error)
