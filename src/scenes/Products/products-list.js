@@ -47,7 +47,7 @@ const ProductsList = ({ list, items }) => {
 	}, [list]);
 
 	if (!list || !list.items || !list.items.length) {
-		return <h3>No products found!!</h3>;
+		return <h3 className="text-center my-4">No products found!!</h3>;
 	}
 
 	console.log("Producttyyyyyyyy", items);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Login from "./../../scenes/Login";
 import Register from "./../../scenes/Register/register";
+import "./styles.css";
 
 import { Button, Tabs, Tab, Nav } from "react-bootstrap";
 
@@ -15,7 +16,7 @@ const LoginModal = () => {
       onSelect={(k) => setExistingUser(k)}
       
     >
-      <Nav justify variant="pills" className="mt-3" >
+      <Nav justify variant="pills" className="mt-5" >
         <Nav.Item >
           <Nav.Link style={{ textDecoration: "none" }} eventKey="login">
             Login

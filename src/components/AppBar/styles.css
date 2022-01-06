@@ -80,3 +80,15 @@
 .MuiStepLabel-label {
     margin-top: 5px !important;
 }
+
+.closeBtn .btn-close{
+   color:'#ffffff' !important;
+}
+.list-group-item{
+    font-size: 18px;
+    line-height: 30px;
+    font-family: "Roboto Mono";
+    font-weight: 500;
+    text-transform: uppercase;
+    background:transparent !important;
+}

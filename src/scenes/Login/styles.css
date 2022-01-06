@@ -16,7 +16,8 @@
   .custom-btn{
       font-size: 20px !important;
       font-weight: 500 !important;
-      background-color: #f05922 !important;
+      /* background-color: #f05922 !important; */
+      background-color: #614731 !important;
       color: #ffffff;
       border: none !important;
       min-height: 52px;
@@ -32,4 +33,7 @@
   }
   .secondary-color{
       color:#424141 !important
+  }
+  .pos-rel{
+    position: relative;
   }

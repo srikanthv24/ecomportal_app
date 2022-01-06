@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCustomer } from "../../store/actions/customer";
 import PlannerWrapper from "./PlannerWrapper";
 import { makeStyles } from "@material-ui/core";
+import { ImportantDevices } from "@material-ui/icons";
 
 function getSteps() {
   return ["Profile", "Meal Plan", "Schedule"];
@@ -21,6 +22,12 @@ const useStyles = makeStyles({
   stepLabel: {
     marginTop: 5,
   },
+  stepperBg:{
+    background:"rgb(249, 243, 223) !important",
+    '& > $div':{
+      background:"rgb(249, 243, 223) !important",
+    }
+  }
 });
 
 const LemmeTry = () => {
@@ -46,7 +53,7 @@ const LemmeTry = () => {
   };
 
   return (
-    <>
+    <section className={classes.stepperBg}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -78,7 +85,7 @@ const LemmeTry = () => {
           />
         ) : null}
       </div>
-    </>
+    </section>
   );
 };
 

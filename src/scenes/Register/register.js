@@ -72,12 +72,12 @@ const Register = () => {
       <div className="text-center mt-4">
         <Image src={VLogo} height="80" />
       </div>
-      <p className="fs-5 fw-bold mt-4 mb-3 secondary-color text-center">
+      <p className="fs-5 fw-bold mt-4 mb-3 secondary-color text-center" style={{fontFamily:'Roboto Mono',fontWeight:'500',fontSize:'15px', textTransform:'uppercase'}} >
         Create Account
       </p>
 
       <Form>
-        <FloatingLabel controlId="floatingInput" label="Phone Number">
+        <FloatingLabel controlId="floatingInput" label="Phone Number" className="mb-4 pos-rel">
           <Form.Control
             type="number"
             maxLength="10"
@@ -91,7 +91,7 @@ const Register = () => {
               fontSize: 12,
               fontWeight: 600,
               paddingLeft: 5,
-              paddingTop: 5,
+              position:'absolute',top:'100%'
             }}
             className="text-danger"
           >
@@ -99,7 +99,7 @@ const Register = () => {
           </span>
         </FloatingLabel>
 
-        <FloatingLabel controlId="floatingInput" label="Name">
+        <FloatingLabel controlId="floatingInput" label="Name" className="mb-4 pos-rel">
           <Form.Control
             type="text"
             placeholder="Enter your name"
@@ -112,7 +112,7 @@ const Register = () => {
               fontSize: 12,
               fontWeight: 600,
               paddingLeft: 5,
-              paddingTop: 5,
+              position:'absolute',top:'100%'
             }}
             className="text-danger"
           >
@@ -120,7 +120,7 @@ const Register = () => {
           </span>
         </FloatingLabel>
 
-        <FloatingLabel controlId="floatingInput" label="Password">
+        <FloatingLabel controlId="floatingInput" label="Password" className="mb-4 pos-rel">
           <Form.Control
             type="password"
             placeholder="Password"
@@ -133,7 +133,7 @@ const Register = () => {
               fontSize: 12,
               fontWeight: 600,
               paddingLeft: 5,
-              paddingTop: 5,
+              position:'absolute',top:'100%'
             }}
             className="text-danger"
           >
@@ -142,7 +142,7 @@ const Register = () => {
         </FloatingLabel>
 
         <Button
-          className="custom-btn w-100"
+          className="custom-btn w-100" style={{background:'#614731 !important'}}
           variant="primary"
           onClick={handleSubmit}
         >
