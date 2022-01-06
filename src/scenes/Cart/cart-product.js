@@ -13,15 +13,16 @@ import { updateCartQty } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
 import {deleteCartItem} from "../../store/actions/cart-item";
 
-const CardProduct = ({ productId, pushPrice ,key}) => {
+const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ProductDetails, setProductDetails] = useState({});
+  const [ButtonLoader, setButtonLoader] = useState(false);
   const userDetails = useSelector((state) => state.auth.userDetails);
 
 
-  console.log("pindex",key )
+  console.log("pindex",pindex )
 
   useEffect(() => {
     // Products.ProductDetails({ payload: productId.item_id }).then((res) => {
@@ -34,12 +35,12 @@ const CardProduct = ({ productId, pushPrice ,key}) => {
     pushPrice((productId.sale_val && productId.sale_val) * productId.qty);
   }, [productId]);
 
-  const onIncrement = () => {
+  const onIncrement = (pindex) => {
     console.log(ProductDetails);
     dispatch(
       updateCartQty({
-        cart_item_id: Cart.cartDetails.items[0].ciid,
-        id: Cart.cartDetails.items[0].id,
+        cart_item_id: Cart.cartDetails.items[pindex].ciid,
+        id: Cart.cartDetails.items[pindex].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,
         qty: productId.qty + 1,
@@ -47,13 +48,13 @@ const CardProduct = ({ productId, pushPrice ,key}) => {
     );
   };
 
-  const onDecrement = () => {
+  const onDecrement = (pindex) => {
     if(productId.qty==1){
       dispatch(
         deleteCartItem(
         {
-        cart_item_id: Cart?.cartDetails?.items[0].ciid,
-        id: Cart?.cartDetails?.items[0]?.id,
+        cart_item_id: Cart?.cartDetails?.items[pindex].ciid,
+        id: Cart?.cartDetails?.items[pindex]?.id,
         customer_id: userDetails.sub,
       })
     );
@@ -61,8 +62,8 @@ const CardProduct = ({ productId, pushPrice ,key}) => {
      else{
     dispatch(
       updateCartQty({
-        cart_item_id: Cart.cartDetails.items[0].ciid,
-        id: Cart.cartDetails.items[0].id,
+        cart_item_id: Cart.cartDetails.items[pindex].ciid,
+        id: Cart.cartDetails.items[pindex].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,
         qty: productId.qty - 1,
@@ -115,7 +116,7 @@ const CardProduct = ({ productId, pushPrice ,key}) => {
           <Card.Text>
             <span className="d-flex justify-content-start">
               <span className="d-flex">
-                <BiRupee /> {Number(ProductDetails.sale_val).toFixed(2)} /{" "}
+                <BiRupee /> {Number(ProductDetails.sale_val) || 0 } /{" "} 
                 {ProductDetails.uom_name}
               </span>
             </span>
@@ -134,7 +135,7 @@ const CardProduct = ({ productId, pushPrice ,key}) => {
               <Button
                 size="sm"
                 variant="outline-secondary"
-                onClick={() => (!Cart.cartLoading ? onDecrement() : null)}
+                onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
                 disabled={Cart.cartLoading}
               >
                 {Cart.cartLoading ? (
@@ -155,10 +156,10 @@ const CardProduct = ({ productId, pushPrice ,key}) => {
               <Button
                 variant="outline-secondary"
                 size="sm"
-                onClick={() => (!Cart.cartLoading ? onIncrement() : null)}
+                onClick={() => (!Cart.cartLoading ? onIncrement(pindex) : null)}
                 disabled={Cart.cartLoading}
               >
-                {Cart.cartLoading ? (
+                {Cart.cartLoading && ButtonLoader ? (
                   <Spinner animation="border" variant="primary" />
                 ) : (
                   <GrAdd />

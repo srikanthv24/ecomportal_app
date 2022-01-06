@@ -61,6 +61,9 @@ const CartSummary = () => {
       dispatch(getCartSummary({ customer_id: userDetails.sub }));
   }, [userDetails.sub]);
 
+
+
+
   console.log("ghjklkjhghj",cartSummary)
 
   return (
@@ -155,9 +158,7 @@ const CartSummary = () => {
             <p className="fw-bold">Total</p>
             <p className="fw-bold">
               <BiRupee />{" "}
-              {(cartSummary?.data &&
-                Number(cartSummary?.data?.grand_total).toFixed(2)) ||
-                0.0}
+              { (cartSummary.data !== null)  ? Number(cartSummary?.data?.grand_total) :  0}
             </p>
           </span>
         </section>

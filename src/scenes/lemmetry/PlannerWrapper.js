@@ -105,6 +105,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				}
 				return item;
 			}
+		history.push('/')	
 		});
 
 		console.log("filtered Payload",{ ...data, subscription: filteredPayload });
