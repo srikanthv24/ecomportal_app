@@ -1,5 +1,5 @@
-//const API_URL = process.env.REACT_APP_API_URL;
-// const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
+import { api_urls } from "../../utils";
+
 
 export class Adresses {
   static getAddressList = async (id) => {

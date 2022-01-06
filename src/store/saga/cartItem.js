@@ -60,13 +60,18 @@ function* UpdateCartItem(params) {
 }
 
 function* DeleteCartItem(params) {
+  console.log("gothamm",params)
   try {
     const response = yield call(CartItem.deleteCartItem, params);
+    console.log("good gadddd",response)
     yield put({
       type: types.DELETE_CART_ITEM_SUCCESS,
       payload: response,
     });
-    
+    yield put({
+      type: types.GET_CART,
+      payload: { customer_id: params.payload.customer_id },
+    });
   } catch (error) {
     console.log('Failed cartitem delete', error)
   }

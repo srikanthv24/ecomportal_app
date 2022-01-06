@@ -87,6 +87,7 @@ function* UpdateCart(params) {
 }
 
 function* updateCartQty(params) {
+	console.log("papapapa",params)
 	try {
 		const response = yield call(Cart.updateCartQty, params);
 		const state = yield select();

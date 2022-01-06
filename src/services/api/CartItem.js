@@ -77,6 +77,7 @@ export class CartItem {
   }
 
   static deleteCartItem(params) {
+    console.log("paewa",params)
     try {
       return fetch(
         "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
@@ -88,7 +89,8 @@ export class CartItem {
           body: JSON.stringify({
             query: deleteCartItem,
             variables: {
-              ID: params.payload.cartItemId,
+              ciid: params.payload.cart_item_id,
+              id: params.payload.id,
             },
           }),
         }

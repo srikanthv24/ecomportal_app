@@ -11,13 +11,17 @@ import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartQty } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
+import {deleteCartItem} from "../../store/actions/cart-item";
 
-const CardProduct = ({ productId, pushPrice }) => {
+const CardProduct = ({ productId, pushPrice ,key}) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ProductDetails, setProductDetails] = useState({});
   const userDetails = useSelector((state) => state.auth.userDetails);
+
+
+  console.log("pindex",key )
 
   useEffect(() => {
     // Products.ProductDetails({ payload: productId.item_id }).then((res) => {
@@ -34,7 +38,7 @@ const CardProduct = ({ productId, pushPrice }) => {
     console.log(ProductDetails);
     dispatch(
       updateCartQty({
-        cart_item_id: productId.cart_item_id,
+        cart_item_id: Cart.cartDetails.items[0].ciid,
         id: Cart.cartDetails.items[0].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,
@@ -44,15 +48,27 @@ const CardProduct = ({ productId, pushPrice }) => {
   };
 
   const onDecrement = () => {
+    if(productId.qty==1){
+      dispatch(
+        deleteCartItem(
+        {
+        cart_item_id: Cart?.cartDetails?.items[0].ciid,
+        id: Cart?.cartDetails?.items[0]?.id,
+        customer_id: userDetails.sub,
+      })
+    );
+    }
+     else{
     dispatch(
       updateCartQty({
-        cart_item_id: productId.cart_item_id,
+        cart_item_id: Cart.cartDetails.items[0].ciid,
         id: Cart.cartDetails.items[0].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,
         qty: productId.qty - 1,
       })
     );
+     }
   };
 
   return (

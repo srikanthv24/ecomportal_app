@@ -61,6 +61,7 @@ const CartSummary = () => {
       dispatch(getCartSummary({ customer_id: userDetails.sub }));
   }, [userDetails.sub]);
 
+  console.log("ghjklkjhghj",cartSummary)
 
   return (
     <div>
@@ -136,9 +137,8 @@ const CartSummary = () => {
             <p>Sub-total</p>
             <p>
               <BiRupee />{" "}
-              {(cartSummary?.data?.items?.length &&
-                cartSummary?.data?.items[0]?.sub_total &&
-                Number(cartSummary?.data?.items[0]?.sub_total).toFixed(2)) ||
+              {(cartSummary?.data &&      
+                Number(cartSummary?.data?.sub_total)) ||
                 0}
             </p>
           </span>
@@ -146,18 +146,17 @@ const CartSummary = () => {
             <p>Delivery</p>
             <p>
               <BiRupee />{" "}
-              {(cartSummary?.data?.items?.length &&
-                cartSummary?.data?.items[0]?.delivery &&
-                Number(cartSummary?.data?.items[0]?.delivery).toFixed(2)) ||
-                0}
+              {(cartSummary?.data &&             
+                  Number(cartSummary?.data?.sub_total)) ||
+                  0}
             </p>
           </span>
           <span className="d-flex justify-content-between align-items-center">
             <p className="fw-bold">Total</p>
             <p className="fw-bold">
               <BiRupee />{" "}
-              {(cartSummary?.data?.items?.length &&
-                Number(cartSummary?.data?.items[0]?.grand_total).toFixed(2)) ||
+              {(cartSummary?.data &&
+                Number(cartSummary?.data?.grand_total).toFixed(2)) ||
                 0.0}
             </p>
           </span>
@@ -182,8 +181,7 @@ const CartSummary = () => {
             Confirm and Pay <BiRupee />
             {Number(
               cartSummary?.data &&
-                cartSummary?.data.items &&
-                cartSummary?.data?.items[0]?.grand_total
+                cartSummary?.data?.grand_total
             ).toFixed(2)}
           </Button>
         </div>
@@ -220,9 +218,7 @@ const CartSummary = () => {
     const req = {
       type: "createorder",
       amount:
-        parseInt(
-          parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
-        ) * 100,
+        Number(parseInt(parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)) * 100),
       currency: "INR",
       receipt: "Receipt #20",
       cart_id: Cart.cartDetails.items[0].id,
