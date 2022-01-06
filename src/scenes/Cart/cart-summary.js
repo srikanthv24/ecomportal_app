@@ -85,14 +85,16 @@ const CartSummary = () => {
         }
       />
 
-      <div className="m-2">
-        <p className="h3">Cart Summary</p>
-        <p className="h6 text-muted">
-          {(cartSummary?.data?.items?.length &&
-            cartSummary?.data?.items[0]?.items?.length) ||
-            0}{" "}
-          Items
-        </p>
+      <div className="p-2" style={{background: "rgb(249, 243, 223)"}}>
+        <div className="w-100 text-left">
+          <p className="h3 page-title text-left">Cart Summary</p>
+          <p className="h6 text-muted value-txt text-left">
+            {(cartSummary?.data?.items?.length &&
+              cartSummary?.data?.items[0]?.items?.length) ||
+              0}{" "}
+            Items
+          </p>
+        </div>
         <section
           style={{
             height: 250,
@@ -171,8 +173,8 @@ const CartSummary = () => {
           }}
         >
           <Button
-            className="w-100"
-            style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
+            className="w-100 custom-btn-secondary"
+            style={{ boxShadow: "1px 2px 3px #ededed", padding:5 }}
             onClick={handleContinue}
             // disabled={cartSummary?.data?.items?.length}
             disabled={cartSummary?.data?.items?.length ? false : true}

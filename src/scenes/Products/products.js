@@ -48,7 +48,7 @@ const Products = () => {
 
 	return (
 		<>
-			<Container fluid style={{background:"#F9F3DF"}}>
+			<Container fluid style={{background:"#F9F3DF", minHeight:"calc(100vh - 126px)"}}>
 				<Row style={{ overflow: "auto" }}>
 					<div style={{ ...phantom }} />
 					<Card.Header
@@ -61,8 +61,8 @@ const Products = () => {
 					>
 						<div className="d-flex justify-content-between align-items-center">
 							<div>
-								<p className="h5 m-0 p-0"> Products</p>
-								<small className="text-muted">
+								<p className="h5 m-0 p-0 page-title text-left"> Products</p>
+								<small className="text-muted value-txt">
 									{Products.length} products found
 								</small>
 							</div>

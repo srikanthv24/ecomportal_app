@@ -8,7 +8,7 @@ const MealCard = ({ product, handleNextStep }) => {
   const dispatch = useDispatch();
   return (
     <Card
-      style={{ marginBottom: 10}}
+      style={{ marginBottom: 10,background: "rgb(249, 243, 223)"}}
       onClick={() => {
         //handleClick(product.id);
         handleNextStep();

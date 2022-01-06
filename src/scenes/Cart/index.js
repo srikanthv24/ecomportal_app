@@ -38,21 +38,21 @@ const Cart = () => {
   };
 
   return (
-    <>
-      <div style={phantom2} />
+    <section className="bg-1" style={{minHeight:'calc(100vh - 126px)'}}>
+      <div style={phantom2}  />
       <Card.Header
         style={{
           position: "fixed",
           top: 118,
           zIndex: 999,
           width: "100%",
-          background: "#f5f5f5",
+          background: "transparent",
         }}
       >
-        <div className="w-100">
-          <div>
-            <p className="h5 m-0 p-0"> Cart</p>
-            <small className="text-muted">
+        <div className="w-100 text-left">
+          <div className="d-block text-left">
+            <p className="h5 m-0 p-0 page-title"> Cart</p>
+            <small className="text-muted value-txt">
               Sub-Total: {Number(totalPrice)?.toFixed(2)}
             </small>
           </div>
@@ -81,7 +81,7 @@ const Cart = () => {
           ) : (
             <div className="d-flex flex-column justify-content-center align-items-center mt-4">
               <h5>No Items found!</h5>
-              <Button onClick={() => history.push("/")}>
+              <Button onClick={() => history.push("/")} className="btn custom-btn-secondary">
                 Explore products now
               </Button>
             </div>
@@ -92,14 +92,13 @@ const Cart = () => {
               position: "fixed",
               bottom: 0,
               right: 0,
-              left: 0,
-              background: "#FFF",
+              left: 0,              
               padding: 10,
               boxShadow: "1px 0px 3px 0px rgba(0,0,0,0.4)",
               zIndex: 10000,
             }}
           >
-            <Button
+            <Button className="btn custom-btn-secondary"
               style={{ width: "100%" }}
               // onClick={handleContinue}
               onClick={() => history.push("/cart-summary")}
@@ -109,7 +108,7 @@ const Cart = () => {
           </div>
         </>
       </div>
-    </>
+    </section>
   );
 };
 

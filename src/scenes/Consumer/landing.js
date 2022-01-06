@@ -35,12 +35,12 @@ const Landing = () => {
         </section>
       )}
 
-      <section className="page-content1 py-3" style={{background: "rgb(249, 243, 223)"}}>
+      <section className="page-content1 py-3 bg-1">
         <Container style={{background: "rgb(249, 243, 223)"}}>
           {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
             
           </Button> */}
-          <Card style={{ border: "none" }}>
+           <Card style={{ border: "none", background: "transparent" }}>
             <Card.Header className="no-bg1" style={{background: "rgb(249, 243, 223)"}}>
               <div className="w-100">
                 <Link to="/subscription" className="viewall-txt">
@@ -152,10 +152,10 @@ const Landing = () => {
           </Card>
         </Container>
       </section>
-      <hr className="abcd" />
-      <section className="page-content" style={{background: "rgb(249, 243, 223)"}}>
+      <hr className="hr-divider" />
+      <section className="page-content1 bg-1">
         <Container>
-          <Card style={{ border: "none", backgroundColor: "transparent" }}>
+          <Card style={{ border: "none", background: "transparent" }}>
             <Card.Header className="no-bg">
               <div className="d-flex justify-content-between align-items-baseline">
                 <span className="content-title">Products</span>
