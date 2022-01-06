@@ -62,7 +62,8 @@ const Cart = () => {
       <div div style={{ padding: 10 }}>
         <>
           {Cart?.cartDetails?.items?.length ? (
-            Cart?.cartDetails?.items[0]?.items?.map((item) => {
+            // Cart?.cartDetails?.items[0]?.items?.map((item) => {
+              Cart?.cartDetails?.items?.map((item) => {
               if (item) {
                 console.log("ITEM-->", item);
                 total = total + item.qty;
