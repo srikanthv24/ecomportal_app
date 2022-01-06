@@ -262,7 +262,7 @@ export const getCategories = `query($limit: Int, $nextToken: String) {
 
 export const getCart = `query ($customer_id: ID!){
     listCarts(filter: {customer_id: {eq: $customer_id},pay_status:{eq:"UNPAID"}}) {
-    item {
+    items {
       customer_id
       pay_status
       id
@@ -299,14 +299,14 @@ export const getCart = `query ($customer_id: ID!){
 
 export const CartSummary = `query ($customer_id: ID!){
   listCarts(filter: {customer_id: {eq: $customer_id},pay_status:{eq:"UNPAID"}}) {
-    item {
+    items {
       customer_id
       customer_mobile
       customer_name
       id
       grand_total
       pay_status
-      items {
+      item {
         defaultimg_url
         item_name
         tax_methods
@@ -365,7 +365,7 @@ export const updateCart = `mutation ($cart_id: ID!, $qty: Int!) {
 
 export const getCartItemSchema = `query ($cartId: ID) {
   listCartItems (filter: {cart_id: {eq: $cartId}}, limit: 100000){
-    item {
+    items {
       cart_id
       id
       defaultimage_url
