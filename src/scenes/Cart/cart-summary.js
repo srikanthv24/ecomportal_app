@@ -85,6 +85,7 @@ const CartSummary = () => {
         }
       />
 
+<<<<<<< HEAD
       <div className="p-2" style={{background: "rgb(249, 243, 223)"}}>
         <div className="w-100 text-left">
           <p className="h3 page-title text-left">Cart Summary</p>
@@ -95,6 +96,17 @@ const CartSummary = () => {
             Items
           </p>
         </div>
+=======
+      <div className="m-2">
+        <p className="h3">Cart Summary</p>
+        <p className="h6 text-muted">
+          {(cartSummary?.data?.items?.length &&
+            // cartSummary?.data?.items[0]?.items?.length) ||
+            cartSummary?.data?.items?.length) ||
+            0}{" "}
+          Items
+        </p>
+>>>>>>> 4e376e9fc1f5a5fbc703cf106e2bc5b034bed7db
         <section
           style={{
             height: 250,
@@ -112,8 +124,9 @@ const CartSummary = () => {
               Loading...
             </div>
           ) : cartSummary?.data?.items?.length ? (
-            cartSummary?.data?.items[0]?.items?.map((item) => {
-              return <CartSummaryItem ProductDetails={item} />;
+            // cartSummary?.data?.items[0]?.items?.map((item) => {
+              cartSummary?.data?.items?.map((item) => {
+              return <CartSummaryItem ProductDetails={item.item} />;
             })
           ) : (
             <div className="flex-column text-center">

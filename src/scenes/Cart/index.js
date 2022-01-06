@@ -62,16 +62,17 @@ const Cart = () => {
       <div div style={{ padding: 10 }}>
         <>
           {Cart?.cartDetails?.items?.length ? (
-            Cart?.cartDetails?.items[0]?.items?.map((item) => {
+            // Cart?.cartDetails?.items[0]?.items?.map((item) => {
+              Cart?.cartDetails?.items?.map((item) => {
               if (item) {
                 console.log("ITEM-->", item);
-                total = total + item.qty;
+                total = total + item.item.qty;
               }
 
-              return item && item?.qty ? (
+              return item.item && item.item?.qty ? (
                 <CardProduct
-                  key={item.id}
-                  productId={item && item}
+                  key={item.item.id}
+                  productId={item && item.item}
                   cartDetails={Cart?.cartDetails}
                   totalQty={total}
                   pushPrice={(p) => calculatePrice(p)}

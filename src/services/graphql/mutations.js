@@ -266,6 +266,7 @@ export const getCart = `query ($customer_id: ID!){
       customer_id
       pay_status
       id
+      ciid
       item {
         defaultimg_url
         item_name
@@ -273,9 +274,9 @@ export const getCart = `query ($customer_id: ID!){
         uom_name
         category
         item_id
-        cart_item_id
+        
         qty
-        sale_val
+        
         subscription {
           address {
               aline1
@@ -304,20 +305,21 @@ export const CartSummary = `query ($customer_id: ID!){
       customer_mobile
       customer_name
       id
+      ciid
       grand_total
       pay_status
       item {
         defaultimg_url
         item_name
         tax_methods
-        cart_item_id
+        
         sub_total
         tax_amount
         uom_name
         category
         item_id
         qty
-        sale_val
+       
         subscription {
           address {
               aline1
