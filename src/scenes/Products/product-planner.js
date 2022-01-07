@@ -305,7 +305,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 				Variants.map((variant) => {
 					return (
 						<>
-							<p className="h6 text-muted mt-3 mb-0 m-2">
+							<p className="h6 text-muted mt-3 mb-2 ff-2">
 								{variant.display_name}
 							</p>
 							<Controller
@@ -543,7 +543,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 										controlId="exampleForm.ControlTextarea1"
 									>
 										<Form.Label>
-											<p className="h6 text-muted mt-3 mb-0 m-2">Note: </p>
+											<p className="h6 text-muted mt-3 mb-0 ff-2">Note: </p>
 										</Form.Label>
 										<Controller
 											control={control}
@@ -612,7 +612,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 									</div>
 									{addons && addons.length > 0 &&
 										<>
-											<p className="h6 text-muted mt-3 mb-2 m-2">Addons: </p>
+											<p className="h6 text-muted mt-3 mb-0 ff-2">Addons: </p>
 											<Controller
 												control={control}
 												name={`subscription[${index}].addon_items`}

@@ -46,6 +46,7 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
         qty: productId.qty + 1,
       })
     );
+    setButtonLoader(true)
   };
 
   const onDecrement = (pindex) => {
@@ -58,6 +59,7 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
         customer_id: userDetails.sub,
       })
     );
+
     }
      else{
     dispatch(
@@ -69,6 +71,7 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
         qty: productId.qty - 1,
       })
     );
+    setButtonLoader(true)
      }
   };
 
@@ -128,7 +131,7 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
             </small>
           </Card.Text>
 
-          {Cart.cartLoading ? (
+          {Cart.cartLoading && ButtonLoader? (
             <Spinner animation="border" variant="primary" />
           ) : (
             <InputGroup size="sm">
@@ -138,7 +141,7 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
                 onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
                 disabled={Cart.cartLoading}
               >
-                {Cart.cartLoading ? (
+                {Cart.cartLoading && ButtonLoader ? (
                   <Spinner animation="border" variant="primary" />
                 ) : (
                   <GrSubtract />

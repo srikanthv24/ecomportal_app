@@ -41,6 +41,11 @@
     border-color: #f05922 !important;
     border-radius: .25rem 0px 0px .25rem !important;
 }
+.back-btn:focus {
+    background-color: #f05922 !important;
+    border-color: #f05922 !important;
+    border-radius: .25rem 0px 0px .25rem !important;
+}
 
 .back-btn>svg {
     font-size: 20px !important;

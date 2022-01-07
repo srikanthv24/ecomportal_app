@@ -310,8 +310,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 					{products.productDetails.is_mealplan && (
 						<div className="w-100 px-3">
 							<div className="d-flex justify-content-between align-items-center">
-								<p className="h6">Subscription Amount :</p>
-								<p className="h5">
+								<p className="h6 ff-3">Subscription Amount :</p>
+								<p className="h5 ff-2">
 									<BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)}
 								</p>
 							</div>
