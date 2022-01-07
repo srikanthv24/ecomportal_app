@@ -71,7 +71,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
 
   return (
     <div>
-      <Card className="my-1">
+      <Card className="my-1 bg-1">
         <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
           <div
             style={{
@@ -88,25 +88,24 @@ const CartSummaryItem = ({ ProductDetails }) => {
               margin: 10,
             }}
           />
-          <div style={{ width: "70%" }}>
-            <Card.Text className="fs-9 mb-0 pb-0 col-12 text-truncate">
+          <div style={{ width: "calc(100% - 120px)" }}>
+            <Card.Text className="fs-9 mb-0 pb-0 col-12 text-truncate ff-4 fw-700 clr-black">
               {ProductDetails.item_name}
             </Card.Text>
-            <p className="fs-9 p-0 m-0 col-12 text-truncate text-muted">
+            <p className="fs-9 p-0 m-0 col-12 text-truncate ff-4 fw-400 clr-secondary">
               {ProductDetails.category}
             </p>
 
-            <small className="col-12 text-muted">
+            <small className="col-12 ff-4 clr-black">
               Including{" "}
               {String(ProductDetails.tax_methods)
                 .replace("Output", "")
                 .replace("-", "")}
             </small>
-            <p>
+            <p className="ff-2 clr-black mb-2">
               <span
                 style={{
                   fontSize: "12px",
-                  color: "#212121",
                   wordWrap: "break-word",
                 }}
               >
@@ -117,11 +116,9 @@ const CartSummaryItem = ({ ProductDetails }) => {
                 {ProductDetails.tax_amount} ={" "}
               </span>
 
-              <div
+              <div className="ff-2 clr-black mb-2 fw-700"
                 style={{
                   fontSize: "14px",
-                  color: "#000000",
-                  fontWeight: "700",
                 }}
               >
                 <BiRupee />
@@ -176,11 +173,12 @@ const CartSummaryItem = ({ ProductDetails }) => {
             display: "flex",
             justifyContent: "space-between",
             alignItem: "center",
+            background: "rgba(245, 224, 188, 1) !important"
           }}
         >
           <Button
-            style={{ borderRadius: "50%", marginLeft: 10 }}
-            variant="outline-primary"
+            style={{ borderRadius: "50%", marginLeft: 10, color:"#424141", borderColor:"#424141", display: "flex",alignItems: "center", width:'30px', height:'30px' }}
+            variant="outline-danger"
             size="sm"
             onClick={() => history.push("/cart")}
           >
@@ -197,7 +195,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
           ) : (
             <span
               variant="link"
-              className="w-100 text-center text-primary"
+              className="w-100 text-center clr-black"
               onClick={() => setisExpanded(true)}
             >
               <AiFillCaretDown /> view more
@@ -213,7 +211,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
             }}
           >
             <Button
-              style={{ borderRadius: "50%", marginLeft: 10 }}
+              style={{ borderRadius: "50%", marginLeft: 10,color:"#F05922",borderColor:"#F05922",display: "flex",alignItems: "center",width:'30px', height:'30px' }}
               variant="outline-danger"
               size="sm"
               onClick={onDelete}

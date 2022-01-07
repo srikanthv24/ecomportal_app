@@ -116,8 +116,8 @@ const ProductDetails = ({
 			<div>
 				<Row>
 					<Col sm={12} lg={6}>
-						<p className="h4 mt-3">{ProductDetails.display_name}</p>
-						<p className=" h6 text-muted">{ProductDetails.category}</p>
+						<p className="h4 mt-3 ff-2">{ProductDetails.display_name}</p>
+						<p className=" h6 text-muted ff-3">{ProductDetails.category}</p>
 
 						<div
 							style={{
@@ -129,11 +129,12 @@ const ProductDetails = ({
 								backgroundPosition: "center",
 								width: "100%",
 								height: "250px",
+								borderRadius:"10px"
 							}}
 						/>
 					</Col>
 					<Col sm={12} lg={6}>
-						<p className="mt-3">{ProductDetails.description}</p>
+						<p className="mt-3 ff-4">{ProductDetails.description}</p>
 						{/* <h1>
               <small className="text-muted col-12 h6">
                 Including{" "}
