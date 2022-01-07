@@ -235,8 +235,7 @@ const CartSummary = () => {
     const req = {
       type: "createorder",
       items: items,
-      amount: 100 * 100,
-      //amount: Number(parseInt(parseFloat(cartSummary?.data?.grand_total).toFixed(2)) * 100),
+      amount: Number(parseInt(parseFloat(cartSummary?.data?.grand_total).toFixed(2)) * 100),
       //amount: Number(cartSummary?.data?.grand_total * 100),
       currency: "INR",
       receipt: "Receipt #20",
