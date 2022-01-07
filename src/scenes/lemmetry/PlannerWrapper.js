@@ -284,8 +284,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 	};
 	return (
 		<FormProvider {...methods}>
-			<div>
-				<Container fluid>
+			<div className="bg-1">
+				<Container fluid >
 					<ProductDetails
 						productId={mealPlanId.mealPlanId}
 						control={control}
@@ -294,14 +294,14 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 				</Container>
 
 				<div style={phantom} />
-				<div
+				<div className="bg-1"
 					style={{
 						width: "100%",
 						position: "fixed",
 						bottom: 0,
 						left: 0,
 						right: 8,
-						background: "#FFF",
+						// background: "#FFF",
 						zIndex: 5,
 						paddingTop: 10,
 						boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
