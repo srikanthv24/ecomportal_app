@@ -37,7 +37,7 @@ const Orders = () => {
 
   return (
     <section className="bg-1" style={{minHeight:'calc(100vh - 126px)',padding: 5}}>
-      <p className="h5 m-2 page-title">Your Orders</p>
+      <p className="h5 m-2 page-title">Subscription</p>
       {OrdersList?.length > 0 ?
         OrdersList?.map((order) => {
           return (

@@ -89,8 +89,8 @@ const CartSummary = () => {
         }
       />
 
-      <div className="m-2">
-        <p className="h3">Cart Summary</p>
+      <div className="p-2 bg-1">
+        <p className="h3 page-title">Cart Summary</p>
         <p className="h6 text-muted">
           {(cartSummary?.data?.items?.length &&
             // cartSummary?.data?.items[0]?.items?.length) ||

@@ -177,7 +177,7 @@ export default function AppBar() {
         
         <Offcanvas.Body style={{padding:'0px',position:'relative', background:'#FFF'}}>
         <Offcanvas.Header closeButton className="closeBtn" style={{position:'absolute',top:'0px',right:'0px',zIndex:'100', color:'#ffffff'}} />
-          <div style={{ position: "relative", height: 180 }}>
+          <div style={{ position: "relative", height: 204 }}>
             <div style={{ height: 150, background: "#F38144" }}></div>
             <div
               style={{
@@ -217,17 +217,24 @@ export default function AppBar() {
             </ListGroup.Item>
             {userDetails.sub ? (
               <>
-                <ListGroup.Item className="menuItem">
+                <ListGroup.Item className="menuItem">                 
+                 <div className="d-flex align-items-center" style={{justifyContent:"space-between"}}>
                  My Profile
+                <img src={arrowRightIcon} alt="icon" height="18" />
+              </div>
                   </ListGroup.Item>
-                <ListGroup.Item className="menuItem">Subscriptions</ListGroup.Item>
+                {/* <ListGroup.Item className="menuItem">Subscriptions</ListGroup.Item> */}
                 <ListGroup.Item
                   onClick={() => {
                     setMenu(false);
                     history.push("/orders/");
                   }}
                 >
-                  My Orders
+                
+                  <div className="d-flex align-items-center" style={{justifyContent:"space-between"}}>
+                  Subscriptions
+                <img src={arrowRightIcon} alt="icon" height="18" />
+              </div>
                 </ListGroup.Item>
               </>
             ) : null}
