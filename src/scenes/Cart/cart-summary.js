@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +24,8 @@ const CartSummary = () => {
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
   const Cart = useSelector((state) => state.Cart);
-
+  const [items, setItems] = useState([]);
+ 
   useEffect(() => {
     dispatch(getAddresses({ customerId: userDetails.sub }));
   }, []);
@@ -61,10 +62,25 @@ const CartSummary = () => {
       dispatch(getCartSummary({ customer_id: userDetails.sub }));
   }, [userDetails.sub]);
 
+  useEffect(() => {
+    if(cartSummary.data && cartSummary.data.items.length){
+      let temp =[];
+      cartSummary.data.items.map((item, index) => {
+        let obj = { 
+          ciid: item.ciid,
+          sub_total: item.item.sub_total
+        }
+        temp.push(obj);
+      });
+      setItems(temp);
+    }
+  }, [cartSummary.data])
 
 
 
-  console.log("ghjklkjhghj",cartSummary)
+
+  console.log("ghjklkjhghj",cartSummary);
+  console.log("ababaab", items);
 
   return (
     <div>
@@ -218,16 +234,19 @@ const CartSummary = () => {
 
     const req = {
       type: "createorder",
-      amount:
-        Number(parseInt(parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)) * 100),
+      items: items,
+      amount: 100 * 100,
+      //amount: Number(parseInt(parseFloat(cartSummary?.data?.grand_total).toFixed(2)) * 100),
+      //amount: Number(cartSummary?.data?.grand_total * 100),
       currency: "INR",
       receipt: "Receipt #20",
-      cart_id: Cart.cartDetails.items[0].id,
+      id: cartSummary?.data?.items[0].id,
+      // id: Cart.cartDetails.items[0].id,
       customer_id: userDetails.sub,
       phone: userDetails.phone_number.substring(3),
     };
 
-    console.log(req);
+    console.log("zzzzzz",req);
     const result = await fetch(
       "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
       { method: "POST", body: JSON.stringify(req) }
@@ -267,33 +286,33 @@ const CartSummary = () => {
             title: "Payment Success",
           })
         );
-        const data = {
-          type: "success",
-          phone: userDetails.phone_number.substring(3),
-          amount: amount.toString(),
-          orderCreationId: order_id,
-          cart_id: Cart.cartDetails.items[0].id,
-          razorpayPaymentId: response.razorpay_payment_id,
-          razorpayOrderId: response.razorpay_order_id,
-          razorpaySignature: response.razorpay_signature,
-          description: "VL",
-        };
+        // const data = {
+        //   type: "success",
+        //   phone: userDetails.phone_number.substring(3),
+        //   amount: amount.toString(),
+        //   orderCreationId: order_id,
+        //   cart_id: Cart.cartDetails.items[0].id,
+        //   razorpayPaymentId: response.razorpay_payment_id,
+        //   razorpayOrderId: response.razorpay_order_id,
+        //   razorpaySignature: response.razorpay_signature,
+        //   description: "VL",
+        // };
 
-        console.log(data);
-        const result = await fetch(
-          "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
-          { body: JSON.stringify(data), method: "POST" }
-        ).then((res) => res.json());
+        //console.log(data);
+        // const result = await fetch(
+        //   "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
+        //   { body: JSON.stringify(data), method: "POST" }
+        // ).then((res) => res.json());
         // alert(result.data.msg);
-        console.log("REDD=>", result);
+        //console.log("REDD=>", result);
 
-        if (result.status === "success") {
-          console.log("200");
-          dispatch(getCartSummary({ customer_id: userDetails.sub }));
-          dispatch(getCart({ customer_id: userDetails.sub }));
-        } else {
-          console.log("401");
-        }
+        // if (result.status === "success") {
+        //   console.log("200");
+        //   dispatch(getCartSummary({ customer_id: userDetails.sub }));
+        //   dispatch(getCart({ customer_id: userDetails.sub }));
+        // } else {
+        //   console.log("401");
+        // }
       },
       prefill: {
         name: userDetails.name,
@@ -304,7 +323,7 @@ const CartSummary = () => {
         address: "VL",
       },
       theme: {
-        color: "#488DB7",
+        color: "#f05922",
       },
     };
 
