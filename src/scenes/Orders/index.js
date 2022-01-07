@@ -42,22 +42,23 @@ const Orders = () => {
         OrdersList?.map((order) => {
           return (
             <Card
-              border="light"
-              key={order.id}
+              border="default"
+              key={order.id} className="m-2"
               style={{
-                width: "100%",
-                padding: "10px 0px",
-                boxSizing: "border-box",
-                margin: 10,
+                // width: "100%",
+                // padding: "10px 0px",
+                // boxSizing: "border-box",
+                // margin: 10,
               }}
             >
-              <Row
-                style={{
-                  marginLeft: 0,
-                  marginRight: 0,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              <div className="contaner" style={{padding:'0px 12px'}}>
+                <Row className="bg-1"
+                // style={{
+                //   marginLeft: 0,
+                //   marginRight: 0,
+                //   alignItems: "center",
+                //   justifyContent: "center",
+                // }}
               >
                 <Col xs={3}>
                   <div>
@@ -69,28 +70,29 @@ const Orders = () => {
                   </div>
                 </Col>
                 <Col xs={9}>
-                  <span className="h6">{order?.product?.display_name}</span>
-                  <p className="text-muted">{order?.product?.category}</p>
+                  <span className="h6 ff-2">{order?.product?.display_name}</span>
+                  <p className="text-muted ff-4">{order?.product?.category}</p>
                 </Col>
               </Row>
-              <Row style={{backgroundColor: '#efefef'}}>
-                <Col>
-                  <small className="fs-8 text-muted">Order date:</small>
+              <Row style={{backgroundColor: '#F5E0BC'}}>
+                <Col className="py-2">
+                  <small className="fs-8 text-muted ff-4">Order date:</small>
                   <br />
-                  <small>
+                  <small className="ff-4">
                     <b>{moment(order?.start_date).format("ll")}</b>
                   </small>
                 </Col>
                 {order?.start_date ? (
-                  <Col>
-                    <small className="fs-8 text-muted">Finish date:</small>
+                 <Col className="py-2">
+                    <small className="fs-8 text-muted ff-4">Finish date:</small>
                     <br />
-                    <small>
+                    <small className="ff-4">
                       <b>{moment(order?.finish_date).format("ll")}</b>
                     </small>
                   </Col>
                 ) : null}
               </Row>
+              </div>
             </Card>
           );
         }) :<small className="text-muted value-txt px-2">No Orders</small>}

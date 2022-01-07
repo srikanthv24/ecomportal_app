@@ -113,7 +113,7 @@ const ProductDetails = ({
 
 	return (
 		<FormProvider {...methods}>
-			<div>
+			<div className="bg-1">
 				<Row>
 					<Col sm={12} lg={6}>
 						<p className="h4 mt-3 ff-2">{ProductDetails.display_name}</p>
