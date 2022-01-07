@@ -14,7 +14,7 @@ import { useHistory } from "react-router";
 import { getCartSummary } from "../../store/actions/cart";
 import {deleteCartItem} from "../../store/actions/cart-item";
  
-const CartSummaryItem = ({ ProductDetails }) => {
+const CartSummaryItem = ({ ProductDetails,pindex }) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -28,12 +28,12 @@ const CartSummaryItem = ({ ProductDetails }) => {
   });
 
   const [Duration, setDuration] = useState(null);
-  const onDelete = () => {
+  const onDelete = (pindex) => {
     dispatch(
         deleteCartItem(
         {
-        cart_item_id: Cart?.cartDetails?.items[0].ciid,
-        id: Cart?.cartDetails?.items[0]?.id,
+        cart_item_id: Cart?.cartDetails?.items[pindex].ciid,
+        id: Cart?.cartDetails?.items[pindex]?.id,
         customer_id: userDetails.sub,
       })
     );
@@ -214,7 +214,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
               style={{ borderRadius: "50%", marginLeft: 10,color:"#F05922",borderColor:"#F05922",display: "flex",alignItems: "center",width:'30px', height:'30px' }}
               variant="outline-danger"
               size="sm"
-              onClick={onDelete}
+              onClick={()=>onDelete(pindex)}
             > 
               <BsTrashFill />
             </Button>

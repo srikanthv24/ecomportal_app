@@ -11,6 +11,7 @@ function* getAddresses(action) {
           type: types.ADDRESS_LIST_SUCCESS,
           payload: response.data,
         });
+        
       }
     } catch (error) {
       yield put({
@@ -31,6 +32,10 @@ function* postAddress(action) {
         type: types.CREATE_ADDRESS_SUCCESS,
         payload: response.data,
       });
+      // yield put({
+      //   type: types.ADDRESS_LIST,
+      //   payload: response.data.createAddress,
+      // });
     }
   } catch (error) {
     yield put({
