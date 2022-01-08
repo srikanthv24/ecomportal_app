@@ -172,7 +172,7 @@ const ProductCard = ({ product }) => {
             onClick={handleAddToCart}
           >
             <AiOutlineShoppingCart />{" "}
-            {Cart.cartLoading  ? (
+            {Cart.cartLoading && ButtonLoading ? (
               <Spinner animation="border" role="status" />
             ) : (
               "Add to Cart"
