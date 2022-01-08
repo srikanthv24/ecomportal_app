@@ -11,8 +11,8 @@ export class Adresses {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-          //"Authorization": getToken,
+          //"X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `{
@@ -109,8 +109,8 @@ export class Adresses {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-          //"Authorization": getToken,
+          //"X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `
