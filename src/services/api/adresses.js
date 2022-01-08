@@ -6,7 +6,7 @@ export class Adresses {
   static getAddressList = async (id) => {
     const getToken  = await sessionStorage.getItem('token')
     return await fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "POST",
         headers: {
@@ -43,7 +43,7 @@ export class Adresses {
     console.log("post address data in fetch api:::", data);
     const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
@@ -73,7 +73,7 @@ export class Adresses {
   static deleteAddress = async(data) => {
     const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
@@ -101,7 +101,7 @@ export class Adresses {
   static getPostalCodes = async() => {
     const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {

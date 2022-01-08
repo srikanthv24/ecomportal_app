@@ -8,12 +8,15 @@ const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
 
 //ca : Product_REL_API_URL
 export class Categories {
-  static getCategories = (params) => {
-    return fetch(`${API_URL}`, {
+  static getCategories = async(params) => {
+    //const getToken = await sessionStorage.getItem('token')
+    return fetch(`${api_urls.Product_REL_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "da2-orjjngnz3ffc3jjnn75bfm4roi",
+        "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+        //dev = qp52v6iixvh6bdgd2qjdqa3dyq
+        //produciton : da2-xclkxhpjbbbxfcyw2vtp3zc64e
       },
       body: JSON.stringify({
         query: getCategories,
@@ -31,13 +34,14 @@ export class Categories {
       });
   };
 
-  static createCategory = (data) => {
+  static createCategory = async(data) => {
+    const getToken = await sessionStorage.getItem('token')
     let date = new Date();
-    return fetch(`${API_URL}`, {
+    return fetch(`${api_urls.Product_REL_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": API_KEY,
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `mutation {

@@ -1,23 +1,24 @@
 import { Orders } from "../graphql/mutations";
 import { api_urls } from "../../utils";
 
-//4du - SUB_REL_API_URL
+//4du - 
+
 export class OrdersApi {
-  static getOrders = (params) => {
-    console.log("params.payload.cutomer_mobile", params);
+  static getOrders = async(params) => {
+    const getToken = await sessionStorage.getItem('token')
     try {
-      return fetch(
-        "https://4du5xi23jneq5gmwctl2vl42ty.appsync-api.us-east-1.amazonaws.com/graphql",
+      return await fetch(
+        `${api_urls.SUB_REL_API_URL}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-API-KEY": "da2-ob4lwer67nc2rbnury6cxczx4i",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: `{
                 listSubscriptions(filter: {customer_mobile: {eq: ${JSON.stringify(
-                  params.payload.customer_number
+                  params
                 )}}}) {
                   id
                   customer {
