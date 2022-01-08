@@ -1,15 +1,17 @@
 import { api_urls } from "../../utils";
 
+//m76 : Common_API_URL
 
 export class Adresses {
   static getAddressList = async (id) => {
+    const getToken  = await sessionStorage.getItem('token')
     return await fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `{api_urls.Common_API_URL}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `{
@@ -37,15 +39,16 @@ export class Adresses {
     ).then((res) => res.json());
   };
 
-  static postAddress = (data) => {
+  static postAddress = async(data) => {
     console.log("post address data in fetch api:::", data);
+    const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `{api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -67,14 +70,15 @@ export class Adresses {
       });
   };
 
-  static deleteAddress = (data) => {
+  static deleteAddress = async(data) => {
+    const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `{api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -94,14 +98,15 @@ export class Adresses {
       });
   };
 
-  static getPostalCodes = () => {
+  static getPostalCodes = async() => {
+    const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `{api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `

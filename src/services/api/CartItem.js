@@ -4,7 +4,9 @@ import {
   getCartItemSchema,
   updateCartItem,
 } from "../graphql/mutations";
+import { api_urls } from "../../utils";
 
+//m76 : Common_API_URL
 export class CartItem {
   static getCartItem(params) {
     try {

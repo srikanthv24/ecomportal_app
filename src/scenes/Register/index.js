@@ -21,6 +21,7 @@ import { useHistory } from "react-router";
 import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "../Login/styles.css";
 import auth_services from "../../services/auth_services";
+import { hideLogin } from "../../store/actions";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,10 @@ const Register = () => {
       .catch((error) => {
         dispatch(authError(error.message));
         console.log("error in registering user:::", error.message);
+        setTimeout(() => {
+          dispatch(hideLogin())
+        }, 2000);
+       
       });
   };
 

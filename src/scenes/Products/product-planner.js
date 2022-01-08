@@ -334,6 +334,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 			<Accordion defaultActiveKey="0" className="mt-4" style={{ zIndex: 2 }}>
 				{/* BreakFast */}
 				{deliverables.map((deliver, index) => {
+					{console.log("dfdfdf",deliver)}
 					return (
 						<Accordion.Item
 							eventKey={deliver.value}
@@ -442,11 +443,11 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 											type="date"
 											min={moment(new Date()).format("YYYY-MM-DD")}
 											// max={moment(new Date()).format("YYYY-MM-DD")}
-											value={startDate[deliver]}
+											value={startDate[deliver.value]}
 											onChange={(ev) => {
 												setStartDate({
 													...startDate,
-													[deliver]: ev.target.value,
+													[deliver.value]: ev.target.value,
 												});
 												let temp = [];
 												for (
@@ -493,7 +494,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 													render={({ field: { onChange, ...rest } }) => (
 														<Calendar
 															key={deliver.value}
-															multiple
+															multiple															
 															numberOfMonths={2}
 															minDate={
 																subscription[index].order_dates[0] || new Date()
