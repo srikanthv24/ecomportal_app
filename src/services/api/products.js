@@ -1,3 +1,4 @@
+import { api_urls } from "../../utils";
 import {
 	getAddressList,
 	getProductDetails,
@@ -9,6 +10,8 @@ import {
 const API_URL = process.env.REACT_APP_API_URL;
 // const API_KEY = process.env.REACT_APP_PRODUCT_API_KEY;
 
+
+//ca57 - Product_REL_API_URL
 export class Products {
 	static getAddons = (data) => {
 		let q = `{listItems`;

@@ -1,6 +1,9 @@
+import { api_urls } from "../../utils";
+
+
 const API_URL = process.env.REACT_APP_API_URL;
 
-
+//ca : Product_REL_API_URL
 export class mealPlans {
 	static getMealPlans = async () => {
 		return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {

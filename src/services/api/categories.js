@@ -1,8 +1,12 @@
 import { getCategories } from "../graphql/mutations";
+import { api_urls } from "../../utils";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
 
+
+//ca : Product_REL_API_URL
 export class Categories {
   static getCategories = (params) => {
     return fetch(`${API_URL}`, {

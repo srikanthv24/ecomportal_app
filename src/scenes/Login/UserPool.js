@@ -1,12 +1,12 @@
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 
-let server = "dev" ;
+let server = "production" ;
  let poolData ={}
 
 if(server == "production" ){
      poolData ={
-        UserPoolId:"ap-south-1_M9QZnjTRM",
-        ClientId:"4pat50qqnkkpm9aoi05r1hojim"
+        UserPoolId:"ap-south-1_dTkI9Ztc5",
+        ClientId:"2tuua9a609jrh9puhportsvs7c"
     }
 }else {
     poolData ={
@@ -14,6 +14,5 @@ if(server == "production" ){
         ClientId:"1elqc1ok4eqb1c9sjlhhiq74sd"
     }
 }
-
 
 export default new CognitoUserPool(poolData);

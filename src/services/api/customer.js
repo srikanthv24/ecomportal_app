@@ -1,9 +1,14 @@
+import { api_urls } from "../../utils";
+
+
 const API_URL =
   "https://rd7pbwckwvb2lgexcirzcswalu.appsync-api.us-east-1.amazonaws.com/graphql/";
 const API_KEY = "da2-ikrgaao25re4pflusa3hijenoi";
 //const API_URL = process.env.REACT_APP_API_URL;
 // const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
 
+
+//rd7 - Customer_REL_API_URL
 export class Customer {
   static getGender = async () => {
     return await fetch(API_URL, {
