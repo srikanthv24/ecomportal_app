@@ -9,20 +9,19 @@ export const getAddresses = (payload) => {
 
 
 export const postAddress = (payload) => {
-  console.log("post address action is called:::", payload);
   return {
     type: types.CREATE_ADDRESS,
     payload
   }
 };
 
-// export const deleteAddress = (payload) => {
-//   console.log("post address action is called:::", payload);
-//   return {
-//     type: types.CREATE_ADDRESS,
-//     payload
-//   }
-// }
+export const deleteAddress = (data) => {
+  console.log("delete address action is called:::", data);
+  return {
+    type: types.DELETE_ADDRESS,
+    payload: data
+  }
+}
 
 
 export const getPostalCodes = () => {

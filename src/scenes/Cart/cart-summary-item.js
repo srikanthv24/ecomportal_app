@@ -71,11 +71,11 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
     setAddresses(temp);
 
     // data.queryCartsByCustomerIndex.items[0].items[1].variants[0].items[0].display_name
-    ProductDetails.variants.map((item) => {
-      if (item.display_name == "Duration") {
-        setDuration(item.items[0].display_name);
-      }
-    });
+    // ProductDetails.variants.map((item) => {
+    //   if (item.display_name == "Duration") {
+    //     setDuration(item.items[0].display_name);
+    //   }
+    // });
   }, [ProductDetails]);
 
   return (
@@ -111,7 +111,7 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                 .replace("Output", "")
                 .replace("-", "")}
             </small>
-            <p className="ff-2 clr-black mb-2">
+            {/* <p className="ff-2 clr-black mb-2">
               <span
                 style={{
                   fontSize: "12px",
@@ -133,7 +133,7 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                 <BiRupee />
                 {ProductDetails.sub_total}
               </div>
-            </p>
+            </p> */}
 
             {isExpanded && (
               <div>

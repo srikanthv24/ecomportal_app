@@ -14,9 +14,12 @@ const LoginModal = () => {
       defaultActiveKey="login"
       activeKey={isExistingUser}
       onSelect={(k) => setExistingUser(k)}
-      
     >
-      <Nav justify variant="pills" className="mt-5" >
+      <Nav 
+        //  activeKey={isExistingUser}
+        //  onSelect={(k) => setExistingUser(k)}
+        justify variant="pills" 
+        className="mt-5" >
         <Nav.Item >
           <Nav.Link style={{ textDecoration: "none" }} eventKey="login">
             Login

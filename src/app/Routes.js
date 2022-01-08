@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import CartSummary from "../scenes/Cart/cart-summary";
 import Orders from "../scenes/Orders";
 import { Spinner } from "react-bootstrap";
+import {Profile} from '../scenes/Profile';
 
 function Routes() {
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -44,12 +45,13 @@ function Routes() {
           <Route path="/products" component={ProductsRoutes} />
           <Route path="/categories" component={Categories} />
           <Route path="/subscription" component={LemmeTry} />
-
+          <Route path="/profile" component={Profile} />
           {userDetails.sub && (
             <>
               <Route path="/cart-summary" component={CartSummary} />
               <Route path="/cart" component={Cart} />
               <Route path="/orders" component={Orders} />{" "}
+              <Route path="/profile" component={Profile} />
             </>
           )}
           <Route path="*">

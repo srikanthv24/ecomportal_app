@@ -124,6 +124,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 			// 	);
 			// } else {
 				console.log("MYToken--", sessionStorage.getItem("token"));
+				console.log("sdasa",data)
 				dispatch(
 					createCart({
 						customer_id: userDetails.sub,
@@ -191,6 +192,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 	}, [Cart, products.productDetails, ExistingProduct]);
 
 	const onIncrement = () => {
+		console.log("gggggg",ExistingProduct)
 		dispatch(
 			updateCartQty({
 				cart_item_id: ExistingProduct.cart_item_id,

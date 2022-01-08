@@ -126,7 +126,7 @@ export const getProductsByCategory = (params) => {
 export const searchProducts = (searchQuery) => {
 	return JSON.stringify({
 		query: `{
-      listItems (filter: {display_name: {contains: ${JSON.stringify(
+      listItems (filter: {name: {contains: ${JSON.stringify(
 			searchQuery.payload
 		)}}}, limit: 1000) {
         items {

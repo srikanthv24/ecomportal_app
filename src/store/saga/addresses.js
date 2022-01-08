@@ -23,7 +23,6 @@ function* getAddresses(action) {
 
 
 function* postAddress(action) {
-  console.log("post address saga::::", action);
   try {
     const response = yield call(Adresses.postAddress, action.payload);
     console.log("post address saga after response::::", response);
@@ -48,18 +47,24 @@ function* postAddress(action) {
 
 
 function* deleteAddress(action) {
+  console.log("delete address saga::::", action);
   try {
     const response = yield call(Adresses.deleteAddress, action.payload);
     if (response.data) {
       yield put({
-        type: types.CREATE_ADDRESS_SUCCESS,
+        type: types.DELETE_ADDRESS_SUCCESS,
         payload: response.data,
+      });
+
+      yield put({
+        type: types.ADDRESS_LIST,
+        payload: action.payload,
       });
     }
   } catch (error) {
     yield put({
-      type: types.CREATE_ADDRESS_FAILURE,
-      payload: {},
+      type: types.DELETE_ADDRESS_FAILURE,
+      payload:error,
     });
   }
 }
@@ -90,6 +95,7 @@ export function* addressesSaga() {
       yield takeEvery(types.ADDRESS_LIST, getAddresses),
       yield takeEvery(types.CREATE_ADDRESS, postAddress),
       yield takeEvery(types.GET_POSTALCODES, getPostalCodes),
+      yield takeEvery(types.DELETE_ADDRESS, deleteAddress),
   ])
 }
 

@@ -97,6 +97,7 @@ export class Cart {
   }
 
   static updateCart(params) {
+    console.log("my_params", params);
     try {
       return fetch(
         "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",

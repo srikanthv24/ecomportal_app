@@ -22,10 +22,12 @@ import { GrAdd } from "react-icons/gr";
 import { BiRupee } from "react-icons/bi";
 import { BsInfoCircle } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
+import { AiFillDelete } from "react-icons/ai";
+
 
 import useQuery from "../../hooks/useQuery";
 import { AddressModal } from "./address-modal";
-import { getAddresses, showLogin, getAddons } from "../../store/actions";
+import { getAddresses, showLogin, getAddons, deleteAddress } from "../../store/actions";
 
 
 const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
@@ -183,6 +185,33 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 			</components.MenuList>
 		);
 	};
+
+	const CustomOption = ({ innerRef, innerProps, data, children }) => {
+		return (
+		  <div
+			ref={innerRef}
+			{...innerProps}
+			style={{ display: "flex", justifyContent: "space-between" }}
+		  >
+			<span style={{ cursor: "pointer" }}>{children}</span>
+			<span style={{ cursor: "pointer" }}>
+			  <AiFillDelete
+				onClick={(event) => {
+					console.log("deleted...!!!!", data);
+				  dispatch(
+					deleteAddress({
+					  addressId: data.id,
+					  customerName: data.customer_name,
+					  customerId: data.customer_id,
+					})
+				  );
+				  event.stopPropagation();
+				}}
+			  />
+			</span>
+		  </div>
+		);
+	  };
 
 	let deliverables = [
 		{ name: "Breakfast", value: "breakfast",id: "B" },
@@ -418,7 +447,10 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 													<Select
 														placeholder={"Address..."}
 														options={AddressList}
-														components={{ MenuList: SelectMenuButton }}
+														components={{ 
+															MenuList: SelectMenuButton,
+															Option: CustomOption
+														}}
 														{...rest}
 														value={selectedAddress[deliver.value]}
 														onChange={(address) => {

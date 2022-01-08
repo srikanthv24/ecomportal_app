@@ -44,6 +44,11 @@ export const Cart = (state = initialState, action) => {
 			return { ...state, cartItemsLoading: false };
 		case types.UPDATE_CART_ITEM_FAILURE:
 			return { ...state, cartItemsLoading: false };
+		case types.GET_CART:
+			return {
+				...state,
+				cartLoading: true,
+			};
 
 		case types.GET_CART_SUCCESS:
 			return {
@@ -53,6 +58,12 @@ export const Cart = (state = initialState, action) => {
 			};
 		case types.GET_CART_FAILURE:
 			return { ...state, cartLoading: false, cartDetails: {} };
+
+		case types.CREATE_CART:	
+			return {
+				...state,
+				cartLoading: true,
+			};
 
 		case types.CREATE_CART_SUCCESS:	
 			return {

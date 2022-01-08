@@ -1,5 +1,5 @@
 
-const server = "dev"
+const server = "development"
 
 export let api_urls = {};
 
