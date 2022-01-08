@@ -23,7 +23,7 @@ const mealPlans = useSelector( state => state.mealPlans);
 
   return (
     <>
-      <Container fluid>
+      <Container fluid className="bg-1">
         <Row style={{ overflow: "auto" }}>
           <Col
             xs={12}

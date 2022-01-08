@@ -65,22 +65,23 @@ const Orders = () => {
         OrdersList?.map((order,index) => {
           return (
             <Card
-              border="light"
-              key={order.id}
+              border="default"
+              key={order.id} className="m-2"
               style={{
-                width: "100%",
-                padding: "10px 0px",
-                boxSizing: "border-box",
-                margin: 10,
+                // width: "100%",
+                // padding: "10px 0px",
+                // boxSizing: "border-box",
+                // margin: 10,
               }}
             >
-              <Row
-                style={{
-                  marginLeft: 0,
-                  marginRight: 0,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              <div className="contaner" style={{padding:'0px 12px'}}>
+                <Row className="bg-1"
+                // style={{
+                //   marginLeft: 0,
+                //   marginRight: 0,
+                //   alignItems: "center",
+                //   justifyContent: "center",
+                // }}
               >
                 <Col xs={3}>
                   <div>
@@ -124,14 +125,14 @@ const Orders = () => {
                 <Col xs={4}>
                   <small className="fs-8 text-muted">Order date:</small>
                   <br />
-                  <small>
+                  <small className="ff-4">
                     <b>{moment(order?.start_date).format("ll")}</b>
                   </small>
                   {order?.start_date ? (
                   <Col>
                     <small className="fs-8 text-muted">Finish date:</small>
                     <br />
-                    <small>
+                    <small className="ff-4">
                       <b>{moment(order?.finish_date).format("ll")}</b>
                     </small>
                   </Col>
@@ -227,6 +228,7 @@ const Orders = () => {
                   </small>
                 </Col>
               </Row>
+              </div>
             </Card>
           );
         })
