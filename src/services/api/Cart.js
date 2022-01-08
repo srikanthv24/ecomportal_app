@@ -8,16 +8,21 @@ import {
   updateCartItem,
   updateCartQty,
 } from "../graphql/mutations";
+import { api_urls } from "../../utils";
 
+
+
+//m76 : Common_API_URL
 export class Cart {
-  static getCart(params) {
+  static getCart= async(params) =>{
+    const getToken = await sessionStorage.getItem('token')
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: getCart,
@@ -32,15 +37,16 @@ export class Cart {
     }
   }
 
-  static getCartSummary(params) {
+  static getCartSummary = async(params)=> {
+    const getToken= await sessionStorage.getItem('token') ;
     console.log("parrrrr",params)
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: CartSummary,
@@ -53,20 +59,21 @@ export class Cart {
     } catch (error) {}
   }
 
-  static createCart(params) {
+  static createCart=async(params)=> {
     // console.log('PARAQMS', `mutation {
     //   createCart(input: {${params.payload}}) {
     //     id
     //   }
     // }`)
+    const getToken = await sessionStorage.getItem('token')
     let payload = params.payload;
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: `mutation ($input: CreateCartInput!){

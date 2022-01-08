@@ -1,5 +1,7 @@
 import { Orders } from "../graphql/mutations";
+import { api_urls } from "../../utils";
 
+//4du - SUB_REL_API_URL
 export class OrdersApi {
   static getOrders = (params) => {
     console.log("params.payload.cutomer_mobile", params);

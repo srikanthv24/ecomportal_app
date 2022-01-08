@@ -22,11 +22,12 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
   const [isExpanded, setisExpanded] = useState(false);
 
   const [Addresses, setAddresses] = useState({
-    B: "Pickup",
-    L: "Pickup",
-    D: "Pickup",
+    B: "",
+    L: "",
+    D: "",
   });
 
+  const [mealType ,setMealType] = useState("")
   const [Duration, setDuration] = useState(null);
   const onDelete = (pindex) => {
     dispatch(
@@ -42,10 +43,14 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
   
 
 
-
+ console.log("oooooo",ProductDetails?.subscription)
   useEffect(() => {
     let temp = { ...Addresses };
+<<<<<<< HEAD
     ProductDetails?.subscription?.map((item) => {
+=======
+    ProductDetails.subscription.map((item,index) => {
+>>>>>>> ff6acadc095005d24a5f04c40398e99e3cc61e99
       if (item.isDelivery) {
         temp[item?.meal_type] =
           item.address.aline1 +
@@ -57,7 +62,15 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
           item.address.city   +
           ", " +
           item.postalcode;
+      }else{
+        temp[item?.meal_type] = "Pickup"
       }
+
+      if(item.meal_type){
+        setMealType(item.meal_type)
+      }
+
+
     });
     setAddresses(temp);
 
@@ -142,7 +155,7 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                   </div>
                 )}
 
-                {Addresses.L && (
+                {Addresses.L  && (
                   <div className="d-flex flex-column my-2">
                     <span style={{ fontSize: 12 }} className="text-muted">
                       Lunch Address
@@ -152,7 +165,7 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                     </span>
                   </div>
                 )}
-                {Addresses.D && (
+                {Addresses.D  &&(
                   <div className="d-flex flex-column my-2">
                     <span style={{ fontSize: 12 }} className="text-muted">
                       Dinner Address
