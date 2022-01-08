@@ -22,6 +22,14 @@ export class OrdersApi {
                     mobile
                     display_name
                   }
+                  paid_amount
+                  orderscount {
+                  meal_type
+                  meals_consumed
+                  meals_ordered
+                  meals_pausedORcancelled
+                  meals_remaining
+                  }
                   B_balance
                   D_balance
                   L_balance
