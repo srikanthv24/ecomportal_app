@@ -226,7 +226,13 @@ export default function AppBar() {
             </ListGroup.Item>
             {userDetails.sub ? (
               <>
-                <ListGroup.Item className="menuItem">                 
+                <ListGroup.Item 
+                  className="menuItem"
+                  onClick={() => {
+                    setMenu(false);
+                    history.push("/profile");
+                  }}
+                  >                 
                  <div className="d-flex align-items-center" style={{justifyContent:"space-between"}}>
                  My Profile
                 <img src={arrowRightIcon} alt="icon" height="18" />

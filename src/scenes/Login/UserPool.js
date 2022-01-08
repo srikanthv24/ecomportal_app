@@ -1,6 +1,6 @@
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 
-let server = "production" ;
+let server = "development" ;
  let poolData ={}
 
 if(server == "production" ){

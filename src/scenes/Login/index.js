@@ -67,7 +67,7 @@ function Login() {
       <Row>
         <Col xs={12} sm={12} lg={12}>
           <div className="text-center mt-4">
-            <Image src={VLogo} height="80" />
+            <Image src={VLogo} height="40" />
           </div>
           <p className="fs-5 fw-bold mt-4 mb-3 secondary-color" style={{fontFamily:'Roboto Mono',fontWeight:'500',fontSize:'15px', textTransform:'uppercase'}}>Sign In</p>
           <Form className="customform">

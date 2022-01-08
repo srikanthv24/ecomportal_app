@@ -30,7 +30,7 @@ const ProductsList = ({ list, items }) => {
 		)
 			return;
 		console.log("Fetch more list items!", list);
-		if (list.nextToken) {
+		if (list?.nextToken) {
 			dispatch(
 				getProductsAction({
 					nextToken: list.nextToken,
@@ -50,7 +50,6 @@ const ProductsList = ({ list, items }) => {
 		return <h3 className="text-center my-4">No products found!!</h3>;
 	}
 
-	console.log("Producttyyyyyyyy", items);
 	return (
 		<>
 			{items.length &&

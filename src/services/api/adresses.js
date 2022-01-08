@@ -6,12 +6,13 @@ export class Adresses {
   static getAddressList = async (id) => {
     const getToken  = await sessionStorage.getItem('token')
     return await fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": getToken,
+          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          //"Authorization": getToken,
         },
         body: JSON.stringify({
           query: `{
@@ -43,12 +44,13 @@ export class Adresses {
     console.log("post address data in fetch api:::", data);
     const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": getToken,
+          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+         // "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -73,12 +75,13 @@ export class Adresses {
   static deleteAddress = async(data) => {
     const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": getToken,
+          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+         // "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -101,12 +104,13 @@ export class Adresses {
   static getPostalCodes = async() => {
     const getToken  = await sessionStorage.getItem('token')
     return fetch(
-      `{api_urls.Common_API_URL}`,
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": getToken,
+          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          //"Authorization": getToken,
         },
         body: JSON.stringify({
           query: `

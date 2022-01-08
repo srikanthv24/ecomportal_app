@@ -51,6 +51,7 @@ function Routes() {
               <Route path="/cart-summary" component={CartSummary} />
               <Route path="/cart" component={Cart} />
               <Route path="/orders" component={Orders} />{" "}
+              <Route path="/profile" component={Profile} />
             </>
           )}
           <Route path="*">
