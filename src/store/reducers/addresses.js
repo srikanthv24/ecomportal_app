@@ -5,9 +5,11 @@ const initialState = {
   error: false,
   addressList: [],
   postalCodes: [],
+  deleteAddress: {},
 };
 
 export const Addresses = (state = initialState, action) => {
+  console.log("delete address reducer is called:::", action);
   switch (action.type) {
     case types.ADDRESS_LIST_SUCCESS:
       return { ...state, addressList: action.payload };
@@ -37,19 +39,20 @@ export const Addresses = (state = initialState, action) => {
      case types.DELETE_ADDRESS: 
      return { ...state, loading: true };
 
-   case types.DELETE_ADDRESS_SUCCESS:
-     return { 
-         ...state, 
-         loading : false,
-         newAddress: action.payload
-       }
+    case types.DELETE_ADDRESS_SUCCESS:
+      return { 
+          ...state, 
+          loading : false,
+          deleteAddress: action.payload
+        }
 
-   case types.DELETE_ADDRESS_FAILURE:
-     return { 
-         ...state, 
-         loading : false,
-         error: true,
-       }
+    case types.DELETE_ADDRESS_FAILURE:
+      return { 
+          ...state, 
+          loading : false,
+          error: true,
+          deleteAddress: action.payload
+        }
 
 
      //postal codes

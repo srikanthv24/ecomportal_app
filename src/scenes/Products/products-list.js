@@ -54,10 +54,10 @@ const ProductsList = ({ list, items }) => {
 	return (
 		<>
 			{items.length &&
-				items.map((item) => {
+				items.map((item,index) => {
 					return item ? (
 						<Col lg={4} md={4} sm={6} xs={6} key={item.id} className="m-0 p-1">
-							<ProductCard product={item} />
+							<ProductCard product={item} pindex={index}/>
 						</Col>
 					) : null;
 				})}

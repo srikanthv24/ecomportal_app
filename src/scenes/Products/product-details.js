@@ -33,7 +33,7 @@ const ProductDetails = ({
 			customer_id: userDetails.sub,
 			customer_name: "CK",
 			is_mealplan: false,
-			item_id: "3ac86ce2-3666-4358-bbdf-d1777fce9412",
+			item_id: "",
 			item_name: "",
 			mealplan: [
 				{

@@ -10,6 +10,7 @@ import {
   Offcanvas,
   Row,
   ListGroup,
+  Spinner
 } from "react-bootstrap";
 import "./styles.css";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -39,8 +40,12 @@ export default function AppBar() {
   const mapValuesForOptions = (options) => {
     let newOptions = [];
     options?.items?.map((item) => {
-      newOptions.push({ value: item.id, label: item.display_name });
-      return null;
+      console.log("itemmm", item);
+      if(item !== null ){
+        newOptions.push({ value: item.id, label: item.display_name });
+        return null;
+      }
+      
     });
     console.log("NewOPtions", newOptions);
     setSearchedProducts(newOptions);
@@ -51,7 +56,7 @@ export default function AppBar() {
   }, [products.searchResults]);
 
   const handleInputChange = (newValue) => {
-    const inputValue = newValue.replace(/\W/g, "");
+    const inputValue = newValue.replace(/\W/g, "").toUpperCase();
     setQuery(inputValue);
     dispatch(searchProducts(inputValue));
   };
@@ -64,6 +69,8 @@ export default function AppBar() {
     setMenu(false);
     history.push("/");
   };
+
+  console.log("searched products", searchedProducts);
 
   return (
     <>
@@ -145,17 +152,19 @@ export default function AppBar() {
                         </strong>
                       </div>
                     </Nav.Link>
-
-                    <Nav.Link onClick={() => history.push("/cart-summary")}>
-                      <h6 className="text-black nav-menu-cart">
-                        <AiOutlineShoppingCart size={24} />
-                        <Badge pill>
-                          {Cart?.cartDetails?.items?.length &&
-                            // Cart?.cartDetails?.items[0]?.items?.length}
-                            Cart?.cartDetails?.items?.length}
-                        </Badge>
-                      </h6>
-                    </Nav.Link>
+                    {Cart?.cartLoading ?(
+									    	<Spinner animation="border" role="status" />
+								    	) : (
+                        <Nav.Link onClick={() => history.push("/cart-summary")}>
+                        <h6 className="text-black nav-menu-cart">
+                          <AiOutlineShoppingCart size={24} />
+                          <Badge pill>
+                            {Cart?.cartDetails?.items?.length &&
+                              Cart?.cartDetails?.items?.length}
+                          </Badge>
+                        </h6>
+                      </Nav.Link>
+                    )}
                   </Col>
                 ) : (
                   <Nav.Link onClick={() => dispatch(showLogin())}>

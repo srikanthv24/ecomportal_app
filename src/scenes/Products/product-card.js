@@ -18,7 +18,7 @@ import {
   updateCartQty,
 } from "../../store/actions/cart";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product ,pindex}) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
@@ -38,25 +38,31 @@ const ProductCard = ({ product }) => {
       });
   }, [Cart.cartDetails]);
 
-  const handleAddToCart = () => {
-    console.log("Cart=?", product);
-    if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-      dispatch(
-        updateCart({
-          customer_id: userDetails.sub,
-          cart_id: Cart?.cartDetails?.items[0]?.id,
-          item: { item_id: product.id, qty: 1, sale_val: product.sale_val },
-        })
-      );
-    } else {
+  const handleAddToCart = (pindex) => {
+    console.log("pindex",pindex)
+    console.log("Product details ::", product);
+    console.log("vvvvv",Cart?.cartDetails)
+    //if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+    //   dispatch(
+    //     updateCart({
+    //       customer_id: userDetails.sub,
+    //       id: Cart?.cartDetails?.items[0]?.id,
+    //      // ciid: product.
+    //       item: { item_id: product.id, qty: 1, sale_val: product.sale_val },
+    //     })
+    //   );
+    // } else {
+     
+     let temp = { item_id: product.id, };
+     console.log("temp", temp); 
       dispatch(
         createCart({
           customer_id: userDetails.sub,
-          item: [{ ...product, qty: 1 }],
+          item: { ...temp, qty: 1 },
           accessToken: sessionStorage.getItem("token"),
         })
       );
-    }
+   // }
     setButtonLoading(true)
   };
 
@@ -169,13 +175,13 @@ const ProductCard = ({ product }) => {
               minWidth: "140px",margin:'0 auto',display:'flex',fontSize:"15px", fontWeight:"500",fontFamily: 'Roboto Condensed',textTransform:"uppercase",
               background: 'transparent', border: '2px solid #362918', color: '#352817',borderRadius:"90px", padding:'15px',alignItems:"center",justifyContent:"space-around"
             }}
-            onClick={handleAddToCart}
+            onClick={()=>handleAddToCart(pindex)}
           >
             <AiOutlineShoppingCart />{" "}
             {Cart.cartLoading && ButtonLoading ? (
               <Spinner animation="border" role="status" />
             ) : (
-              "Add to Cart"
+              "Add to Carta"
             )}
           </Button>
         )}
