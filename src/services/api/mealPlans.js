@@ -65,7 +65,8 @@ export class mealPlans {
 	};
 
 	static mealPlanDetails = async (id) => {
-		return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {
+  //  const getToken = await sessionStorage.getItem('token')
+		return await fetch(`${api_urls.Product_REL_API_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -101,6 +102,7 @@ export class mealPlans {
               is_exclusive
               is_multiselect
               name
+
               variant_items {
                 saleprice
                 image

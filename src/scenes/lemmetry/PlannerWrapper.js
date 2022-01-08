@@ -309,7 +309,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 						boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
 					}}
 				>
-					{products.productDetails.is_mealplan && (
+					{products.productDetails?.is_mealplan && (
 						<div className="w-100 px-3">
 							<div className="d-flex justify-content-between align-items-center">
 								<p className="h6 ff-3">Subscription Amount :</p>
@@ -397,7 +397,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 							<Button
 								className="m-1"
 								disabled={
-									products.productDetails.is_mealplan
+									products?.productDetails?.is_mealplan
 										? subscription.filter((item) => item.is_included).length
 											? subscription.filter((item) => item.isDelivery).length
 												? !subscription.filter(

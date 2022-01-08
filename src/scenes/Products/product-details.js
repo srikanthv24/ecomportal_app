@@ -116,12 +116,12 @@ const ProductDetails = ({
 			<div className="bg-1">
 				<Row>
 					<Col sm={12} lg={6}>
-						<p className="h4 mt-3 ff-2">{ProductDetails.display_name}</p>
-						<p className=" h6 text-muted ff-3">{ProductDetails.category}</p>
+						<p className="h4 mt-3 ff-2">{ProductDetails?.display_name}</p>
+						<p className=" h6 text-muted ff-3">{ProductDetails?.category}</p>
 
 						<div
 							style={{
-								backgroundImage: `url(${ProductDetails.defaultimg_url ||
+								backgroundImage: `url(${ProductDetails?.defaultimg_url ||
 									"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
 									})`,
 								backgroundSize: "cover",
@@ -134,7 +134,7 @@ const ProductDetails = ({
 						/>
 					</Col>
 					<Col sm={12} lg={6}>
-						<p className="mt-3 ff-4">{ProductDetails.description}</p>
+						<p className="mt-3 ff-4">{ProductDetails?.description}</p>
 						{/* <h1>
               <small className="text-muted col-12 h6">
                 Including{" "}
@@ -149,7 +149,7 @@ const ProductDetails = ({
 				</Row>
 				<Row>
 					<Col>
-						{products.productDetails.is_mealplan && (
+						{products.productDetails?.is_mealplan && (
 							<ProductPlanner
 								productId={""}
 								data={products.productDetails}

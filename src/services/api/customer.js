@@ -11,11 +11,12 @@ const API_KEY = "da2-ikrgaao25re4pflusa3hijenoi";
 //rd7 - Customer_REL_API_URL
 export class Customer {
   static getGender = async () => {
-    return await fetch(API_URL, {
+     const getToken = await sessionStorage.getItem('token')
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -39,11 +40,12 @@ export class Customer {
   };
 
   static getPhysicalActivity = async () => {
-    return await fetch(API_URL, {
+    const getToken = await sessionStorage.getItem('token')
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -67,11 +69,12 @@ export class Customer {
   };
 
   static getDietPreference = async () => {
-    return await fetch(API_URL, {
+    const getToken = await sessionStorage.getItem('token')
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -95,11 +98,12 @@ export class Customer {
   };
 
   static getGoalList = async () => {
-    return await fetch(API_URL, {
+    const getToken = await sessionStorage.getItem('token')
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -122,13 +126,14 @@ export class Customer {
       });
   };
 
-  static createCustomer = (data) => {
+  static createCustomer = async(data) => {
     console.log("data to fetch call::::", data);
-    return fetch(`${API_URL}`, {
+    const getToken = await sessionStorage.getItem('token')
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `mutation {

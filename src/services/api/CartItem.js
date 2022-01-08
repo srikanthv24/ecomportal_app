@@ -5,17 +5,19 @@ import {
   updateCartItem,
 } from "../graphql/mutations";
 import { api_urls } from "../../utils";
+import { get } from "react-hook-form";
 
 //m76 : Common_API_URL
 export class CartItem {
-  static getCartItem(params) {
+  static getCartItem =async (params)=> {
+    const getToken = await sessionStorage.getItem('token')
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: getCartItemSchema,
@@ -30,14 +32,15 @@ export class CartItem {
     }
   }
 
-  static createCartItem(params) {
+  static createCartItem= async(params) => {
+    const getToken = await sessionStorage.getItem('token')
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: createCartItem(params.payload.sub_data),
@@ -54,14 +57,15 @@ export class CartItem {
     }
   }
 
-  static updateCartItem(params) {
+  static updateCartItem=async(params) =>{
+    const getToken = await sessionStorage.getItem('token')
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: updateCartItem,
@@ -78,15 +82,16 @@ export class CartItem {
     }
   }
 
-  static deleteCartItem(params) {
+  static deleteCartItem  = async (params)=> {
+    const getToken = await sessionStorage.getItem('token')
     console.log("paewa",params)
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: deleteCartItem,

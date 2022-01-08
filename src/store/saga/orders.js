@@ -3,7 +3,7 @@ import { OrdersApi } from "../../services/api/orders";
 import { types } from "../constants";
 
 function* GetOrders(params) {
-  const response = yield call(OrdersApi.getOrders, params);
+  const response = yield call(OrdersApi.getOrders, params.payload.customer_number);
   console.log("Response-Orders", response);
   if (response) {
     yield put({
