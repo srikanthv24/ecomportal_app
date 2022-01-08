@@ -47,6 +47,7 @@ export class Cart {
           method: "POST",
           headers: {
             "Authorization": getToken,
+           // "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
           },
           body: JSON.stringify({
             query: CartSummary,

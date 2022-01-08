@@ -10,6 +10,8 @@ import {
 const API_URL = process.env.REACT_APP_API_URL;
 // const API_KEY = process.env.REACT_APP_PRODUCT_API_KEY;
 
+//https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql
+//"X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
 
 //ca57 - Product_REL_API_URL
 export class Products {
@@ -44,15 +46,17 @@ export class Products {
 	}
 
 	static getProducts = async (params) => {
+		//const getToken = await sessionStorage.getItem('item')
 		try {
 			console.log("PARAARARAMS==>", JSON.stringify(params.payload.category));
 			// console.log("PARAMSSSS", getProductsByCategory(params));
-			return await fetch(API_URL, {
+			return await fetch(api_urls.Product_REL_API_URL, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 					"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
 				},
+				// Production"X-API-KEY": "da2-xclkxhpjbbbxfcyw2vtp3zc64e",
 				// body: params.payload ? getProductsByCategory(params) : getProducts(),
 				body: JSON.stringify({
 					query: getProducts,
@@ -69,36 +73,40 @@ export class Products {
 	};
 
 	static ProductDetails = async (id) => {
+		const getToken = await sessionStorage.getItem('token')
 		console.log("IIIIDDD", id);
-		return await fetch(API_URL, {
+		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+			//	"Authorization": getToken,
 			},
 			body: getProductDetails(id.payload),
 		}).then((res) => res.json());
 	};
 
 	static productSearch = async (query) => {
-		return await fetch(API_URL, {
+		//const getToken = await sessionStorage.getItem('token')
+		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+				"X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
 			},
 			body: searchProducts(query),
 		}).then((res) => res.json());
 	};
 
 	static getAddressList = async (id) => {
+		const getToken = await sessionStorage.getItem('token')
 		return await fetch(
-			"https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+			`${api_urls.Common_API_URL}`,
 			{
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+					"Authorization": getToken,
 				},
 				body: JSON.stringify({
 					query: getAddressList,
