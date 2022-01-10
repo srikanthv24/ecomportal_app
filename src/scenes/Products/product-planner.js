@@ -498,7 +498,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 										/>
 									</InputGroup>
 
-									{startDate[deliver]?.length && (
+									{/* {startDate[deliver]?.length && ( */}
 										<div style={{ width: "100%" }}>
 											<div className="d-flex justify-content-between align-items-center">
 												<span style={{ fontWeight: 600, fontSize: 12 }}>
@@ -514,7 +514,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 													{VariantValue?.Duration?.duration
 														? `selected ${subscription[index].order_dates.length
 														} /
-                       ${" "}${VariantValue?.Duration?.duration || 0} days.`
+                      										 ${" "}${VariantValue?.Duration?.duration || 0} days.`
 														: null}
 												</span>
 											</div>
@@ -570,7 +570,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 														0 - subscription[index].order_dates.length}
                     						</span> */}
 										</div>
-									)}
+									{/* )} */}
 									<Form.Group
 										className="mb-3"
 										controlId="exampleForm.ControlTextarea1"
@@ -599,7 +599,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 
 											<InputGroup style={{width:"50px",  position: "relative",}}>
 												<FormControl
-												
+													//type="number"
 													value={addonItem.qty}
 													onChange={(e) => {
 														const q = e.target.value;

@@ -17,6 +17,8 @@ import {
   updateCart,
   updateCartQty,
 } from "../../store/actions/cart";
+import {deleteCartItem} from "../../store/actions/cart-item";
+import { showLogin } from "../../store/actions";
 
 const ProductCard = ({ product ,pindex}) => {
   const history = useHistory();
@@ -28,11 +30,11 @@ const ProductCard = ({ product ,pindex}) => {
 
   useEffect(() => {
     Cart?.cartDetails &&
-      Cart?.cartDetails?.items?.length &&
-      Cart?.cartDetails?.items?.map((item, index) => {
+      Cart.cartDetails?.items &&
+      Cart.cartDetails?.items?.map((item, index) => {
         // eslint-disable-next-line no-unused-expressions
-        item.item && item?.item?.item_id == product.id
-          ? setExistingProduct({ ...product, ...item, qty: item.qty })
+        item.item && item?.item?.item_id == product?.id
+          ? setExistingProduct({ ...product, ...item, item: { ...item.item, qty: item.item.qty} })
           : null;
         return null;
       });
@@ -40,7 +42,7 @@ const ProductCard = ({ product ,pindex}) => {
 
   const handleAddToCart = (pindex) => {
     console.log("pindex",pindex)
-    console.log("Product details ::", product);
+    console.log("ProductDetails", product);
     console.log("vvvvv",Cart?.cartDetails)
     //if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
     //   dispatch(
@@ -52,56 +54,79 @@ const ProductCard = ({ product ,pindex}) => {
     //     })
     //   );
     // } else {
+
+      if (userDetails.sub) {
+        let temp = { item_id: product?.id, };
+        console.log("temp", temp); 
+         dispatch(
+           createCart({
+             customer_id: userDetails.sub,
+             item: { ...temp, qty: 1 },
+             accessToken: sessionStorage.getItem("token"),
+           })
+         );
+       setButtonLoading(true)
+      } else {
+        dispatch(showLogin());
+      }
      
-     let temp = { item_id: product.id, };
-     console.log("temp", temp); 
-      dispatch(
-        createCart({
-          customer_id: userDetails.sub,
-          item: { ...temp, qty: 1 },
-          accessToken: sessionStorage.getItem("token"),
-        })
-      );
-   // }
-    setButtonLoading(true)
+  
   };
 
   const onIncrement = () => {
     dispatch(
       updateCartQty({
-        cart_item_id: ExistingProduct.cart_item_id,
+        cart_item_id: ExistingProduct.ciid,
         id: Cart.cartDetails.items[0].id,
         customer_id: userDetails.sub,
-        item_id: ExistingProduct.item_id,
-        qty: ExistingProduct.qty + 1,
+        item_id: ExistingProduct.item.item_id,
+        qty: ExistingProduct.item.qty + 1,
       })
     );
   };
 
   const onDecrement = () => {
-    dispatch(
-      updateCartQty({
-        cart_item_id: ExistingProduct.cart_item_id,
-        id: Cart.cartDetails.items[0].id,
-        customer_id: userDetails.sub,
-        item_id: ExistingProduct.item_id,
-        qty: ExistingProduct.qty - 1,
-      })
-    );
-  };
+   
+      if(ExistingProduct.item.qty == 1){
+        dispatch(
+          deleteCartItem(
+          {
+          cart_item_id: ExistingProduct.ciid,
+          id: Cart?.cartDetails?.items[0]?.id,
+          customer_id: userDetails.sub,
+        })
+      );
+      setExistingProduct({qty: 0})
+      }
+       else{
+      dispatch(
+        updateCartQty({
+          cart_item_id: ExistingProduct.ciid,
+          id: Cart.cartDetails.items[0].id,
+          customer_id: userDetails.sub,
+          item_id: ExistingProduct.item.item_id,
+          qty: ExistingProduct.item.qty - 1,
+        })
+      );
+      };
+   
+}
 
-  console.log("kokoko",Cart)
+  console.log("existingCart",Cart.cartDetails);
+  console.log("existingProduct", ExistingProduct);
+  console.log("ProductDetails==>", product);
+
   return (
     <Card style={{ marginBottom: 30, borderColor:'transparent',padding:'0px',background:'transparent' }}>
       <Card.Body
         variant="top"
-        onClick={() => history.push(`/products/${product.id}`)}
+        onClick={() => history.push(`/products/${product?.id}`)}
         className="p-2"
       >
         <div
           style={{
             backgroundImage: `url(${
-              product.defaultimg_url ||
+              product?.defaultimg_url ||
               "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
             })`,
             backgroundSize: "cover",
@@ -119,28 +144,28 @@ const ProductCard = ({ product ,pindex}) => {
         onClick={() => history.push(`/products/${product.id}`)}
       >
         <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate text-center" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "700", color:"#352817", fontFamily: 'Roboto Condensed'}}>
-          {product.display_name}
+          {product?.display_name}
         </Card.Text>
         <small className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
-          {product.category}
+          {product?.category}
         </small>
         <Card.Text className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
-          {product.description}
+          {product?.description}
         </Card.Text>
         <Card.Text>
           <span className="d-flex justify-content-center" style={{fontSize:"15px",lineHeight:"20px",color:"#352817",fontWeight:"400",fontFamily: 'Roboto Condensed'}}>
             <span>
-              <BiRupee /> {Number(product.sale_val).toFixed(2)} / {product.uom_name}
+              <BiRupee /> {Number(product?.sale_val).toFixed(2)} / {product?.uom_name}
             </span>
           </span>
           <small className="col-12 text-truncate text-muted">
             Including{" "}
-            {String(product.tax_methods).replace("Output", "").replace("-", "")}
+            {String(product?.tax_methods).replace("Output", "").replace("-", "")}
           </small>
         </Card.Text>
       </Card.Body>
       <div style={{ marginTop: 10 }}>
-        {ExistingProduct.qty ? (
+        {ExistingProduct?.item?.qty ? (
           <InputGroup className="mb-3">
             <Button onClick={onDecrement} size="sm"  style={{background: '#f05922', border: 'none', color: '#FFF'}}>
               {Cart.cartLoading ? (
@@ -152,7 +177,7 @@ const ProductCard = ({ product ,pindex}) => {
             <FormControl
               aria-label="Example text with two button addons"
               style={{ textAlign: "center" }}
-              value={ExistingProduct?.qty || ""}
+              value={ExistingProduct?.item?.qty || ""}
               type="number"
               size="sm"
               className="mb-0"
@@ -181,7 +206,7 @@ const ProductCard = ({ product ,pindex}) => {
             {Cart.cartLoading && ButtonLoading ? (
               <Spinner animation="border" role="status" />
             ) : (
-              "Add to Carta"
+              "Add to Cart"
             )}
           </Button>
         )}

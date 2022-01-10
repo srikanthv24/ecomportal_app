@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Col, Form, Row, FloatingLabel, Button, Modal } from "react-bootstrap";
-import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { getAddresses, getPostalCodes } from "../../store/actions/addresses";
 import { postAddress } from "../../store/actions/addresses";
@@ -14,6 +13,7 @@ export const AddressModal = ({
   const dispatch = useDispatch();
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
   const [pinCodes, setPinCodes] = useState([]);
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   //pincode filter
   const [filteredPinCode, setFilteredPinCode] = useState(0);
@@ -23,13 +23,10 @@ export const AddressModal = ({
   }, [dispatch]);
 
   useEffect(() => {
-    if (postalCodes && postalCodes.listPostalCodes) {
+    if (postalCodes.listPostalCodes && postalCodes.listPostalCodes?.items?.length) {
       setPinCodes(postalCodes.listPostalCodes.items);
     }
   }, [postalCodes.listPostalCodes]);
-
-  console.log("postal codes:::::", postalCodes);
-  console.log("pinnnnnnnn codeeeeee codes:::::", pinCodes);
 
   const [newAddress, setNewAddress] = useState({
     aline1: "",
@@ -42,20 +39,16 @@ export const AddressModal = ({
     postalcode: 0,
     customer_id: customerId,
     tag: "",
-    customer_name: "test",
+    customer_name: userDetails.name,
   });
 
   function handlePostalCodes(e) {
-    console.log("entered code:::::", e.target.value.length);
     if (e.target.value) {
       const filter = pinCodes.filter((obj) => obj.postalcode == e.target.value);
       filter.length && handleAddress("postalcode", filter[0].postalcode);
-      console.log("filterfilter", filter);
       setFilteredPinCode(filter);
     }
   }
-
-  console.log("filtered pincodes:::::", filteredPinCode);
 
   const handleAddress = (key, value) => {
     setNewAddress({
@@ -64,14 +57,10 @@ export const AddressModal = ({
     });
   };
 
-  console.log("new address state::::", newAddress);
-
   const handleSubmit = () => {
     dispatch(postAddress(newAddress));
     dispatch(getAddresses({ customerId }));
     handleClose();
-
-    console.log("dispatch will be called here...");
   };
 
   return (

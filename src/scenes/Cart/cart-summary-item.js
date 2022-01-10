@@ -46,14 +46,14 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
  console.log("oooooo",ProductDetails?.subscription)
   useEffect(() => {
     let temp = { ...Addresses };
-    ProductDetails.subscription.map((item,index) => {
+    ProductDetails?.subscription?.map((item,index) => {
       if (item.isDelivery) {
         temp[item?.meal_type] =
           item.address.aline1 +
           ", " +
           item.address.aline2 +
           ", " +
-          item.landmark +
+          item.address.landmark +
           ", "  +
           item.address.city   +
           ", " +

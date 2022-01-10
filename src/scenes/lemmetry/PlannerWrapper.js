@@ -21,6 +21,7 @@ import {
 	updateCartQty,
 } from "../../store/actions/cart";
 import ProductDetails from "../Products/product-details";
+import {deleteCartItem} from "../../store/actions/cart-item";
 
 var phantom = {
 	display: "block",
@@ -195,11 +196,11 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		console.log("gggggg",ExistingProduct)
 		dispatch(
 			updateCartQty({
-				cart_item_id: ExistingProduct.cart_item_id,
+				cart_item_id: ExistingProduct.ciid,
 				id: Cart.cartDetails.items[0].id,
 				customer_id: userDetails.sub,
-				item_id: ExistingProduct.item_id,
-				qty: ExistingProduct.qty + 1,
+				item_id: ExistingProduct.item.item_id,
+				qty: ExistingProduct.item.qty + 1,
 			})
 		);
 	};
@@ -210,15 +211,27 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 	}, [products.productDetails, Cart.cartDetails]);
 
 	const onDecrement = () => {
-		dispatch(
-			updateCartQty({
-				cart_item_id: ExistingProduct.cart_item_id,
-				id: Cart.cartDetails.items[0].id,
-				customer_id: userDetails.sub,
-				item_id: ExistingProduct.item_id,
-				qty: ExistingProduct.qty - 1,
+		if(ExistingProduct.item.qty == 1){
+			dispatch(
+			  deleteCartItem(
+			  {
+			  cart_item_id: ExistingProduct.ciid,
+			  id: Cart?.cartDetails?.items[0]?.id,
+			  customer_id: userDetails.sub,
 			})
-		);
+		  );
+		  setExistingProduct({qty: 0})
+		  } else{
+			dispatch(
+				updateCartQty({
+					cart_item_id: ExistingProduct.ciid,
+					id: Cart.cartDetails.items[0].id,
+					customer_id: userDetails.sub,
+					item_id: ExistingProduct.item.item_id,
+					qty: ExistingProduct.item.qty - 1,
+				})
+			);
+		   }	
 	};
 
 	useEffect(() => {
@@ -284,6 +297,9 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 		console.log("itm.sale_val_____", varItems);
 		setVarItems(varItems);
 	};
+
+	console.log("existtt", ExistingProduct);
+	console.log("isOnboarding", isOnboarding);
 	return (
 		<FormProvider {...methods}>
 			<div className="bg-1">
@@ -329,7 +345,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 								>
 									Back
 								</Button>
-								{ExistingProduct.qty ? (
+								{ExistingProduct?.item?.qty ? (
 									<Button
 										className="w-50 m-1"
 										// variant="success"
@@ -356,8 +372,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 									</Button>
 								)}
 							</>
-						) : ExistingProduct.qty ? (
-							<InputGroup className="p-2 w-50">
+						) : ExistingProduct?.item?.qty ? (
+							<InputGroup className="p-2 w-100">
 								<Button
 									variant="outline-secondary"
 									style={{ borderColor: "#f05922", color: "#f05922" }}
@@ -373,7 +389,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 								<FormControl
 									aria-label="Example text with two button addons"
 									style={{ textAlign: "center", border: "none" }}
-									value={ExistingProduct?.qty || ""}
+									value={ExistingProduct?.item?.qty || ""}
 									type="number"
 								// onChange={(ev) => setCartItem(ev.target.value)}
 								/>
@@ -393,7 +409,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 							</InputGroup>
 						) : null}
 
-						{isOnboarding ? null : (
+						{!isOnboarding && ExistingProduct?.item?.qty ? null : (
 							<Button
 								className="m-1"
 								disabled={
