@@ -409,7 +409,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 							</InputGroup>
 						) : null}
 
-						{!isOnboarding && ExistingProduct?.item?.qty ? null : (
+						{isOnboarding ? null : (
 							<Button
 								className="m-1"
 								disabled={
