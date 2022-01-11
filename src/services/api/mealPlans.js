@@ -10,7 +10,7 @@ export class mealPlans {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+				"X-API-KEY": "da2-orjjngnz3ffc3jjnn75bfm4roi",
 			},
 			body: JSON.stringify({
 				query: `{

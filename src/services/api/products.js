@@ -92,7 +92,7 @@ export class Products {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+				"X-API-KEY": "da2-orjjngnz3ffc3jjnn75bfm4roi",
 			},
 			body: searchProducts(query),
 		}).then((res) => res.json());
