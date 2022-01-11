@@ -49,7 +49,7 @@ export class Products {
 		//const getToken = await sessionStorage.getItem('item')
 		try {
 			console.log("PARAARARAMS==>", JSON.stringify(params.payload.category));
-			// console.log("PARAMSSSS", getProductsByCategory(params));
+			console.log("mass",params.payload)
 			return await fetch(api_urls.Product_REL_API_URL, {
 				method: "POST",
 				headers: {
@@ -61,7 +61,7 @@ export class Products {
 				body: JSON.stringify({
 					query: getProducts,
 					variables: {
-						category: params.payload.category,
+						category: params.payload.category || "",
 						limit: params.payload.limit,
 						nextToken: params.payload.nextToken,
 					},

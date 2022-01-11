@@ -63,7 +63,7 @@ const CartSummary = () => {
   }, [userDetails.sub]);
 
   useEffect(() => {
-    if(cartSummary.data && cartSummary.data.items.length){
+    if(cartSummary?.data && cartSummary.data?.items?.length){
       let temp =[];
       cartSummary.data.items.map((item, index) => {
         let obj = { 

@@ -37,8 +37,6 @@ export class mealPlans {
                   tax_inclusive
                   tax_methods
                   uom_name
-                  upd_by
-                  upd_on
                   variants {
                     is_sale_value_absolute
                     is_multiselect

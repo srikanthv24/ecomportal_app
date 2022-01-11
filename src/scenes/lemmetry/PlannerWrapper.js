@@ -345,7 +345,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 								>
 									Back
 								</Button>
-								{ExistingProduct?.item?.qty ? (
+								{ExistingProduct?.item?.qty.length > 1 ? (
 									<Button
 										className="w-50 m-1"
 										// variant="success"
