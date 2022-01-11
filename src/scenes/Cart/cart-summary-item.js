@@ -12,9 +12,9 @@ import { BsPencil, BsTrash, BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getCartSummary } from "../../store/actions/cart";
-import {deleteCartItem} from "../../store/actions/cart-item";
- 
-const CartSummaryItem = ({ ProductDetails,pindex }) => {
+import { deleteCartItem } from "../../store/actions/cart-item";
+
+const CartSummaryItem = ({ ProductDetails, pindex }) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -27,12 +27,11 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
     D: "",
   });
 
-  const [mealType ,setMealType] = useState("")
+  const [mealType, setMealType] = useState("");
   const [Duration, setDuration] = useState(null);
   const onDelete = (pindex) => {
     dispatch(
-        deleteCartItem(
-        {
+      deleteCartItem({
         cart_item_id: Cart?.cartDetails?.items[pindex].ciid,
         id: Cart?.cartDetails?.items[pindex]?.id,
         customer_id: userDetails.sub,
@@ -40,13 +39,10 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
     );
   };
 
-  
-
-
- console.log("oooooo",ProductDetails?.subscription)
+  console.log("oooooo", ProductDetails);
   useEffect(() => {
     let temp = { ...Addresses };
-    ProductDetails?.subscription?.map((item,index) => {
+    ProductDetails?.subscription?.map((item, index) => {
       if (item.isDelivery) {
         temp[item?.meal_type] =
           item.address.aline1 +
@@ -54,19 +50,17 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
           item.address.aline2 +
           ", " +
           item.address.landmark +
-          ", "  +
-          item.address.city   +
+          ", " +
+          item.address.city +
           ", " +
           item.postalcode;
-      }else{
-        temp[item?.meal_type] = "Pickup"
+      } else {
+        temp[item?.meal_type] = "Pickup";
       }
 
-      if(item.meal_type){
-        setMealType(item.meal_type)
+      if (item.meal_type) {
+        setMealType(item.meal_type);
       }
-
-
     });
     setAddresses(temp);
 
@@ -111,21 +105,40 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                 .replace("Output", "")
                 .replace("-", "")}
             </small>
-            {/* <p className="ff-2 clr-black mb-2">
-              <span
-                style={{
-                  fontSize: "12px",
-                  wordWrap: "break-word",
-                }}
-              >
-                (Qty: {ProductDetails.qty} X <BiRupee />
-                {Number(ProductDetails?.subscription[0]?.sale_val).toFixed(
-                  2
-                )} / {ProductDetails.uom_name}) + Tax:{" "}
-                {ProductDetails.tax_amount} ={" "}
+            <p className="ff-2 clr-black mb-2">
+              {/* {ProductDetails.category === "Snacks" ? (
+                <span
+                  style={{
+                    fontSize: "12px",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  (Qty: {ProductDetails?.qty} X <BiRupee />
+                  {Number(ProductDetails?.sub_total).toFixed(2)} /{" "}
+                  {ProductDetails.uom_name}) + Tax: {ProductDetails.tax_amount}{" "}
+                  ={" "}
+                </span>
+              ) : (
+                <span
+                  style={{
+                    fontSize: "12px",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  (Qty: {ProductDetails?.qty} X <BiRupee />
+                  {Number(ProductDetails?.subscription[0]?.sale_val).toFixed(
+                    2
+                  )}{" "}
+                  /
+                </span>
+              )} */}
+              <span>
+              {ProductDetails?.uom_name} + Tax:{" "}
+                  {ProductDetails?.tax_amount} ={" "}
+                  
               </span>
-
-              <div className="ff-2 clr-black mb-2 fw-700"
+              <div
+                className="ff-2 clr-black mb-2 fw-700"
                 style={{
                   fontSize: "14px",
                 }}
@@ -133,7 +146,7 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                 <BiRupee />
                 {ProductDetails.sub_total}
               </div>
-            </p> */}
+            </p>
 
             {isExpanded && (
               <div>
@@ -151,7 +164,7 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                   </div>
                 )}
 
-                {Addresses.L  && (
+                {Addresses.L && (
                   <div className="d-flex flex-column my-2">
                     <span style={{ fontSize: 12 }} className="text-muted">
                       Lunch Address
@@ -161,7 +174,7 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
                     </span>
                   </div>
                 )}
-                {Addresses.D  &&(
+                {Addresses.D && (
                   <div className="d-flex flex-column my-2">
                     <span style={{ fontSize: 12 }} className="text-muted">
                       Dinner Address
@@ -182,11 +195,20 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
             display: "flex",
             justifyContent: "space-between",
             alignItem: "center",
-            background: "rgba(245, 224, 188, 1) !important"
+            background: "rgba(245, 224, 188, 1) !important",
           }}
         >
           <Button
-            style={{ borderRadius: "50%", marginLeft: 10, color:"#424141", borderColor:"#424141", display: "flex",alignItems: "center", width:'30px', height:'30px' }}
+            style={{
+              borderRadius: "50%",
+              marginLeft: 10,
+              color: "#424141",
+              borderColor: "#424141",
+              display: "flex",
+              alignItems: "center",
+              width: "30px",
+              height: "30px",
+            }}
             variant="outline-danger"
             size="sm"
             onClick={() => history.push("/cart")}
@@ -220,11 +242,20 @@ const CartSummaryItem = ({ ProductDetails,pindex }) => {
             }}
           >
             <Button
-              style={{ borderRadius: "50%", marginLeft: 10,color:"#F05922",borderColor:"#F05922",display: "flex",alignItems: "center",width:'30px', height:'30px' }}
+              style={{
+                borderRadius: "50%",
+                marginLeft: 10,
+                color: "#F05922",
+                borderColor: "#F05922",
+                display: "flex",
+                alignItems: "center",
+                width: "30px",
+                height: "30px",
+              }}
               variant="outline-danger"
               size="sm"
-              onClick={()=>onDelete(pindex)}
-            > 
+              onClick={() => onDelete(pindex)}
+            >
               <BsTrashFill />
             </Button>
           </div>
