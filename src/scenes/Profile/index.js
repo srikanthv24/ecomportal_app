@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-// import ProfileImg from "./../../assets/thumbnail-profile-pic.png";
-import ProfileImg from "../../assets/thumbnail-profile-pic.png";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getCustomerBalance } from '../../store/actions';
 
 export const Profile = () => {
+    const dispatch = useDispatch();
     const userDetails = useSelector((state) => state.auth.userDetails);
+    const balanceState = useSelector((state) => state.balanceReducer);
+
+
+    useEffect(() => {
+        if(userDetails.sub && userDetails.sub.length) {
+            console.log("balance action creator is called",userDetails.sub);
+            dispatch(getCustomerBalance({customerId: userDetails.sub}))
+        }
+    }, [userDetails.sub]);
+
+    console.log("balance redux state", balanceState);
+
+
     return (
         <Container fluid>
             <Row  className="bg-1">
@@ -39,6 +51,16 @@ export const Profile = () => {
                </>
                 )
             }
+            {/* {balanceState && balanceState?.getCustomerBalance && ( */}
+                <>
+                    <Row>
+                    <Col className='value-txt'>Wallet balance</Col>
+                </Row>
+                 <Row>
+                     <Col className='value-txt clr-black'>{balanceState.getCustomerBalance?.amount !== undefined ? Number(balanceState.getCustomerBalance?.amount).toFixed(2) : Number(0).toFixed(2)}</Col>
+                 </Row>
+                </>
+                {/* )}  */}
             <Row>
             <Col className='value-txt'>Email</Col>
             </Row>
