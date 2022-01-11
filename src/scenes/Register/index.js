@@ -51,9 +51,9 @@ const Register = () => {
       .catch((error) => {
         dispatch(authError(error.message));
         console.log("error in registering user:::", error.message);
-        setTimeout(() => {
-          dispatch(hideLogin())
-        }, 2000);
+        // setTimeout(() => {
+        //   dispatch(hideLogin())
+        // }, 2000);
        
       });
   };
