@@ -23,10 +23,10 @@ export const AddressModal = ({
   }, [dispatch]);
 
   useEffect(() => {
-    if (postalCodes.listPostalCodes && postalCodes.listPostalCodes?.items?.length) {
-      setPinCodes(postalCodes.listPostalCodes.items);
+    if (postalCodes?.listPostalCodes && postalCodes?.listPostalCodes?.items?.length) {
+      setPinCodes(postalCodes?.listPostalCodes.items);
     }
-  }, [postalCodes.listPostalCodes]);
+  }, [postalCodes?.listPostalCodes]);
 
   const [newAddress, setNewAddress] = useState({
     aline1: "",
