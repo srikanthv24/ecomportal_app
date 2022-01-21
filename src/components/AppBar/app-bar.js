@@ -79,7 +79,7 @@ export default function AppBar() {
         expand="lg"
         // bg="light"
         variant="light"
-        sticky="top" style={{background:"#F9F3DF"}}
+        sticky="top" style={{background:"#F2CBBD"}}
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>

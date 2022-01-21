@@ -116,6 +116,8 @@ const ProductCard = ({ product ,pindex}) => {
   console.log("existingProduct", ExistingProduct);
   console.log("ProductDetails==>", product);
 
+
+  console.log("vvvv",ExistingProduct?.is_mealplan);
   return (
     <Card style={{ marginBottom: 30, borderColor:'transparent',padding:'0px',background:'transparent' }}>
       <Card.Body
@@ -164,53 +166,53 @@ const ProductCard = ({ product ,pindex}) => {
           </small>
         </Card.Text>
       </Card.Body>
-      <div style={{ marginTop: 10 }}>
-        {ExistingProduct?.item?.qty ? (
-          <InputGroup className="mb-3">
-            <Button onClick={onDecrement} size="sm"  style={{background: '#f05922', border: 'none', color: '#FFF'}}>
-              {Cart.cartLoading ? (
-                <Spinner animation="border" role="status" />
-              ) : (
-                <GrSubtract />
-              )}
-            </Button>
-            <FormControl
-              aria-label="Example text with two button addons"
-              style={{ textAlign: "center" }}
-              value={ExistingProduct?.item?.qty || ""}
-              type="number"
-              size="sm"
-              className="mb-0"
-              // onChange={(ev) => setCartItem(ev.target.value)}
-            />
+        <div style={{ marginTop: 10 }}> 
+          {ExistingProduct?.item?.qty ? (
+            <InputGroup className="mb-3">
+              <Button onClick={onDecrement} size="sm"  style={{background: '#f05922', border: 'none', color: '#FFF'}}>
+                {Cart.cartLoading ? (
+                  <Spinner animation="border" role="status" />
+                ) : (
+                  <GrSubtract />
+                )}
+              </Button>
+              <FormControl
+                aria-label="Example text with two button addons"
+                style={{ textAlign: "center" }}
+                value={ExistingProduct?.item?.qty || ""}
+                type="number"
+                size="sm"
+                className="mb-0"
+                // onChange={(ev) => setCartItem(ev.target.value)}
+              />
 
-            <Button onClick={onIncrement} size="sm" style={{background: '#f05922', border: 'none', color: '#FFF'}}>
-              {Cart.cartLoading ? (
+              <Button onClick={onIncrement} size="sm" style={{background: '#f05922', border: 'none', color: '#FFF'}}>
+                {Cart.cartLoading ? (
+                  <Spinner animation="border" role="status" />
+                ) : (
+                  <GrAdd />
+                )}
+              </Button>
+            </InputGroup>
+          ) : (
+            <Button
+              size="sm"
+              className="cutom-btn"
+              style={{
+                minWidth: "140px",margin:'0 auto',display:'flex',fontSize:"15px", fontWeight:"500",fontFamily: 'Roboto Condensed',textTransform:"uppercase",
+                background: 'transparent', border: '2px solid #362918', color: '#352817',borderRadius:"90px", padding:'15px',alignItems:"center",justifyContent:"space-around"
+              }}
+              onClick={()=>handleAddToCart(pindex)}
+            >
+              <AiOutlineShoppingCart />{" "}
+              {Cart.cartLoading && ButtonLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
-                <GrAdd />
+                "Add to Cart"
               )}
             </Button>
-          </InputGroup>
-        ) : (
-          <Button
-            size="sm"
-            className="cutom-btn"
-            style={{
-              minWidth: "140px",margin:'0 auto',display:'flex',fontSize:"15px", fontWeight:"500",fontFamily: 'Roboto Condensed',textTransform:"uppercase",
-              background: 'transparent', border: '2px solid #362918', color: '#352817',borderRadius:"90px", padding:'15px',alignItems:"center",justifyContent:"space-around"
-            }}
-            onClick={()=>handleAddToCart(pindex)}
-          >
-            <AiOutlineShoppingCart />{" "}
-            {Cart.cartLoading && ButtonLoading ? (
-              <Spinner animation="border" role="status" />
-            ) : (
-              "Add to Cart"
-            )}
-          </Button>
-        )}
-      </div>
+          )}
+        </div>
     </Card>
   );
 };

@@ -28,7 +28,7 @@ const Landing = () => {
 
   console.log("categories-TEMP", categories);
   return (
-    <Container fluid="sm" className="content-body" style={{background: "rgb(249, 243, 223)"}}>
+    <Container fluid="sm" className="content-body" style={{background: "#F2CBBD"}}>
       {userDetails.sub && (
         <section className="page-content bg-1">
           <SimpleCard />
@@ -36,12 +36,12 @@ const Landing = () => {
       )}
 
       <section className="page-content1 py-3 bg-1">
-        <Container style={{background: "rgb(249, 243, 223)"}}>
+        <Container style={{background: "#F2CBBD"}}>
           {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
             
           </Button> */}
            <Card style={{ border: "none", background: "transparent" }}>
-            <Card.Header className="no-bg1" style={{background: "rgb(249, 243, 223)"}}>
+            <Card.Header className="no-bg1" style={{background: "#F2CBBD"}}>
               <div className="w-100">
                 <Link to="/subscription" className="viewall-txt">
                   <Button
@@ -64,7 +64,7 @@ const Landing = () => {
                 </span>
               </div>
             </Card.Header>
-            <Card.Body className="m-0 p-0" style={{background: "rgb(249, 243, 223)"}}>
+            <Card.Body className="m-0 p-0" style={{background: "#F2CBBD"}}>
               {/* <LandingCarousel carouselItems={categories.categories} /> */}
               {categories.loading ? (
                 <Row
@@ -127,7 +127,7 @@ const Landing = () => {
                             <h6
                       style={{
                         fontSize:'20px',
-                        fontFamily: "Playfair Display",
+                        fontFamily: "Playfair Display,serif",
                         fontWeight:700,
                         lineHeight:"25px",
                         textOverflow: "ellipsis",
