@@ -10,6 +10,7 @@ import { getProductsAction } from "../../store/actions/products";
 import { getCategories } from "../../store/actions/categories";
 import { Link } from "react-router-dom";
 import CategoryList from "../Categories/category-list";
+import HomeContent from "../Home/index";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ const Landing = () => {
 
   console.log("categories-TEMP", categories);
   return (
-    <Container fluid="sm" className="content-body" style={{background: "#F2CBBD"}}>
+    <section>
+    <HomeContent />
+    <Container fluid className="content-body" style={{background: "#F2CBBD"}}>
       {userDetails.sub && (
         <section className="page-content bg-1">
           <SimpleCard />
@@ -177,6 +180,7 @@ const Landing = () => {
         </Container>
       </section>
     </Container>
+    </section>
   );
 };
 
