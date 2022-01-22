@@ -22,10 +22,12 @@
     text-transform: uppercase;
 }
 .viewmore-txt{
-    font-family: 'Raleway';
+    /* font-family: 'Raleway'; */
     font-size: 18px;
-    color:#f05922;
-    font-weight: 500;
+    /* color:#f05922; */
+    color:rgb(53,40,23);
+    font-weight: 600;
+    text-decoration: none;
 }
 .no-bg{
     background-color: transparent !important;

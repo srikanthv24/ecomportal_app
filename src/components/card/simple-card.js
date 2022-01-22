@@ -52,9 +52,9 @@ const SimpleCard = () => {
     return (
       <Card className="subscription-section bg-1">
         <Card.Header className="content-title no-bg">
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center ff-1">
             Subscriptions
-            <Link to="/orders/" className="viewmore-txt">
+            <Link to="/orders/" className="viewmore-txt ff-1">
               View all
             </Link>
           </div>

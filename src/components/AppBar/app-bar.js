@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import vlLogo from "./../../assets/Vibrant-Living-logo.png";
+import vlLogoWhite from "./../../assets/home/vl-logo-white.svg";
 import {
   Badge,
   Button,
@@ -24,6 +25,7 @@ import ProfileImg from "./../../assets/thumbnail-profile-pic.png";
 import auth_services from "../../services/auth_services";
 import { showLogin } from "../../store/actions";
 import arrowRightIcon from "./../../assets/arrow-right.png";
+import MenuIcon from "./../../assets/home/search-normal.svg";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -79,30 +81,37 @@ export default function AppBar() {
         expand="lg"
         // bg="light"
         variant="light"
-        sticky="top" style={{background:"#F2CBBD"}}
+        sticky="top" style={{background:"transparent", position:'fixed', width:'100%'}}
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>
-            <Navbar.Toggle
+            <div style={{position:'absolute', right:'1rem', top:'1rem'}}>
+            {/* <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
-              // className="border-0 px-0"
               onClick={() => setMenu(true)}
-            />
+            /> */}
+            <img
+                  alt=""
+                  src={MenuIcon}
+                  height="25"
+                  className="d-inline-block align-top" onClick={() => setMenu(true)}
+                />
+            </div>
             <Navbar.Brand>
               <Link to="/">
                 <img
                   alt=""
-                  src={vlLogo}
-                  height="50"
-                  className="d-inline-block align-top mx-2"
+                  src={vlLogoWhite}
+                  height="70"
+                  className="d-inline-block align-top" style={{marginTop:'-.5rem'}}
                 />
               </Link>
             </Navbar.Brand>
           </div>
-          <Nav>
-            <Container fluid>
+          <Nav style={{paddingRight:'2rem'}}>
+            <Container fluid className="px-0">
               <Row>
-                <Col className="d-lg-block search-section">
+                <Col className="d-lg-block1 search-section1 d-none">
                   <div
                     style={{
                       display: "flex",
@@ -169,7 +178,7 @@ export default function AppBar() {
                   </Col>
                 ) : (
                   <Nav.Link onClick={() => dispatch(showLogin())}>
-                    <p className="text-black nav-menu-cart">Login / Signup</p>
+                    <p className="text-black nav-menu-cart" style={{paddingRight:"1rem"}}>Login / Signup</p>
                   </Nav.Link>
                 )}
               </Row>
