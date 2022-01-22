@@ -97,3 +97,7 @@
     text-transform: uppercase;
     background:transparent !important;
 }
+.bg-chocolate-900{
+    background-color: rgba(53,40,23,1) !important;
+    border-color: rgba(53,40,23,1) !important;
+}

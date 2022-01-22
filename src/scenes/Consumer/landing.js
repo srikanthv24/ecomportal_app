@@ -11,6 +11,7 @@ import { getCategories } from "../../store/actions/categories";
 import { Link } from "react-router-dom";
 import CategoryList from "../Categories/category-list";
 import HomeContent from "../Home/index";
+import FooterContent from "../Footer/index";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -31,9 +32,9 @@ const Landing = () => {
   return (
     <section>
     <HomeContent />
-    <Container fluid className="content-body" style={{background: "#F2CBBD"}}>
+    <Container fluid className="content-body" style={{background: "#F2CBBD", paddingBottom:'2rem'}}>
       {userDetails.sub && (
-        <section className="page-content bg-1">
+        <section className="page-content bg-1 pt-4">
           <SimpleCard />
         </section>
       )}
@@ -49,7 +50,7 @@ const Landing = () => {
                 <Link to="/subscription" className="viewall-txt">
                   <Button
                     style={{ background: "#f05922", borderColor: "#f05910" }}
-                    className="w-100"
+                    className="w-100 bg-chocolate-900"
                   >
                     <GiMeal size="30" /> Choose my meal
                   </Button>
@@ -180,6 +181,7 @@ const Landing = () => {
         </Container>
       </section>
     </Container>
+    <FooterContent />
     </section>
   );
 };

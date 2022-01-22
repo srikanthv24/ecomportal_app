@@ -111,7 +111,7 @@ export default function AppBar() {
           <Nav style={{paddingRight:'2rem'}}>
             <Container fluid className="px-0">
               <Row>
-                <Col className="d-lg-block search-section">
+                <Col className="d-lg-block1 search-section1 d-none">
                   <div
                     style={{
                       display: "flex",
