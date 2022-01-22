@@ -149,3 +149,8 @@ a {
   position: absolute;
     left: calc(50% - 135px);
 }
+@media (min-width:768px) {
+  .footer-background{
+    display: none !important;
+  }
+}
