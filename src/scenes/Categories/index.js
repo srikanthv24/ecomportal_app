@@ -27,7 +27,7 @@ const Categories = () => {
           top: 118,
           zIndex: 999,
           width: "100%",
-          background: "rgb(249, 243, 223)",
+          background: "#F2CBBD",
         }}
       >
         <div className="w-100">
@@ -47,7 +47,7 @@ const Categories = () => {
           </div>
         </div>
       </Card.Header>
-      <Container fluid style={{background: "rgb(249, 243, 223)"}}>
+      <Container fluid style={{background: "#F2CBBD"}}>
         <CategoryList list={categories.categories} loading={categories.loading} />
       </Container>
     </>

@@ -15,17 +15,19 @@
     padding: 0px;
 }
 .content-title{
-    font-family: 'Roboto Condensed';
+    font-family: 'Playfair Display,serif';
     font-size: 20px;
-    color:rgba(35, 27, 16, 0.25);
+    color:rgba(53,40,23,1);
     font-weight: 700;
     text-transform: uppercase;
 }
 .viewmore-txt{
-    font-family: 'Raleway';
+    /* font-family: 'Raleway'; */
     font-size: 18px;
-    color:#f05922;
-    font-weight: 500;
+    /* color:#f05922; */
+    color:rgb(53,40,23);
+    font-weight: 600;
+    text-decoration: none;
 }
 .no-bg{
     background-color: transparent !important;

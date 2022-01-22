@@ -142,7 +142,8 @@ const CartSummary = () => {
               </div>
               <Button
                 onClick={() => history.push("/")}
-                variant="outline-primary"
+                variant="primary"
+                style={{backgroundColor : "rgba(53,40,23,1)"}}
                 size="sm"
               >
                 Explore products
@@ -174,7 +175,10 @@ const CartSummary = () => {
             <p className="fw-bold">Total</p>
             <p className="fw-bold">
               <BiRupee />{" "}
-              { (cartSummary.data !== null)  ? Number(cartSummary?.data?.grand_total) :  0}
+              {(cartSummary?.data &&             
+                  Number(cartSummary?.data?.grand_total)) ||
+                  0}
+              {/* { (cartSummary?.data !== null)  ? (cartSummary?.data?.grand_total) :  0} */}
             </p>
           </span>
         </section>

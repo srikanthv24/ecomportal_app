@@ -84,7 +84,7 @@ const CategoryList = ({ list, loading }) => {
                     <h6
                       style={{
                         fontSize:'20px',
-                        fontFamily: "Playfair Display",
+                        fontFamily: "Playfair Display ,serif",
                         fontWeight:700,
                         lineHeight:"25px",
                         textOverflow: "ellipsis",

@@ -10,6 +10,8 @@ import { getProductsAction } from "../../store/actions/products";
 import { getCategories } from "../../store/actions/categories";
 import { Link } from "react-router-dom";
 import CategoryList from "../Categories/category-list";
+import HomeContent from "../Home/index";
+import FooterContent from "../Footer/index";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -28,25 +30,27 @@ const Landing = () => {
 
   console.log("categories-TEMP", categories);
   return (
-    <Container fluid="sm" className="content-body" style={{background: "rgb(249, 243, 223)"}}>
+    <section>
+    <HomeContent />
+    <Container fluid className="content-body" style={{background: "#F2CBBD", paddingBottom:'2rem'}}>
       {userDetails.sub && (
-        <section className="page-content bg-1">
+        <section className="page-content bg-1 pt-4">
           <SimpleCard />
         </section>
       )}
 
       <section className="page-content1 py-3 bg-1">
-        <Container style={{background: "rgb(249, 243, 223)"}}>
+        <Container style={{background: "#F2CBBD"}}>
           {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
             
           </Button> */}
            <Card style={{ border: "none", background: "transparent" }}>
-            <Card.Header className="no-bg1" style={{background: "rgb(249, 243, 223)"}}>
+            <Card.Header className="no-bg1" style={{background: "#F2CBBD"}}>
               <div className="w-100">
                 <Link to="/subscription" className="viewall-txt">
                   <Button
                     style={{ background: "#f05922", borderColor: "#f05910" }}
-                    className="w-100"
+                    className="w-100 bg-chocolate-900"
                   >
                     <GiMeal size="30" /> Choose my meal
                   </Button>
@@ -64,7 +68,7 @@ const Landing = () => {
                 </span>
               </div>
             </Card.Header>
-            <Card.Body className="m-0 p-0" style={{background: "rgb(249, 243, 223)"}}>
+            <Card.Body className="m-0 p-0" style={{background: "#F2CBBD"}}>
               {/* <LandingCarousel carouselItems={categories.categories} /> */}
               {categories.loading ? (
                 <Row
@@ -127,7 +131,7 @@ const Landing = () => {
                             <h6
                       style={{
                         fontSize:'20px',
-                        fontFamily: "Playfair Display",
+                        fontFamily: "Playfair Display,serif",
                         fontWeight:700,
                         lineHeight:"25px",
                         textOverflow: "ellipsis",
@@ -177,6 +181,8 @@ const Landing = () => {
         </Container>
       </section>
     </Container>
+    <FooterContent />
+    </section>
   );
 };
 
