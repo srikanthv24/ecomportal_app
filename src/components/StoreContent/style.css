@@ -1,0 +1,101 @@
+
+.for-store-txt{
+    padding-top: 4rem;;
+    color : rgba(137,76,91,1);
+    font-size: 136px;
+    text-transform: uppercase;
+    font-family: "Roboto",sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+.for-s-letter {
+    transform: rotate(-9.96deg);
+}
+   
+   
+.for-store-des{
+    color: rgba(53,40,23,1);
+    line-height: 1.75rem;
+    max-width: 640px;
+    font-family: "Roboto",sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.for-store-btn{
+    width: 172px;
+    height: 56px;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    border-radius:30px;
+    background-color:rgba(255,255,255,1);
+    color :black;
+    border: 0 solid;
+    box-sizing: border-box;
+    font-family: "Roboto Mono",monospace!important;
+}
+
+for-store-img {
+    max-width: 768px;
+ 
+}
+
+
+.owl-carousel .owl-nav button.owl-prev, .owl-carousel .owl-nav button.owl-next {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: none;
+    color: white;
+    padding: 0 !important;
+    font: inherit;
+}
+
+/* .owl-carousel .owl-nav button.owl-prev {
+  background-image: url("../../assets/home/slider-left-arrow.svg")
+}
+
+ .owl-carousel .owl-nav button.owl-next {
+
+} */
+
+.for-image-hover:hover{ 
+    cursor: pointer;
+    background: white;
+    min-height: 450px;
+    border-radius: 9999px 9999px 100rem 100rem;
+    padding: 1rem;
+}
+.for-image-hover:hover img{
+    border-radius: 51% 49% 45% 55%/54% 64% 36% 46%;
+    max-height: 300px;
+    max-width: 320px;
+    overflow: hidden;
+    transition: all .3s ease-in-out; 
+}
+
+.for-product-name{
+    line-height: 2.5rem;
+    text-align: center;
+    font-size: 30px;
+    color: rgba(53,40,23,1);
+    font-weight: 700;
+    margin:  0 auto;
+    font-family: "Playfair Display",serif!important;
+}
+.for-product-price{
+    line-height: 2.5rem;
+    text-align: center;
+    font-size: 20px;
+    color: rgba(53,40,23,1);
+    font-weight: 300;
+    margin:  0 auto;
+}
+
+    
+
+

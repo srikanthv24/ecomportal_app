@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import CategoryList from "../Categories/category-list";
 import HomeContent from "../Home/index";
 import FooterContent from "../Footer/index";
+import StoreContent from "../../components/StoreContent"
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,14 @@ const Landing = () => {
       )}
 
       <section className="page-content1 py-3 bg-1">
+    
+
+      <Container style={{background: "#F2CBBD"}}>
+          {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
+            
+          </Button> */}
+        <StoreContent />
+        </Container>
         <Container style={{background: "#F2CBBD"}}>
           {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
             
