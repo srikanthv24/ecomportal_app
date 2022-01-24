@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { BiRupee } from "react-icons/bi";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCustomerBalance } from '../../store/actions';
 
@@ -57,7 +58,7 @@ export const Profile = () => {
                     <Col className='value-txt'>Wallet balance</Col>
                 </Row>
                  <Row>
-                     <Col className='value-txt clr-black'>{balanceState.getCustomerBalance?.amount !== undefined ? Number(balanceState.getCustomerBalance?.amount).toFixed(2) : Number(0).toFixed(2)}</Col>
+                     <Col className='value-txt clr-black'> <BiRupee />{balanceState.getCustomerBalance?.amount !== undefined ? Number(balanceState.getCustomerBalance?.amount).toFixed(2) : Number(0).toFixed(2)}</Col>
                  </Row>
                 </>
                 {/* )}  */}
