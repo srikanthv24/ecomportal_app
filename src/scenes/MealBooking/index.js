@@ -1,75 +1,188 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import "./styles.css";
 import {
   Button,
   Col,
   Container,
-  FloatingLabel,
   Form,
-  FormControl,
-  InputGroup,
   Row,
 } from "react-bootstrap";
-import Select, { components } from "react-select";
-import { Calendar } from "react-multi-date-picker";
-import "./styles.css";
-import { useForm } from "react-hook-form";
-import moment from "moment";
-import { GrAdd } from "react-icons/gr";
-import { AiFillDelete } from "react-icons/ai";
 
-const SelectMenuButton = (props) => {
-  return (
-    <components.MenuList {...props}>
-      {props.children}
-      <Button variant="outline-dark" className="w-100">
-        <GrAdd /> New address
-      </Button>
-    </components.MenuList>
-  );
-};
+import { useForm, useFormContext, FormProvider } from "react-hook-form";
+import { MealList } from "./meal-list";
+import { useDispatch, useSelector } from "react-redux";
 
-const CustomOption = ({ innerRef, innerProps, data, children }) => {
-  return (
-    <div
-      ref={innerRef}
-      {...innerProps}
-      style={{ display: "flex", justifyContent: "space-between" }}
-    >
-      <span style={{ cursor: "pointer" }}>{children}</span>
-      <span style={{ cursor: "pointer" }}>
-        <AiFillDelete onClick={(event) => {}} />
-      </span>
-    </div>
-  );
-};
+import { showLogin } from "../../store/actions";
+import { Sessions } from "./sessions";
+import { MealDuration } from "./duration";
+import { DeliveryDetails } from "./delivery-details";
+import { useHistory } from "react-router-dom";
+import { createCart } from "../../store/actions/cart";
+
+// const data = {
+//   customer_name: "",
+//   customer_mobile: "",
+//   customer_id: "",
+//   items: [
+//     {
+//       qty: 1,
+//       delivery_charge: 0,
+//       item_id: "ProductId",
+//       subscription: [
+//         {
+//           meal_type: "B",
+//           sale_val: 0,
+//           isDelivery: false,
+//           address: {},
+//           notes: "",
+//           order_dates: [],
+//           addon_items: [],
+//           is_included
+//         },
+//         {
+//           meal_type: "L",
+//           sale_val: 0,
+//           isDelivery: false,
+//           address: {},
+//           notes: "",
+//           order_dates: [],
+//           addon_items: [],
+//           is_included
+//         },
+//         {
+//           meal_type: "D",
+//           sale_val: 0,
+//           isDelivery: false,
+//           address: {},
+//           notes: "",
+//           order_dates: [],
+//           addon_items: [],
+//           is_included
+//         },
+//       ],
+//       variants: [
+//         {
+//           display_name: "",
+//           items: [],
+//         },
+//       ],
+//     },
+//   ],
+// };
 
 export const MealBooking = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      checkbox: false,
-    },
-  });
 
-  const handleData = (data) => {
-    console.log("DATA", data);
-  };
-
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const userDetails = useSelector((state) => state.auth.userDetails);
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
- 
+  const handleData = (data) => {
+    console.log("data:::", data);
+  };
+
+  const showLoginModal = () => {
+    dispatch(showLogin());
+  };
+
+  const handleNextStep = () => {
+    handleNext();
+  }
+
+  const methods = useForm({
+		defaultValues: {
+			item_id: "",
+			qty: 1,
+			subscription: [
+				{
+					address: {},
+					addon_items: [],
+					isDelivery: false,
+					meal_type: "",
+					notes: "",
+					order_dates: [],
+				},
+				{
+					address: {},
+					addon_items: [],
+					isDelivery: false,
+					meal_type: "",
+					notes: "",
+					order_dates: [],
+				},
+				{
+					address: {},
+					addon_items: [],
+					isDelivery: false,
+					meal_type: "",
+					notes: "",
+					order_dates: [],
+				},
+			],
+			variants: [],
+		},
+	});
+
+  const { control, handleSubmit, setValue, watch } = methods;
+
+	const { subscription, variants, item_id } = watch();
+
+  const handleCartSubmit = (data) => {
+		console.log("use_form_data", data);
+		// let payload = { ...data };
+		// let filteredPayload = payload.subscription.filter((item) => {
+		// 	if (item.is_included) {
+		// 		delete item.is_included;
+		// 		return item;
+		// 	}
+		// });  
+
+		// 		dispatch(
+		// 			createCart({
+		// 				customer_id: userDetails.sub,
+		// 				item: { ...data, subscription: filteredPayload },
+		// 				accessToken: sessionStorage.getItem("token"),
+		// 			})
+		// 		);
+
+    let payload = { 
+      item_id: item_id,
+			qty: 1,
+			subscription: subscription
+     };
+		let filteredPayload = payload.subscription.filter((item) => {
+			if (item.is_included) {
+				delete item.is_included;
+				return item;
+			}
+		});  
+    console.log("my_payload", payload);
+
+				dispatch(
+					createCart({
+						customer_id: userDetails.sub,
+						item: { ...payload, subscription: filteredPayload },
+						accessToken: sessionStorage.getItem("token"),
+					})
+				);
+	};
+
+  const handleLastStep = () => {
+    handleCartSubmit();
+    history.push("/cart-summary");
+  }
+  
+  console.log("subscription_state, item_id", subscription, item_id);
+
   return (
+    <FormProvider {...methods}>
     <Container
       fluid
       style={{
@@ -86,135 +199,59 @@ export const MealBooking = () => {
         </Col>
       </Row>
       <Form className="m-3">
-      {activeStep == 0 ? (
-          <>
-          <p className="h6 text-start mb-1 text-muted">Choose Meal Sessions</p>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              Breakfast
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              Lunch
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              Dinner
-            </label>
-          </div>
-        </>  
-      ) : activeStep == 1 ? (
-        <>
-        <p className="h6 text-start mb-1 mt-2 text-muted">Choose Meal Plan</p>
-        <Select
-          name="mealpaln"
-          placeholder="Meal Plans"
-          className="mb-3 text-start"
-        />
-        <InputGroup className="my-2">
-          <InputGroup.Text>Start Date</InputGroup.Text>
-          <FormControl
-            type="date"
-            min={moment(new Date()).format("YYYY-MM-DD")}
-          />
-        </InputGroup>
-        <div style={{ width: "100%", overflow: "scroll" }}>
-          <Calendar multiple numberOfMonths={2} style={{ width: "100%" }} />
-        </div>
-      </>
-      ) : activeStep == 2 ? (
-        <>
-        <p className="h6 text-muted mt-3 mb-0 m-2">Delivery Address *</p>
-        <Select
-          placeholder={"Address..."}
-          components={{
-            MenuList: SelectMenuButton,
-            Option: CustomOption,
-          }}
-        />
-        <div className="mb-1">
-          <label
-            htmlFor="name"
-            className="h6 text-muted mt-3 mb-0 m-2 form-label"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            {...register("name", { required: true, maxLength: 20 })}
-          />
-        </div>
-        {errors.name?.type === "required" && "Name is required"}
-
-        <div className="mb-1">
-          <label
-            htmlFor="mobile"
-            className="h6 text-muted mt-3 mb-0 m-2 form-label"
-          >
-            Mobile
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            {...register("mobile", { required: true, maxLength: 10 })}
-          />
-        </div>
-        {errors.mobile?.type === "required" && "Mobile is required"}
-      </>
-      ) : null}
-      <div style={{display:"flex", justifyContent:"space-between"}}>
-
-     
-      {activeStep == 0 ? " " :(
+        <Row style={{ minHeight: "400px" }}>
+          <Col>
+            {activeStep == 0 ? (
+              <Sessions 
+                 control={control}
+                />
+            ) : activeStep == 1 ? (
+              // userDetails.sub ?  (
+              <DeliveryDetails 
+              control={control}
+                />
+            ) : // ) : showLoginModal()
+            activeStep == 2 ? (
+              <MealList  handleNextStep = {handleNextStep}/>
+            ) : activeStep == 3 ? (
+              <MealDuration />
+            ) : null}
+          </Col>
+        </Row>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Button
-          className="w-50 m-1"
-          style={{
-            width: "50%",
-            background: "#F05922",
-            borderColor: "#F05922",
-          }}
-          onClick={() => handleBack()} 
-        >
-          Back
-        </Button>
-      )
-        }
-        <Button
-          className="w-50 m-1"
-          style={{
-            width: "50%",
-            background: "#F05922",
-            borderColor: "#F05922",
-          }}
-          onClick={() => handleNext()}
-        //   onClick={handleSubmit(handleData)}
-        >
-            {activeStep == 2 ? "Finish" : "Next" }
-        </Button>
-
+            className="w-50 m-1"
+            style={{
+              width: "50%",
+              background: "#F05922",
+              borderColor: "#F05922",
+            }}
+            onClick={() => handleBack()}
+            disabled={activeStep == 0 ? true : false}
+          >
+            Back
+          </Button>
+          <Button
+            className="w-50 m-1"
+            style={{
+              width: "50%",
+              background: "#F05922",
+              borderColor: "#F05922",
+            }}
+            onClick={() => {
+              if (activeStep == 3) {
+                handleLastStep()
+              } else {
+                handleNext();
+              }
+            }}
+            //onClick={handleSubmit(handleData)}
+          >
+            {activeStep == 3 ? "Proceed to Cart" : "Next"}
+          </Button>
         </div>
       </Form>
     </Container>
+    </FormProvider>
   );
 };
