@@ -23,12 +23,11 @@ export const MealCard = ({ product, handleClick, handleNextStep }) => {
     >
       <Card.Body
         variant="top"
-        // onClick={() => history.push(`/products/${product?.id}`)}
         className="p-2"
         onClick={() => {
           handleNextStep() 
           setValue("item_id", product?.id);
-		      setValue("qty", 5);
+		      setValue("qty", 1);
         }}
       >
         <div
@@ -49,7 +48,6 @@ export const MealCard = ({ product, handleClick, handleNextStep }) => {
       <Card.Body
         className="pt-1 text-center px-1"
         style={{ minHeight: 140 }}
-        //onClick={() => history.push(`/products/${product.id}`)}
       >
         <Card.Text
           className="h6 mb-0 pb-0 col-12 text-truncate text-center"

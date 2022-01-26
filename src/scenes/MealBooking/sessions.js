@@ -1,5 +1,5 @@
 import React from "react";
-import { FormProvider, useForm , Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 export const Sessions = ({control}) => {
 

@@ -1,9 +1,8 @@
-import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { FormControl, InputGroup } from "react-bootstrap";
-import DatePicker from "react-multi-date-picker";
+import DatePicker, { Calendar } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select';
+import moment from "moment";
 import { getProductDetails } from "../../store/actions";
 import { useFormContext } from "react-hook-form";
 
@@ -21,6 +20,25 @@ export const MealDuration = () => {
     useEffect(() => {
         dispatch(getProductDetails("d3554853-6cb0-4af9-bb74-9f8643a55693"));
     }, []);
+
+    const handleDateChange = (date, index) => {
+      console.log("handleDateChange_called==>",date );
+      let temp = [...subscription]
+      const dateTemp = [];
+      console.log("temp==>", temp)
+      for (let i = 0; i < period?.duration; i++) {
+        dateTemp.push(moment(date).add(i, "days").format("YYYY-MM-DD"));
+      }
+      console.log("dateTemp==>", dateTemp)
+      // if (dateTemp.length == period?.duration) {
+        let temp2 = temp.map(obj => {
+          return {...obj, order_dates: dateTemp}
+        });
+        setValue("subscription", temp2);
+        console.log("temp2==>", temp2)
+      // }
+      
+    }
 
       
     useEffect(() => {
@@ -56,7 +74,7 @@ export const MealDuration = () => {
           console.log("data", data)
           setDuration(data?.duration);
           setPeriod(data);
-          
+          handleDateChange(new Date(), 0);
         }}
       />
       {/* <InputGroup className="my-2">
@@ -66,18 +84,51 @@ export const MealDuration = () => {
           min={moment(new Date()).format("YYYY-MM-DD")}
         />
       </InputGroup> */}
-      <p>{`selected ${period?.duration == "" ? "0" : period?.duration} days`}</p>
-      {/* <div style={{ width: "100%", overflow: "scroll" }}>
+       <p className="h6 text-start mb-1 mt-2 text-muted">
+        Select dates:
+        </p>
+      <div style={{ width: "100%", overflow: "scroll" }}>
           <Calendar
             multiple
             numberOfMonths={2}
+            value={subscription[0]?.order_dates}
+            minDate={subscription[0]?.order_dates[0] || new Date()}
+            maxDate={
+              new Date(
+                moment(
+                  subscription[0]
+                    ?.order_dates[0]
+                )
+                .add(
+                  period?.grace +
+                  period?.duration -
+                      1 || 0,
+                    "days"
+                  )
+                  .calendar()
+              )
+            }
+            sort
+            onChange={(dateObj) => {
+              let temp = [...subscription];
+              let temp2 = [];
+              dateObj.map((date) => {
+                if (temp2?.length === period?.duration) {
+                  return null;
+                }
+                temp2.push(date.format("YYYY-MM-DD"));
+              });
+              let temp3 = temp.map(obj => {
+                return {...obj, order_dates: temp2}
+              });
+              setValue("subscription", temp3);
+            }}
             style={{ width: "100%" }}
           />
-        </div> */}
-        <p className="h6 text-start mb-1 mt-2 text-muted">
-        Select start date:
-        </p>
-        <DatePicker
+        </div>
+      
+       {/* <p>{`selected ${period?.duration == "" ? "0" : period?.duration} days`}</p> */}
+        {/* <DatePicker
             value={subscription[0]?.order_dates}
             multiple
             minDate={new Date()}
@@ -101,6 +152,9 @@ export const MealDuration = () => {
               let temp = [...subscription];
               let temp2 = [];
               dateObj.map((date) => {
+                if (temp2?.length === period?.duration) {
+                  return null;
+                }
                 temp2.push(date.format("YYYY-MM-DD"));
               });
               let temp3 = temp.map(obj => {
@@ -109,7 +163,7 @@ export const MealDuration = () => {
               setValue("subscription", temp3);
             }}
             
-          />
+          /> */}
     </>
   );
 };

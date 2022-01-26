@@ -19,57 +19,6 @@ import { DeliveryDetails } from "./delivery-details";
 import { useHistory } from "react-router-dom";
 import { createCart } from "../../store/actions/cart";
 
-// const data = {
-//   customer_name: "",
-//   customer_mobile: "",
-//   customer_id: "",
-//   items: [
-//     {
-//       qty: 1,
-//       delivery_charge: 0,
-//       item_id: "ProductId",
-//       subscription: [
-//         {
-//           meal_type: "B",
-//           sale_val: 0,
-//           isDelivery: false,
-//           address: {},
-//           notes: "",
-//           order_dates: [],
-//           addon_items: [],
-//           is_included
-//         },
-//         {
-//           meal_type: "L",
-//           sale_val: 0,
-//           isDelivery: false,
-//           address: {},
-//           notes: "",
-//           order_dates: [],
-//           addon_items: [],
-//           is_included
-//         },
-//         {
-//           meal_type: "D",
-//           sale_val: 0,
-//           isDelivery: false,
-//           address: {},
-//           notes: "",
-//           order_dates: [],
-//           addon_items: [],
-//           is_included
-//         },
-//       ],
-//       variants: [
-//         {
-//           display_name: "",
-//           items: [],
-//         },
-//       ],
-//     },
-//   ],
-// };
-
 export const MealBooking = () => {
 
   const dispatch = useDispatch();
@@ -82,10 +31,6 @@ export const MealBooking = () => {
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleData = (data) => {
-    console.log("data:::", data);
   };
 
   const showLoginModal = () => {
@@ -126,7 +71,12 @@ export const MealBooking = () => {
 					order_dates: [],
 				},
 			],
-			variants: [],
+			variants: [
+        {
+          display_name: "",
+          items: [],
+        },
+      ],
 		},
 	});
 
@@ -160,6 +110,8 @@ export const MealBooking = () => {
 		let filteredPayload = payload.subscription.filter((item) => {
 			if (item.is_included) {
 				delete item.is_included;
+        delete item.address.label;
+        delete item.address.value;
 				return item;
 			}
 		});  
@@ -206,12 +158,12 @@ export const MealBooking = () => {
                  control={control}
                 />
             ) : activeStep == 1 ? (
-              // userDetails.sub ?  (
+              userDetails.sub ?  (
               <DeliveryDetails 
               control={control}
                 />
-            ) : // ) : showLoginModal()
-            activeStep == 2 ? (
+            ) : showLoginModal()
+            ) : activeStep == 2 ? (
               <MealList  handleNextStep = {handleNextStep}/>
             ) : activeStep == 3 ? (
               <MealDuration />

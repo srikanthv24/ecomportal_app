@@ -5,7 +5,6 @@ import { MealCard } from "./meal-card";
 import { useEffect } from "react";
 import { getMealPlans } from "../../store/actions/mealPlans";
 
-// export const MealList = ({ list, items }) => {
 export const MealList = ({handleNextStep}) => {
   const dispatch = useDispatch();
   const mealPlans = useSelector( state => state.mealPlans);
@@ -21,9 +20,9 @@ export const MealList = ({handleNextStep}) => {
     }
   }, [mealPlans.mealPlansList]);
 
-//   if (!items || !items.length) {
-//     return <h3 className="text-center my-4">No Meal Plans Found!!</h3>;
-//   }
+  if (!items || !items.length) {
+    return <h3 className="text-center my-4">No Meal Plans Found!!</h3>;
+  }
 
   console.log("meal plan items",items);
 

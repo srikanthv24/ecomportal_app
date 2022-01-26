@@ -1,38 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { AiFillDelete } from "react-icons/ai";
 import { GrAdd } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import Select, { components } from "react-select";
-import { getAddresses } from "../../store/actions";
+import { deleteAddress, getAddresses } from "../../store/actions";
 import { AddressModal } from "../Products/address-modal";
 
-const SelectMenuButton = (props) => {
-  return (
-    <components.MenuList {...props}>
-      {props.children}
-      <Button variant="outline-dark" className="w-100">
-        <GrAdd /> New address
-      </Button>
-    </components.MenuList>
-  );
-};
-
-const CustomOption = ({ innerRef, innerProps, data, children }) => {
-  return (
-    <div
-      ref={innerRef}
-      {...innerProps}
-      style={{ display: "flex", justifyContent: "space-between" }}
-    >
-      <span style={{ cursor: "pointer" }}>{children}</span>
-      <span style={{ cursor: "pointer" }}>
-        <AiFillDelete onClick={(event) => {}} />
-      </span>
-    </div>
-  );
-};
 
 export const DeliveryDetails = ({ control }) => {
   const dispatch = useDispatch();
@@ -80,6 +55,45 @@ export const DeliveryDetails = ({ control }) => {
       setAddressList(temp);
     }
   }, [Addresses?.listAddresses?.items]);
+
+  const SelectMenuButton = (props) => {
+    return (
+      <components.MenuList {...props}>
+        {props.children}
+        <Button variant="outline-dark" className="w-100" onClick={handleShow}>
+          <GrAdd /> New address
+        </Button>
+      </components.MenuList>
+    );
+  };
+
+  const CustomOption = ({ innerRef, innerProps, data, children }) => {
+    return (
+      <div
+        ref={innerRef}
+        {...innerProps}
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <span style={{ cursor: "pointer" }}>{children}</span>
+        <span style={{ cursor: "pointer" }}>
+          <AiFillDelete 
+              onClick={(event) => {
+                console.log("deleted...!!!!", data);
+                dispatch(
+                deleteAddress({
+                  addressId: data.id,
+                  customerName: data.customer_name,
+                  customerId: data.customer_id,
+                })
+                );
+                event.stopPropagation();
+              }}
+          />
+        </span>
+      </div>
+    );
+  };
+
   return (
     <>
       <AddressModal
@@ -89,6 +103,7 @@ export const DeliveryDetails = ({ control }) => {
         showModal={showModal}
       />
       <p className="h6 text-muted mt-3 mb-0 m-2">Delivery Address *</p>
+      <p className="h6 mt-3 mb-3 m-2">{subscription[0]?.address?.label}</p>
           <Select
             placeholder={"Address..."}
             options={AddressList}
@@ -100,39 +115,14 @@ export const DeliveryDetails = ({ control }) => {
               let temp = [...subscription];
               console.log("address, temp",address ,temp);
               let addrss = { ...address };
-              delete addrss.label;
-              delete addrss.value;
+              // delete addrss.label;
+              // delete addrss.value;
               let temp2 = temp.map(obj => {
                 return {...obj, address: addrss}
               });
               setValue("subscription", temp2);
             }}
           />
-      {/* <div className="mb-1">
-        <label
-          htmlFor="name"
-          className="h6 text-muted mt-3 mb-0 m-2 form-label"
-        >
-          Name
-        </label>
-        <input
-          type="text"
-          className="form-control"
-        />
-      </div> */}
-
-      {/* <div className="mb-1">
-        <label
-          htmlFor="mobile"
-          className="h6 text-muted mt-3 mb-0 m-2 form-label"
-        >
-          Mobile
-        </label>
-        <input
-          type="text"
-          className="form-control"
-        />
-      </div> */}
     </>
   );
 };
