@@ -38,17 +38,9 @@ const Cart = () => {
   };
 
   return (
-    <section className="bg-1" style={{minHeight:'calc(100vh - 126px)'}}>
+    <section className="bg-1 cart-edit-wrapper">
       <div style={phantom2}  />
-      <Card.Header
-        style={{
-          position: "fixed",
-          top: 118,
-          zIndex: 999,
-          width: "100%",
-          background: "transparent",
-        }}
-      >
+      <Card.Header className="mt-4">
         <div className="w-100 text-left">
           <div className="d-block text-left">
             <p className="h5 m-0 p-0 page-title"> Cart</p>
@@ -59,7 +51,7 @@ const Cart = () => {
           <div></div>
         </div>
       </Card.Header>
-      <div div style={{ padding: 10 }}>
+      <div style={{ padding: 10 }}>
         <>
           {Cart?.cartDetails?.items?.length ? (
             // Cart?.cartDetails?.items[0]?.items?.map((item) => {
@@ -98,6 +90,7 @@ const Cart = () => {
               padding: 10,
               boxShadow: "1px 0px 3px 0px rgba(0,0,0,0.4)",
               zIndex: 10000,
+              background:"#F2CBBD"
             }}
           >
             <Button className="btn custom-btn-secondary"

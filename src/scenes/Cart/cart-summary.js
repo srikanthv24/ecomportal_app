@@ -105,7 +105,7 @@ const CartSummary = () => {
         }
       />
 
-      <div className="p-2 bg-1">
+      <div className="p-21 bg-1 cart-summary-wrapper">
         <p className="h3 page-title">Cart Summary</p>
         <p className="h6 text-muted">
           {(cartSummary?.data?.items?.length &&
@@ -114,14 +114,7 @@ const CartSummary = () => {
             0}{" "}
           Items
         </p>
-        <section
-          style={{
-            height: 250,
-            maxHeight: 250,
-            width: "100%",
-            overflow: "auto",
-          }}
-        >
+        <section className="cart-items-block">
           {cartSummary?.isLoading ? (
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100"
@@ -143,7 +136,7 @@ const CartSummary = () => {
               <Button
                 onClick={() => history.push("/")}
                 variant="primary"
-                style={{backgroundColor : "rgba(53,40,23,1)"}}
+                style={{backgroundColor : "rgba(53,40,23,1)", borderColor:"rgba(53,40,23,1)"}}
                 size="sm"
               >
                 Explore products

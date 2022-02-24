@@ -76,15 +76,8 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
   };
 
   return (
-    <div style={{background: "rgb(249, 243, 223)"}}>
-      <Card
-        style={{
-          marginBottom: 10,
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "row",
-        }}
-      >
+    <div className="cart-edit-pcard">
+      <Card className="cart-edit-pcard-item">
         <Card.Body
           variant="top"
           className="p-1"

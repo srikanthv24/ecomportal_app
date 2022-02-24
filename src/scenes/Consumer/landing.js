@@ -12,7 +12,10 @@ import { Link } from "react-router-dom";
 import CategoryList from "../Categories/category-list";
 import HomeContent from "../Home/index";
 import FooterContent from "../Footer/index";
-import StoreContent from "../../components/StoreContent"
+import StoreContent from "../../components/StoreContent";
+import GridContentSection from "../Gridcontent/index";
+import ViewContentSection from "../Viewcontent/index";
+
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -33,16 +36,21 @@ const Landing = () => {
   return (
     <section>
     <HomeContent />
-    <Container fluid className="content-body" style={{background: "#F2CBBD", paddingBottom:'2rem'}}>
+    <Container fluid className="content-body px-0" style={{background: "#F2CBBD", paddingBottom:'2rem'}}>
       {userDetails.sub && (
-        <section className="page-content bg-1 pt-4">
+        <section className="page-content bg-1">
           <SimpleCard />
         </section>
       )}
+    <section className="page-content1 px-0 bg-2">
+      <GridContentSection />
+    </section>
+
+    {/* <section className="page-content1 py-3 bg-3">
+      <ViewContentSection />
+    </section> */}
 
       <section className="page-content1 py-3 bg-1">
-    
-
       <Container style={{background: "#F2CBBD"}}>
           {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
             
@@ -54,7 +62,7 @@ const Landing = () => {
             
           </Button> */}
            <Card style={{ border: "none", background: "transparent" }}>
-            <Card.Header className="no-bg1" style={{background: "#F2CBBD"}}>
+            <Card.Header className="mb-4" style={{background: "#F2CBBD"}}>
               <div className="w-100">
                 <Link to="/subscription" className="viewall-txt">
                   <Button

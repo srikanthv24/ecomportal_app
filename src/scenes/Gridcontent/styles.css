@@ -153,9 +153,19 @@ a {
   .footer-background{
     display: none !important;
   }
+  .minh-700{
+    min-height: 700px;
+    display: flex;
+  }
+}
+.md\:w-1 {
+  width: 100%;
 }
 .md\:w-1\/2 {
   width: 50%;
+}
+.md\:w-1 {
+  width: 100%;
 }
 .md\:leading-\[3\.4rem\] {
   line-height: 3.4rem;
@@ -306,4 +316,33 @@ a {
   .md\:w-1\/2 {
     width: 100%;
   }
+  .grid-content-1{
+    display: flex;
+    flex-direction:column;
+  }
+  .step1-info{
+    min-height: 480px;
+  }
+  .step1-info .cafe-explore-image{
+    width: 100%;
+    left:0;
+    bottom:0;
+  }
+  .for-store-txt{
+    font-size: 80px !important;
+  }
+}
+@media screen and (min-width:767px) {
+  .bananaleaves-img{
+    max-width:240px;
+  }
+  .giftbag-img{
+    max-width:320px;
+  }
+}
+.bananaleaves-img{
+  width: 40%;
+}
+.giftbag-img{
+  width: 50%;
 }

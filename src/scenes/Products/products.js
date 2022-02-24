@@ -48,17 +48,10 @@ const Products = () => {
 
 	return (
 		<>
-			<Container fluid style={{background:"#F2CBBD", minHeight:"calc(100vh - 126px)"}}>
+			<Container fluid style={{background:"#F2CBBD", minHeight:"calc(100vh - 0px)"}}>
 				<Row style={{ overflow: "auto" }}>
 					<div style={{ ...phantom }} />
-					<Card.Header
-						style={{
-							position: "fixed",
-							top: 118,
-							zIndex: 999,
-							background: "#F2CBBD",
-						}}
-					>
+					<Card.Header className="products-header">
 						<div className="d-flex justify-content-between align-items-center">
 							<div>
 								<p className="content-title"> Products</p>

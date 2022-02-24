@@ -34,17 +34,19 @@ return(
           <span style={{textAlign :"center" ,marginTop: "40px"}}>
            <button className="for-store-btn"> Explore Store</button>
           </span>
-          <img className="for-store-img" src={AlmondBannanabar} style={{   marginTop: "-30px"}} alt="almond banana bar" />
+          <img className="for-store-img" src={AlmondBannanabar} alt="almond banana bar" />
           </Card>
           {categories.categories.length >1 ?
             <OwlCarousel  dots="false" dotsEach="false" className="owl-theme" loop margin={10} nav>
               {categories.categories.map((item,index) => {     
               return (
-              <div style={{ minHeight: "500px"}} key={index}>
+              <div className="prd-detail-info-item" key={index}>
                 <div className='for-image-hover'>
                      <img className='for-image' src="https://vl.able.do/assets/store-packed-images/1.jpg" alt="img" />
+                     <div className="prd-info-block">
                      <p className="for-product-name">{item.display_name}</p>
                      <p className="for-product-price">₹0.00</p>
+                     </div>
                 </div>           
 
               </div>

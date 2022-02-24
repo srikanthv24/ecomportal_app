@@ -148,7 +148,7 @@ const ProductCard = ({ product ,pindex}) => {
         <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate text-center" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "700", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product?.display_name}
         </Card.Text>
-        <small className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
+        <small className="col-12 text-truncate text-center" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product?.category}
         </small>
         <Card.Text className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
@@ -169,7 +169,7 @@ const ProductCard = ({ product ,pindex}) => {
         <div style={{ marginTop: 10 }}> 
           {ExistingProduct?.item?.qty ? (
             <InputGroup className="mb-3">
-              <Button onClick={onDecrement} size="sm"  style={{background: '#f05922', border: 'none', color: '#FFF'}}>
+              <Button onClick={onDecrement} size="sm"  className="cart-increment-btn">
                 {Cart.cartLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
@@ -186,7 +186,7 @@ const ProductCard = ({ product ,pindex}) => {
                 // onChange={(ev) => setCartItem(ev.target.value)}
               />
 
-              <Button onClick={onIncrement} size="sm" style={{background: '#f05922', border: 'none', color: '#FFF'}}>
+              <Button onClick={onIncrement} size="sm" className="cart-increment-btn">
                 {Cart.cartLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
@@ -197,11 +197,9 @@ const ProductCard = ({ product ,pindex}) => {
           ) : (
             <Button
               size="sm"
-              className="cutom-btn"
+              className="cutom-btn add-cart-btn"
               style={{
-                minWidth: "140px",margin:'0 auto',display:'flex',fontSize:"15px", fontWeight:"500",fontFamily: 'Roboto Condensed',textTransform:"uppercase",
-                background: 'transparent', border: '2px solid #362918', color: '#352817',borderRadius:"90px", padding:'15px',alignItems:"center",justifyContent:"space-around"
-              }}
+                display:'flex',fontSize:"15px", fontWeight:"500",fontFamily: 'Roboto Condensed'}}
               onClick={()=>handleAddToCart(pindex)}
             >
               <AiOutlineShoppingCart />{" "}

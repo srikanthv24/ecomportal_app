@@ -20,6 +20,8 @@ export class OrdersApi {
                 listSubscriptions(filter: {customer_mobile: {eq: ${JSON.stringify(
                   params
                 )}}}) {
+                  item_count
+                  items {
                   id
                   customer {
                     mobile
@@ -43,6 +45,7 @@ export class OrdersApi {
                   }
                   finish_date
                 }
+              }
               }`,
           }),
         }
