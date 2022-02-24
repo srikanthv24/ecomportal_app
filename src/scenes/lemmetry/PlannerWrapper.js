@@ -303,7 +303,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 	return (
 		<FormProvider {...methods}>
 			<div className="bg-1">
-				<Container fluid >
+				<Container fluid  className="product-details-wrapper">
 					<ProductDetails
 						productId={mealPlanId.mealPlanId}
 						control={control}
@@ -341,26 +341,24 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 								<Button
 									onClick={handleBack}
 									className="w-50 m-1"
-									variant="secondary"
+									variant="secondary" style={{borderColor:'rgba(54,41,24,0.75)'}}
 								>
 									Back
 								</Button>
 								{ExistingProduct?.item?.qty.length > 1 ? (
 									<Button
-										className="w-50 m-1"
+										className="w-50 m-1 custom-primary-btn"
 										// variant="success"
-										style={{ background: "#f05922", border: "none" }}
+										style={{ border: "none" }}
 										onClick={() => history.push("/cart-summary")}
 									>
 										Go to Cart
 									</Button>
 								) : (
 									<Button
-										className="w-50 m-1"
+										className="w-50 m-1 custom-primary-btn"
 										style={{
-											width: "100%",
-											background: "#F05922",
-											borderColor: "#f05922",
+											width: "100%"
 										}}
 										onClick={handleSubmit(handleCartSubmit)}
 									>
@@ -376,7 +374,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 							<InputGroup className="p-2 w-100">
 								<Button
 									variant="outline-secondary"
-									style={{ borderColor: "#f05922", color: "#f05922" }}
+									style={{ borderColor:'rgba(54,41,24,0.75)', color: "#f05922" }}
 									onClick={onDecrement}
 									size="sm"
 								>
@@ -389,14 +387,14 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 								<FormControl
 									aria-label="Example text with two button addons"
 									style={{ textAlign: "center", border: "none" }}
-									value={ExistingProduct?.item?.qty || ""}
+									value={ExistingProduct?.item?.qty || ""} style={{borderColor:'rgba(54,41,24,0.75)', background:'transparent'}}
 									type="number"
 								// onChange={(ev) => setCartItem(ev.target.value)}
 								/>
 
 								<Button
 									variant="outline-secondary"
-									style={{ borderColor: "#f05922", color: "#f05922" }}
+									style={{ borderColor:'rgba(54,41,24,0.75)', color: "#f05922" }}
 									onClick={onIncrement}
 									size="sm"
 								>
@@ -411,7 +409,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 
 						{isOnboarding ? null : (
 							<Button
-								className="m-1"
+								className="m-1 custom-primary-btn"
 								disabled={
 									products?.productDetails?.is_mealplan
 										? subscription.filter((item) => item.is_included).length
@@ -426,9 +424,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 										: false
 								}
 								style={{
-									width: "100%",
-									background: "#F05922",
-									borderColor: "#f05922",
+									width: "100%"									
 								}}
 								onClick={handleSubmit(handleCartSubmit)}
 							>

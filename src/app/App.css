@@ -113,6 +113,9 @@
     align-items: center;
     justify-content: center;
 }
+.cart-increment-input{
+  background: transparent;
+}
 .cart-summary-wrapper{
   min-height: 100vh;
   padding: 100px 15px 0px;
@@ -164,4 +167,39 @@
 .ms-plan-content{
   max-height: calc(100vh - 300px);
   overflow-y: auto;
+}
+.product-details-wrapper{
+  min-height: calc(100vh - 120px);
+  padding-top: 90px;
+}
+.prd-planning-select-box{
+  /* background:#cccccc !important; */
+}
+.prd-planning-select-box div{
+  background: transparent !important;
+  border-color: rgba(54,41,24,0.75) !important;
+}
+.prd-planning-select-box svg{
+ fill:#424141 !important
+}
+.prd-planner-acc{
+   /* background:#cccccc !important; */
+}
+.prd-planner-acc .accordion-item, .accordion-button{
+  background: transparent !important;
+  border-color: rgba(54,41,24,0.75) !important;
+}
+.prd-planner-acc .accordion-item textarea, .rmdp-wrapper,.custom-accordion-bg div, .my-2.input-group .form-control{
+  background: transparent !important;
+  border-color: rgba(54,41,24,0.75) !important;
+}
+.my-2.input-group .input-group-text{
+  background-color: rgba(54,41,24,1) !important;
+  color:#ffffff;
+  border-color:transparent !important;
+}
+.custom-primary-btn{
+  background-color: rgba(54,41,24,1) !important;
+  color:#ffffff;
+  border-color:transparent !important;
 }

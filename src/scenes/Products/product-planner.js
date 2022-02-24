@@ -347,6 +347,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 										isMulti={variant.is_multiselect}
 										options={variant.items}
 										value={VariantValue[variant.display_name]}
+										className="prd-planning-select-box"
 										onChange={(value) => {
 											setVariantValue({
 												...VariantValue,
@@ -360,7 +361,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 					);
 				})}
 
-			<Accordion defaultActiveKey="0" className="mt-4" style={{ zIndex: 2 }}>
+			<Accordion defaultActiveKey="0" className="mt-4 prd-planner-acc" style={{ zIndex: 2 }}>
 				{/* BreakFast */}
 				{deliverables.map((deliver, index) => {
 					{console.log("dfdfdf",deliver)}
@@ -656,7 +657,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 														//isMulti={true}
 														isSearchable={true}
 														options={addons}
-														className="mb-3 text-start"
+														className="mb-3 text-start custom-accordion-bg"
 														{...rest}
 														// onChange={(value) => {
 														// 	console.log("value-inside-select", value);

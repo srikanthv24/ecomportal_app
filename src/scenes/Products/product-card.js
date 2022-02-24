@@ -178,11 +178,11 @@ const ProductCard = ({ product ,pindex}) => {
               </Button>
               <FormControl
                 aria-label="Example text with two button addons"
-                style={{ textAlign: "center" }}
+                style={{ textAlign: "center", background:'transparent', borderColor:"rgba(54,41,24,0.75)" }}
                 value={ExistingProduct?.item?.qty || ""}
                 type="number"
                 size="sm"
-                className="mb-0"
+                className="mb-0 cart-increment-input"
                 // onChange={(ev) => setCartItem(ev.target.value)}
               />
 

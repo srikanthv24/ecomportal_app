@@ -75,7 +75,7 @@ const Cart = () => {
           ) : (
             <div className="d-flex flex-column justify-content-center align-items-center mt-4">
               <h5>No Items found!</h5>
-              <Button onClick={() => history.push("/")} className="btn custom-btn-secondary">
+              <Button onClick={() => history.push("/")} className="btn custom-primary-btn">
                 Explore products now
               </Button>
             </div>
@@ -93,7 +93,7 @@ const Cart = () => {
               background:"#F2CBBD"
             }}
           >
-            <Button className="btn custom-btn-secondary"
+            <Button className="btn custom-primary-btn"
               style={{ width: "100%" }}
               // onClick={handleContinue}
               onClick={() => history.push("/cart-summary")}
