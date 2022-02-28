@@ -55,7 +55,11 @@ const CartSummary = () => {
       
     }
   }, [Addresses.listAddresses]);
+
+  const CartReducer = useSelector((state) => state.Cart);
   const cartSummary = useSelector((state) => state.Cart.cartSummary);
+  const cartDetails = useSelector((state) => state.Cart.cartDetails);
+  
 
   useEffect(() => {
     if (userDetails.sub)
@@ -63,9 +67,9 @@ const CartSummary = () => {
   }, [userDetails.sub]);
 
   useEffect(() => {
-    if(cartSummary?.data && cartSummary.data?.items?.length){
+    if(cartDetails?.items && cartDetails.items?.length){
       let temp =[];
-      cartSummary.data.items.map((item, index) => {
+      cartDetails.items.map((item, index) => {
         let obj = { 
           ciid: item.ciid,
           sub_total: item.item.sub_total
@@ -74,13 +78,7 @@ const CartSummary = () => {
       });
       setItems(temp);
     }
-  }, [cartSummary.data])
-
-
-
-
-  console.log("ghjklkjhghj",cartSummary);
-  console.log("ababaab", items);
+  }, [cartSummary.data, cartDetails.items])
 
   return (
     <div>
@@ -115,7 +113,7 @@ const CartSummary = () => {
           Items
         </p>
         <section className="cart-items-block">
-          {cartSummary?.isLoading ? (
+          {cartSummary?.isLoading || CartReducer.cartLoading ? (
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100"
               style={{ height: "100% " }}
@@ -195,7 +193,7 @@ const CartSummary = () => {
             Confirm and Pay <BiRupee />
             {Number(
               cartSummary?.data &&
-                cartSummary?.data?.grand_total
+                cartSummary?.data?.grand_total || 0
             ).toFixed(2)}
           </Button>
         </div>

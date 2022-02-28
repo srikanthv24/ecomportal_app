@@ -45,9 +45,10 @@ function Routes() {
           <Route exact path="/" component={Landing} />
           <Route path="/products" component={ProductsRoutes} />
           <Route path="/categories" component={Categories} />
-          <Route path="/subscription" component={LemmeTry} />
+          {/* <Route path="/subscription" component={LemmeTry} /> */}
           <Route path="/profile" component={Profile} />
           <Route path="/mealbooking" component={MealBooking}/>
+          <Route path="/subscription" component={MealBooking}/>
           {userDetails.sub && (
             <>
               <Route path="/cart-summary" component={CartSummary} />
