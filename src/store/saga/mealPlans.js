@@ -7,7 +7,7 @@ import { mealPlans } from '../../services/api/mealPlans';
 function* getMealPlans() {
     try {
       const response = yield call(() => mealPlans.getMealPlans());
-      console.log("prodduc", response.data.listItems.items);
+      console.log("meal plans saga", response.data.listItems.items);
       if (response.data) {
         yield put({
           type: types.MEALPLANS_LIST_SUCCESS,
