@@ -154,7 +154,7 @@ const ProductCard = ({ product ,pindex}) => {
         <Card.Text className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product?.description}
         </Card.Text>
-        <Card.Text>
+        {!product.is_mealplan && <Card.Text>
           <span className="d-flex justify-content-center" style={{fontSize:"15px",lineHeight:"20px",color:"#352817",fontWeight:"400",fontFamily: 'Roboto Condensed'}}>
             <span>
               <BiRupee /> {Number(product?.sale_val).toFixed(2)} / {product?.uom_name}
@@ -164,9 +164,9 @@ const ProductCard = ({ product ,pindex}) => {
             Including{" "}
             {String(product?.tax_methods).replace("Output", "").replace("-", "")}
           </small>
-        </Card.Text>
+        </Card.Text>}
       </Card.Body>
-        <div style={{ marginTop: 10 }}> 
+        {!product.is_mealplan && <div style={{ marginTop: 10 }}> 
           {ExistingProduct?.item?.qty ? (
             <InputGroup className="mb-3">
               <Button onClick={onDecrement} size="sm"  className="cart-increment-btn">
@@ -210,7 +210,7 @@ const ProductCard = ({ product ,pindex}) => {
               )}
             </Button>
           )}
-        </div>
+        </div>}
     </Card>
   );
 };

@@ -20,7 +20,7 @@ import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
-import { clearUserDetails, getTokenFailure } from "../../store/actions/auth";
+import { clearUserDetails, getTokenFailure, loginSuccess } from "../../store/actions/auth";
 import ProfileImg from "./../../assets/thumbnail-profile-pic.png";
 import auth_services from "../../services/auth_services";
 import { showLogin } from "../../store/actions";
@@ -71,6 +71,13 @@ export default function AppBar() {
     setMenu(false);
     history.push("/");
   };
+
+  const handleRefresh = () => {
+    auth_services.refreshToken().then(res => {
+      dispatch(loginSuccess(res));
+        sessionStorage.setItem("token", res.accessToken.jwtToken);
+    })
+  }
 
   console.log("searched products", searchedProducts);
 
@@ -154,7 +161,7 @@ export default function AppBar() {
 
                 {userDetails.sub ? (
                   <Col className="d-flex flex-nowrap px-0 profile-menu">
-                    <Nav.Link>
+                    <Nav.Link onClick={handleRefresh}>
                       <div className="customNavBar">
                         <strong className="text-black profile-name-txt">
                           Hello, {userDetails.name}
