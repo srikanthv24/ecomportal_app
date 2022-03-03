@@ -91,6 +91,7 @@ export const MealBooking = () => {
       background: "rgb(249, 243, 223) !important",
       minHeight: "100vh",
       paddingTop: "100px",
+      paddingBottom: "100px",
       "& > $div": {
         background: "rgb(249, 243, 223) !important",
       },

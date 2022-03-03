@@ -119,7 +119,7 @@ const ProductCard = ({ product ,pindex}) => {
 
   console.log("vvvv",ExistingProduct?.is_mealplan);
   return (
-    <Card style={{ marginBottom: 30, borderColor:'transparent',padding:'0px',background:'transparent' }}>
+    <Card className="product-card-item pb-4">
       <Card.Body
         variant="top"
         onClick={() => history.push(`/products/${product?.id}`)}
@@ -145,7 +145,7 @@ const ProductCard = ({ product ,pindex}) => {
         style={{ minHeight: 140 }}
         onClick={() => history.push(`/products/${product.id}`)}
       >
-        <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate text-center" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "700", color:"#352817", fontFamily: 'Roboto Condensed'}}>
+        <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate text-center prd-name-txt">
           {product?.display_name}
         </Card.Text>
         <small className="col-12 text-truncate text-center" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
@@ -197,7 +197,7 @@ const ProductCard = ({ product ,pindex}) => {
           ) : (
             <Button
               size="sm"
-              className="cutom-btn add-cart-btn"
+              className="cutom-btn add-cart-btn bg-chocolate-800"
               style={{
                 display:'flex',fontSize:"15px", fontWeight:"500",fontFamily: 'Roboto Condensed'}}
               onClick={()=>handleAddToCart(pindex)}

@@ -28,7 +28,7 @@ export const Sessions = ({ control }) => {
               <FormControlLabel
                 label={item.label}
                 control={
-                  <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }} />
+                  <Checkbox sx={{ "& .MuiSvgIcon-root": {fontSize: 28} }} style={{color:'rgb(240, 89, 34)'}} />
                 }
                 checked={subscription[index].is_included}
                 onChange={(ev) => {

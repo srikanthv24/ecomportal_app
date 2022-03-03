@@ -14,12 +14,39 @@ const StoreContent = () => {
   const categories = useSelector((state) => state.categories);
   console.log("categories", categories.categories);
   const history = useHistory();
+  const options = {
+    margin: 30,
+    responsiveClass: true,
+    nav: true,
+    dots: false,
+    autoplay: false,
+    // navText: ["Prev", "Next"],
+    smartSpeed: 1000,
+    responsive: {
+        0: {
+            items: 2,
+        },
+        400: {
+            items: 2,
+        },
+        600: {
+            items: 3,
+        },
+        700: {
+            items: 3,
+        },
+        1000: {
+            items: 4,
+
+        }
+    },
+};
   return (
     <div>
       <Card
         style={{
           border: "none",
-          maxWidth: "768px",
+          maxWidth: "100%",
           margin: "0 auto",
           background: "transparent",
         }}
@@ -59,7 +86,7 @@ const StoreContent = () => {
           className="owl-theme"
           loop
           margin={10}
-          nav
+          nav {...options}
         >
           {categories.categories.map((item, index) => {
             console.log('Item-==-=', item)
@@ -68,6 +95,7 @@ const StoreContent = () => {
                 history.push(`/products?category=${item.display_name}`)
               }>
                 <div className="for-image-hover">
+                  <div className="prd-img-block">
                   <img
                     className="for-image"
                     src={
@@ -77,9 +105,10 @@ const StoreContent = () => {
                     }
                     alt="img"
                   />
+                  </div>
                   <div className="prd-info-block">
-                    <p className="for-product-name">{item.display_name}</p>
-                    <p className="for-product-price">₹0.00</p>
+                    <p className="for-product-name primary-font">{item.display_name}</p>
+                    {/* <p className="for-product-price">₹0.00</p> */}
                   </div>
                 </div>
               </div>

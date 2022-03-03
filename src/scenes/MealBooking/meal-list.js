@@ -32,7 +32,7 @@ export const MealList = ({handleNextStep}) => {
      {items.length &&
         items.map((item) => {
           return item ? (
-            <Col xs={6} key={item.id} className="m-0 p-1">
+            <Col lg={3} md={3} xs={6} key={item.id} className="m-0 p-1">
               <MealCard product={item} handleNextStep={handleNextStep} />
             </Col>
           ) : null;

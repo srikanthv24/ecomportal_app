@@ -144,7 +144,7 @@
   background: transparent !important;
   border:1px solid #424141 !important;
 }
-.add-cart-btn{
+/* .add-cart-btn{
   min-width: 140px !important;
     margin: 0px auto;
     display: flex;
@@ -163,7 +163,7 @@
 .add-cart-btn:focus{
   outline: none !important;
   box-shadow: none !important;
-}
+} */
 .ms-plan-content{
   max-height: calc(100vh - 300px);
   overflow-y: auto;
@@ -202,4 +202,70 @@
   background-color: rgba(54,41,24,1) !important;
   color:#ffffff;
   border-color:transparent !important;
+}
+.bg-trade-wind-light {
+  background-color: rgba(209,235,232,1) !important;
+}
+
+/* Product card items styles */
+.product-card-item{
+  max-width: calc(100% - 8px);
+  border: none !important;
+  padding: 8px 8px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background-color: transparent !important;
+}
+.product-card-item:hover{
+  cursor: pointer;
+  background-color: rgba(209,235,232,1) !important;
+}
+.prd-name-txt{
+  font-size: 15px;
+  line-height: 25px;
+  font-weight: 700;
+  color: rgb(53, 40, 23);
+  font-family: 'Playfair Display', sans-serif;
+}
+.add-cart-btn{
+  min-width: 140px !important;
+  margin: 0px auto;
+  display: flex;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Roboto Condensed";
+  /* text-transform: uppercase; */
+  background-color: rgba(54,41,24,1) !important;
+  border: 2px solid rgb(54, 41, 24) !important;
+  color: #ffffff !important;
+  border-radius: 90px !important;
+  padding: 12px 16px !important;
+  align-items: center;
+  justify-content: space-around;
+}
+.add-cart-btn:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Product card items styles */
+
+/* Meals plan styles */
+.rmdp-week-day{
+  color:rgba(54,41,24,1) !important;
+}
+.rmdp-day.rmdp-selected span:not(.highlight),
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover,
+.rmdp-day.rmdp-today span{
+  background-color:#fd7e14 !important;
+}
+.css-2613qy-menu{
+  background-color: #cccccc !important;
+}
+/* Meals plan styles */
+
+.vl-form-element .form-control,
+.vl-form-element .css-yk16xz-control,
+.vl-form-element .css-1pahdxg-control,
+.css-yk16xz-control{
+  background-color: transparent !important;
 }

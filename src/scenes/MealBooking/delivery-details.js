@@ -102,11 +102,11 @@ export const DeliveryDetails = ({ control }) => {
         handleShow={handleShow}
         showModal={showModal}
       />
-      <p className="h6 text-muted mt-3 mb-0 m-2">Delivery Address *</p>
+      <p className="h6 text-muted mt-3 mb-0 m-2">Delivery Address*</p>
       <p className="h6 mt-3 mb-3 m-2">{subscription[0]?.address?.label}</p>
           <Select
             placeholder={"Address..."}
-            options={AddressList}
+            options={AddressList} className="vl-form-element"
             components={{
               MenuList: SelectMenuButton,
               Option: CustomOption,

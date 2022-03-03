@@ -69,7 +69,7 @@ const Products = () => {
 							</div>
 						</div>
 					</Card.Header>
-					<Col xs={12} lg={9} style={{ overflow: "auto" }}>
+					<Col xs={12} lg={9} style={{ overflow: "auto", margin:"auto" }}>
 						<Row>
 							{products.loading ? (
 								// dummyList.map(() => {

@@ -15,6 +15,7 @@ import FooterContent from "../Footer/index";
 import StoreContent from "../../components/StoreContent";
 import GridContentSection from "../Gridcontent/index";
 import ViewContentSection from "../Viewcontent/index";
+import CategoriesContent from "../CategoriesContent";
 
 
 const Landing = () => {
@@ -36,6 +37,7 @@ const Landing = () => {
   return (
     <section>
     <HomeContent />
+    <CategoriesContent />
     <Container fluid className="content-body px-0" style={{background: "#F2CBBD", paddingBottom:'2rem'}}>
       {userDetails.sub && (
         <section className="page-content bg-1">
@@ -43,7 +45,8 @@ const Landing = () => {
         </section>
       )}
     <section className="page-content1 px-0 bg-2">
-      <GridContentSection />
+      {/* <GridContentSection /> */}
+      
     </section>
 
     {/* <section className="page-content1 py-3 bg-3">
@@ -57,10 +60,20 @@ const Landing = () => {
           </Button> */}
         <StoreContent />
         </Container>
-        <Container style={{background: "#F2CBBD"}}>
-          {/* <Button className="w-100" onClick={() => history.push("/subscription/")}>
-            
-          </Button> */}
+        <Container className="mt-5">
+        <div className="w-100">
+            <Link to="/subscription" className="viewall-txt">
+              <Button
+                style={{ background: "#f05922", borderColor: "#f05910" }}
+                className="w-100 bg-chocolate-900"
+              >
+                <GiMeal size="30" /> Choose my meal
+              </Button>
+            </Link>
+          </div>
+        </Container>
+        <Container style={{background: "#F2CBBD", display:'none'}}>
+          {/* <Button className="w-100" onClick={() => history.push("/subscription/")}></Button> */}
            <Card style={{ border: "none", background: "transparent" }}>
             <Card.Header className="mb-4" style={{background: "#F2CBBD"}}>
               <div className="w-100">
@@ -176,7 +189,7 @@ const Landing = () => {
       <hr className="hr-divider" />
       <section className="page-content1 bg-1">
         <Container>
-          <Card style={{ border: "none", background: "transparent" }}>
+          <Card style={{ border: "none", background: "transparent",display:'none' }}>
             <Card.Header className="no-bg">
               <div className="d-flex justify-content-between align-items-baseline">
                 <span className="content-title">Products</span>

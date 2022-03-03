@@ -68,7 +68,7 @@ export const MealDuration = () => {
       <Select
         name="mealpaln"
         placeholder="Meal Plans"
-        className="mb-3 text-start"
+        className="mb-3 text-start vl-form-element"
         options={Variants[0]?.items}
         onChange={(data) => {
           console.log("data", data);
@@ -78,7 +78,7 @@ export const MealDuration = () => {
         }}
       />
 
-      <div class="mb-3">
+      <div class="mb-3 vl-form-element">
         <label class="form-label h6 text-start mb-1 mt-2 text-muted">
           Start Date
         </label>
