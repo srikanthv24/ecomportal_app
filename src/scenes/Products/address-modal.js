@@ -92,7 +92,7 @@ export const AddressModal = ({
             </FloatingLabel>
 
             {filteredPinCode === 0 && (
-              <div className="p-3 mb-2 bg-info text-dark">
+              <div className="p-3 mb-2 bg-info text-dark text-center">
                 Validate Pincode for Delivery
               </div>
             )}

@@ -50,6 +50,9 @@ export const products = (state = initialState, action) => {
 				addons: [],
 				error: true
 			}
+
+			case "CLEAR_PRODUCT":
+				return  { ...state, productDetails: {} };
 		default:
 			return state;
 	}

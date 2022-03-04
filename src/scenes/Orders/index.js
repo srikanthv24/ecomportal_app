@@ -43,7 +43,7 @@ const Orders = () => {
   return (
     <section
       className="bg-1"
-      style={{ minHeight: "calc(100vh - 126px)", padding: 5 }}
+      style={{ minHeight: "calc(100vh - 0px)", padding: "100px 5px 0px"}}
     >
       <p className="h5 m-2 page-title">Subscription</p>
       <Row

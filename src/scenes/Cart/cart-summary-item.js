@@ -105,7 +105,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
                 .replace("Output", "")
                 .replace("-", "")}
             </small>
-            <p className="ff-2 clr-black mb-2">
+            <p className="ff-2 clr-black mb-2 d-flex justify-content-between">
               {/* {ProductDetails.category === "Snacks" ? (
                 <span
                   style={{
@@ -133,8 +133,8 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
                 </span>
               )} */}
               <span>
-              {ProductDetails?.uom_name} + Tax:{" "}
-                  {ProductDetails?.tax_amount} ={" "}
+              {ProductDetails?.uom_name} + Tax{" "}
+                  {ProductDetails?.tax_amount} {" "}
                   
               </span>
               <div

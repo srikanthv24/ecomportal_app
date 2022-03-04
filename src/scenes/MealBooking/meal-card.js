@@ -47,7 +47,7 @@ export const MealCard = ({ product, handleClick, handleNextStep }) => {
       </Card.Body>
       <Card.Body
         className="pt-1 text-center px-1"
-        style={{ minHeight: 140 }}
+        style={{ minHeight: 40 }}
       >
         <Card.Text
           className="h6 mb-0 pb-0 col-12 text-truncate text-center"
@@ -74,7 +74,7 @@ export const MealCard = ({ product, handleClick, handleNextStep }) => {
           {product?.category}
         </small>
         <Card.Text>
-          <span
+          {/* <span
             className="d-flex justify-content-center"
             style={{
               fontSize: "15px",
@@ -88,13 +88,13 @@ export const MealCard = ({ product, handleClick, handleNextStep }) => {
               <BiRupee /> {Number(product?.sale_val).toFixed(2)} /{" "}
               {product?.uom_name}
             </span>
-          </span>
-          <small className="col-12 text-truncate text-muted">
+          </span> */}
+          {/* <small className="col-12 text-truncate text-muted">
             Including{" "}
             {String(product?.tax_methods)
               .replace("Output", "")
               .replace("-", "")}
-          </small>
+          </small> */}
         </Card.Text>
       </Card.Body>
     </Card>

@@ -46,13 +46,13 @@ function CategoriesContent() {
         </div>
       </section>
       <section className="dliciuosly-content-block">
-        <div class="d-flex overflow-hidden fdir-column">
+        <div class="d-flex overflow-hidden fdir-column w-100p">
           <div className="img-block">
-            <img src={DeliciouslyHealthybgImage} alt="a curve" class="absolute right-0 h-full w-4/5 md:w-1/2 dh-txt-bg" />
-            <img src={DeliciouslyHealthyTxtImage} alt="a curve" class="text-center dh-txt-image" />
+            <img src={DeliciouslyHealthybgImage} alt="a curve" class="absolute right-0 h-full w-4/5 md:w-1/2 dh-txt-bg formbldhbg-img" />
+            <img src={DeliciouslyHealthyTxtImage} alt="a curve" class="text-center dh-txt-image formbldh-img" />
           </div>
           <div className="info-block">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            <p className="for-store-des formbl-py4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             <a href="#" class="mt-5 mb-5 leading-8 bg-chocolate-800 py-3.5 px-7 tracking-wide rounded-full inline-block">
             <p class="capitalize secondary-font-mono text-14 text-white mb-0">explore staples</p>
           </a>

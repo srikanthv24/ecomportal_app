@@ -259,7 +259,7 @@ const CartSummary = () => {
     // Getting the order details back
     const { amount, id: order_id, currency } = result;
     const options = {
-      key: "rzp_test_QmipkFQ5tachW2", // Enter the Key ID generated from the Dashboard
+      key: "rzp_live_JvYF2a7kJsppDt", // Enter the Key ID generated from the Dashboard
       amount: amount,
       currency: currency,
       name: userDetails.name,

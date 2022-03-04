@@ -18,7 +18,7 @@ export class Products {
 	static getAddons = (data) => {
 		let q = `{listItems`;
 		if (data.search) {
-			q += `(filter:{display_name: {contains:"${data.search}"}})`
+			q += `(filter:{display_name: {contains:"${data.search}"},is_mealplan: {eq: true},status: {eq: "A"}})`
 		}
 		q += `{
 				items {

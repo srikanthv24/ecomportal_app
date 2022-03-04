@@ -69,11 +69,11 @@
   font-family: 'Roboto', sans-serif;
 }
 .accordion-button:focus{
-  border-color: #F5E0BC !important;
+  border-color: rgba(209,235,232,1) !important;
 }
 .accordion-button:not(.collapsed) {
   color: #424141 !important;
-  background-color: #F5E0BC !important;
+  background-color: rgba(209,235,232,1) !important;
   box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
 }
 .fw-400{
@@ -121,7 +121,7 @@
   padding: 100px 15px 0px;
 }
 .cart-items-block{
-  max-height: calc(100vh - 420px);
+  max-height: calc(100vh - 350px);
     width: 100%;
     overflow: auto;
     padding-bottom: 50px;
@@ -129,6 +129,13 @@
 .cart-edit-wrapper{
   min-height: 100vh;
   /* background: #cccccc !important; */
+}
+.cart-info-block{
+  padding:10px;
+}
+.cart-items-block{ 
+  display: flex;
+  flex-direction: row;
 }
 .cart-edit-pcard{
   /* background:rgb(249, 243, 223); */
@@ -175,9 +182,23 @@
 .prd-planning-select-box{
   /* background:#cccccc !important; */
 }
-.prd-planning-select-box div{
-  background: transparent !important;
+.prd-planning-select-box div,.css-yk16xz-control{
+  /* background: transparent !important; */
   border-color: rgba(54,41,24,0.75) !important;
+}
+.css-yk16xz-control,.css-1pahdxg-control{
+  background-color: transparent !important; 
+}
+.css-yk16xz-control:focus,.css-1pahdxg-control:focus{
+  background-color: transparent !important; 
+    border-color: #F05922 !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(240 89 34 / 25%) !important;
+}
+.accordion-button:focus { 
+  border-color: #F05922 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
 }
 .prd-planning-select-box svg{
  fill:#424141 !important
@@ -189,9 +210,15 @@
   background: transparent !important;
   border-color: rgba(54,41,24,0.75) !important;
 }
-.prd-planner-acc .accordion-item textarea, .rmdp-wrapper,.custom-accordion-bg div, .my-2.input-group .form-control{
+.prd-planner-acc .accordion-item textarea, .rmdp-wrapper,.custom-accordion-bg, .my-2.input-group .form-control{
   background: transparent !important;
   border-color: rgba(54,41,24,0.75) !important;
+}
+.css-1okebmr-indicatorSeparator{
+  background-color: rgba(54,41,24,0.75) !important;
+}
+.css-tj5bde-Svg{
+  fill:rgba(54,41,24,0.75) !important;
 }
 .my-2.input-group .input-group-text{
   background-color: rgba(54,41,24,1) !important;
@@ -269,3 +296,32 @@
 .css-yk16xz-control{
   background-color: transparent !important;
 }
+
+.input-group.input-group-sm .form-control{
+  background-color: transparent;
+  border-color: #6c757d !important;
+}
+@media screen and (max-width:767px) {
+  .cart-items-block {
+    display: flex;
+    flex-direction: column;
+}
+  }
+
+  /* profile-info-block */
+  .profile-info-block .value-txt{
+    font-size: 20px !important;
+  }
+  /* profile-info-block */
+  .rmdp-wrapper.rmdp-shadow {
+    margin:10px auto;
+  }
+
+  .fullscreen-loader {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.45);
+  }

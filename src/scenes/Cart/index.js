@@ -51,9 +51,12 @@ const Cart = () => {
           <div></div>
         </div>
       </Card.Header>
-      <div style={{ padding: 10 }}>
-        <>
+      <div className="cart-info-block">
+        <>        
+        {/* <div className="cart-items-block"> */}
+      
           {Cart?.cartDetails?.items?.length ? (
+            
             // Cart?.cartDetails?.items[0]?.items?.map((item) => {
               Cart?.cartDetails?.items?.map((item,index) => {
               if (item) {
@@ -61,7 +64,7 @@ const Cart = () => {
                 total = total + item.item.qty;
               }
 
-              return item.item && item.item?.qty ? (
+              return item.item && item.item?.qty ? (               
                 <CardProduct
                   pindex={index}
                   key={item.item_id}
@@ -69,7 +72,7 @@ const Cart = () => {
                   cartDetails={Cart?.cartDetails}
                   totalQty={total}
                   pushPrice={(p) => calculatePrice(p)}
-                />
+                />                
               ) : null;
             })
           ) : (

@@ -5,6 +5,7 @@ import { Button, Card, Col, Container, Offcanvas, Spinner,Row } from "react-boot
 import { AiOutlineSortAscending } from "react-icons/ai";
 import { VscSettings } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router";
 import useQuery from "../../hooks/useQuery";
 import { getProductsAction } from "../../store/actions/products";
 import ProductsList from "./products-list";
@@ -17,8 +18,10 @@ var phantom = {
 };
 
 const Products = () => {
-	let query = useQuery();
-	let catId = query.get("category");
+	// let query = useQuery();
+	const location = useLocation();
+	// let catId = query.get("category");
+	let catId = location.search.slice(10).replaceAll("%20"," ")
 	const dispatch = useDispatch();
 	const products = useSelector((state) => state.products);
 

@@ -1,5 +1,5 @@
 export const getProducts = `query ($limit: Int, $nextToken: String, $category: String) {
-  listItems (filter: {category: {eq: $category}}, limit: $limit, nextToken: $nextToken){
+  listItems (filter: {category: {eq: $category},status: {eq: "A"}}, limit: $limit, nextToken: $nextToken){
     items {
       id
       is_mealplan
@@ -48,7 +48,7 @@ export const getProducts = `query ($limit: Int, $nextToken: String, $category: S
 }`;
 
 export const getAllProducts = `query ($limit: Int, $nextToken: String) {
-  listItems (limit: $limit, nextToken: $nextToken){
+  listItems (filter: {status: {eq: "A"}},limit: $limit, nextToken: $nextToken){
     items {
       id
       is_mealplan
@@ -102,7 +102,7 @@ export const getProductsByCategory = (params) => {
 		query: `{
     listItems (filter: {category: {eq: ${JSON.stringify(
 			params.payload.filter.category.eq
-		)}}}) {
+		)}},status: {eq: "A"}}) {
       items {
         saleprice
         category
@@ -128,7 +128,7 @@ export const searchProducts = (searchQuery) => {
 		query: `{
       listItems (filter: {name: {contains: ${JSON.stringify(
 			searchQuery.payload
-		)}}}, limit: 1000) {
+		)}},status: {eq: "A"}}, limit: 1000) {
         items {
           id
           is_mealplan
