@@ -139,7 +139,7 @@ export const MealDuration = () => {
           multiple
           numberOfMonths={2}
           value={subscription[0]?.order_dates}
-          minDate={subscription[0]?.order_dates[0] || new Date()}
+          minDate={new Date()}
           maxDate={
             new Date(
               moment(subscription[0]?.order_dates[0])

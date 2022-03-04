@@ -562,7 +562,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 															multiple															
 															numberOfMonths={2}
 															minDate={
-																subscription[index].order_dates[0] || new Date()
+																 new Date()
 															}
 															style={{ width: "100%" }}
 															maxDate={
