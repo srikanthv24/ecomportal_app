@@ -26,6 +26,7 @@ import auth_services from "../../services/auth_services";
 import { showLogin } from "../../store/actions";
 import arrowRightIcon from "./../../assets/arrow-right.png";
 import MenuIcon from "./../../assets/home/search-normal.svg";
+import CustomSpinner from "../CustomSpinner";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -170,6 +171,7 @@ export default function AppBar() {
                     </Nav.Link>
                     {Cart?.cartLoading ?(
 									    	<Spinner animation="border" role="status" />
+                        // <CustomSpinner/>
 								    	) : (
                         <Nav.Link onClick={() => history.push("/cart-summary")}>
                         <h6 className="text-black nav-menu-cart">

@@ -335,3 +335,43 @@
     bottom: 0;
     background: rgba(0,0,0,.45);
   }
+  .text-elipses{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+  }
+  .order-summary-sec{
+    /* background-color: rgb(204, 204, 204); */
+    max-width: 100%;
+    margin: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .orders-info{
+    /* background-color: rgb(211, 211, 211); */
+    width: 120px;
+    margin: 0px 0 0 -15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .orders-details{
+    background-color:rgba(248,162,113,1);
+    width: calc(100% - 105px);
+    position: relative;
+    right: -10px;
+    padding: 6px 0px;
+    border-radius: 6px;
+  }
+  .orders-details table{
+    width: 100%;
+    table-layout: fixed;
+  }
+  .orders-details table td{
+    text-align: center;
+  }
+  *, ::after, ::before {
+    box-sizing: border-box;
+}

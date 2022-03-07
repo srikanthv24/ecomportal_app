@@ -14,7 +14,8 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
+import { GiMeal } from "react-icons/gi";
 import "./styles.css";
 import CafeExploreImage from "../../assets/home/cafe-explore.svg";
 import BananaLeavesImage from "../../assets/home/banana-leaves.svg";
@@ -54,7 +55,15 @@ function CategoriesContent() {
           <div className="info-block">
             <p className="for-store-des formbl-py4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             <a href="#" class="mt-5 mb-5 leading-8 bg-chocolate-800 py-3.5 px-7 tracking-wide rounded-full inline-block">
-            <p class="capitalize secondary-font-mono text-14 text-white mb-0">explore staples</p>
+            {/* <p class="capitalize secondary-font-mono text-14 text-white mb-0">explore staples</p> */}
+            <Link to="/subscription" className="viewall-txt mb-0">
+              <Button
+                style={{ background: "#f05922", borderColor: "#f05910" }}
+                className="w-100 bg-chocolate-900"
+              >
+                <GiMeal size="30" /> Choose my meal
+              </Button>
+            </Link>
           </a>
           </div>
         </div>

@@ -635,6 +635,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 
 											<InputGroup style={{width:"50px",  position: "relative",}}>
 												<FormControl
+												style={{background:'transparent',borderColor:'rgba(54,41,24,0.75)'}}
 													//type="number"
 													value={addonItem.qty}
 													onChange={(e) => {

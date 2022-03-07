@@ -62,7 +62,7 @@ const Products = () => {
 									{Products.length} products found
 								</small>
 							</div>
-							<div>
+							<div className="d-none">
 								<Button variant="outline-light" active size="lg" style={{background:"#F2CBBD", borderColor:"#f0ead6 !important"}}>
 									<AiOutlineSortAscending />
 								</Button>

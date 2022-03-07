@@ -61,7 +61,7 @@ const Landing = () => {
         <StoreContent />
         </Container>
         <Container className="mt-5">
-        <div className="w-100">
+        {/* <div className="w-100">
             <Link to="/subscription" className="viewall-txt">
               <Button
                 style={{ background: "#f05922", borderColor: "#f05910" }}
@@ -70,7 +70,7 @@ const Landing = () => {
                 <GiMeal size="30" /> Choose my meal
               </Button>
             </Link>
-          </div>
+          </div> */}
         </Container>
         <Container style={{background: "#F2CBBD", display:'none'}}>
           {/* <Button className="w-100" onClick={() => history.push("/subscription/")}></Button> */}
@@ -186,7 +186,7 @@ const Landing = () => {
           </Card>
         </Container>
       </section>
-      <hr className="hr-divider" />
+      {/* <hr className="hr-divider" /> */}
       <section className="page-content1 bg-1">
         <Container>
           <Card style={{ border: "none", background: "transparent",display:'none' }}>

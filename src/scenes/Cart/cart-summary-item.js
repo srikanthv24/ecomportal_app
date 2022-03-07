@@ -218,7 +218,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
           {isExpanded ? (
             <span
               variant="link"
-              className="w-100 text-center text-primary"
+              className="w-100 text-center clr-black"
               onClick={() => setisExpanded(false)}
             >
               <AiFillCaretUp /> view less
