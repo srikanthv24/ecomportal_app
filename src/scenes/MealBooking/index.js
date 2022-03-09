@@ -22,7 +22,9 @@ export const MealBooking = () => {
   const [validStep, setValidStep] = useState(true);
 
   const handleNext = () => {
-    validStep && setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    userDetails.sub
+      ? validStep && setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      : showLoginModal();
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -170,11 +172,7 @@ export const MealBooking = () => {
                 {activeStep == 0 ? (
                   <Sessions control={control} />
                 ) : activeStep == 1 ? (
-                  userDetails.sub ? (
-                    <DeliveryDetails control={control} />
-                  ) : (
-                    showLoginModal()
-                  )
+                  <DeliveryDetails control={control} />
                 ) : activeStep == 2 ? (
                   <MealList handleNextStep={handleNextStep} />
                 ) : activeStep == 3 ? (
