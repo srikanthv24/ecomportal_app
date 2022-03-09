@@ -66,17 +66,18 @@ function Login() {
     <div className="container text-center login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <div className="text-center mt-4">
+          {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
-          </div>
-          <p className="fs-5 fw-bold mt-4 mb-3 secondary-color" style={{fontFamily:'Roboto Mono',fontWeight:'500',fontSize:'15px', textTransform:'uppercase'}}>Sign In</p>
+          </div> */}
+          <p className="fs-5 fw-bold mt-4 mb-3 secondary-color" style={{fontFamily:'Roboto',fontWeight:'700',fontSize:'16px', textTransform:'lowercase'}}>Login</p>
           <Form className="customform">
+          {/* <p className="pt-8 text-14 font-medium leading-5">Please enter your phone number to continue</p> */}
             <InputGroup className="mb-3">
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <FormControl
                 autoFocus
                 type="number"
-                placeholder="Mobile Number"
+                placeholder="Phone Number"
                 maxLength={10}
                 value={phone}
                 onChange={(event) => setPhone(event.target.value)}

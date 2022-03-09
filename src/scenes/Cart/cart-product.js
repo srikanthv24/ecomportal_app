@@ -98,7 +98,7 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
             }}
           />
         </Card.Body>
-        <Card.Body className="pt-2">
+        <Card.Body className="pt-2 cart-edit-pcard-item-info">
           <Card.Text
             className="h6 mb-0 pb-0 col-12 text-truncate"             
             onClick={() => history.push("/products/" + ProductDetails.item_id)}

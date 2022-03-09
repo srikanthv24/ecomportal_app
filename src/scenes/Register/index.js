@@ -66,9 +66,9 @@ const Register = () => {
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <div className="text-center mt-4">
+          {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
-          </div>
+          </div> */}
           <p className="fs-5 fw-bold mt-4 mb-3 secondary-color text-center">
             Create Account
           </p>
@@ -135,43 +135,43 @@ const Register = () => {
           </Form> */}
           <Form>
             <Form.Group className="mb-3" controlId="forMobileNumber">
-              <Form.Label>Mobile Number</Form.Label>
+              {/* <Form.Label>Mobile Number</Form.Label> */}
               <Form.Control
                 type="number"
-                placeholder="Enter mobile number"
+                placeholder="Enter Phone Number"
                 maxLength={10}
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={(event) => setPhone(event.target.value)} style={{height:'52px'}}
                 required
               />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="forName">
-              <Form.Label>Name</Form.Label>
+              {/* <Form.Label>Name</Form.Label> */}
               <Form.Control
                 type="text"
                 required
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setName(event.target.value)} style={{height:'52px'}}
                 placeholder="Name"
               />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              {/* <Form.Label>Password</Form.Label> */}
               <Form.Control
                 type="password"
                 placeholder="Password"
                 required
                 value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)} style={{height:'52px'}}
               />
             </Form.Group>
 
             <Button
               variant="primary"
               onClick={handleSubmit}
-              className="custom-btn w-100"
+              className="custom-btn w-100 mt-2"
             >
               Register
             </Button>

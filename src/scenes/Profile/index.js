@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { BiRupee } from "react-icons/bi";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCustomerBalance } from '../../store/actions';
+import UserProfileIcon from "../../assets/user-profile.png";
 
 export const Profile = () => {
     const dispatch = useDispatch();
@@ -23,11 +24,14 @@ export const Profile = () => {
     return (
         <Container fluid>
             <Row className="bg-1">
-                <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "200px" }}>
-                    <img src="https://ui-avatars.com/api/?name=Ania+Bista&background=A1A1A1&color=FFFFFF&rounded=true"
+                <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "250px" }}>
+                    {/* <img src="https://ui-avatars.com/api/?name=Ania+Bista&background=A1A1A1&color=FFFFFF&rounded=true"
                         width="150"
                         style={{ borderRadius: "200px" }}
-                    />
+                    /> */}
+                    <div className="profile-icon-bg">
+                    <img src={UserProfileIcon} width="100" />
+                    </div>
                 </Col>
             </Row>
             <section className="profile-info-block">
