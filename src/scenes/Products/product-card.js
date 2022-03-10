@@ -125,9 +125,9 @@ const ProductCard = ({ product ,pindex}) => {
         onClick={() => history.push(`/products/${product?.id}`)}
         className="p-2"
       >
-        <div
+        {/* <div
           style={{
-            backgroundImage: `url(${
+            background: `url(${
               product?.defaultimg_url ||
               "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
             })`,
@@ -138,35 +138,39 @@ const ProductCard = ({ product ,pindex}) => {
             width: "100%",
             borderRadius:"15px"
           }}
-        />
+        /> */}
+<div className="prd-image-thumbnile">
+<img src={product?.defaultimg_url || "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"} alt="img" />
+</div>
+
       </Card.Body>
       <Card.Body
         className="pt-1 text-center px-1"
-        style={{ minHeight: 140 }}
+        // style={{ minHeight: 140 }}
         onClick={() => history.push(`/products/${product.id}`)}
       >
-        <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate text-center prd-name-txt">
+        <Card.Text className="mb-0 pb-0 col-12 text-truncate text-center prd-name-txt">
           {product?.display_name}
         </Card.Text>
         <small className="col-12 text-truncate text-center" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product?.category}
         </small>
-        <Card.Text className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
+        {/* <Card.Text className="col-12 text-truncate" style={{fontSize:"15px", lineHeight:"25px",fontWeight: "400", color:"#352817", fontFamily: 'Roboto Condensed'}}>
           {product?.description}
-        </Card.Text>
+        </Card.Text> */}
         {!product.is_mealplan && <Card.Text>
           <span className="d-flex justify-content-center" style={{fontSize:"15px",lineHeight:"20px",color:"#352817",fontWeight:"400",fontFamily: 'Roboto Condensed'}}>
             <span>
               <BiRupee /> {Number(product?.sale_val).toFixed(2)} / {product?.uom_name}
             </span>
           </span>
-          <small className="col-12 text-truncate text-muted">
+          {/* <small className="col-12 text-truncate text-muted">
             Including{" "}
             {String(product?.tax_methods).replace("Output", "").replace("-", "")}
-          </small>
+          </small> */}
         </Card.Text>}
       </Card.Body>
-        {!product.is_mealplan && <div style={{ marginTop: 10 }}> 
+        {!product.is_mealplan && <div style={{ marginTop:24 }}> 
           {ExistingProduct?.item?.qty ? (
             <InputGroup className="mb-3">
               <Button onClick={onDecrement} size="sm"  className="cart-increment-btn">

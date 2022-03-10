@@ -170,7 +170,18 @@ export default function AppBar() {
                       </div>
                     </Nav.Link>
                     {Cart?.cartLoading ?(
-									    	<Spinner animation="border" role="status" />
+                      <Nav.Link onClick={() => history.push("/cart-summary")}>
+                      <h6 className="text-black nav-menu-cart">
+                        <AiOutlineShoppingCart size={24} />
+                        {console.log("sdsdSD",Cart)}                        
+                        <Badge pill>
+                        <span className="cart-loading"><Spinner animation="border" role="status" /></span>
+                          {Cart?.cartDetails?.items?.length &&
+                            Cart?.cartDetails?.items?.length}
+                        </Badge>
+                      </h6>
+                    </Nav.Link>
+									    	
                         // <CustomSpinner/>
 								    	) : (
                         <Nav.Link onClick={() => history.push("/cart-summary")}>
@@ -178,6 +189,7 @@ export default function AppBar() {
                           <AiOutlineShoppingCart size={24} />
                           {console.log("sdsdSD",Cart)}
                           <Badge pill>
+                          {/* <span className="cart-loading"><Spinner animation="border" role="status" /></span> */}
                             {Cart?.cartDetails?.items?.length &&
                               Cart?.cartDetails?.items?.length}
                           </Badge>

@@ -105,13 +105,23 @@ const CartSummary = () => {
 
       <div className="p-21 bg-1 cart-summary-wrapper">
         <p className="h3 page-title">Cart Summary</p>
-        <p className="h6 text-muted">
-          {(cartSummary?.data?.items?.length &&
-            // cartSummary?.data?.items[0]?.items?.length) ||
-            cartSummary?.data?.items?.length) ||
-            0}{" "}
-          Items
-        </p>
+        <div className="d-flex align-items-center w-100p">
+          <div className="w-100p d-flex align-items-center">
+            <div className="w-50p">
+              <p className="cart-summary-desc-item-container mb-0">
+                Items{" "}
+                <strong>{(cartSummary?.data?.items?.length && cartSummary?.data?.items?.length) || 0}</strong>
+              </p>
+            </div>
+            <div className="w-50p">
+              <p className="cart-summary-desc-item-container mb-0 text-right align-right">
+                TOTAL{" "}
+                <BiRupee /><strong>{(cartSummary?.data && Number(cartSummary?.data?.grand_total)) || 0}</strong>    
+              </p>
+            </div>
+          </div>
+        </div>
+       
         <section className="cart-items-block">
           {cartSummary?.isLoading || CartReducer.cartLoading ? (
             <div
@@ -142,9 +152,39 @@ const CartSummary = () => {
             </div>
           )}
         </section>
+
+        <section className="cart-order-summery-container mb-5">
+        <p class="cart-order-summery-header mb-0">ORDER SUMMARY</p>
+       <ul className="cart-order-summery-list mb-0">
+         <li>
+          <p class="cart-order-summery-list-titles mb-0">Subtotal</p>
+          <p class="cart-order-summery-list-subtotal mb-0">
+             <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
+         </li>
+         {/* <li>
+            <p class="cart-order-summery-list-titles mb-0">Discount</p> 
+            <p class="cart-order-summery-list-discount mb-0">0</p>
+         </li> */}
+         <li>
+           <p class="cart-order-summery-list-titles mb-0">Delivery Charges</p>
+           <p class="cart-order-summery-list-subtotal mb-0">
+             <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
+         </li>
+         {/* <li>
+           <p class="cart-order-summery-list-titles mb-0">Coupon Discount</p>
+           <p class="cart-order-summery-list-coupon-discount mb-0">0</p>
+         </li> */}
+       </ul>
+       <div class="flex justify-between px-3 py-2">
+        <p class="cart-order-summery-list-total mb-0">Total</p> 
+        <p class="cart-order-summery-list-total-price mb-0">
+          <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.grand_total)) || 0}
+          </p>
+       </div>
+        </section>
       
-        <section className="mt-4">
-          <span className="d-flex justify-content-between align-items-center">
+        <section className="mt-4" style={{display:"none"}}>
+          {/* <span className="d-flex justify-content-between align-items-center">
             <p>Sub-total</p>
             <p>
               <BiRupee />{" "}
@@ -152,11 +192,11 @@ const CartSummary = () => {
                 Number(cartSummary?.data?.sub_total)) ||
                 0}
             </p>
-          </span>
+          </span> */}
           <span className="d-flex justify-content-between align-items-center">
-            <p>Delivery</p>
+            <p>Delivery Charges</p>
             <p>
-              <BiRupee />{" "}
+              <BiRupee />
               {(cartSummary?.data &&             
                   Number(cartSummary?.data?.sub_total)) ||
                   0}
@@ -165,7 +205,7 @@ const CartSummary = () => {
           <span className="d-flex justify-content-between align-items-center">
             <p className="fw-bold">Total</p>
             <p className="fw-bold">
-              <BiRupee />{" "}
+              <BiRupee />
               {(cartSummary?.data &&             
                   Number(cartSummary?.data?.grand_total)) ||
                   0}
