@@ -38,7 +38,27 @@ export const MealDuration = () => {
     console.log("temp2==>", temp2);
     
   };
-
+  const colourStyles = {
+		menuList: styles => ({
+			...styles,
+			background: 'rgba(209,235,232,1)',
+      padding:'15px'
+		}),
+		option: (styles, {isFocused, isSelected}) => ({
+			...styles,
+			background: isFocused
+				? '#F2CBBD'
+				: isSelected
+					? 'rgba(54,41,24,1)'
+					: undefined,
+			zIndex: 1,
+      padding:'5px 0px'
+		}),
+		menu: base => ({
+			...base,
+			zIndex: 100
+		})
+		}
   useEffect(() => {
     let temp = [];
     productDetails &&
@@ -77,6 +97,7 @@ export const MealDuration = () => {
         placeholder="Meal Plans"
         className="mb-3 text-start vl-form-element"
         options={Variants[0]?.items}
+        styles={colourStyles}	
         onChange={(data) => {
           console.log("data", data);
           setDuration(data?.duration);

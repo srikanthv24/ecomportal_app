@@ -114,7 +114,7 @@ const CartSummary = () => {
               </p>
             </div>
             <div className="w-50p">
-              <p className="cart-summary-desc-item-container mb-0 text-right align-right">
+              <p className="cart-summary-desc-item-container mb-0 text-right d-flex align-items-center justify-content-end">
                 TOTAL{" "}
                 <BiRupee /><strong>{(cartSummary?.data && Number(cartSummary?.data?.grand_total)) || 0}</strong>    
               </p>
