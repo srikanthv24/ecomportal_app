@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Calendar } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import moment from "moment";
 import { getProductDetails } from "../../store/actions";
 import { useFormContext } from "react-hook-form";
-// import { FormControl, InputGroup } from "react-bootstrap";
-// import DatePicker from '@mui/lab/DatePicker';
 
 export const MealDuration = () => {
   const dispatch = useDispatch();
@@ -15,7 +13,7 @@ export const MealDuration = () => {
   const [duration, setDuration] = useState("");
   const [period, setPeriod] = useState("");
   const [startDate, setStartDate] = useState(null);
-  
+
   const methods = useFormContext();
   const { watch, setValue } = methods;
   const { subscription, variants } = watch();
@@ -33,13 +31,12 @@ export const MealDuration = () => {
       dateTemp.push(moment(date).add(i, "days").format("YYYY-MM-DD"));
     }
     console.log("dateTemp==>", dateTemp);
-    // if (dateTemp.length == period?.duration) {
     let temp2 = temp.map((obj) => {
       return { ...obj, order_dates: dateTemp };
     });
     setValue("subscription", temp2);
     console.log("temp2==>", temp2);
-    // }
+    
   };
 
   useEffect(() => {
@@ -60,6 +57,16 @@ export const MealDuration = () => {
     setVariants(temp);
   }, [productDetails]);
 
+  useMemo(() => {
+    let temp = [];
+    for (let i = 0; i < duration; i++) {
+      temp.push(moment(startDate).add(i, "days").format("YYYY/MM/DD"));
+    }
+    setValue(`subscription[${0}].order_dates`, temp);
+    setValue(`subscription[${1}].order_dates`, temp);
+    setValue(`subscription[${2}].order_dates`, temp);
+  }, [period]);
+
   return (
     <>
       <p className="h6 text-start mb-1 mt-2 text-muted">
@@ -78,111 +85,45 @@ export const MealDuration = () => {
         }}
       />
 
-      <div class="mb-3 vl-form-element">
-        <label class="form-label h6 text-start mb-1 mt-2 text-muted">
-          Start Date
-        </label>
-        <input
-          type="date"
-          class="form-control"
-          min={moment(new Date()).format("YYYY-MM-DD")}
-          // max={moment(new Date()).format("YYYY-MM-DD")}
-          value={startDate}
-          onChange={(ev) => {
-            setStartDate(
-              ev.target.value
-            );
-            let temp = [];
-            for (let i = 0; i < duration; i++) {
-              temp.push(
-                moment(ev.target.value).add(i, "days").format("YYYY/MM/DD")
-              );
-            }
-            setValue(`subscription[${0}].order_dates`, temp);
-            setValue(`subscription[${1}].order_dates`, temp);
-            setValue(`subscription[${2}].order_dates`, temp);
-          }}
-        />
-      </div>
-      {/* <InputGroup className="my-2">
-										<InputGroup.Text>Start Date</InputGroup.Text>
-										<FormControl
-											type="date"
-											min={moment(new Date()).format("YYYY-MM-DD")}
-											// max={moment(new Date()).format("YYYY-MM-DD")}
-											value={startDate[deliver.value]}
-											onChange={(ev) => {
-												setStartDate({
-													...startDate,
-													[deliver.value]: ev.target.value,
-												});
-												let temp = [];
-												for (
-													let i = 0;
-													i < VariantValue?.Duration?.duration;
-													i++
-												) {
-													temp.push(
-														moment(ev.target.value)
-															.add(i, "days")
-															.format("YYYY/MM/DD")
-													);
-												}
-												setValue(`subscription[${index}].order_dates`, temp);
-											}}
-										/>
-									</InputGroup> */}
-
-      <p className="h6 text-start mb-1 mt-2 text-muted">Select dates:</p>
-      <div style={{ width: "100%", overflow: "scroll" }}>
-        <Calendar
-          multiple
-          numberOfMonths={2}
-          value={subscription[0]?.order_dates}
-          minDate={new Date()}
-          maxDate={
-            new Date(
-              moment(subscription[0]?.order_dates[0])
-                .add(period?.grace + period?.duration - 1 || 0, "days")
-                .calendar()
-            )
-          }
-          sort
-          onChange={(dateObj) => {
-            let temp = [...subscription];
-            let temp2 = [];
-            dateObj.map((date) => {
-              if (temp2?.length === period?.duration) {
-                return null;
+      {period && (
+        <div class="mb-3 vl-form-element">
+          <label class="form-label h6 text-start mb-1 mt-2 text-muted">
+            Start Date
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            min={moment(new Date()).format("YYYY-MM-DD")}
+            // max={moment(new Date()).format("YYYY-MM-DD")}
+            value={startDate}
+            onChange={(ev) => {
+              setStartDate(ev.target.value);
+              let temp = [];
+              for (let i = 0; i < duration; i++) {
+                temp.push(
+                  moment(ev.target.value).add(i, "days").format("YYYY/MM/DD")
+                );
               }
-              temp2.push(date.format("YYYY-MM-DD"));
-            });
-            let temp3 = temp.map((obj) => {
-              return { ...obj, order_dates: temp2 };
-            });
-            setValue("subscription", temp3);
-          }}
-          style={{ width: "100%" }}
-        />
-      </div>
+              setValue(`subscription[${0}].order_dates`, temp);
+              setValue(`subscription[${1}].order_dates`, temp);
+              setValue(`subscription[${2}].order_dates`, temp);
+            }}
+          />
+        </div>
+      )}
 
-      {/* <p>{`selected ${period?.duration == "" ? "0" : period?.duration} days`}</p> */}
-      {/* <DatePicker
-            value={subscription[0]?.order_dates}
+      {startDate && (
+        <div style={{ width: "100%", overflow: "scroll" }}>
+          <p className="h6 text-start mb-1 mt-2 text-muted">Select dates:</p>
+          <Calendar
             multiple
+            numberOfMonths={2}
+            value={subscription[0]?.order_dates}
             minDate={new Date()}
             maxDate={
               new Date(
-                moment(
-                  subscription[0]
-                    ?.order_dates[0]
-                )
-                  .add(
-                    period?.grace +
-                    period?.duration -
-                      1 || 0,
-                    "days"
-                  )
+                moment(subscription[0]?.order_dates[0])
+                  .add(period?.grace + period?.duration - 1 || 0, "days")
                   .calendar()
               )
             }
@@ -196,13 +137,15 @@ export const MealDuration = () => {
                 }
                 temp2.push(date.format("YYYY-MM-DD"));
               });
-              let temp3 = temp.map(obj => {
-                return {...obj, order_dates: temp2}
+              let temp3 = temp.map((obj) => {
+                return { ...obj, order_dates: temp2 };
               });
               setValue("subscription", temp3);
             }}
-            
-          /> */}
+            style={{ width: "100%" }}
+          />
+        </div>
+      )}
     </>
   );
 };

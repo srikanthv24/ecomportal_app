@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./styles.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
@@ -19,12 +19,15 @@ export const MealBooking = () => {
   const history = useHistory();
   const userDetails = useSelector((state) => state.auth.userDetails);
   const [activeStep, setActiveStep] = useState(0);
-  const [validStep, setValidStep] = useState(true);
+  const [validStep, setValidStep] = useState(false);
 
   const handleNext = () => {
-    userDetails.sub
-      ? validStep && setActiveStep((prevActiveStep) => prevActiveStep + 1)
-      : showLoginModal();
+    userDetails.sub ? validStep && goNext() : showLoginModal();
+  };
+
+  const goNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setValidStep(false);
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -35,7 +38,9 @@ export const MealBooking = () => {
   };
 
   const handleNextStep = () => {
+    setValidStep(true);
     handleNext();
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const methods = useForm({
@@ -148,6 +153,40 @@ export const MealBooking = () => {
     handleCartSubmit();
   };
 
+  const checkValidity = useMemo(() => {
+    let isMealSessionSelected = subscription.filter(
+      (item) => item.meal_type
+    ).length;
+    let isAddressSelected = subscription.filter(
+      (item) => item.address?.id
+    ).length;
+    let isOrderDatesSelected = subscription.filter(
+      (item) => item.order_dates.length
+    ).length;
+
+    switch (activeStep) {
+      case 0:
+        setValidStep(!!isMealSessionSelected);
+        break;
+      case 1:
+        setValidStep(!!isAddressSelected);
+        break;
+      case 2:
+        setValidStep(true);
+        break;
+      case 3:
+        setValidStep(!!isOrderDatesSelected);
+        break;
+
+      default:
+        setValidStep(false);
+        break;
+    }
+    return [isMealSessionSelected, isAddressSelected, isOrderDatesSelected];
+  }, [subscription, subscription[0]?.order_dates.length]);
+
+  console.log("watch() ==> ", watch(), checkValidity, activeStep);
+
   return (
     <section className={classes.stepperBg}>
       <FormProvider {...methods}>
@@ -184,11 +223,12 @@ export const MealBooking = () => {
               style={{
                 position: "fixed",
                 bottom: 0,
-                left: 0, right: 0,
+                left: 0,
+                right: 0,
                 width: "100%",
                 display: "inline-flex",
-                padding: '20px 0px',
-                backgroundColor: 'rgb(249, 243, 223)'
+                padding: "20px 0px",
+                backgroundColor: "rgb(249, 243, 223)",
                 // justifyContent: "space-between",
               }}
             >
@@ -211,6 +251,7 @@ export const MealBooking = () => {
                   background: "#F05922",
                   borderColor: "#F05922",
                 }}
+                disabled={!validStep}
                 onClick={() => {
                   if (activeStep == 3) {
                     handleLastStep();
