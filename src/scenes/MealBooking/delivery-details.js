@@ -28,6 +28,28 @@ export const DeliveryDetails = ({ control }) => {
     name: "subscription",
   });
 
+  const colourStyles = {
+		menuList: styles => ({
+			...styles,
+			background: 'rgba(209,235,232,1)',
+      padding:'15px'
+		}),
+		option: (styles, {isFocused, isSelected}) => ({
+			...styles,
+			background: isFocused
+				? '#F2CBBD'
+				: isSelected
+					? 'rgba(54,41,24,1)'
+					: undefined,
+			zIndex: 1,
+      padding:'5px 0px'
+		}),
+		menu: base => ({
+			...base,
+			zIndex: 100
+		})
+		}
+
   useEffect(() => {
     if (userDetails.sub) {
       dispatch(getAddresses({ customerId: userDetails.sub }));
@@ -60,8 +82,8 @@ export const DeliveryDetails = ({ control }) => {
     return (
       <components.MenuList {...props}>
         {props.children}
-        <Button variant="outline-dark" className="w-100" onClick={handleShow}>
-          <GrAdd /> New address
+        <Button variant="outline-dark" className="w-100" onClick={handleShow} style={{marginTop:"20px"}}>
+          <GrAdd /> New Address
         </Button>
       </components.MenuList>
     );
@@ -72,7 +94,7 @@ export const DeliveryDetails = ({ control }) => {
       <div
         ref={innerRef}
         {...innerProps}
-        style={{ display: "flex", justifyContent: "space-between" }}
+        style={{ display: "flex", justifyContent: "space-between", padding:"10px", background:'#ededed', marginBottom:'5px' }}
       >
         <span style={{ cursor: "pointer" }}>{children}</span>
         <span style={{ cursor: "pointer" }}>
@@ -111,6 +133,7 @@ export const DeliveryDetails = ({ control }) => {
               MenuList: SelectMenuButton,
               Option: CustomOption,
             }}
+            styles={colourStyles}	
             onChange={(address) => {
               let temp = [...subscription];
               console.log("address, temp",address ,temp);

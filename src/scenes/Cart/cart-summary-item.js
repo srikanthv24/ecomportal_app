@@ -73,7 +73,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
   }, [ProductDetails]);
 
   return (
-    <div>
+    <div className="w-100p">
       <Card className="my-1 bg-1">
         <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
           <div className="cart-list-image-container">
@@ -104,8 +104,9 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
             </p>
             <p className="col-12 ff-4 clr-black cart-list-product-detailes-attribute-kind mb-0">
               Including{" "}
-              {String(ProductDetails.tax_methods)
-                .replace("Output", "")
+
+              {String(ProductDetails.tax_methods).replace("GST", "GST ")
+                .replace("OUTPUT", " %")
                 .replace("-", "")}
             </p>
             {/* <p className="ff-2 clr-black mb-0 d-flex justify-content-between"> */}

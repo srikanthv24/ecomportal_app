@@ -207,7 +207,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		return (
 			<components.MenuList {...props}>
 				{props.children}
-				<Button variant="outline-dark" className="w-100" onClick={handleShow}>
+				<Button variant="outline-dark" className="w-100" onClick={handleShow} style={{marginTop:"20px"}}>
 					<GrAdd /> New address
 				</Button>
 			</components.MenuList>
@@ -219,7 +219,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		  <div
 			ref={innerRef}
 			{...innerProps}
-			style={{ display: "flex", justifyContent: "space-between" }}
+			style={{ display: "flex", justifyContent: "space-between", padding:"10px", background:'#ededed', marginBottom:'5px' }}
 		  >
 			<span style={{ cursor: "pointer" }}>{children}</span>
 			<span style={{ cursor: "pointer" }}>

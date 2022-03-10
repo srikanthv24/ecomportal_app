@@ -30,7 +30,7 @@ export const MealCard = ({ product, handleClick, handleNextStep }) => {
 		      setValue("qty", 1);
         }}
       >
-        <div
+        {/* <div
           style={{
             backgroundImage: `url(${
               product?.defaultimg_url ||
@@ -43,7 +43,10 @@ export const MealCard = ({ product, handleClick, handleNextStep }) => {
             width: "100%",
             borderRadius: "15px",
           }}
-        />
+        /> */}
+        <div className="prd-image-thumbnile">
+          <img src={product?.defaultimg_url || "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"} alt="img" />
+        </div>
       </Card.Body>
       <Card.Body
         className="pt-1 text-center px-1"
