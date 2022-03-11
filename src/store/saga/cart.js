@@ -118,7 +118,7 @@ function* getCartSummary(params) {
 export function* CartSaga() {
 	yield takeEvery(types.CREATE_CART, CreateCart);
 	yield takeEvery(types.UPDATE_CART, UpdateCart);
-	yield takeLatest(types.GET_CART, GetCart);
+	yield takeEvery(types.GET_CART, GetCart);
 	yield takeEvery(types.UPDATE_CART_QTY, updateCartQty);
 	yield takeEvery(types.GET_CART_SUMMARY, getCartSummary);
 }

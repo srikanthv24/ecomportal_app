@@ -64,7 +64,7 @@ const CartSummary = () => {
   useEffect(() => {
     if (userDetails.sub)
       dispatch(getCartSummary({ customer_id: userDetails.sub }));
-  }, [userDetails.sub]);
+  }, [userDetails.sub, cartDetails]);
 
   useEffect(() => {
     if(cartDetails?.items && cartDetails.items?.length){
@@ -156,20 +156,20 @@ const CartSummary = () => {
         <section className="cart-order-summery-container mb-5">
         <p class="cart-order-summery-header mb-0">ORDER SUMMARY</p>
        <ul className="cart-order-summery-list mb-0">
-         <li>
+         {/* <li>
           <p class="cart-order-summery-list-titles mb-0">Subtotal</p>
           <p class="cart-order-summery-list-subtotal mb-0">
              <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
-         </li>
+         </li> */}
          {/* <li>
             <p class="cart-order-summery-list-titles mb-0">Discount</p> 
             <p class="cart-order-summery-list-discount mb-0">0</p>
          </li> */}
-         <li>
+         {/* <li>
            <p class="cart-order-summery-list-titles mb-0">Delivery Charges</p>
            <p class="cart-order-summery-list-subtotal mb-0">
              <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
-         </li>
+         </li> */}
          {/* <li>
            <p class="cart-order-summery-list-titles mb-0">Coupon Discount</p>
            <p class="cart-order-summery-list-coupon-discount mb-0">0</p>
@@ -184,7 +184,7 @@ const CartSummary = () => {
         </section>
       
         <section className="mt-4" style={{display:"none"}}>
-          {/* <span className="d-flex justify-content-between align-items-center">
+          <span className="d-flex justify-content-between align-items-center">
             <p>Sub-total</p>
             <p>
               <BiRupee />{" "}
@@ -192,7 +192,7 @@ const CartSummary = () => {
                 Number(cartSummary?.data?.sub_total)) ||
                 0}
             </p>
-          </span> */}
+          </span>
           <span className="d-flex justify-content-between align-items-center">
             <p>Delivery Charges</p>
             <p>

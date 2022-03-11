@@ -106,7 +106,7 @@ export const MealBooking = () => {
   });
 
   const classes = useStyles();
-  const handleCartSubmit = (data) => {
+  const handleCartSubmit = async(data) => {
     console.log("use_form_data", data);
     // let payload = { ...data };
     // let filteredPayload = payload.subscription.filter((item) => {
@@ -128,6 +128,7 @@ export const MealBooking = () => {
       item_id: item_id,
       qty: 1,
       subscription: subscription,
+      variants: variants
     };
     let filteredPayload = payload.subscription.filter((item) => {
       if (item.is_included) {
@@ -186,6 +187,7 @@ export const MealBooking = () => {
   }, [subscription, subscription[0]?.order_dates.length]);
 
   console.log("watch() ==> ", watch(), checkValidity, activeStep);
+  console.log("subscription", subscription);
 
   return (
     <section className={classes.stepperBg}>
