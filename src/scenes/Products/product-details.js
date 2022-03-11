@@ -122,7 +122,7 @@ const ProductDetails = ({
 	console.log("rrrr", products.loading);
 
 	return (
-		<FormProvider {...methods}>{isLoading && <div className="fullscreen-loader"> <Spinner animation="grow" variant="primary" /></div>}
+		<FormProvider {...methods}>{isLoading && <div className="fullscreen-loader"> <Spinner animation="grow" /></div>}
 				<div className="bg-1">
 					{!(products.productDetails?.is_mealplan)  ? 
 					<>

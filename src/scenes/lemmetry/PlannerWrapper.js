@@ -320,7 +320,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 						left: 0,
 						right: 8,
 						// background: "#FFF",
-						zIndex: 5,
+						zIndex:0,
 						paddingTop: 10,
 						boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
 					}}

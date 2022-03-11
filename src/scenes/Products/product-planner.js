@@ -99,7 +99,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 				return {
 					label: <div style={{ display: "flex" }}>
 						<span>{add.display_name}</span>
-						<span style={{ marginLeft: "auto" }}><BiRupee />{add.sale_val ? add.sale_val : 0}</span>
+						<span style={{ marginLeft: "auto", whiteSpace:'nowrap' }}><BiRupee />{add.sale_val ? add.sale_val : 0}</span>
 					</div>,
 					value: add.id,
 					price: add.sale_val,
@@ -406,6 +406,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 								<input
 									type="checkbox"
 									style={{ marginRight: 5 }}
+									className="acc-checkbox"
 									checked={subscription[index].is_included}
 									onChange={(ev) => {
 										let temp = [...subscription];
