@@ -24,15 +24,15 @@ import DeliciouslyHealthybgImage from "../../assets/home/deliciously-healthy-bac
 import DeliciouslyHealthyTxtImage from "../../assets/home/delicious-txt.svg";
 
 function CategoriesContent() {
-
+  
   return (
     <>
       <section className="categories-block">
         <div className="category-item-block bg-chocolate">
           <h2 className="title-text">staples</h2>
-          <a href="#" class="mt-10 md:mt-14 mb-4 leading-8 bg-chocolate-800 py-3.5 px-7 tracking-wide rounded-full inline-block">
+          <Link to="/products?category=Staples" className="mt-10 md:mt-14 mb-4 leading-8 bg-chocolate-800 py-3.5 px-7 tracking-wide rounded-full inline-block text-decoration-none">
             <p class="capitalize secondary-font-mono text-14 text-white mb-0">explore staples</p>
-          </a>
+            </Link>
           <img src={CafeExploreImage} alt="items anime image" className="cafe-explore-image w-[110%] -ml-1 md:w-full md:max-w-full md:m-0 absolute md:absolute md:bottom-0 overflow-hidden object-cover md:object-contain md:left-0" />
         </div>
         <div className="category-item-block bg-koromiko">

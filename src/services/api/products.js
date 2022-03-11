@@ -4,6 +4,7 @@ import {
 	getProductDetails,
 	getProducts,
 	getProductsByCategory,
+	getStaples,
 	searchProducts,
 } from "../graphql/mutations";
 
@@ -61,7 +62,7 @@ export class Products {
 				// Production"X-API-KEY": "da2-xclkxhpjbbbxfcyw2vtp3zc64e",
 				// body: params.payload ? getProductsByCategory(params) : getProducts(),
 				body: JSON.stringify({
-					query: getProducts,
+					query: params.payload.category === "Staples" ? getStaples : getProducts,
 					variables: {
 						category: params.payload.category || "",
 						limit: params.payload.limit,

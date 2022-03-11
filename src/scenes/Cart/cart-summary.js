@@ -25,17 +25,15 @@ const CartSummary = () => {
   const AlertReducer = useSelector((state) => state.AlertReducer);
   const Cart = useSelector((state) => state.Cart);
   const [items, setItems] = useState([]);
- 
+
   useEffect(() => {
     dispatch(getAddresses({ customerId: userDetails.sub }));
   }, []);
 
   useEffect(() => {
-    
     let temp = [];
 
     if (Addresses.listAddresses) {
-    
       const items = Addresses.listAddresses.items;
       items.map((address) => {
         let label =
@@ -49,17 +47,15 @@ const CartSummary = () => {
           ", " +
           address.postalcode;
         temp.push({ ...address, label: label, value: address.id });
-        
       });
-      
-      
     }
   }, [Addresses.listAddresses]);
 
   const CartReducer = useSelector((state) => state.Cart);
   const cartSummary = useSelector((state) => state.Cart.cartSummary);
   const cartDetails = useSelector((state) => state.Cart.cartDetails);
-  
+
+  console.log("Currency==>", "1267000".replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
   useEffect(() => {
     if (userDetails.sub)
@@ -67,18 +63,18 @@ const CartSummary = () => {
   }, [userDetails.sub, cartDetails]);
 
   useEffect(() => {
-    if(cartDetails?.items && cartDetails.items?.length){
-      let temp =[];
+    if (cartDetails?.items && cartDetails.items?.length) {
+      let temp = [];
       cartDetails.items.map((item, index) => {
-        let obj = { 
+        let obj = {
           ciid: item.ciid,
-          sub_total: item.item.sub_total
-        }
+          sub_total: item.item.sub_total,
+        };
         temp.push(obj);
       });
       setItems(temp);
     }
-  }, [cartSummary.data, cartDetails.items])
+  }, [cartSummary.data, cartDetails.items]);
 
   return (
     <div>
@@ -110,18 +106,22 @@ const CartSummary = () => {
             <div className="w-50p">
               <p className="cart-summary-desc-item-container mb-0">
                 Items{" "}
-                <strong>{(cartSummary?.data?.items?.length && cartSummary?.data?.items?.length) || 0}</strong>
+                <strong>
+                  {(cartSummary?.data?.items?.length &&
+                    cartSummary?.data?.items?.length) ||
+                    0}
+                </strong>
               </p>
             </div>
-            <div className="w-50p">
+            {/* <div className="w-50p">
               <p className="cart-summary-desc-item-container mb-0 text-right d-flex align-items-center justify-content-end">
                 TOTAL{" "}
-                <BiRupee /><strong>{(cartSummary?.data && Number(cartSummary?.data?.grand_total)) || 0}</strong>    
+                <BiRupee /><strong>{(cartSummary?.data && String(cartSummary?.data?.grand_total).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) || 0}</strong>    
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
-       
+
         <section className="cart-items-block">
           {cartSummary?.isLoading || CartReducer.cartLoading ? (
             <div
@@ -133,8 +133,10 @@ const CartSummary = () => {
             </div>
           ) : cartSummary?.data?.items?.length ? (
             // cartSummary?.data?.items[0]?.items?.map((item) => {
-              cartSummary?.data?.items?.map((item,index) => {
-              return <CartSummaryItem ProductDetails={item.item} pindex={index}/>;
+            cartSummary?.data?.items?.map((item, index) => {
+              return (
+                <CartSummaryItem ProductDetails={item.item} pindex={index} />
+              );
             })
           ) : (
             <div className="flex-column text-center">
@@ -144,7 +146,10 @@ const CartSummary = () => {
               <Button
                 onClick={() => history.push("/")}
                 variant="primary"
-                style={{backgroundColor : "rgba(53,40,23,1)", borderColor:"rgba(53,40,23,1)"}}
+                style={{
+                  backgroundColor: "rgba(53,40,23,1)",
+                  borderColor: "rgba(53,40,23,1)",
+                }}
                 size="sm"
               >
                 Explore products
@@ -154,61 +159,62 @@ const CartSummary = () => {
         </section>
 
         <section className="cart-order-summery-container mb-5">
-        <p class="cart-order-summery-header mb-0">ORDER SUMMARY</p>
-       <ul className="cart-order-summery-list mb-0">
-         {/* <li>
+          <p class="cart-order-summery-header mb-0">ORDER SUMMARY</p>
+          <ul className="cart-order-summery-list mb-0">
+            {/* <li>
           <p class="cart-order-summery-list-titles mb-0">Subtotal</p>
           <p class="cart-order-summery-list-subtotal mb-0">
              <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
          </li> */}
-         {/* <li>
+            {/* <li>
             <p class="cart-order-summery-list-titles mb-0">Discount</p> 
             <p class="cart-order-summery-list-discount mb-0">0</p>
          </li> */}
-         {/* <li>
+            {/* <li>
            <p class="cart-order-summery-list-titles mb-0">Delivery Charges</p>
            <p class="cart-order-summery-list-subtotal mb-0">
              <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
          </li> */}
-         {/* <li>
+            {/* <li>
            <p class="cart-order-summery-list-titles mb-0">Coupon Discount</p>
            <p class="cart-order-summery-list-coupon-discount mb-0">0</p>
          </li> */}
-       </ul>
-       <div class="flex justify-between px-3 py-2">
-        <p class="cart-order-summery-list-total mb-0">Total</p> 
-        <p class="cart-order-summery-list-total-price mb-0">
-          <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.grand_total)) || 0}
-          </p>
-       </div>
+          </ul>
+          <div class="flex justify-between px-3 py-2">
+            <p class="cart-order-summery-list-total mb-0">Total</p>
+            <p class="cart-order-summery-list-total-price mb-0">
+              <BiRupee />
+              {(cartSummary?.data &&
+                String(cartSummary?.data?.grand_total).replace(
+                  /\B(?=(\d{3})+(?!\d))/g,
+                  ","
+                )) ||
+                0}
+            </p>
+          </div>
         </section>
-      
-        <section className="mt-4" style={{display:"none"}}>
+
+        <section className="mt-4" style={{ display: "none" }}>
           <span className="d-flex justify-content-between align-items-center">
             <p>Sub-total</p>
             <p>
               <BiRupee />{" "}
-              {(cartSummary?.data &&      
-                Number(cartSummary?.data?.sub_total)) ||
-                0}
+              {(cartSummary?.data && Number(cartSummary?.data?.sub_total)) || 0}
             </p>
           </span>
           <span className="d-flex justify-content-between align-items-center">
             <p>Delivery Charges</p>
             <p>
               <BiRupee />
-              {(cartSummary?.data &&             
-                  Number(cartSummary?.data?.sub_total)) ||
-                  0}
+              {(cartSummary?.data && Number(cartSummary?.data?.sub_total)) || 0}
             </p>
           </span>
           <span className="d-flex justify-content-between align-items-center">
             <p className="fw-bold">Total</p>
             <p className="fw-bold">
               <BiRupee />
-              {(cartSummary?.data &&             
-                  Number(cartSummary?.data?.grand_total)) ||
-                  0}
+              {(cartSummary?.data && Number(cartSummary?.data?.grand_total)) ||
+                0}
               {/* { (cartSummary?.data !== null)  ? (cartSummary?.data?.grand_total) :  0} */}
             </p>
           </span>
@@ -225,16 +231,20 @@ const CartSummary = () => {
         >
           <Button
             className="w-100 custom-primary-btn"
-            style={{ boxShadow: "1px 2px 3px #ededed", padding:5 }}
+            style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
             onClick={handleContinue}
             // disabled={cartSummary?.data?.items?.length}
             disabled={cartSummary?.data?.items?.length ? false : true}
           >
             Confirm and Pay <BiRupee />
-            {Number(
+            {/* {Number(
               cartSummary?.data &&
                 cartSummary?.data?.grand_total || 0
-            ).toFixed(2)}
+            ).toFixed(2)} */}
+            {String(cartSummary?.data?.grand_total || 0).replace(
+              /\B(?=(\d{3})+(?!\d))/g,
+              ","
+            )}
           </Button>
         </div>
       </div>
@@ -270,7 +280,9 @@ const CartSummary = () => {
     const req = {
       type: "createorder",
       items: items,
-      amount: Number(parseInt(parseFloat(cartSummary?.data?.grand_total).toFixed(2)) * 100),
+      amount: Number(
+        parseInt(parseFloat(cartSummary?.data?.grand_total).toFixed(2)) * 100
+      ),
       //amount: Number(cartSummary?.data?.grand_total * 100),
       currency: "INR",
       receipt: "Receipt #20",
@@ -280,7 +292,7 @@ const CartSummary = () => {
       phone: userDetails.phone_number.substring(3),
     };
 
-    console.log("zzzzzz",req);
+    console.log("zzzzzz", req);
     const result = await fetch(
       "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
       { method: "POST", body: JSON.stringify(req) }

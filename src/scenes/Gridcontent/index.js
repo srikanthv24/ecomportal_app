@@ -14,6 +14,7 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import CafeExploreImage from "../../assets/home/cafe-explore.svg";
 import BananaLeavesImage from "../../assets/home/banana-leaves.svg";
@@ -29,9 +30,9 @@ function Gridcontent() {
       <div className="d-flex overflow-hidden grid-content-1">        
         <div className="relative bg-chocolate-300 text-center md:w-1/2 step1-info">
           <p className="pt-[6.25rem] primary-font font-bold text-44 leading-[3.125rem] text-chocolate-900 md:text-54 md:leading-[3.4rem] tracking-wide capitalize">staples</p>
-          <a href="#" className="mt-10 md:mt-14 mb-4 leading-8 bg-chocolate-800 py-3.5 px-7 tracking-wide rounded-full inline-block text-decoration-none">
+          <Link to="//products?category=Staples" className="mt-10 md:mt-14 mb-4 leading-8 bg-chocolate-800 py-3.5 px-7 tracking-wide rounded-full inline-block text-decoration-none">
             <p className="capitalize secondary-font-mono text-14 text-white mb-0">explore staples</p>
-          </a>
+          </Link>
           <img src={CafeExploreImage} alt="items anime image" className="cafe-explore-image w-[110%] -ml-1 md:w-full md:max-w-full md:m-0 absolute md:absolute md:bottom-0 overflow-hidden object-cover md:object-contain md:left-0" />
         </div>
 

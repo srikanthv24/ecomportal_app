@@ -14,7 +14,7 @@ var phantom = {
 	height: "70px",
 	width: "100%",
 };
-const ProductsList = ({ list, items }) => {
+const ProductsList = ({ list, items, parentCategory }) => {
 	const dispatch = useDispatch();
 	const [Loading, setLoading] = useState(true);
 	useEffect(() => {
@@ -56,7 +56,7 @@ const ProductsList = ({ list, items }) => {
 				items.map((item,index) => {
 					return item ? (
 						<Col lg={4} md={4} sm={6} xs={6} key={item.id} className="m-0 p-1">
-							<ProductCard product={item} pindex={index}/>
+							<ProductCard product={item} pindex={index} />
 						</Col>
 					) : null;
 				})}
