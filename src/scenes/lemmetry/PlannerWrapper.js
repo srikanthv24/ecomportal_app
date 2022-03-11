@@ -340,7 +340,9 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 							<div className="d-flex justify-content-between align-items-center">
 								<p className="h6 ff-3">Subscription Amount :</p>
 								<p className="h5 ff-2">
-									<BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)}
+									{/* <BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)} */}
+									<BiRupee />
+									{String(SubscriptionTotal).replace(	/\B(?=(\d{3})+(?!\d))/g,","	) || 0}
 								</p>
 							</div>
 						</div>
@@ -384,7 +386,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 							<InputGroup className="p-2 w-100">
 								<Button
 									variant="outline-secondary"
-									style={{ borderColor:'rgba(54,41,24,0.75)', color: "#f05922" }}
+									style={{ borderColor:'rgba(54,41,24,0.75)', color: "#f05922", width:"3rem", height:"3rem" }}
 									onClick={onDecrement}
 									size="sm"
 								>
@@ -406,7 +408,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                   variant="outline-secondary"
                   style={{
                     borderColor: "rgba(54,41,24,0.75)",
-                    color: "#f05922",
+                    color: "#f05922",width:"3rem", height:"3rem"
                   }}
                   onClick={onIncrement}
                   size="sm"
@@ -437,7 +439,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                     : false
                 }
                 style={{
-                  width: "100%",
+                  width: "100%",height:'3rem'
                 }}
                 onClick={handleSubmit(handleCartSubmit)}
               >

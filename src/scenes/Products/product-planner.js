@@ -503,7 +503,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 										</>
 									)}
 
-									<InputGroup className="my-2">
+									<InputGroup className="my-2 dp-date">
 										<InputGroup.Text>Start Date</InputGroup.Text>
 										<FormControl
 											type="date"

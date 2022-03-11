@@ -51,7 +51,7 @@ const ProductsList = ({ list, items, parentCategory }) => {
 	}
 
 	return (
-		<>
+		<div className="row">
 			{items.length &&
 				items.map((item,index) => {
 					return item ? (
@@ -60,7 +60,7 @@ const ProductsList = ({ list, items, parentCategory }) => {
 						</Col>
 					) : null;
 				})}
-		</>
+		</div>
 	);
 };
 
