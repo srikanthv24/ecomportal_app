@@ -103,6 +103,12 @@ export const MealDuration = () => {
           setDuration(data?.duration);
           setPeriod(data);
           handleDateChange(new Date(), 0);
+          let temp = [];
+          temp.push({
+            display_name: "Duration",
+            items: { display_name: data.display_name },
+          });
+          setValue("variants", temp);
         }}
       />
 

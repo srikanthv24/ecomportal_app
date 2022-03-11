@@ -141,7 +141,7 @@ export const DeliveryDetails = ({ control }) => {
               // delete addrss.label;
               // delete addrss.value;
               let temp2 = temp.map(obj => {
-                return {...obj, address: addrss}
+                return {...obj, address: addrss, isDelivery: true}
               });
               setValue("subscription", temp2);
             }}
