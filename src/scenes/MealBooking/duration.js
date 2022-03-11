@@ -113,7 +113,7 @@ export const MealDuration = () => {
       />
 
       {period && (
-        <div class="mb-3 vl-form-element">
+        <div class="mb-3 vl-form-element dp-date">
           <label class="form-label h6 text-start mb-1 mt-2 text-muted">
             Start Date
           </label>
