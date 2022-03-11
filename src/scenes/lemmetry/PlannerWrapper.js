@@ -321,6 +321,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
           />
         </Container>
 
+<<<<<<< HEAD
         <div style={phantom} />
         <div
           className="bg-1"
@@ -415,6 +416,88 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
                   type="number"
                   // onChange={(ev) => setCartItem(ev.target.value)}
                 />
+=======
+				<div style={phantom} />
+				<div className="bg-1"
+					style={{
+						width: "100%",
+						position: "fixed",
+						bottom: 0,
+						left: 0,
+						right: 8,
+						// background: "#FFF",
+						zIndex:0,
+						paddingTop: 10,
+						boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
+					}}
+				>
+					{products.productDetails?.is_mealplan && (
+						<div className="w-100 px-3">
+							<div className="d-flex justify-content-between align-items-center">
+								<p className="h6 ff-3">Subscription Amount :</p>
+								<p className="h5 ff-2">
+									<BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)}
+								</p>
+							</div>
+						</div>
+					)}
+					<div className="d-flex align-items-center justify-content-between w-100">
+						{isOnboarding ? (
+							<>
+								<Button
+									onClick={handleBack}
+									className="w-50 m-1"
+									variant="secondary" style={{borderColor:'rgba(54,41,24,0.75)'}}
+								>
+									Back
+								</Button>
+								{ExistingProduct?.item?.qty.length > 1 ? (
+									<Button
+										className="w-50 m-1 custom-primary-btn"
+										// variant="success"
+										style={{ border: "none" }}
+										onClick={() => history.push("/cart-summary")}
+									>
+										Go to Cart
+									</Button>
+								) : (
+									<Button
+										className="w-50 m-1 custom-primary-btn"
+										style={{
+											width: "100%"
+										}}
+										onClick={handleSubmit(handleCartSubmit)}
+									>
+										{Cart.cartLoading ? (
+											<Spinner animation="border" role="status" />
+										) : (
+											"Add to Cart"
+										)}
+									</Button>
+								)}
+							</>
+						) : ExistingProduct?.item?.qty ? (
+							<InputGroup className="p-2 w-100">
+								<Button
+									variant="outline-secondary"
+									style={{ borderColor:'rgba(54,41,24,0.75)', color: "#f05922" }}
+									onClick={onDecrement}
+									size="sm"
+								>
+									{Cart.cartLoading ? (
+										<Spinner animation="border" role="status" />
+									) : (
+										<GrSubtract />
+									)}
+								</Button>
+								<FormControl
+									aria-label="Example text with two button addons"
+									style={{ textAlign: "center", border: "none" }}
+									value={ExistingProduct?.item?.qty || ""} style={{borderColor:'rgba(54,41,24,0.75)', background:'transparent'}}
+									type="number"
+								// onChange={(ev) => setCartItem(ev.target.value)}
+								/>
+>>>>>>> 82691b195a3b1ecb20b0abdd150abbd62710cc3d
 
                 <Button
                   variant="outline-secondary"
