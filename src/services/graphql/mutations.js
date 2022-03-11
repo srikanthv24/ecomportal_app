@@ -97,12 +97,11 @@ export const getAllProducts = `query ($limit: Int, $nextToken: String) {
 }`;
 
 export const getProductsByCategory = (params) => {
-	console.log("PAPAPA", params.payload);
-	return JSON.stringify({
-		query: `{
+  return JSON.stringify({
+    query: `{
     listItems (filter: {category: {eq: ${JSON.stringify(
-			params.payload.filter.category.eq
-		)}},status: {eq: "A"}}) {
+      params.payload.filter.category.eq
+    )}},status: {eq: "A"}}) {
       items {
         saleprice
         category
@@ -120,15 +119,15 @@ export const getProductsByCategory = (params) => {
       }
     } 
   }`,
-	});
+  });
 };
 
 export const searchProducts = (searchQuery) => {
-	return JSON.stringify({
-		query: `{
+  return JSON.stringify({
+    query: `{
       listItems (filter: {name: {contains: ${JSON.stringify(
-			searchQuery.payload
-		)}},status: {eq: "A"}}, limit: 1000) {
+        searchQuery.payload
+      )}},status: {eq: "A"}}, limit: 1000) {
         items {
           id
           is_mealplan
@@ -172,12 +171,12 @@ export const searchProducts = (searchQuery) => {
     }
   }
 }`,
-	});
+  });
 };
 
 export const getProductDetails = (id) =>
-	JSON.stringify({
-		query: `{​​​​​​​
+  JSON.stringify({
+    query: `{​​​​​​​
       getItem(id: ${JSON.stringify(id)}) {​​​​​​​
         id
         category
@@ -222,7 +221,7 @@ export const getProductDetails = (id) =>
         }​​​​​​​
       }​​​​​​​
     }​​​​​​​`,
-	});
+  });
 
 export const getAddressList = `query ($customerId: ID!) {
     listAddresses (filter: {customer_id: {eq: $customerId}}) {
@@ -347,8 +346,7 @@ export const CartSummary = `query ($customer_id: ID!){
 }`;
 
 export const createCart = (params) => {
-	console.log("PARQAMS", params);
-	return `mutation {
+  return `mutation {
   createCart(input: ${params.payload}) {
     id
   }
@@ -419,7 +417,7 @@ export const getCartItemSchema = `query ($cartId: ID) {
 }`;
 
 export const createCartItem = (
-	data
+  data
 ) => `mutation ($item: ID!, $cart: ID!, $qty: Int!, $Subscription_data: SubscriptionData) {
   createCartItem(input: {item_id: $item, cart_id: $cart, qty: $qty, subscription_data: $Subscription_data}) {
     id
@@ -488,4 +486,23 @@ export const Orders = `query ($cutomer_mobile: String){
     finish_date
   }
 }
+}`;
+
+export const getStaples = `query ($limit: Int, $nextToken: String, $category: String) {
+  listItemCategories (filter: {category: {eq: $category},status: {eq: "A"}}, limit: $limit, nextToken: $nextToken){
+    items {
+      id
+      
+      category
+      defaultimg_url
+      description
+      display_name
+      img_url
+      name
+      status
+      upd_by
+      upd_on
+    }
+    nextToken
+  }
 }`;

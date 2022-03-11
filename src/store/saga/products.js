@@ -5,11 +5,10 @@ import { types } from "../constants";
 function* getProducts(params) {
 	try {
 		const products = yield call(Products.getProducts, params);
-		// console.log("prodduc", products.data.listItems.items);
 		if (products?.data) {
 			yield put({
 				type: types.PRODUCT_LIST_SUCCESS,
-				payload: products.data.listItems,
+				payload: params.payload.category === "Staples" ? products.data.listItemCategories : products.data.listItems,
 			});
 		} else {
 			yield put({

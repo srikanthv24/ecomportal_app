@@ -32,7 +32,7 @@ const ProductDetails = ({
 		qty: 0,
 		subscription_data: {
 			customer_id: userDetails.sub,
-			customer_name: "CK",
+			customer_name: "",
 			is_mealplan: false,
 			item_id: "",
 			item_name: "",
@@ -151,6 +151,16 @@ const ProductDetails = ({
 					</Col>
 					<Col sm={12} lg={6}>
 						<p className="mt-3 ff-4">{ProductDetails?.description}</p>
+						<h1>
+						<small className="text-muted col-12 h6">
+						Including{" "}
+						{String(ProductDetails.tax_methods)
+							.replace("Output", "")
+							.replace("-", "")}
+						</small>
+						<br />
+						<BiRupee /> {ProductDetails.sale_val} / {ProductDetails.uom_name}
+					</h1>
 					</Col>
 				</Row>
                     }
