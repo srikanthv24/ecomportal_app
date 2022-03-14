@@ -467,7 +467,7 @@ export const updateCartQty = `mutation ( $qty: Int!, $id: ID!, $ciid: ID!) { Upd
   }`;
 
 export const Orders = `query ($cutomer_mobile: String){
-  listSubscriptions(filter: {customer_mobile: {eq: $cutomer_mobile}}) {
+  listSubscriptions(filter: {status: {eq: "A"},customer_mobile: {eq: $cutomer_mobile}}) {
     item_count
     items {
     id
