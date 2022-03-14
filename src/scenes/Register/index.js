@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  FloatingLabel,
   Form,
   Button,
   Row,
   Col,
-  Image,
   Alert,
-  Nav,
-  InputGroup,
-  FormControl,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -18,10 +13,9 @@ import {
   authLoading,
 } from "../../store/actions/auth";
 import { useHistory } from "react-router";
-import VLogo from "../../assets/Vibrant-Living-logo.png";
+// import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "../Login/styles.css";
 import auth_services from "../../services/auth_services";
-import { hideLogin } from "../../store/actions";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -34,29 +28,28 @@ const Register = () => {
     (state) => state.auth
   );
 
-  console.log("userData:::", cognitoUserDetails);
-  console.log("error:::", error);
-
   const handleSubmit = (e) => {
     dispatch(authLoading());
     e.preventDefault();
-    console.log("signup btn is pressed", name, phone, password);
     auth_services
       .registerUser(name, phone, password)
       .then((res) => {
         dispatch(signupSuccess(res));
-        console.log("succesfully created the user:::", res);
-        history.replace("/login");
+        // history.replace("/login");
       })
       .catch((error) => {
         dispatch(authError(error.message));
-        console.log("error in registering user:::", error.message);
-        // setTimeout(() => {
-        //   dispatch(hideLogin())
-        // }, 2000);
-       
       });
   };
+
+  useEffect(() => {    
+    return () => {
+      setName("");
+      setPhone("");
+      setPassword("");
+    }
+  }, [])
+  
 
   if (loading) {
     return <p className="fs-5 fw-bold mt-2 text-center">Loading....</p>;

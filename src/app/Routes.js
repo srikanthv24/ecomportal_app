@@ -6,7 +6,7 @@ import AppBar from "../components/AppBar/app-bar";
 import Categories from "../scenes/Categories";
 import ProductsRoutes from "../scenes/Products";
 import Cart from "../scenes/Cart";
-import LemmeTry from "../scenes/lemmetry";
+// import LemmeTry from "../scenes/lemmetry";
 import { useSelector } from "react-redux";
 import CartSummary from "../scenes/Cart/cart-summary";
 import Orders from "../scenes/Orders";
