@@ -43,7 +43,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
   console.log("oooooo", ProductDetails);
   useEffect(() => {
     let temp = { ...Addresses };
-    if (ProductDetails.subscription) {
+    if (ProductDetails.subscription && ProductDetails.subscription.length) {
       setMealItem(true);
     } else {
       setMealItem(false);

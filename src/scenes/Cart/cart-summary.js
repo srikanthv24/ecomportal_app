@@ -74,7 +74,7 @@ const CartSummary = () => {
       });
       setItems(temp);
     }
-  }, [cartSummary.data, cartDetails.items]);
+  }, [cartSummary.data, cartDetails?.items]);
 
   return (
     <div>

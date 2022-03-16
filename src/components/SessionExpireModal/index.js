@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
 import auth_services from "../../services/auth_services";
 import { clearUserDetails, getTokenFailure, loginSuccess, updateUserDetails } from "../../store/actions/auth";
-import { handleModalClose } from "../../store/actions";
+import { handleModalClose, showLogin } from "../../store/actions";
 import { getOrders } from "../../store/actions/orders";
 import { getCart } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 export const SessionModal = ({ showModal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.auth.userDetails);
+  // const userDetails = useSelector((state) => state.auth.userDetails);
   
   const handleRefresh = () => {
 
@@ -27,6 +27,7 @@ export const SessionModal = ({ showModal }) => {
     dispatch(getTokenFailure());
     // setMenu(false);
     history.push("/");
+    dispatch(showLogin())
   };
 
   return (
