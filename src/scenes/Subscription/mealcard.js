@@ -27,7 +27,7 @@ const MealCard = ({ product, handleNextStep }) => {
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             height: "120px",
-            width: "100%",
+            width: "100%",marginTop:'1rem', marginBottom:'.5rem'
           }}
         />
       </Card.Body>

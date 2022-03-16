@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Row ,Spinner} from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails } from "../../store/actions/products";
+import { getProductDetails, clearProducts } from "../../store/actions/products";
 import { useParams } from "react-router-dom";
 import ProductPlanner from "./product-planner";
 import { FormProvider, useFormContext } from "react-hook-form";
@@ -21,6 +21,7 @@ const ProductDetails = ({
 	const userDetails = useSelector((state) => state.auth.userDetails);
 
 	const [ProductDetails, setProductDetails] = useState({});
+	const [isLoading, setLoading] = useState(true);
 
 	const methods = useFormContext();
 	const { setValue } = methods;
@@ -31,7 +32,7 @@ const ProductDetails = ({
 		qty: 0,
 		subscription_data: {
 			customer_id: userDetails.sub,
-			customer_name: "CK",
+			customer_name: "",
 			is_mealplan: false,
 			item_id: "",
 			item_name: "",
@@ -85,6 +86,12 @@ const ProductDetails = ({
 	});
 
 	useEffect(() => {
+		return () => {
+			dispatch(clearProducts())
+		}
+	}, [])
+
+	useEffect(() => {
 		if (id) {
 			productID = id;
 		} else {
@@ -98,6 +105,9 @@ const ProductDetails = ({
 
 	useEffect(() => {
 		setProductDetails(products.productDetails);
+		if (Object.keys(products.productDetails).length) {
+			setLoading(false);
+		}
 	}, [products.productDetails]);
 
 	const handleChange = (key, value) => {
@@ -112,7 +122,7 @@ const ProductDetails = ({
 	console.log("rrrr", products.loading);
 
 	return (
-		<FormProvider {...methods}>
+		<FormProvider {...methods}>{isLoading && <div className="fullscreen-loader"> <Spinner animation="grow" /></div>}
 				<div className="bg-1">
 					{!(products.productDetails?.is_mealplan)  ? 
 					<>
@@ -141,6 +151,16 @@ const ProductDetails = ({
 					</Col>
 					<Col sm={12} lg={6}>
 						<p className="mt-3 ff-4">{ProductDetails?.description}</p>
+						<h1>
+						<small className="text-muted col-12 h6">
+						Including{" "}
+						{String(ProductDetails.tax_methods)
+							.replace("Output", "")
+							.replace("-", "")}
+						</small>
+						<br />
+						<BiRupee /> {ProductDetails.sale_val} / {ProductDetails.uom_name}
+					</h1>
 					</Col>
 				</Row>
                     }

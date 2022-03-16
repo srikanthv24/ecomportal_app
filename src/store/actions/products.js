@@ -28,3 +28,10 @@ export const getAddons = (data) => {
 		payload: data
 	}
 }
+
+
+export const clearProducts = () => {
+	return {
+		type: "CLEAR_PRODUCT",
+	}
+}

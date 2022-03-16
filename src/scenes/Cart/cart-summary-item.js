@@ -27,6 +27,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
     D: "",
   });
 
+  const [mealItem, setMealItem] = useState(false);
   const [mealType, setMealType] = useState("");
   const [Duration, setDuration] = useState(null);
   const onDelete = (pindex) => {
@@ -42,6 +43,11 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
   console.log("oooooo", ProductDetails);
   useEffect(() => {
     let temp = { ...Addresses };
+    if (ProductDetails.subscription) {
+      setMealItem(true);
+    } else {
+      setMealItem(false);
+    }
     ProductDetails?.subscription?.map((item, index) => {
       if (item.isDelivery) {
         temp[item?.meal_type] =
@@ -53,7 +59,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
           ", " +
           item.address.city +
           ", " +
-          item.postalcode;
+          item.address.postalcode;
       } else {
         temp[item?.meal_type] = "Pickup";
       }
@@ -64,49 +70,44 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
     });
     setAddresses(temp);
 
-    // data.queryCartsByCustomerIndex.items[0].items[1].variants[0].items[0].display_name
-    // ProductDetails.variants.map((item) => {
-    //   if (item.display_name == "Duration") {
-    //     setDuration(item.items[0].display_name);
-    //   }
-    // });
+    ProductDetails?.variants?.map((item) => {
+      if (item.display_name == "Duration") {
+        setDuration(item.items[0].display_name);
+      }
+    });
   }, [ProductDetails]);
 
+  console.log("Addressss", Addresses);
+
   return (
-    <div>
+    <div className="w-100p">
       <Card className="my-1 bg-1">
         <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
-          <div
-            style={{
-              backgroundImage: `url(${
+          <div className="cart-list-image-container">
+            <img
+              src={
                 ProductDetails.defaultimg_url ||
                 "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-              })`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              height: "100px",
-              width: "100px",
-              borderRadius: "50%",
-              margin: 10,
-            }}
-          />
-          <div style={{ width: "calc(100% - 120px)" }}>
-            <Card.Text className="fs-9 mb-0 pb-0 col-12 text-truncate ff-4 fw-700 clr-black">
+              }
+              alt="img"
+            />
+          </div>
+          <div style={{ width: "calc(100% - 7rem)" }}>
+            <Card.Text className="cart-list-product-detailes-name mb-0 clr-black">
               {ProductDetails.item_name}
             </Card.Text>
-            <p className="fs-9 p-0 m-0 col-12 text-truncate ff-4 fw-400 clr-secondary">
+            <p className="cart-list-product-detailes-despname m-0 col-12 ff-4 clr-secondary">
               {ProductDetails.category}
             </p>
-
-            <small className="col-12 ff-4 clr-black">
+            <p className="col-12 ff-4 clr-black cart-list-product-detailes-attribute-kind mb-0">
               Including{" "}
               {String(ProductDetails.tax_methods)
-                .replace("Output", "")
+                .replace("GST", "GST ")
+                .replace("OUTPUT", " %")
                 .replace("-", "")}
-            </small>
-            <p className="ff-2 clr-black mb-2">
-              {/* {ProductDetails.category === "Snacks" ? (
+            </p>
+            {/* <p className="ff-2 clr-black mb-0 d-flex justify-content-between"> */}
+            {/* {ProductDetails.category === "Snacks" ? (
                 <span
                   style={{
                     fontSize: "12px",
@@ -132,23 +133,22 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
                   /
                 </span>
               )} */}
-              <span>
-              {ProductDetails?.uom_name} + Tax:{" "}
-                  {ProductDetails?.tax_amount} ={" "}
-                  
-              </span>
-              <div
-                className="ff-2 clr-black mb-2 fw-700"
-                style={{
-                  fontSize: "14px",
-                }}
-              >
+            {/* <span>
+              {ProductDetails?.uom_name} + Tax{" "}
+                  {ProductDetails?.tax_amount} + Inclues{" "}                  
+              </span> */}
+            <p className="cart-list-product-detailes-attribute-kind mb-2">
+              Tax {ProductDetails?.tax_amount} Includes{" "}
+            </p>
+            {/* </p> */}
+            <p className="ff-2 clr-black mb-0 d-flex justify-content-between">
+              <div className="ff-2 mb-0 cart-list-product-detailes-sale-price">
                 <BiRupee />
                 {ProductDetails.sub_total}
               </div>
             </p>
 
-            {isExpanded && (
+            {mealItem && isExpanded && (
               <div>
                 <span style={{ fontSize: 12, fontWeight: 600 }}>
                   Subscribed for {Duration}
@@ -165,7 +165,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
                 )}
 
                 {Addresses.L && (
-                  <div className="d-flex flex-column my-2">
+                  <div className="d-flex flex-column mb-2">
                     <span style={{ fontSize: 12 }} className="text-muted">
                       Lunch Address
                     </span>
@@ -215,22 +215,26 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
           >
             <BsPencil />
           </Button>
-          {isExpanded ? (
-            <span
-              variant="link"
-              className="w-100 text-center text-primary"
-              onClick={() => setisExpanded(false)}
-            >
-              <AiFillCaretUp /> view less
-            </span>
-          ) : (
-            <span
-              variant="link"
-              className="w-100 text-center clr-black"
-              onClick={() => setisExpanded(true)}
-            >
-              <AiFillCaretDown /> view more
-            </span>
+          {mealItem && (
+            <div>
+              {isExpanded ? (
+                <span
+                  variant="link"
+                  className="w-100 text-center clr-black"
+                  onClick={() => setisExpanded(false)}
+                >
+                  <AiFillCaretUp /> view less
+                </span>
+              ) : (
+                <span
+                  variant="link"
+                  className="w-100 text-center clr-black"
+                  onClick={() => setisExpanded(true)}
+                >
+                  <AiFillCaretDown /> view more
+                </span>
+              )}
+            </div>
           )}
           <div
             style={{
@@ -245,8 +249,8 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
               style={{
                 borderRadius: "50%",
                 marginLeft: 10,
-                color: "#F05922",
-                borderColor: "#F05922",
+                color: "#424141",
+                borderColor: "#424141",
                 display: "flex",
                 alignItems: "center",
                 width: "30px",

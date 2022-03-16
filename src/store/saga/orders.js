@@ -8,7 +8,7 @@ function* GetOrders(params) {
   if (response) {
     yield put({
       type: types.GET_ORDER_SUCCESS,
-      payload: response.data.listSubscriptions,
+      payload: response.data.listSubscriptions.items,
     });
   } else {
     yield put({

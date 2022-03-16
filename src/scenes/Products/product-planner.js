@@ -69,6 +69,26 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 	const handleClose = () => setShowModal(false);
 	const handleShow = () => setShowModal(true);
 
+	const colourStyles = {
+		menuList: styles => ({
+			...styles,
+			background: 'rgba(209,235,232,1)'
+		}),
+		option: (styles, {isFocused, isSelected}) => ({
+			...styles,
+			background: isFocused
+				? '#F2CBBD'
+				: isSelected
+					? 'rgba(54,41,24,1)'
+					: undefined,
+			zIndex: 1
+		}),
+		menu: base => ({
+			...base,
+			zIndex: 100
+		})
+		}
+
 	useEffect(() => {
 		dispatch(getAddons({ search: addonSearch }))
 	}, [addonSearch])
@@ -79,7 +99,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 				return {
 					label: <div style={{ display: "flex" }}>
 						<span>{add.display_name}</span>
-						<span style={{ marginLeft: "auto" }}><BiRupee />{add.sale_val ? add.sale_val : 0}</span>
+						<span style={{ marginLeft: "auto", whiteSpace:'nowrap' }}><BiRupee />{add.sale_val ? add.sale_val : 0}</span>
 					</div>,
 					value: add.id,
 					price: add.sale_val,
@@ -96,9 +116,15 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		data &&
 			data?.variants &&
 			data?.variants?.map((variant) => {
+				
+			
 				let temp1 = [];
+				console.log('varItem===>', variant);
+				
+					
+				
 				variant?.items.map((varItem) => {
-					temp1.push({
+					 temp1.push({
 						...varItem,
 						display_name: varItem?.display_name,
 						label: varItem?.display_name,
@@ -142,7 +168,9 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 						setValue("variants", temp);
 					}
 				});
+			
 				temp.push({ ...variant, items: temp1 });
+			
 			});
 		setVariants(temp);
 	}, [data]);
@@ -179,7 +207,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		return (
 			<components.MenuList {...props}>
 				{props.children}
-				<Button variant="outline-dark" className="w-100" onClick={handleShow}>
+				<Button variant="outline-dark" className="w-100" onClick={handleShow} style={{marginTop:"20px"}}>
 					<GrAdd /> New address
 				</Button>
 			</components.MenuList>
@@ -191,7 +219,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		  <div
 			ref={innerRef}
 			{...innerProps}
-			style={{ display: "flex", justifyContent: "space-between" }}
+			style={{ display: "flex", justifyContent: "space-between", padding:"10px", background:'#ededed', marginBottom:'5px' }}
 		  >
 			<span style={{ cursor: "pointer" }}>{children}</span>
 			<span style={{ cursor: "pointer" }}>
@@ -330,37 +358,41 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 				handleShow={handleShow}
 				showModal={showModal}
 			/>
-			{Variants &&
+			{Variants && Variants.length > 0 && 
 				Variants.map((variant) => {
-					return (
-						<>
-							<p className="h6 text-muted mt-3 mb-2 ff-2">
-								{variant.display_name}
-							</p>
-							<Controller
-								control={control}
-								name={`variants.${variant.display_name}`}
-								render={({ field: { onChange, name, value, ref } }) => (
-									<Select
-										name={name}
-										placeholder={variant.display_name}
-										isMulti={variant.is_multiselect}
-										options={variant.items}
-										value={VariantValue[variant.display_name]}
-										onChange={(value) => {
-											setVariantValue({
-												...VariantValue,
-												[variant.display_name]: value,
-											});
-										}}
-									/>
-								)}
-							/>
-						</>
-					);
+					if(variant.display_name === "Duration") {
+						return (
+							<>
+								<p className="h6 text-muted mt-3 mb-2 ff-2">
+									{variant.display_name}
+								</p>
+								<Controller
+									control={control}
+									name={`variants.${variant.display_name}`}
+									render={({ field: { onChange, name, value, ref } }) => (
+										<Select
+											name={name}
+											placeholder={variant.display_name}
+											isMulti={variant.is_multiselect}
+											options={variant.items}
+											value={VariantValue[variant.display_name]}
+											className="prd-planning-select-box"
+											styles={colourStyles}										
+											onChange={(value) => {
+												setVariantValue({
+													...VariantValue,
+													[variant.display_name]: value,
+												});
+											}}
+										/>
+									)}
+								/>
+							</>
+						);
+					}
 				})}
 
-			<Accordion defaultActiveKey="0" className="mt-4" style={{ zIndex: 2 }}>
+			<Accordion defaultActiveKey="0" className="mt-4 prd-planner-acc" style={{ zIndex: 2 }}>
 				{/* BreakFast */}
 				{deliverables.map((deliver, index) => {
 					{console.log("dfdfdf",deliver)}
@@ -374,6 +406,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 								<input
 									type="checkbox"
 									style={{ marginRight: 5 }}
+									className="acc-checkbox"
 									checked={subscription[index].is_included}
 									onChange={(ev) => {
 										let temp = [...subscription];
@@ -437,7 +470,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 								<div>
 									{subscription[index].isDelivery && (
 										<>
-											<p className="h6 text-muted mt-3 mb-0 m-2">
+											<p className="h6 text-muted mt-3 mb-2 m-2">
 												Delivery Address *
 											</p>
 											<Controller
@@ -453,6 +486,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 														}}
 														{...rest}
 														value={selectedAddress[deliver.value]}
+														styles={colourStyles}
 														onChange={(address) => {
 															let addrss = { ...address };
 															delete addrss.label;
@@ -469,7 +503,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 										</>
 									)}
 
-									<InputGroup className="my-2">
+									<InputGroup className="my-2 dp-date">
 										<InputGroup.Text>Start Date</InputGroup.Text>
 										<FormControl
 											type="date"
@@ -519,7 +553,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 												</span>
 											</div>
 
-											<div style={{ width: "100%", overflow: "scroll" }}>
+											<div style={{ width: "100%", overflow: "auto" }}>
 												<Controller
 													control={control}
 													name={`subscription[${index}].order_dates`}
@@ -529,7 +563,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 															multiple															
 															numberOfMonths={2}
 															minDate={
-																subscription[index].order_dates[0] || new Date()
+																 new Date()
 															}
 															style={{ width: "100%" }}
 															maxDate={
@@ -547,6 +581,9 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 															onChange={(dateObj) => {
 																let temp = [];
 																dateObj.map((date) => {
+																	if (temp?.length === VariantValue?.Duration?.duration) {
+																		return null;																		
+																		}
 																	temp.push(date.format());
 																});
 																// handleChange("mealplan_type", {
@@ -599,6 +636,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 
 											<InputGroup style={{width:"50px",  position: "relative",}}>
 												<FormControl
+												style={{background:'transparent',borderColor:'rgba(54,41,24,0.75)'}}
 													//type="number"
 													value={addonItem.qty}
 													onChange={(e) => {
@@ -656,7 +694,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 														//isMulti={true}
 														isSearchable={true}
 														options={addons}
-														className="mb-3 text-start"
+														className="mb-3 text-start custom-accordion-bg"
 														{...rest}
 														// onChange={(value) => {
 														// 	console.log("value-inside-select", value);
@@ -667,6 +705,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 														// 	onChange(temp);
 
 														// }}
+														styles={colourStyles}
 														onChange={(value) => {
 															handleAddOns(index, deliver.id, value, onChange)
 															}

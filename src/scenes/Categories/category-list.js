@@ -8,10 +8,6 @@ import "./styles.css";
 
 const CategoryList = ({ list, loading }) => {
   const history = useHistory();
-
-  
-
- 
   return (
     <>
       <Row

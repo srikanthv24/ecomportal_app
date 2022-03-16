@@ -1,4 +1,59 @@
 
+.for-image-hover{
+    width: 100%;
+    /* background-color: #cccccc; */
+    padding: 2rem .5rem 2rem;
+    position: relative;
+    border-radius: 9999px 9999px 100rem 100rem;
+}
+.for-image-hover:hover{
+    width: 100%;
+    cursor: pointer;
+    /* background: #ffffff; */
+    background-color: rgba(209,235,232,1);
+    /* height: 500px; */
+    border-radius: 9999px 9999px 100rem 100rem;
+    padding: 2rem .5rem 2rem;
+    position: absolute;
+    top:0px;
+}
+.prd-img-block{
+    max-width: 100%;
+    /* height: 200px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #ffffff; */
+    /* border: 1px solid rgba(0,0,0,0.45); */
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
+.prd-img-block img{
+    width: auto !important;
+    max-width: 100%;
+    max-height:100%;
+    display: inline-block; /* Instead of display: block; */
+    margin: 0 auto;
+    vertical-align: middle;
+}
+.prd-info-block{
+    text-align: center;
+    color: rgba(53,40,23,1);
+    font-size: 25px;
+    letter-spacing: -.025em;
+    line-height: 2.5rem;
+    font-weight: 700;
+    padding-top: .5rem;
+    /* text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap; */
+}
+.primary-font {
+    font-family: "Playfair Display", serif !important;
+}
+
+
+
 .for-store-txt{
     padding-top: 4rem;;
     color : rgba(137,76,91,1);
@@ -38,9 +93,10 @@
     font-family: "Roboto Mono",monospace!important;
 }
 
-for-store-img {
+.for-store-img {
+    width: 100%;
     max-width: 768px;
- 
+    margin: 0 auto; 
 }
 
 
@@ -54,6 +110,16 @@ for-store-img {
     padding: 0 !important;
     font: inherit;
 }
+.owl-carousel .owl-nav button.owl-prev > span, .owl-carousel .owl-nav button.owl-next >span{
+    font-size: 3rem;
+    line-height: 100%;
+    position: relative;
+    top: -8px;
+}
+.owl-carousel .owl-nav button.owl-prev:hover, .owl-carousel .owl-nav button.owl-next:hover {
+    background-color: #F2CBBD;
+    cursor: pointer;
+}
 
 /* .owl-carousel .owl-nav button.owl-prev {
   background-image: url("../../assets/home/slider-left-arrow.svg")
@@ -62,30 +128,55 @@ for-store-img {
  .owl-carousel .owl-nav button.owl-next {
 
 } */
+/* .prd-detail-info-item{
+height:260px;
+margin-top: 20px;
+position: relative;
+padding: .5rem;
+} */
 
+/* .for-image-hover{ 
+position: relative;
+height: calc(230px - 0.5rem);
+}
 .for-image-hover:hover{ 
     cursor: pointer;
     background: #ffffff;
-    min-height: 480px;
+    height: 500px;
     border-radius: 9999px 9999px 100rem 100rem;
     padding: 2rem;
+    position: absolute;
+    top:0px;
 }
 .for-image-hover:hover img{
     border-radius: 51% 49% 45% 55%/54% 64% 36% 46%;
-    min-height: 335px;
+    height: 301px;
     max-width: 320px;
     overflow: hidden;
     transition: all .3s ease-in-out; 
 }
-
+.prd-info-block{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .for-product-name{
-    line-height: 2.5rem;
+    line-height:28px;
     text-align: center;
-    font-size: 30px;
+    font-size: 16px;
     color: rgba(53,40,23,1);
     font-weight: 700;
     margin:  10px auto;
     font-family: "Playfair Display",serif!important;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .for-product-price{
     line-height: 2.5rem;
@@ -94,8 +185,38 @@ for-store-img {
     color: rgba(53,40,23,1);
     font-weight: 300;
     margin:  0 auto;
-}
+} */
 
     
+@media screen and (min-width:768px) {
+    .prd-img-block{
+        max-height: 200px;
+    }
+    .prd-info-block{       
+        font-size: 25px;
+        font-weight: 500;
+        padding-top: 1.25rem;
+    }
+}
 
-
+@media  screen and (max-width:768px) {
+    .prd-img-block{
+        max-height: 160px;
+        display: flex;
+    }
+    .prd-img-block img{
+        width: auto !important;
+        max-width: 100%;
+        max-height:100%;
+        display: inline-block; /* Instead of display: block; */
+        margin: 0 auto;
+        vertical-align: middle;
+    }
+    .prd-info-block{       
+        font-size: 20px;
+        letter-spacing: -.025em;
+        line-height:26px;
+        font-weight: 500;
+        padding-top: 0.5rem;
+    }
+}

@@ -9,7 +9,6 @@ const initialState = {
 };
 
 export const Addresses = (state = initialState, action) => {
-  console.log("delete address reducer is called:::", action);
   switch (action.type) {
     case types.ADDRESS_LIST_SUCCESS:
       return { ...state, addressList: action.payload };

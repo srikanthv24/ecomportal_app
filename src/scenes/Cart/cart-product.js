@@ -76,15 +76,8 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
   };
 
   return (
-    <div style={{background: "rgb(249, 243, 223)"}}>
-      <Card
-        style={{
-          marginBottom: 10,
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "row",
-        }}
-      >
+    <div className="cart-edit-pcard">
+      <Card className="cart-edit-pcard-item">
         <Card.Body
           variant="top"
           className="p-1"
@@ -105,7 +98,7 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
             }}
           />
         </Card.Body>
-        <Card.Body className="pt-2">
+        <Card.Body className="pt-2 cart-edit-pcard-item-info">
           <Card.Text
             className="h6 mb-0 pb-0 col-12 text-truncate"             
             onClick={() => history.push("/products/" + ProductDetails.item_id)}

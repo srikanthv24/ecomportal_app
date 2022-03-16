@@ -9,7 +9,6 @@ const intialState = {
 }
 
 export const mealPlansReducer = (state = intialState, action) => {
-    console.log("meal plans reducerrrrrrrrr::::", action);
     switch (action.type) {
         case types.MEAL_PLAN_ID:
             return {
@@ -30,6 +29,7 @@ export const mealPlansReducer = (state = intialState, action) => {
         case types.MEALPLANS_LIST_FAILURE:
                 return {
                     ...state,
+                    loading: false,
                     mealPlansList: []
                 }    
         case types.MEALPLAN_DETAILS:

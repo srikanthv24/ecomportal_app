@@ -3,7 +3,7 @@ import {
   CognitoUser,
   CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
-import UserPool from "../../scenes/Login/UserPool";
+import UserPool, { poolData } from "../../scenes/Login/UserPool";
 import { getCognitoUser } from "../getCognitoUser";
 
 class AuthService {
@@ -133,6 +133,27 @@ class AuthService {
         reject("No user found");
       }
     });
+  }
+
+  refreshToken() {
+
+    return new Promise((resolve, reject) => {
+      let currentUser = UserPool.getCurrentUser();
+      let cognitoUser = getCognitoUser({
+        Pool: UserPool,
+        Username: currentUser.username,
+      });
+  
+      cognitoUser.getSession((err, res) => {
+        console.log("ERR-RESS", err, res);
+        cognitoUser.refreshSession(res.refreshToken, (error, result) => {
+          console.log('refreshedToken--->', error, result)
+          
+          sessionStorage.setItem("token", result.accessToken.jwtToken);
+          resolve(result);
+        })
+      });
+    })
   }
 }
 
