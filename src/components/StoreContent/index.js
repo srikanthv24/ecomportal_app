@@ -89,7 +89,6 @@ const StoreContent = () => {
           nav {...options}
         >
           {categories.categories.map((item, index) => {
-            console.log('Item-==-=', item)
             return (
               <div className="prd-detail-info-item" key={index} onClick={() =>
                 history.push(`/products?category=${item.display_name}`)
