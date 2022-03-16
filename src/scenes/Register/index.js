@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  FloatingLabel,
   Form,
   Button,
   Row,
   Col,
-  Image,
   Alert,
-  Nav,
-  InputGroup,
-  FormControl,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -18,10 +13,9 @@ import {
   authLoading,
 } from "../../store/actions/auth";
 import { useHistory } from "react-router";
-import VLogo from "../../assets/Vibrant-Living-logo.png";
+// import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "../Login/styles.css";
 import auth_services from "../../services/auth_services";
-import { hideLogin } from "../../store/actions";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -34,29 +28,28 @@ const Register = () => {
     (state) => state.auth
   );
 
-  console.log("userData:::", cognitoUserDetails);
-  console.log("error:::", error);
-
   const handleSubmit = (e) => {
     dispatch(authLoading());
     e.preventDefault();
-    console.log("signup btn is pressed", name, phone, password);
     auth_services
       .registerUser(name, phone, password)
       .then((res) => {
         dispatch(signupSuccess(res));
-        console.log("succesfully created the user:::", res);
-        history.replace("/login");
+        // history.replace("/login");
       })
       .catch((error) => {
         dispatch(authError(error.message));
-        console.log("error in registering user:::", error.message);
-        // setTimeout(() => {
-        //   dispatch(hideLogin())
-        // }, 2000);
-       
       });
   };
+
+  useEffect(() => {    
+    return () => {
+      setName("");
+      setPhone("");
+      setPassword("");
+    }
+  }, [])
+  
 
   if (loading) {
     return <p className="fs-5 fw-bold mt-2 text-center">Loading....</p>;
@@ -66,9 +59,9 @@ const Register = () => {
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <div className="text-center mt-4">
+          {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
-          </div>
+          </div> */}
           <p className="fs-5 fw-bold mt-4 mb-3 secondary-color text-center">
             Create Account
           </p>
@@ -135,43 +128,43 @@ const Register = () => {
           </Form> */}
           <Form>
             <Form.Group className="mb-3" controlId="forMobileNumber">
-              <Form.Label>Mobile Number</Form.Label>
+              {/* <Form.Label>Mobile Number</Form.Label> */}
               <Form.Control
                 type="number"
-                placeholder="Enter mobile number"
+                placeholder="Enter Phone Number"
                 maxLength={10}
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={(event) => setPhone(event.target.value)} style={{height:'52px'}}
                 required
               />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="forName">
-              <Form.Label>Name</Form.Label>
+              {/* <Form.Label>Name</Form.Label> */}
               <Form.Control
                 type="text"
                 required
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setName(event.target.value)} style={{height:'52px'}}
                 placeholder="Name"
               />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              {/* <Form.Label>Password</Form.Label> */}
               <Form.Control
                 type="password"
                 placeholder="Password"
                 required
                 value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)} style={{height:'52px'}}
               />
             </Form.Group>
 
             <Button
               variant="primary"
               onClick={handleSubmit}
-              className="custom-btn w-100"
+              className="custom-btn w-100 mt-2"
             >
               Register
             </Button>

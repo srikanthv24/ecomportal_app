@@ -11,17 +11,26 @@
     font-size: 16px;
   }
   .customform .input-group .form-control {
-    padding: 1rem .75rem;
+    padding: 0.75rem .75rem;
     font-size: 16px;
   }
+  .form-floating>.form-control{
+    height: calc(3rem + 2px) !important;
+  }
+  .form-floating>label{
+    padding: 0.75rem 0.75rem !important;
+  }
   .custom-btn{
-      font-size: 20px !important;
+      font-size: 16px !important;
       font-weight: 500 !important;
       /* background-color: #f05922 !important; */
-      background-color: #614731 !important;
-      color: #ffffff;
+      /* background-color: #614731 !important; */
+      background-color: #ebebeb !important;
+      color: #4b4955!important;
       border: none !important;
       min-height: 52px;
+      max-width: 80%;
+      margin: 0 10%;
   }
   .nav-item{
       margin-left: auto;
@@ -38,3 +47,11 @@
   .pos-rel{
     position: relative;
   }
+
+  .form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #F05922 !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(240 89 34 / 25%) !important;
+}

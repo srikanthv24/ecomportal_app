@@ -38,17 +38,9 @@ const Cart = () => {
   };
 
   return (
-    <section className="bg-1" style={{minHeight:'calc(100vh - 126px)'}}>
+    <section className="bg-1 cart-edit-wrapper">
       <div style={phantom2}  />
-      <Card.Header
-        style={{
-          position: "fixed",
-          top: 118,
-          zIndex: 999,
-          width: "100%",
-          background: "transparent",
-        }}
-      >
+      <Card.Header className="mt-4">
         <div className="w-100 text-left">
           <div className="d-block text-left">
             <p className="h5 m-0 p-0 page-title"> Cart</p>
@@ -59,9 +51,12 @@ const Cart = () => {
           <div></div>
         </div>
       </Card.Header>
-      <div div style={{ padding: 10 }}>
-        <>
+      <div className="cart-info-block">
+        <>        
+        {/* <div className="cart-items-block"> */}
+      
           {Cart?.cartDetails?.items?.length ? (
+            
             // Cart?.cartDetails?.items[0]?.items?.map((item) => {
               Cart?.cartDetails?.items?.map((item,index) => {
               if (item) {
@@ -69,7 +64,7 @@ const Cart = () => {
                 total = total + item.item.qty;
               }
 
-              return item.item && item.item?.qty ? (
+              return item.item && item.item?.qty ? (               
                 <CardProduct
                   pindex={index}
                   key={item.item_id}
@@ -77,13 +72,13 @@ const Cart = () => {
                   cartDetails={Cart?.cartDetails}
                   totalQty={total}
                   pushPrice={(p) => calculatePrice(p)}
-                />
+                />                
               ) : null;
             })
           ) : (
             <div className="d-flex flex-column justify-content-center align-items-center mt-4">
               <h5>No Items found!</h5>
-              <Button onClick={() => history.push("/")} className="btn custom-btn-secondary">
+              <Button onClick={() => history.push("/")} className="btn custom-primary-btn">
                 Explore products now
               </Button>
             </div>
@@ -98,9 +93,10 @@ const Cart = () => {
               padding: 10,
               boxShadow: "1px 0px 3px 0px rgba(0,0,0,0.4)",
               zIndex: 10000,
+              background:"#F2CBBD"
             }}
           >
-            <Button className="btn custom-btn-secondary"
+            <Button className="btn custom-primary-btn"
               style={{ width: "100%" }}
               // onClick={handleContinue}
               onClick={() => history.push("/cart-summary")}

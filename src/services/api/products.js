@@ -4,6 +4,7 @@ import {
 	getProductDetails,
 	getProducts,
 	getProductsByCategory,
+	getStaples,
 	searchProducts,
 } from "../graphql/mutations";
 
@@ -18,8 +19,10 @@ export class Products {
 	static getAddons = (data) => {
 		let q = `{listItems`;
 		if (data.search) {
-			q += `(filter:{display_name: {contains:"${data.search}"}})`
-		}
+			q += `(filter:{display_name: {contains:"${data.search}"},is_mealplan: {eq: true},status: {eq: "A"}})`
+		}else {
+			q += `(filter:{is_mealplan: {eq: false},status: {eq: "A"}})`
+			}
 		q += `{
 				items {
 					category
@@ -59,7 +62,7 @@ export class Products {
 				// Production"X-API-KEY": "da2-xclkxhpjbbbxfcyw2vtp3zc64e",
 				// body: params.payload ? getProductsByCategory(params) : getProducts(),
 				body: JSON.stringify({
-					query: getProducts,
+					query: params.payload.category === "Staples" ? getStaples : getProducts,
 					variables: {
 						category: params.payload.category || "",
 						limit: params.payload.limit,

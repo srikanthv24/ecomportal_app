@@ -92,7 +92,7 @@ export const AddressModal = ({
             </FloatingLabel>
 
             {filteredPinCode === 0 && (
-              <div className="p-3 mb-2 bg-info text-dark">
+              <div className="p-3 mt-4 mb-2 custom-btn text-dark text-center">
                 Validate Pincode for Delivery
               </div>
             )}
@@ -218,7 +218,7 @@ export const AddressModal = ({
             ) : null}
 
             {filteredPinCode.length === 0 && (
-              <div className="p-3 mb-2 bg-info text-dark">
+              <div className="p-3 mt-4 mb-2 custom-btn text-dark">
                 Sorry currently our services are not available in your location.
               </div>
             )}
@@ -226,10 +226,10 @@ export const AddressModal = ({
         </Modal.Body>
         {filteredPinCode.length && filteredPinCode[0].postalcode ? (
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button className="vl-close-btn" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="warning" onClick={handleSubmit}>
+            <Button className="vl-save-btn" onClick={handleSubmit}>
               Save Address
             </Button>
           </Modal.Footer>

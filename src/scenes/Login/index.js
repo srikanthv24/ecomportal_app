@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import {
@@ -18,21 +18,22 @@ import {
   authError,
   authLoading,
   updateUserDetails,
+  clearAuthError,
 } from "../../store/actions/auth";
-import VLogo from "../../assets/Vibrant-Living-logo.png";
+// import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "./styles.css";
-import "./styles.css";
+// import "./styles.css";
 import auth_services from "../../services/auth_services";
 import { hideLogin } from "../../store/actions";
 
 function Login() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { tokenList, loading, error } = useSelector((state) => state.auth);
+  const { tokenList, loading, error, isRegistered } = useSelector((state) => state.auth);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log("tokenList:::::::::", tokenList);
+  //console.log("tokenList:::::::::", tokenList);
 
   const getUserDetails = () => {
     auth_services.getUser().then((res) => {
@@ -47,16 +48,23 @@ function Login() {
       .login(phone, password)
       .then((res) => {
         getUserDetails();
-        console.log("OnSuccess: ", res, res.accessToken);
+        //console.log("OnSuccess: ", res, res.accessToken);
         dispatch(loginSuccess(res));
         sessionStorage.setItem("token", res.accessToken.jwtToken);
-        dispatch(hideLogin())
+        dispatch(hideLogin());
       })
       .catch((err) => {
-        console.log("onFailure: ", err.message);
+        //console.log("onFailure: ", err.message);
         dispatch(authError(err.message));
       });
   };
+
+  useEffect(() => {
+    dispatch(clearAuthError());
+    setPhone("");
+    setPassword("");
+  }, [])
+  
 
   if (loading) {
     return <p className="fs-5 fw-bold mt-2 text-center">Loading....</p>;
@@ -66,17 +74,26 @@ function Login() {
     <div className="container text-center login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <div className="text-center mt-4">
+          {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
-          </div>
-          <p className="fs-5 fw-bold mt-4 mb-3 secondary-color" style={{fontFamily:'Roboto Mono',fontWeight:'500',fontSize:'15px', textTransform:'uppercase'}}>Sign In</p>
+          </div> */}
+          <p
+            className="fs-5 fw-bold mt-5 mb-3 secondary-color"
+            style={{
+              fontFamily: "Roboto",
+              fontWeight: "700",
+              fontSize: "16px",
+            }}
+          >
+          {`${isRegistered ? " Successfully Registered. Try to login now." : "login to continue..."}`}
+          </p>
           <Form className="customform">
             <InputGroup className="mb-3">
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <FormControl
                 autoFocus
                 type="number"
-                placeholder="Mobile Number"
+                placeholder="Phone Number"
                 maxLength={10}
                 value={phone}
                 onChange={(event) => setPhone(event.target.value)}
