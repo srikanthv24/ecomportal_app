@@ -1,53 +1,67 @@
 import { call, put, takeEvery, all, takeLatest } from "redux-saga/effects";
-//import { Products } from "../../services/api/products";
 import { types } from "../constants";
-import { mealPlans } from '../../services/api/mealPlans';
-
+import { mealPlans } from "../../services/api/mealPlans";
 
 function* getMealPlans() {
-    try {
-      const response = yield call(() => mealPlans.getMealPlans());
-      console.log("meal plans saga", response.data.listItems.items);
-      if (response.data) {
-        yield put({
-          type: types.MEALPLANS_LIST_SUCCESS,
-          payload: response.data.listItems.items,
-        });
-      } else {
-        yield put({
-          type: types.MEALPLANS_LIST_FAILURE,
-          payload: [],
-        });
-      }
-    } catch (error) {}
+  try {
+    const { data, errors } = yield call(() => mealPlans.getMealPlans());
+    if (data) {
+      yield put({
+        type: types.MEALPLANS_LIST_SUCCESS,
+        payload: data.listItems.items,
+      });
+    } else if (errors && errors[0]?.errorType === "UnauthorizedException") {
+      yield put({
+        type: types.SESSION_EXPIRED,
+        payload: errors,
+      });
+    } else {
+      yield put({
+        type: types.MEALPLANS_LIST_FAILURE,
+        payload: errors,
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: types.MEALPLANS_LIST_FAILURE,
+      payload: error,
+    });
   }
+}
 
 function* getMealPlanById(action) {
-  console.log("view mealplan by id saga action", action);
   try {
-    const response = yield call(mealPlans.mealPlanDetails, action.payload);
-    if (response.data) {
+    const { data, errors } = yield call(
+      mealPlans.mealPlanDetails,
+      action.payload
+    );
+    if (data) {
       yield put({
         type: types.MEALPLAN_DETAILS_SUCCESS,
-        payload: response.data.getItem,
+        payload: data.getItem,
+      });
+    } else if (errors && errors[0]?.errorType === "UnauthorizedException") {
+      yield put({
+        type: types.SESSION_EXPIRED,
+        payload: errors,
       });
     } else {
       yield put({
         type: types.MEALPLAN_DETAILS_FAILURE,
-        payload: {},
+        payload: errors,
       });
     }
   } catch (error) {
     yield put({
       type: types.MEALPLAN_DETAILS_FAILURE,
-      payload: error
+      payload: error,
     });
   }
 }
 
 export function* mealPlansSaga() {
-    yield all([
+  yield all([
     yield takeEvery(types.MEALPLANS_LIST, getMealPlans),
     yield takeLatest(types.MEALPLAN_DETAILS, getMealPlanById),
-    ])
-  }
+  ]);
+}

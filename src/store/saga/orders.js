@@ -1,23 +1,37 @@
-import { all, call, put, takeLatest } from "@redux-saga/core/effects";
+import { call, put, takeLatest } from "@redux-saga/core/effects";
 import { OrdersApi } from "../../services/api/orders";
 import { types } from "../constants";
 
 function* GetOrders(params) {
-  const response = yield call(OrdersApi.getOrders, params.payload.customer_number);
-  console.log("Response-Orders", response);
-  if (response) {
-    yield put({
-      type: types.GET_ORDER_SUCCESS,
-      payload: response.data.listSubscriptions.items,
-    });
-  } else {
+  try {
+    const { data, errors } = yield call(
+      OrdersApi.getOrders,
+      params.payload.customer_number
+    );
+    if (data) {
+      yield put({
+        type: types.GET_ORDER_SUCCESS,
+        payload: data.listSubscriptions.items,
+      });
+    } else if (errors && errors[0]?.errorType === "UnauthorizedException") {
+      yield put({
+        type: types.SESSION_EXPIRED,
+        payload: errors,
+      });
+    } else {
+      yield put({
+        type: types.GET_ORDER_FAILURE,
+        payload: errors,
+      });
+    }
+  } catch (error) {
     yield put({
       type: types.GET_ORDER_FAILURE,
-      payload: response,
+      payload: error,
     });
   }
 }
 
 export function* OrdersSaga() {
-  yield all([takeLatest(types.GET_ORDER, GetOrders)]);
+  yield takeLatest(types.GET_ORDER, GetOrders);
 }

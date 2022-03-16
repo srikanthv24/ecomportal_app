@@ -6,7 +6,8 @@ import {
     customerReducer,
     mealPlansReducer,
     AuthReducer,
-    balanceReducer
+    balanceReducer,
+    sessionExpireReducer,
 } from './reducers';
 import { AlertReducer } from './reducers/alert';
 import { Login } from './reducers/login';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     Orders: Orders,
     Login: Login,
     balanceReducer: balanceReducer,
+    sessionExpire: sessionExpireReducer
 })
 
 export default rootReducer;

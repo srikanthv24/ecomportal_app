@@ -1,7 +1,6 @@
 import { types } from "../constants";
 
 export const getAddresses = (payload) => {
-  console.log("hhhhhhhhh",payload)
   return {
     type: types.ADDRESS_LIST,
     payload,
@@ -17,7 +16,6 @@ export const postAddress = (payload) => {
 };
 
 export const deleteAddress = (data) => {
-  console.log("delete address action is called:::", data);
   return {
     type: types.DELETE_ADDRESS,
     payload: data

@@ -18,12 +18,14 @@ import { GrClose } from "react-icons/gr";
 import LoginModal from "../components/LoginModal";
 import { hideLogin } from "../store/actions";
 import "./App.css";
+import { SessionModal } from "../components/SessionExpireModal";
 
 function App() {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.auth.userDetails);
   const loginModal = useSelector((state) => state.Login.isLoggedIn);
+  const { showModal, errors } = useSelector((state) => state.sessionExpire);
 
   useEffect(async () => {
     const getToken = await sessionStorage.getItem("token");
@@ -36,11 +38,10 @@ function App() {
     auth_services
       .getUser()
       .then((res) => {
-        console.log("RESSSS", res);
         dispatch(updateUserDetails(res));
       })
       .catch((err) => {
-        console.log("FAILEEEDDDD", err);
+        console.log("error", err);
       });
   }, []);
 
@@ -55,6 +56,10 @@ function App() {
 
   return (
     <div className="App">
+      <SessionModal
+        showModal={showModal}
+        // message={errors[0]?.message}
+      />
       <Modal show={loginModal} centered size="xl">
         <Button
           variant="light"
