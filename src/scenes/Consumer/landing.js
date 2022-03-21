@@ -39,17 +39,17 @@ const Landing = () => {
     <HomeContent />
     <CategoriesContent />
     <Container fluid className="content-body px-0" style={{background: "#F2CBBD", paddingBottom:'2rem'}}>
-      {userDetails.sub && (
+      {/* {userDetails.sub && (
         <section className="page-content bg-1">
           <SimpleCard />
         </section>
       )}
     <section className="page-content1 px-0 bg-2">
-      {/* <GridContentSection /> */}
+      <GridContentSection />
       
     </section>
 
-    {/* <section className="page-content1 py-3 bg-3">
+    <section className="page-content1 py-3 bg-3">
       <ViewContentSection />
     </section> */}
 

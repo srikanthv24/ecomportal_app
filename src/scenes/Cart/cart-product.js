@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCartQty } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
 import {deleteCartItem} from "../../store/actions/cart-item";
+import { displayCurrency } from "../../helpers/displayCurrency";
 
 const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
   const history = useHistory();
@@ -111,8 +112,8 @@ const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
 
           <Card.Text>
             <span className="d-flex justify-content-start">
-              <span className="d-flex">
-                <BiRupee /> {Number(ProductDetails.sale_val) || 0 } /{" "} 
+              <span className="d-flex align-items-center">
+                <BiRupee />  {displayCurrency(ProductDetails.sub_total)} /{" "} 
                 {ProductDetails.uom_name}
               </span>
             </span>

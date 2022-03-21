@@ -271,7 +271,7 @@ export const getCart = `query ($customer_id: ID!){
         uom_name
         category
         item_id
-        
+        sub_total
         qty
         
         subscription {

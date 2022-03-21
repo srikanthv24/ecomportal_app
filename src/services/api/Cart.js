@@ -100,7 +100,7 @@ export class Cart {
     console.log("my_params", params);
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
@@ -132,7 +132,7 @@ export class Cart {
     const { id, customer_id, qty, cart_item_id } = params.payload;
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {

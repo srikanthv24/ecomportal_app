@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
+import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { displayCurrency } from "../../helpers/displayCurrency";
 import { getCart } from "../../store/actions/cart";
 import CardProduct from "./cart-product";
 
@@ -44,9 +46,9 @@ const Cart = () => {
         <div className="w-100 text-left">
           <div className="d-block text-left">
             <p className="h5 m-0 p-0 page-title"> Cart</p>
-            <small className="text-muted value-txt">
-              Sub-Total: {Number(totalPrice)?.toFixed(2)}
-            </small>
+            <small className="d-flex align-items-center text-muted value-txt">
+            Sub-Total: <BiRupee />  {displayCurrency(Cart?.cartDetails?.grand_total)}
+              </small>
           </div>
           <div></div>
         </div>

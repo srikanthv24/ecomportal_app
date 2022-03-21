@@ -67,18 +67,18 @@ export const Profile = () => {
                 </Row>
             </>
             {/* )}  */}
-            <Row>
+            {/* <Row>
                 <Col className='value-txt'>Email</Col>
             </Row>
             <Row>
                 <Col className='value-txt clr-black'>test@gmail.com</Col>
-            </Row>
+            </Row> 
             <Row>
                 <Col className='value-txt'>Address</Col>
             </Row>
             <Row>
-                <Col className='value-txt clr-black'>H.no: 1234, Hyderabad, India</Col>
-            </Row>
+                <Col className='value-txt clr-black'></Col>
+            </Row>*/}
             </section>
         </Container>
     )

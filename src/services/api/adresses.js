@@ -1,7 +1,5 @@
 import { api_urls } from "../../utils";
 
-//m76 : Common_API_URL
-
 export class Adresses {
   static getAddressList = async (id) => {
     const getToken  = await sessionStorage.getItem('token')
@@ -11,7 +9,6 @@ export class Adresses {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          //"X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
           "Authorization": getToken,
         },
         body: JSON.stringify({

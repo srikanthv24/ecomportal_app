@@ -8,13 +8,7 @@ import {
 	searchProducts,
 } from "../graphql/mutations";
 
-const API_URL = process.env.REACT_APP_API_URL;
-// const API_KEY = process.env.REACT_APP_PRODUCT_API_KEY;
 
-//https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql
-//"X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
-
-//ca57 - Product_REL_API_URL
 export class Products {
 	static getAddons = (data) => {
 		let q = `{listItems`;

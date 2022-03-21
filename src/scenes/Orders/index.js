@@ -356,7 +356,7 @@ const Orders = () => {
         <small className="text-muted value-txt px-2">No Orders</small>
       )}
       {/* <Link to="/"> */}
-      <button className="w-100 bg-chocolate-900 btn btn-primary" style={{position:'absolute',bottom:'100px',left:'0'}} onClick={() => history.push("/")}>Go To Home</button>
+      <button className="w-100 bg-chocolate-900 btn btn-primary" style={{position:'absolute',bottom:'0px',left:'0'}} onClick={() => history.push("/")}>Go To Home</button>
       {/* </Link> */}
     </section>
   );

@@ -22,6 +22,7 @@ import {
 } from "../../store/actions/cart";
 import ProductDetails from "../Products/product-details";
 import { deleteCartItem } from "../../store/actions/cart-item";
+import { displayCurrency } from "../../helpers/displayCurrency";
 
 var phantom = {
   display: "block",
@@ -342,7 +343,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 								<p className="h5 ff-2">
 									{/* <BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)} */}
 									<BiRupee />
-									{String(SubscriptionTotal).replace(	/\B(?=(\d{3})+(?!\d))/g,","	) || 0}
+                  {displayCurrency(SubscriptionTotal)}
 								</p>
 							</div>
 						</div>
@@ -398,8 +399,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 								</Button>
 								<FormControl
 									aria-label="Example text with two button addons"
-									style={{ textAlign: "center", border: "none" }}
-									value={ExistingProduct?.item?.qty || ""} style={{borderColor:'rgba(54,41,24,0.75)', background:'transparent'}}
+									style={{ textAlign: "center", border: "none", borderColor:'rgba(54,41,24,0.75)', background:'transparent' }}
+									value={ExistingProduct?.item?.qty || ""}
 									type="number"
 								// onChange={(ev) => setCartItem(ev.target.value)}
 								/>
