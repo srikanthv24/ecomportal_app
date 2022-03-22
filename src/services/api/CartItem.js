@@ -5,9 +5,7 @@ import {
   updateCartItem,
 } from "../graphql/mutations";
 import { api_urls } from "../../utils";
-import { get } from "react-hook-form";
 
-//m76 : Common_API_URL
 export class CartItem {
   static getCartItem =async (params)=> {
     const getToken = await sessionStorage.getItem('token')
@@ -28,7 +26,7 @@ export class CartItem {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -53,7 +51,7 @@ export class CartItem {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -78,13 +76,12 @@ export class CartItem {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
   static deleteCartItem  = async (params)=> {
     const getToken = await sessionStorage.getItem('token')
-    console.log("paewa",params)
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,

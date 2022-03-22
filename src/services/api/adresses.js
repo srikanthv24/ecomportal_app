@@ -38,16 +38,14 @@ export class Adresses {
   };
 
   static postAddress = async(data) => {
-    console.log("post address data in fetch api:::", data);
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await sessionStorage.getItem('token');
     return fetch(
       `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-         // "Authorization": getToken,
+         "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -77,8 +75,7 @@ export class Adresses {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-         // "Authorization": getToken,
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -106,7 +103,6 @@ export class Adresses {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          //"X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
           "Authorization": getToken,
         },
         body: JSON.stringify({
@@ -131,5 +127,3 @@ export class Adresses {
       });
   };
 }
-
-//578461ea-bc50-4d40-8c0a-5c4546abc2d7

@@ -38,18 +38,18 @@ const LoginModal = () => {
         className="mt-5"
       >
         <Nav.Item>
-          <Nav.Link style={{ textDecoration: "none" }} eventKey="login">
+          <Nav.Link style={{ textDecoration: "none", cursor:"pointer" }} eventKey="login">
             Login
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link style={{ textDecoration: "none" }} eventKey="register">
+          <Nav.Link style={{ textDecoration: "none", cursor:"pointer" }} eventKey="register">
             Register
           </Nav.Link>
         </Nav.Item>
       </Nav>
 
-      <Tab.Content>
+      <Tab.Content className="mt-5">
         <Tab.Pane eventKey="login">
           <Login />
         </Tab.Pane>

@@ -6,7 +6,7 @@ import AppBar from "../components/AppBar/app-bar";
 import Categories from "../scenes/Categories";
 import ProductsRoutes from "../scenes/Products";
 import Cart from "../scenes/Cart";
-// import LemmeTry from "../scenes/lemmetry";
+import LemmeTry from "../scenes/lemmetry";
 import { useSelector } from "react-redux";
 import CartSummary from "../scenes/Cart/cart-summary";
 import Orders from "../scenes/Orders";
@@ -45,10 +45,10 @@ function Routes() {
           <Route exact path="/" component={Landing} />
           <Route path="/products" component={ProductsRoutes} />
           <Route path="/categories" component={Categories} />
-          {/* <Route path="/subscription" component={LemmeTry} /> */}
+          <Route path="/subscription" component={LemmeTry} />
           <Route path="/profile" component={Profile} />
           <Route path="/mealbooking" component={MealBooking}/>
-          <Route path="/subscription" component={MealBooking}/>
+          {/* <Route path="/subscription" component={MealBooking}/> */}
           {userDetails.sub && (
             <>
               <Route path="/cart-summary" component={CartSummary} />

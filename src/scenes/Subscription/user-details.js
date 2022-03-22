@@ -41,10 +41,10 @@ export default function UserDetails({
     weight: "",
     height: "",
     gender: "",
-    name: "ChittyTheRobo",
-    email: "robo@email.com",
-    phone: "987654321",
-    age: "27",
+    name: "",
+    email: "",
+    phone: "",
+    age: "",
   });
 
   useEffect(() => {

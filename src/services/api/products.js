@@ -7,7 +7,9 @@ import {
 	getStaples,
 	searchProducts,
 } from "../graphql/mutations";
-
+const ADDON_API_URL = process.env.REACT_APP_ADDON_API_URL;
+const ADDON_API_KEY = process.env.REACT_APP_ADDON_API_KEY;
+const CATEGORY_API_KEY = process.env.REACT_APP_CATEGORY_KEY;
 
 export class Products {
 	static getAddons = (data) => {
@@ -26,11 +28,11 @@ export class Products {
 				}
 			}
 		}`;
-		return fetch(`${process.env.REACT_APP_ADDON_API_URL}`, {
+		return fetch(`${ADDON_API_URL}`, {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-API-Key': process.env.REACT_APP_ADDON_API_KEY
+				'X-API-Key': `${ADDON_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: q
@@ -43,18 +45,13 @@ export class Products {
 	}
 
 	static getProducts = async (params) => {
-		//const getToken = await sessionStorage.getItem('item')
 		try {
-			console.log("PARAARARAMS==>", JSON.stringify(params.payload.category));
-			console.log("mass",params.payload)
 			return await fetch(api_urls.Product_REL_API_URL, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+					"X-API-KEY": `${CATEGORY_API_KEY}`,
 				},
-				// Production"X-API-KEY": "da2-xclkxhpjbbbxfcyw2vtp3zc64e",
-				// body: params.payload ? getProductsByCategory(params) : getProducts(),
 				body: JSON.stringify({
 					query: params.payload.category === "Staples" ? getStaples : getProducts,
 					variables: {
@@ -71,25 +68,22 @@ export class Products {
 
 	static ProductDetails = async (id) => {
 		const getToken = await sessionStorage.getItem('token')
-		console.log("IIIIDDD", id);
 		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
-			//	"Authorization": getToken,
+				"X-API-KEY": `${CATEGORY_API_KEY}`,
 			},
 			body: getProductDetails(id.payload),
 		}).then((res) => res.json());
 	};
 
 	static productSearch = async (query) => {
-		//const getToken = await sessionStorage.getItem('token')
 		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-orjjngnz3ffc3jjnn75bfm4roi",
+				"X-API-KEY": `${ADDON_API_KEY}`,
 			},
 			body: searchProducts(query),
 		}).then((res) => res.json());
