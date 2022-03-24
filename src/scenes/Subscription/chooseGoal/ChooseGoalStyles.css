@@ -1,0 +1,53 @@
+.goal-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+.goal-card {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.goal-card:last-child {
+    margin-bottom: 0;
+}
+
+.goal-card .card-body {
+    display: flex;
+}
+
+.goal-card .card-body svg {
+    width: 40px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.goal-card.bg-success .card-body svg {
+    color: white;
+}
+
+.footer-button-wrap {
+    margin: 30px auto 0;
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+.footer-button-wrap button {
+    width: calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.footer-button-wrap button:last-child {
+    margin-right: 0;
+}
+
+.footer-button-wrap button svg {
+    margin-right: 5px;
+}

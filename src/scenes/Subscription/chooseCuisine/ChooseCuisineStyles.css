@@ -1,0 +1,29 @@
+.cuisine-container {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.cuisine-card {
+    cursor: pointer;
+    width: calc(50% - 10px);
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.cuisine-card .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cuisine-card:nth-child(2n) {
+    margin-right: 0;
+}
+
+.cuisine-card:nth-last-child(1), .cuisine-card:nth-last-child(2) {
+    margin-bottom: 0;
+}
