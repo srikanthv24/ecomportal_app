@@ -20,7 +20,7 @@ const CuisineCard = ({ name, onClick, isSelected }) => (
             src={CuisineSrc}
         />
         <Card.Body>
-            <Card.Title className={`text-center m-0 py-2${isSelected? ' text-white' : ''}`}>
+            <Card.Title className={`text-center m-0 py-1${isSelected? ' text-white' : ''}`}>
                 {name}
             </Card.Title>
         </Card.Body>

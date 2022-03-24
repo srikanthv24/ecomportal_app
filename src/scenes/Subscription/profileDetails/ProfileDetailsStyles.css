@@ -11,6 +11,7 @@
 }
 
 .gender-card .card-body svg {
+    cursor: pointer;
     width: auto;
     height: 100px;
     margin: 0 15px;

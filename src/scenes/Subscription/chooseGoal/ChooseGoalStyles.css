@@ -6,6 +6,7 @@
 }
 
 .goal-card {
+    cursor: pointer;
     padding: 20px;
     margin-bottom: 20px;
 }
