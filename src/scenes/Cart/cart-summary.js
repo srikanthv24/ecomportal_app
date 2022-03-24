@@ -26,30 +26,30 @@ const CartSummary = () => {
   const Cart = useSelector((state) => state.Cart);
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    dispatch(getAddresses({ customerId: userDetails.sub }));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAddresses({ customerId: userDetails.sub }));
+  // }, []);
 
-  useEffect(() => {
-    let temp = [];
+  // useEffect(() => {
+  //   let temp = [];
 
-    if (Addresses.listAddresses) {
-      const items = Addresses.listAddresses.items;
-      items.map((address) => {
-        let label =
-          address.aline1 +
-          ", " +
-          address.aline2 +
-          ", " +
-          address.city +
-          ", " +
-          address.state +
-          ", " +
-          address.postalcode;
-        temp.push({ ...address, label: label, value: address.id });
-      });
-    }
-  }, [Addresses.listAddresses]);
+  //   if (Addresses.listAddresses) {
+  //     const items = Addresses.listAddresses.items;
+  //     items.map((address) => {
+  //       let label =
+  //         address.aline1 +
+  //         ", " +
+  //         address.aline2 +
+  //         ", " +
+  //         address.city +
+  //         ", " +
+  //         address.state +
+  //         ", " +
+  //         address.postalcode;
+  //       temp.push({ ...address, label: label, value: address.id });
+  //     });
+  //   }
+  // }, [Addresses.listAddresses]);
 
   const CartReducer = useSelector((state) => state.Cart);
   const cartSummary = useSelector((state) => state.Cart.cartSummary);

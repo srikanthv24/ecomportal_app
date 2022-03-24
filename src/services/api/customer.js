@@ -137,19 +137,22 @@ export class Customer {
       },
       body: JSON.stringify({
         query: `mutation {
-                  createCustomer(input: {address: "Jublihills", 
-                                        dietpreference: ${data.dietpreference}, 
-                                        display_name: "${data.name}", 
-                                        dob: "16-12-1996", 
-                                        goal: ${data.goal}, 
-                                        name: "${data.name}", 
-                                        mobile: "9550163323", 
-                                        physicalactivity: ${data.physicalactivity}, 
-                                        upd_by:"${data.name}",
-                                        personalinfo: {age: ${data.age}, 
-                                                      gender: ${data.gender}, 
-                                                      heightcm: ${data.height}, 
-                                                      weightkg: ${data.weight}}}) 
+                  createCustomer(input: 
+                    {
+                      display_name: "${data.name}",
+                      goal: ${data.goal},
+                      id: "${data.id}",
+                      mobile: "${data.mobile}", 
+                      personalinfo: {
+                        age: ${data.age}, 
+                        gender: ${data.gender}, 
+                        heightft: {
+                          feet: ${data.heightFeet}, 
+                          inch: ${data.heightInches}
+                        }, 
+                        weightkg: ${data.weight}
+                      }, 
+                    }) 
                   {
                     id
                   }

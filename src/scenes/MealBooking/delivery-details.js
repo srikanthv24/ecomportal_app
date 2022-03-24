@@ -50,11 +50,11 @@ export const DeliveryDetails = ({ control }) => {
 		})
 		}
 
-  useEffect(() => {
-    if (userDetails.sub) {
-      dispatch(getAddresses({ customerId: userDetails.sub }));
-    }
-  }, [userDetails.sub]);
+  // useEffect(() => {
+  //   if (userDetails.sub) {
+  //     dispatch(getAddresses({ customerId: userDetails.sub }));
+  //   }
+  // }, [userDetails.sub]);
 
   useEffect(() => {
     let temp = [];
@@ -118,12 +118,12 @@ export const DeliveryDetails = ({ control }) => {
 
   return (
     <>
-      <AddressModal
+      {/* <AddressModal
         customerId={userDetails.sub}
         handleClose={handleClose}
         handleShow={handleShow}
         showModal={showModal}
-      />
+      /> */}
       <p className="h6 text-muted mt-3 mb-0 m-2">Delivery Address*</p>
       <p className="h6 mt-3 mb-3 m-2">{subscription[0]?.address?.label}</p>
           <Select

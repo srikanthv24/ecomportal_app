@@ -45,7 +45,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		lunch: [],
 		dinner: [],
 	});
-	const [showModal, setShowModal] = useState(false);
+	// const [showModal, setShowModal] = useState(false);
 	const [VariantValue, setVariantValue] = useState({});
 	const [selectedAddress, setSelectedAddress] = useState({});
 	const [addonSearch, setAddonSearch] = useState('');
@@ -66,8 +66,8 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 	const { watch, setValue } = methods;
 	const { subscription, variants } = watch();
 
-	const handleClose = () => setShowModal(false);
-	const handleShow = () => setShowModal(true);
+	// const handleClose = () => setShowModal(false);
+	// const handleShow = () => setShowModal(true);
 
 	const colourStyles = {
 		menuList: styles => ({
@@ -175,71 +175,71 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 		setVariants(temp);
 	}, [data]);
 
-	useEffect(() => {
-		if (userDetails.sub) {
-			dispatch(getAddresses({ customerId: userDetails.sub }));
-		}
-	}, [userDetails.sub]);
+	// useEffect(() => {
+	// 	if (userDetails.sub) {
+	// 		dispatch(getAddresses({ customerId: userDetails.sub }));
+	// 	}
+	// }, [userDetails.sub]);
 
-	useEffect(() => {
-		let temp = [];
+	// useEffect(() => {
+	// 	let temp = [];
 
-		if (Addresses.listAddresses) {
-			const items = Addresses.listAddresses.items;
-			items.map((address) => {
-				let label =
-					address.aline1 +
-					", " +
-					address.aline2 +
-					", " +
-					address.city +
-					", " +
-					address.state +
-					", " +
-					address.postalcode;
-				temp.push({ ...address, label: label, value: address.id });
-			});
-			setAddressList(temp);
-		}
-	}, [Addresses?.listAddresses?.items]);
+	// 	if (Addresses.listAddresses) {
+	// 		const items = Addresses.listAddresses.items;
+	// 		items.map((address) => {
+	// 			let label =
+	// 				address.aline1 +
+	// 				", " +
+	// 				address.aline2 +
+	// 				", " +
+	// 				address.city +
+	// 				", " +
+	// 				address.state +
+	// 				", " +
+	// 				address.postalcode;
+	// 			temp.push({ ...address, label: label, value: address.id });
+	// 		});
+	// 		setAddressList(temp);
+	// 	}
+	// }, [Addresses?.listAddresses?.items]);
 
-	const SelectMenuButton = (props) => {
-		return (
-			<components.MenuList {...props}>
-				{props.children}
-				<Button variant="outline-dark" className="w-100" onClick={handleShow} style={{marginTop:"20px"}}>
-					<GrAdd /> New address
-				</Button>
-			</components.MenuList>
-		);
-	};
+	// const SelectMenuButton = (props) => {
+	// 	return (
+	// 		<components.MenuList {...props}>
+	// 			{props.children}
+	// 			<Button variant="outline-dark" className="w-100" onClick={handleShow} style={{marginTop:"20px"}}>
+	// 				<GrAdd /> New address
+	// 			</Button>
+	// 		</components.MenuList>
+	// 	);
+	// };
 
-	const CustomOption = ({ innerRef, innerProps, data, children }) => {
-		return (
-		  <div
-			ref={innerRef}
-			{...innerProps}
-			style={{ display: "flex", justifyContent: "space-between", padding:"10px", background:'#ededed', marginBottom:'5px' }}
-		  >
-			<span style={{ cursor: "pointer" }}>{children}</span>
-			<span style={{ cursor: "pointer" }}>
-			  <AiFillDelete
-				onClick={(event) => {
-					console.log("deleted...!!!!", data);
-				  dispatch(
-					deleteAddress({
-					  addressId: data.id,
-					  customerName: data.customer_name,
-					  customerId: data.customer_id,
-					})
-				  );
-				  event.stopPropagation();
-				}}
-			  />
-			</span>
-		  </div>
-		);
-	  };
+	// const CustomOption = ({ innerRef, innerProps, data, children }) => {
+	// 	return (
+	// 	  <div
+	// 		ref={innerRef}
+	// 		{...innerProps}
+	// 		style={{ display: "flex", justifyContent: "space-between", padding:"10px", background:'#ededed', marginBottom:'5px' }}
+	// 	  >
+	// 		<span style={{ cursor: "pointer" }}>{children}</span>
+	// 		<span style={{ cursor: "pointer" }}>
+	// 		  <AiFillDelete
+	// 			onClick={(event) => {
+	// 				console.log("deleted...!!!!", data);
+	// 			  dispatch(
+	// 				deleteAddress({
+	// 				  addressId: data.id,
+	// 				  customerName: data.customer_name,
+	// 				  customerId: data.customer_id,
+	// 				})
+	// 			  );
+	// 			  event.stopPropagation();
+	// 			}}
+	// 		  />
+	// 		</span>
+	// 	  </div>
+	// 	);
+	//   };
 
 	let deliverables = [
 		{ name: "Breakfast", value: "breakfast",id: "B" },
@@ -352,12 +352,11 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 
 	return (
 		<div>
-			<AddressModal
+			{/* <AddressModal
 				customerId={userDetails.sub}
 				handleClose={handleClose}
-				handleShow={handleShow}
 				showModal={showModal}
-			/>
+			/> */}
 			{Variants && Variants.length > 0 && 
 				Variants.map((variant) => {
 					if(variant.display_name === "Duration") {
@@ -423,7 +422,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 								<span className="d-flex justify-content-between align-items-center">
 									<span>You will be having a cyclic menu. </span>
 									<OverlayTrigger
-										trigger="hover"
+										trigger="focus"
 										key="lunch"
 										placement={"bottom"}
 										overlay={
@@ -438,7 +437,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 										</Button>
 									</OverlayTrigger>
 								</span>
-								<div className="d-flex justify-content-between align-items-center mt-3 mb-0 m-2">
+								{/* <div className="d-flex justify-content-between align-items-center mt-3 mb-0 m-2">
 									<Controller
 										control={control}
 										name={`subscription[${index}].isDelivery`}
@@ -466,9 +465,9 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 											</div>
 										)}
 									/>
-								</div>
+								</div> */}
 								<div>
-									{subscription[index].isDelivery && (
+									{/* {subscription[index].isDelivery && (
 										<>
 											<p className="h6 text-muted mt-3 mb-2 m-2">
 												Delivery Address *
@@ -501,7 +500,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected }) => {
 												)}
 											/>
 										</>
-									)}
+									)} */}
 
 									<InputGroup className="my-2 dp-date">
 										<InputGroup.Text>Start Date</InputGroup.Text>

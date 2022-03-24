@@ -12,7 +12,7 @@ const ProductDetails = ({
 	productId,
 	isOnboarding = false,
 	myRef = null,
-	variantsSelected
+	variantsSelected,
 }) => {
 	let productID = "";
 	const { id } = useParams();
@@ -210,6 +210,7 @@ const ProductDetails = ({
 										handleChange={handleChange}
 										control={control}
 										variantsSelected={variantsSelected}
+										// showModal={showModal}
 									/>
 								)}
 							</Col>

@@ -23,6 +23,8 @@ import {
 import ProductDetails from "../Products/product-details";
 import { deleteCartItem } from "../../store/actions/cart-item";
 import { displayCurrency } from "../../helpers/displayCurrency";
+import { AddressModal } from "../Products/address-modal";
+import { createCustomer } from "../../store/actions/customer";
 
 var phantom = {
   display: "block",
@@ -31,7 +33,7 @@ var phantom = {
   width: "100%",
 };
 
-const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
+const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profileDetails }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const mealPlanId = useSelector((state) => state.mealPlans);
@@ -39,11 +41,21 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
   const products = useSelector((state) => state.products);
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
+  const { isLoggedIn } = useSelector((state) => state.Login);
+  const userLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [Calculations, setCalculations] = useState({});
   const [SubscriptionTotal, setSubscriptionTotal] = useState(0);
   const [VarItems, setVarItems] = useState({});
 
   const [BreakUps, setBreakUps] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [newAddress, setNewAddress] = useState({});
+
+  useEffect(() => {
+    if (formSubmitted && !isLoggedIn && userLoggedIn) setShowModal(true);
+  }, [formSubmitted, isLoggedIn, userLoggedIn]);
 
   const methods = useForm({
     defaultValues: {
@@ -87,12 +99,25 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
 
   const { subscription, variants } = watch();
 
-  const handleCartSubmit = (data) => {
+  const addAddress = () => {
+    if (userDetails.sub) {
+      setShowModal(true);
+    } else {
+      dispatch(showLogin());
+      setFormSubmitted(true);
+    }
+  };
+  const handleCartSubmit = (data, address) => {
     console.log("use_form_data", data);
+    setShowModal(false);
     let payload = { ...data };
     let filteredPayload = payload.subscription.filter((item) => {
-      if (item.is_included) {
+      //     item.hasOwnProperty("item.is_included") && item.item.is_included
+      // )
+      // .map((item) => {
+        if(item.is_included){
         delete item.is_included;
+        item.address = address;
         if (item.addon_items && item.addon_items.length > 0) {
           console.log("inside loop at cart function");
           item.addon_items = item.addon_items.map((element) => {
@@ -107,26 +132,25 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
         }
         return item;
       }
-      history.push("/");
-    });
+      });
 
     console.log("filtered Payload", { ...data, subscription: filteredPayload });
 
     if (userDetails.sub) {
-      // if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-      // 	if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-      // 	dispatch(
-      // 		updateCart({
-      // 			customer_id: userDetails.sub,
-      // 			 cart_id: Cart?.cartDetails?.items[0]?.id,
-      // 			id:Cart?.cartDetails?.items[0]?.id,
-      // 			cart_item_id: Cart?.cartDetails?.items[0]?.ciid,
-      // 			item: { ...data, subscription: filteredPayload },
-      // 		})
-      // 	);
-      // } else {
-      console.log("MYToken--", sessionStorage.getItem("token"));
-      console.log("sdasa", data);
+      //   // if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+      //   // 	if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
+      //   // 	dispatch(
+      //   // 		updateCart({
+      //   // 			customer_id: userDetails.sub,
+      //   // 			 cart_id: Cart?.cartDetails?.items[0]?.id,
+      //   // 			id:Cart?.cartDetails?.items[0]?.id,
+      //   // 			cart_item_id: Cart?.cartDetails?.items[0]?.ciid,
+      //   // 			item: { ...data, subscription: filteredPayload },
+      //   // 		})
+      //   // 	);
+      //   // } else {
+      //   console.log("MYToken--", sessionStorage.getItem("token"));
+      //   console.log("sdasa", data);
       dispatch(
         createCart({
           customer_id: userDetails.sub,
@@ -134,6 +158,17 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
           accessToken: sessionStorage.getItem("token"),
         })
       );
+      dispatch(createCustomer({
+        name: userDetails?.name,
+        goal: goal && goal.length ? goal : "",
+        id:userDetails?.sub,
+        mobile:userDetails?.phone_number,
+        age:profileDetails?.age,
+        gender:profileDetails?.gender,
+        heightFeet:profileDetails?.heightFeet,
+        heightInches:profileDetails?.heightInch,
+        weight:profileDetails?.weight,
+      }))
       // }
     } else {
       dispatch(showLogin());
@@ -309,107 +344,160 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
     setVarItems(varItems);
   };
 
+  const handleFinalSubmit = (address) => {
+    console.log("handleFinalSubmit_called");
+
+    handleSubmit(handleCartSubmit);
+    setShowModal(false);
+    // handleSubmit((data) => {
+    //   const updatedData = data.subscription.map((subs) => {
+    //     return {
+    //       ...subs,
+    //       address: address,
+    //     };
+    //   });
+    //   handleCartSubmit(updatedData);
+    // });
+    // handleSubmit(data => handleCartSubmit(data))
+  };
+
+  const updateAddress = (e) => {
+    setNewAddress({
+      ...newAddress,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   console.log("existtt", ExistingProduct);
   console.log("isOnboarding", isOnboarding);
+
+
+  console.log("WIZARD___", goal,cuisine, profileDetails);
   return (
     <FormProvider {...methods}>
+      <AddressModal
+        customerId={userDetails.sub}
+        handleClose={() => setShowModal(false)}
+        showModal={showModal}
+        updateAddress={updateAddress}
+        handleSubmit={handleSubmit(handleCartSubmit)}
+      />
       <div className="bg-1">
         <Container fluid className="product-details-wrapper">
           <ProductDetails
-            productId={mealPlanId.mealPlanId}
+            productId={"d3554853-6cb0-4af9-bb74-9f8643a55693"}
+            // productId={mealPlanId.mealPlanId}
             control={control}
             variantsSelected={variantsSelected}
           />
         </Container>
 
-				<div style={phantom} />
-				<div className="bg-1"
-					style={{
-						width: "100%",
-						position: "fixed",
-						bottom: 0,
-						left: 0,
-						right: 8,
-						// background: "#FFF",
-						zIndex:0,
-						paddingTop: 10,
-						boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
-					}}
-				>
-					{products.productDetails?.is_mealplan && (
-						<div className="w-100 px-3">
-							<div className="d-flex justify-content-between align-items-center">
-								<p className="h6 ff-3">Subscription Amount :</p>
-								<p className="h5 ff-2">
-									{/* <BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)} */}
-									<BiRupee />
+        <div style={phantom} />
+        <div
+          className="bg-1"
+          style={{
+            width: "100%",
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 8,
+            // background: "#FFF",
+            zIndex: 0,
+            paddingTop: 10,
+            boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
+          }}
+        >
+          {products.productDetails?.is_mealplan && (
+            <div className="w-100 px-3">
+              <div className="d-flex justify-content-between align-items-center">
+                <p className="h6 ff-3">Subscription Amount :</p>
+                <p className="h5 ff-2">
+                  {/* <BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)} */}
+                  <BiRupee />
                   {displayCurrency(SubscriptionTotal)}
-								</p>
-							</div>
-						</div>
-					)}
-					<div className="d-flex align-items-center justify-content-between w-100">
-						{isOnboarding ? (
-							<>
-								<Button
-									onClick={handleBack}
-									className="w-50 m-1"
-									variant="secondary" style={{borderColor:'rgba(54,41,24,0.75)'}}
-								>
-									Back
-								</Button>
-								{ExistingProduct?.item?.qty.length > 1 ? (
-									<Button
-										className="w-50 m-1 custom-primary-btn"
-										// variant="success"
-										style={{ border: "none" }}
-										onClick={() => history.push("/cart-summary")}
-									>
-										Go to Cart
-									</Button>
-								) : (
-									<Button
-										className="w-50 m-1 custom-primary-btn"
-										style={{
-											width: "100%"
-										}}
-										onClick={handleSubmit(handleCartSubmit)}
-									>
-										{Cart.cartLoading ? (
-											<Spinner animation="border" role="status" />
-										) : (
-											"Add to Cart"
-										)}
-									</Button>
-								)}
-							</>
-						) : ExistingProduct?.item?.qty ? (
-							<InputGroup className="p-2 w-100">
-								<Button
-									variant="outline-secondary"
-									style={{ borderColor:'rgba(54,41,24,0.75)', color: "#f05922", width:"3rem", height:"3rem" }}
-									onClick={onDecrement}
-									size="sm"
-								>
-									{Cart.cartLoading ? (
-										<Spinner animation="border" role="status" />
-									) : (
-										<GrSubtract />
-									)}
-								</Button>
-								<FormControl
-									aria-label="Example text with two button addons"
-									style={{ textAlign: "center", border: "none", borderColor:'rgba(54,41,24,0.75)', background:'transparent' }}
-									value={ExistingProduct?.item?.qty || ""}
-									type="number"
-								// onChange={(ev) => setCartItem(ev.target.value)}
-								/>
+                </p>
+              </div>
+            </div>
+          )}
+          <div className="d-flex align-items-center justify-content-between w-100">
+            {isOnboarding ? (
+              <>
+                <Button
+                  onClick={handleBack}
+                  className="w-50 m-1"
+                  variant="secondary"
+                  style={{ borderColor: "rgba(54,41,24,0.75)" }}
+                >
+                  Back
+                </Button>
+                {ExistingProduct?.item?.qty.length > 1 ? (
+                  <Button
+                    className="w-50 m-1 custom-primary-btn"
+                    // variant="success"
+                    style={{ border: "none" }}
+                    onClick={() => history.push("/cart-summary")}
+                  >
+                    Go to Cart
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-50 m-1 custom-primary-btn"
+                    style={{
+                      width: "100%",
+                    }}
+                    onClick={() => {
+                      addAddress();
+                    }}
+                    // onClick={handleSubmit(handleCartSubmit)}
+                  >
+                    {Cart.cartLoading ? (
+                      <Spinner animation="border" role="status" />
+                    ) : (
+                      "Add to Cart_"
+                    )}
+                  </Button>
+                )}
+              </>
+            ) : // _________________________________________________________________________________________
+            ExistingProduct?.item?.qty ? (
+              <InputGroup className="p-2 w-100">
+                <Button
+                  variant="outline-secondary"
+                  style={{
+                    borderColor: "rgba(54,41,24,0.75)",
+                    color: "#f05922",
+                    width: "3rem",
+                    height: "3rem",
+                  }}
+                  onClick={onDecrement}
+                  size="sm"
+                >
+                  {Cart.cartLoading ? (
+                    <Spinner animation="border" role="status" />
+                  ) : (
+                    <GrSubtract />
+                  )}
+                </Button>
+                <FormControl
+                  aria-label="Example text with two button addons"
+                  style={{
+                    textAlign: "center",
+                    border: "none",
+                    borderColor: "rgba(54,41,24,0.75)",
+                    background: "transparent",
+                  }}
+                  value={ExistingProduct?.item?.qty || ""}
+                  type="number"
+                  // onChange={(ev) => setCartItem(ev.target.value)}
+                />
 
                 <Button
                   variant="outline-secondary"
                   style={{
                     borderColor: "rgba(54,41,24,0.75)",
-                    color: "#f05922",width:"3rem", height:"3rem"
+                    color: "#f05922",
+                    width: "3rem",
+                    height: "3rem",
                   }}
                   onClick={onIncrement}
                   size="sm"
@@ -426,21 +514,22 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false }) => {
             {isOnboarding ? null : (
               <Button
                 className="m-1 custom-primary-btn"
-                disabled={
-                  products?.productDetails?.is_mealplan
-                    ? subscription.filter((item) => item.is_included).length
-                      ? subscription.filter((item) => item.isDelivery).length
-                        ? !subscription.filter(
-                            (item) => item.address.aline1 && item
-                          ).length
-                          ? true
-                          : false
-                        : false
-                      : true
-                    : false
-                }
+                // disabled={
+                //   products?.productDetails?.is_mealplan
+                //     ? subscription.filter((item) => item.is_included).length
+                //       ? subscription.filter((item) => item.isDelivery).length
+                //         ? !subscription.filter(
+                //             (item) => item.address.aline1 && item
+                //           ).length
+                //           ? true
+                //           : false
+                //         : false
+                //       : true
+                //     : false
+                // }
                 style={{
-                  width: "100%",height:'3rem'
+                  width: "100%",
+                  height: "3rem",
                 }}
                 onClick={handleSubmit(handleCartSubmit)}
               >

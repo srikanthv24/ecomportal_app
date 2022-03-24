@@ -8,14 +8,17 @@ import './ChooseGoalStyles.css';
 const Goals = [
     {
         name: "Manage My Weight",
+        value:"MANAGEMYWEIGHT",
         icon: <FaWeight />
     },
     {
         name: "Detox My Body",
+        value:"DETOXMYBODY",
         icon: <FaLeaf />
     },
     {
         name: "Have Delicious Healthy Food",
+        value: "HEALTHYFOOD",
         icon: <FaRegGrinHearts />
     }
 ];
@@ -33,7 +36,7 @@ const GoalCard = ({ name, icon, onClick, isSelected }) => (
 
 const ChooseGoal = ({ handleBack, handleNextStep, selectedGoal, setGoal }) => {
     const handleClick = goal => {
-        setGoal(goal);
+        setGoal(goal.value);
         handleNextStep();
     };
 

@@ -71,18 +71,18 @@ const ProfileDetails = ({ handleBack, handleNextStep, profileDetails, setProfile
                     <Card.Body className="py-3 px-0">
                         <div className={`d-flex rounded${errors.gender ? ' border border-danger' : ''}`}>
                             <MdMale
-                                className={gender === 'M' ? 'text-primary' : ''}
+                                className={gender === 'Male' ? 'text-primary' : ''}
                                 onClick={() => {
                                     setErrors({ ...errors, gender: false });
-                                    changeDetails({ gender: 'M' });
+                                    changeDetails({ gender: 'Male' });
                                 }}
                             />
                             <div class="vr"></div>
                             <MdFemale
-                                className={gender === 'F' ? 'text-primary' : ''}
+                                className={gender === 'Female' ? 'text-primary' : ''}
                                 onClick={() => {
                                     setErrors({ ...errors, gender: false });
-                                    changeDetails({ gender: 'F' });
+                                    changeDetails({ gender: 'Female' });
                                 }}
                             />
                         </div>
