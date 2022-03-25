@@ -103,7 +103,7 @@ export class Adresses {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": getToken,
+          "X-API-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
         },
         body: JSON.stringify({
           query: `

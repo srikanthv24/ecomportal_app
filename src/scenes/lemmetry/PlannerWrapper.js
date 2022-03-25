@@ -47,16 +47,18 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const [SubscriptionTotal, setSubscriptionTotal] = useState(0);
   const [VarItems, setVarItems] = useState({});
 
+  const [addresses, setAddresses] = useState([]);
+
   const [BreakUps, setBreakUps] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [newAddress, setNewAddress] = useState({});
-  const { customerId : userId } = useSelector(state => state.customer);
-  const { cartDetails : cartCreated } = useSelector(state => state.Cart);
+  const { customerId: userId } = useSelector(state => state.customer);
+  const { cartDetails: cartCreated } = useSelector(state => state.Cart);
 
   useEffect(() => {
-    if (formSubmitted && !isLoggedIn && userLoggedIn) setShowModal(true);
+    if (formSubmitted && !isLoggedIn && userLoggedIn) handleSubmit(handleCartSubmit)();
   }, [formSubmitted, isLoggedIn, userLoggedIn]);
 
   const methods = useForm({
@@ -101,25 +103,29 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
 
   const { subscription, variants } = watch();
 
-  const addAddress = () => {
+  const handleAddToCart = () => {
     if (userDetails.sub) {
-      setShowModal(true);
+      handleSubmit(handleCartSubmit)();
     } else {
       dispatch(showLogin());
       setFormSubmitted(true);
     }
   };
-  const handleCartSubmit = (data, address) => {
+
+  const handleCartSubmit = (data) => {
     console.log("use_form_data", data);
     setShowModal(false);
     let payload = { ...data };
-    let filteredPayload = payload.subscription.filter((item) => {
+    let filteredPayload = payload.subscription.filter((item, index) => {
       //     item.hasOwnProperty("item.is_included") && item.item.is_included
       // )
       // .map((item) => {
-        if(item.is_included){
+      if (item.is_included) {
         delete item.is_included;
-        item.address = address;
+        if (item.isDelivery) {
+          item.address = addresses[index];
+          delete item.address.area;
+        }
         if (item.addon_items && item.addon_items.length > 0) {
           console.log("inside loop at cart function");
           item.addon_items = item.addon_items.map((element) => {
@@ -134,25 +140,12 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
         }
         return item;
       }
-      });
+      return false;
+    });
 
     console.log("filtered Payload", { ...data, subscription: filteredPayload });
 
     if (userDetails.sub) {
-      //   // if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-      //   // 	if (Cart?.cartDetails?.items?.length && Cart?.cartDetails?.items[0]?.id) {
-      //   // 	dispatch(
-      //   // 		updateCart({
-      //   // 			customer_id: userDetails.sub,
-      //   // 			 cart_id: Cart?.cartDetails?.items[0]?.id,
-      //   // 			id:Cart?.cartDetails?.items[0]?.id,
-      //   // 			cart_item_id: Cart?.cartDetails?.items[0]?.ciid,
-      //   // 			item: { ...data, subscription: filteredPayload },
-      //   // 		})
-      //   // 	);
-      //   // } else {
-      //   console.log("MYToken--", sessionStorage.getItem("token"));
-      //   console.log("sdasa", data);
       dispatch(
         createCart({
           customer_id: userDetails.sub,
@@ -163,17 +156,14 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
       dispatch(createCustomer({
         name: userDetails?.name,
         goal: goal && goal.length ? goal : "",
-        id:userDetails?.sub,
-        mobile:userDetails?.phone_number,
-        age:profileDetails?.age,
-        gender:profileDetails?.gender,
-        heightFeet:profileDetails?.heightFeet,
-        heightInches:profileDetails?.heightInch,
-        weight:profileDetails?.weight,
-      }))
-      // }
-    } else {
-      dispatch(showLogin());
+        id: userDetails?.sub,
+        mobile: userDetails?.phone_number,
+        age: profileDetails?.age,
+        gender: profileDetails?.gender,
+        heightFeet: profileDetails?.heightFeet,
+        heightInches: profileDetails?.heightInch,
+        weight: profileDetails?.weight,
+      }));
     }
   };
 
@@ -354,17 +344,17 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   };
 
   useEffect(() => {
-    if(userId && Object.keys(cartCreated).length){
+    if (userId && Object.keys(cartCreated).length) {
       history.push("/cart-summary");
     }
   }, [userId, cartCreated])
-  
+
 
   console.log("existtt", ExistingProduct);
   console.log("isOnboarding", isOnboarding);
 
 
-  console.log("WIZARD___", goal,cuisine, profileDetails);
+  console.log("WIZARD___", goal, cuisine, profileDetails);
   return (
     <FormProvider {...methods}>
       <AddressModal
@@ -381,6 +371,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
             productId={cuisine}
             control={control}
             variantsSelected={variantsSelected}
+            updateAddresses={setAddresses}
           />
         </Container>
 
@@ -438,7 +429,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
                       width: "100%",
                     }}
                     onClick={() => {
-                      addAddress();
+                      handleAddToCart();
                     }}
                   >
                     {Cart.cartLoading ? (
@@ -450,57 +441,57 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
                 )}
               </>
             ) : // _________________________________________________________________________________________
-            ExistingProduct?.item?.qty ? (
-              <InputGroup className="p-2 w-100">
-                <Button
-                  variant="outline-secondary"
-                  style={{
-                    borderColor: "rgba(54,41,24,0.75)",
-                    color: "#f05922",
-                    width: "3rem",
-                    height: "3rem",
-                  }}
-                  onClick={onDecrement}
-                  size="sm"
-                >
-                  {Cart.cartLoading ? (
-                    <Spinner animation="border" role="status" />
-                  ) : (
-                    <GrSubtract />
-                  )}
-                </Button>
-                <FormControl
-                  aria-label="Example text with two button addons"
-                  style={{
-                    textAlign: "center",
-                    border: "none",
-                    borderColor: "rgba(54,41,24,0.75)",
-                    background: "transparent",
-                  }}
-                  value={ExistingProduct?.item?.qty || ""}
-                  type="number"
+              ExistingProduct?.item?.qty ? (
+                <InputGroup className="p-2 w-100">
+                  <Button
+                    variant="outline-secondary"
+                    style={{
+                      borderColor: "rgba(54,41,24,0.75)",
+                      color: "#f05922",
+                      width: "3rem",
+                      height: "3rem",
+                    }}
+                    onClick={onDecrement}
+                    size="sm"
+                  >
+                    {Cart.cartLoading ? (
+                      <Spinner animation="border" role="status" />
+                    ) : (
+                      <GrSubtract />
+                    )}
+                  </Button>
+                  <FormControl
+                    aria-label="Example text with two button addons"
+                    style={{
+                      textAlign: "center",
+                      border: "none",
+                      borderColor: "rgba(54,41,24,0.75)",
+                      background: "transparent",
+                    }}
+                    value={ExistingProduct?.item?.qty || ""}
+                    type="number"
                   // onChange={(ev) => setCartItem(ev.target.value)}
-                />
+                  />
 
-                <Button
-                  variant="outline-secondary"
-                  style={{
-                    borderColor: "rgba(54,41,24,0.75)",
-                    color: "#f05922",
-                    width: "3rem",
-                    height: "3rem",
-                  }}
-                  onClick={onIncrement}
-                  size="sm"
-                >
-                  {Cart.cartLoading ? (
-                    <Spinner animation="border" role="status" />
-                  ) : (
-                    <GrAdd />
-                  )}
-                </Button>
-              </InputGroup>
-            ) : null}
+                  <Button
+                    variant="outline-secondary"
+                    style={{
+                      borderColor: "rgba(54,41,24,0.75)",
+                      color: "#f05922",
+                      width: "3rem",
+                      height: "3rem",
+                    }}
+                    onClick={onIncrement}
+                    size="sm"
+                  >
+                    {Cart.cartLoading ? (
+                      <Spinner animation="border" role="status" />
+                    ) : (
+                      <GrAdd />
+                    )}
+                  </Button>
+                </InputGroup>
+              ) : null}
 
             {isOnboarding ? null : (
               <Button

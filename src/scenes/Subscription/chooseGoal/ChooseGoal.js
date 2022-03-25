@@ -51,7 +51,7 @@ const ChooseGoal = ({ handleBack, handleNextStep, selectedGoal, setGoal }) => {
                             name={goal.name}
                             icon={goal.icon}
                             onClick={() => handleClick(goal)}
-                            isSelected={selectedGoal.value === goal.value}
+                            isSelected={selectedGoal === goal.value}
                         />
                     )
                 }
