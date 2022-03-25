@@ -52,6 +52,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const [showModal, setShowModal] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [newAddress, setNewAddress] = useState({});
+  const { customerId : userId } = useSelector(state => state.customer);
+  const { cartDetails : cartCreated } = useSelector(state => state.Cart);
 
   useEffect(() => {
     if (formSubmitted && !isLoggedIn && userLoggedIn) setShowModal(true);
@@ -344,23 +346,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
     setVarItems(varItems);
   };
 
-  const handleFinalSubmit = (address) => {
-    console.log("handleFinalSubmit_called");
-
-    handleSubmit(handleCartSubmit);
-    setShowModal(false);
-    // handleSubmit((data) => {
-    //   const updatedData = data.subscription.map((subs) => {
-    //     return {
-    //       ...subs,
-    //       address: address,
-    //     };
-    //   });
-    //   handleCartSubmit(updatedData);
-    // });
-    // handleSubmit(data => handleCartSubmit(data))
-  };
-
   const updateAddress = (e) => {
     setNewAddress({
       ...newAddress,
@@ -368,8 +353,16 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
     });
   };
 
+  useEffect(() => {
+    if(userId && Object.keys(cartCreated).length){
+      history.push("/cart-summary");
+    }
+  }, [userId, cartCreated])
+  
+
   console.log("existtt", ExistingProduct);
   console.log("isOnboarding", isOnboarding);
+  console.log("SAVE_MEEEEE", userId);
 
 
   console.log("WIZARD___", goal,cuisine, profileDetails);
@@ -378,7 +371,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
       <AddressModal
         customerId={userDetails.sub}
         handleClose={() => setShowModal(false)}
-        showModal={showModal}
+        // showModal={showModal}
+        showModal={true}
         updateAddress={updateAddress}
         handleSubmit={handleSubmit(handleCartSubmit)}
       />
@@ -448,7 +442,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
                     onClick={() => {
                       addAddress();
                     }}
-                    // onClick={handleSubmit(handleCartSubmit)}
                   >
                     {Cart.cartLoading ? (
                       <Spinner animation="border" role="status" />
