@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, Card, Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
+import ModalComponent from "../../components/Modal/Modal";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../store/actions/orders";
@@ -31,11 +30,6 @@ const Orders = () => {
   ];
 
   useEffect(() => {
-    console.log("OrdersListOrdersList", OrdersList);
-  }, [OrdersList]);
-
-  useEffect(() => {
-    // dispatch(getOrders({ customer_number: userDetails.phone_number.substring(3) }));
     dispatch(
       getOrders({ customer_number: userDetails.phone_number.substring(3) })
     );
@@ -43,7 +37,6 @@ const Orders = () => {
 
   const cancelSubscription = async() => {
     const cancelledSubscriptionId = await cancelSubscriptionApi(selectedSubscriptionId)
-    console.log("cancelledSubscriptionId: "+ JSON.stringify(cancelledSubscriptionId));
     setShowCancelSubscriptionModal(false);
     if(selectedSubscriptionId === cancelledSubscriptionId){
       
@@ -63,17 +56,17 @@ const Orders = () => {
     <>
     <OrderCard ordersList={OrdersList} cancelSubscription={openCancelSubscriptionPopup}/>
 
-<Modal show={showCancelSubscriptionModal}>
-
-  <Modal.Body>
-    <p>Would you like to cancel the Subscription?</p>
-  </Modal.Body>
-
-  <Modal.Footer>
-    <Button variant="secondary" onClick={() => setShowCancelSubscriptionModal(false)}>Return</Button>
-    <Button variant="primary" onClick={cancelSubscription}>Ok</Button>
-  </Modal.Footer>
-</Modal>
+    <ModalComponent
+      show={showCancelSubscriptionModal}
+      showModalHeader={false}
+      primaryButtonText="Ok"
+      secondaryButtonText="Return"
+      primaryButtonClick={cancelSubscription}
+      secondaryButtonClick={() => setShowCancelSubscriptionModal(false)}
+      fullscreen={false}
+      showImage={false}
+      Body="Do you want to cancel the subscription? "
+      />
 </>
   );
 };
