@@ -3,13 +3,9 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import { ChooseCuisine, ChooseGoal, ProfileDetails } from "./../Subscription";
-import UserDetails from "./../Subscription/user-details";
-import MealPlans from "../Subscription/second-step";
 import { useDispatch, useSelector } from "react-redux";
-import { createCustomer } from "../../store/actions/customer";
 import PlannerWrapper from "./PlannerWrapper";
 import { makeStyles } from "@material-ui/core";
-import { ImportantDevices } from "@material-ui/icons";
 import { AddressModal } from "../Products/address-modal";
 
 function getSteps() {
@@ -119,12 +115,6 @@ const LemmeTry = () => {
             setProfileDetails={setProfileDetails}
           />
         )}
-        {/* {activeStep === 3 &&
-          <UserDetails handleNextStep={handleMyStepper} />
-        } */}
-        {/* {activeStep === 3 &&
-          <MealPlans handleBack={handleBack} handleNextStep={handleMyStepper} />
-        } */}
         {activeStep === 3 && (
           <PlannerWrapper
             handleBack={handleBack}

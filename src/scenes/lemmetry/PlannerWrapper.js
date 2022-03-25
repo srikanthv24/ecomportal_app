@@ -362,7 +362,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
 
   console.log("existtt", ExistingProduct);
   console.log("isOnboarding", isOnboarding);
-  console.log("SAVE_MEEEEE", userId);
 
 
   console.log("WIZARD___", goal,cuisine, profileDetails);
@@ -371,16 +370,15 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
       <AddressModal
         customerId={userDetails.sub}
         handleClose={() => setShowModal(false)}
-        // showModal={showModal}
-        showModal={true}
+        showModal={showModal}
+        // showModal={true}
         updateAddress={updateAddress}
         handleSubmit={handleSubmit(handleCartSubmit)}
       />
       <div className="bg-1">
         <Container fluid className="product-details-wrapper">
           <ProductDetails
-            productId={"d3554853-6cb0-4af9-bb74-9f8643a55693"}
-            // productId={mealPlanId.mealPlanId}
+            productId={cuisine}
             control={control}
             variantsSelected={variantsSelected}
           />
@@ -446,7 +444,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
                     {Cart.cartLoading ? (
                       <Spinner animation="border" role="status" />
                     ) : (
-                      "Add to Cart_"
+                      "Add to Cart"
                     )}
                   </Button>
                 )}

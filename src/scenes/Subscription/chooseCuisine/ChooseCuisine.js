@@ -1,55 +1,65 @@
-import React from 'react';
-
+import React, { useEffect } from "react";
 import { Card } from "react-bootstrap";
+import "./ChooseCuisineStyles.css";
+import CuisineImg from "../../../assets/meal.jpeg";
+import { useDispatch, useSelector } from "react-redux";
+import { getMealPlans } from "../../../store/actions/mealPlans";
 
-import './ChooseCuisineStyles.css';
-
-import CuisineSrc from '../../../assets/meal.jpeg';
-
-const cuisines = [
-    "Comfort Home Food",
-    "Fusion Vegan",
-    "Salads & Soups Only",
-    "Just Juices & Smoothies"
-];
-
-const CuisineCard = ({ name, onClick, isSelected }) => (
-    <Card onClick={() => onClick()} className={`cuisine-card${isSelected? ' bg-success' : ''}`}>
-        <Card.Img
+const CuisineCard = ({ name, onClick, isSelected, CuisineSrc }) => (
+  <Card
+    onClick={() => onClick()}
+    className={`cuisine-card${isSelected ? " bg-success" : ""}`}
+  >
+    {/* <Card.Img
             variant="top"
             src={CuisineSrc}
-        />
-        <Card.Body>
-            <Card.Title className={`text-center m-0 py-1${isSelected? ' text-white' : ''}`}>
-                {name}
-            </Card.Title>
-        </Card.Body>
-    </Card>
+
+        /> */}
+    <div className="prd-image-thumbnile prd-image-thumbnile-none">
+      <img src={CuisineSrc || CuisineImg} alt="img" className="subimg" />
+    </div>
+    <Card.Body>
+      <Card.Title
+        className={`text-center m-0 py-1${isSelected ? " text-white" : ""}`}
+      >
+        {name}
+      </Card.Title>
+    </Card.Body>
+  </Card>
 );
 
 const ChooseCuisine = ({ handleNextStep, selectedCuisine, setCuisine }) => {
-    const handleClick = cuisine => {
-        setCuisine(cuisine);
-        handleNextStep();
-    };
+  const dispatch = useDispatch();
+  const { mealPlansList: list } = useSelector((state) => state.mealPlans);
+  const handleClick = (cuisineId) => {
+    setCuisine(cuisineId);
+    handleNextStep();
+  };
 
-    return (
-        <section style={{ background: "rgb(249, 243, 223)" }}>
-            <p className="fs-4 fw-bold mb-3 text-center page-title">Choose My Cuisine</p>
-            <div className="cuisine-container">
-                {
-                    cuisines.map(cuisine =>
-                        <CuisineCard
-                            key={cuisine}
-                            isSelected={selectedCuisine === cuisine}
-                            onClick={() => handleClick(cuisine)}
-                            name={cuisine}
-                        />
-                    )
-                }
-            </div>
-        </section>
-    );
+  useEffect(() => {
+    dispatch(getMealPlans());
+  }, []);
+
+  return (
+    <section style={{ background: "rgb(249, 243, 223)" }}>
+      <p className="fs-4 fw-bold mb-3 text-center page-title">
+        Choose My Cuisine
+      </p>
+      <div className="cuisine-container">
+        {list &&
+          list.length > 0 &&
+          list.map((cuisine) => (
+            <CuisineCard
+              key={cuisine.id}
+              isSelected={selectedCuisine === cuisine.id}
+              onClick={() => handleClick(cuisine.id)}
+              name={cuisine.display_name}
+              CuisineSrc={cuisine.defaultimg_url}
+            />
+          ))}
+      </div>
+    </section>
+  );
 };
 
 export default ChooseCuisine;

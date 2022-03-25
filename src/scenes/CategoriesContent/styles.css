@@ -30,8 +30,11 @@
   bottom:0;
 }
 .dliciuosly-content-block{
-  min-height: 500px;
+  max-width: 90%;
+  margin:0 auto;
+  min-height: 300px;
   display: flex;
+  border-radius: 10px;
 }
 .img-block{
   /* position: relative;
@@ -45,7 +48,7 @@
   text-align: center;
 }
 .info-block{
-  padding: 0px 2rem;
+  padding: 0px 1rem;
 }
 .dh-txt-image{
   height: 100%;
