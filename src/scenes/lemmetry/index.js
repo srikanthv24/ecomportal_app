@@ -69,6 +69,8 @@ const LemmeTry = () => {
   const [showModal, setShowModal] = useState(false);
   const handleShow = () => setShowModal(true);
 
+  console.log("CUISINE_ID_PW", cuisine);
+
   return (
     <section className={classes.stepperBg}>
       <AddressModal
