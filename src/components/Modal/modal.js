@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import OkImage from "./../../assets/logos/icons8-ok-480.png";
 import ErrorImage from "./../../assets/logos/icons8-error-64.png";
+import { Button } from "react-bootstrap";
 
 const ModalComponent = ({
   show,
@@ -10,10 +11,21 @@ const ModalComponent = ({
   Body,
   type,
   footer = null,
+  showModalHeader = true,
+  primaryButtonClick,
+  secondaryButtonClick,
+  primaryButtonText = "primary",
+  secondaryButtonText = "secondary"
 }) => {
+  const DefaultFooter = () => {
+    return <>
+      <Button variant="secondary" onClick={primaryButtonClick}>{primaryButtonText}</Button>
+      <Button variant="primary" onClick={secondaryButtonClick}>{secondaryButtonText}</Button>
+    </>
+    };
   return (
     <Modal show={show} onHide={handleClose} fullscreen>
-      <Modal.Header closeButton />
+      {showModalHeader && <Modal.Header closeButton />}
       <Modal.Body>
         <div
           className={

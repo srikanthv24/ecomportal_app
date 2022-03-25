@@ -506,3 +506,10 @@ export const getStaples = `query ($limit: Int, $nextToken: String, $category: St
     nextToken
   }
 }`;
+
+export const CANCEL_SUBSCRIPTION = `mutation($id: Int!) {
+  cancelSubscription(input: {id: $id})
+    {
+      id
+    }
+  }`
