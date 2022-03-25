@@ -121,7 +121,7 @@
   padding: 100px 15px 0px;
 }
 .cart-items-block{
-  max-height: calc(100vh - 350px);
+  /* max-height: calc(100vh - 350px); */
     width: 100%;
     overflow: auto;
     padding-bottom: 50px;
