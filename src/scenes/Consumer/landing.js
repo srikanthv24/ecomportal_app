@@ -37,7 +37,7 @@ const Landing = () => {
   return (
     <section>
     <HomeContent />
-    <CategoriesContent />
+    {/* <CategoriesContent /> */}
     <Container fluid className="content-body px-0" style={{background: "#F2CBBD", paddingBottom:'2rem'}}>
       {userDetails.sub && (
         <section className="page-content bg-1">
