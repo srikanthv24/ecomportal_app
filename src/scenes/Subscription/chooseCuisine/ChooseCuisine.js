@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 import "./ChooseCuisineStyles.css";
 import CuisineImg from "../../../assets/meal.jpeg";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +30,9 @@ const CuisineCard = ({ name, onClick, isSelected, CuisineSrc }) => (
 
 const ChooseCuisine = ({ handleNextStep, selectedCuisine, setCuisine }) => {
   const dispatch = useDispatch();
-  const { mealPlansList: list } = useSelector((state) => state.mealPlans);
+  const { mealPlansList: list, loading } = useSelector(
+    (state) => state.mealPlans
+  );
   const handleClick = (cuisineId) => {
     setCuisine(cuisineId);
     handleNextStep();
@@ -46,6 +48,7 @@ const ChooseCuisine = ({ handleNextStep, selectedCuisine, setCuisine }) => {
         Choose My Cuisine
       </p>
       <div className="cuisine-container">
+        {loading && <Spinner className="cuisine-spinner" animation="border" />}
         {list &&
           list.length > 0 &&
           list.map((cuisine) => (

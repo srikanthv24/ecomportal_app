@@ -20,6 +20,7 @@ if (server === "production") {
       "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
     payment_key: "rzp_live_JvYF2a7kJsppDt",
     Razorpay_API_URL: "https://checkout.razorpay.com/v1/checkout.js",
+    Postalcodes_API_KEY: "da2-j7yxgxymtrarzavgivfwda4h5u"
   };
 } else {
   api_urls = {
@@ -39,6 +40,7 @@ if (server === "production") {
       "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
     payment_key: "rzp_live_JvYF2a7kJsppDt",
     Razorpay_API_URL: "https://checkout.razorpay.com/v1/checkout.js",
+    Postalcodes_API_KEY: "da2-j7yxgxymtrarzavgivfwda4h5u"
   };
 }
 

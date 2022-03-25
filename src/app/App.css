@@ -180,7 +180,7 @@
 }
 .product-details-wrapper{
   min-height: calc(100vh - 120px);
-  padding-top: 90px;
+  /* padding-top: 90px; */
 }
 .prd-planning-select-box{
   /* background:#cccccc !important; */
