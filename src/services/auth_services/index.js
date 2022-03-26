@@ -11,6 +11,26 @@ class AuthService {
     this.currentUser = UserPool.getCurrentUser();
   }
 
+  forgot(phone) {
+    const user = new CognitoUser({
+      Username: `+91${phone}`,
+      Pool: UserPool,
+    });
+
+    return new Promise((resolve, reject) => {
+      user.forgotPassword({
+        onSuccess: (data) => {
+          console.log("OnSuccess:------------>>>>>>>> ", data, data.accessToken);
+          resolve(data);
+        },
+        onFailure: (err) => {
+          console.log("onFailure:-------------->>>>>>>>> ", err.message);
+          reject(err);
+        }
+      });
+    });
+  }
+
   login(phone, password) {
     const user = new CognitoUser({
       Username: `+91${phone}`,

@@ -22,42 +22,17 @@ const LoginModal = () => {
   useEffect(() => {
     dispatch(clearAuthError());
   }, [isExistingUser])
+
+  const changeLoginModal = (type) => {
+    setExistingUser(type);
+  }
   
 
   return (
-    <Tab.Container
-      //defaultActiveKey="login"
-      activeKey={isExistingUser}
-      onSelect={(k) => setExistingUser(k)}
-    >
-      <Nav
-        activeKey={isExistingUser}
-        onSelect={(k) => setExistingUser(k)}
-        justify
-        variant="pills"
-        className="mt-5"
-      >
-        <Nav.Item>
-          <Nav.Link style={{ textDecoration: "none" }} eventKey="login">
-            Login
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link style={{ textDecoration: "none" }} eventKey="register">
-            Register
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
-
-      <Tab.Content>
-        <Tab.Pane eventKey="login">
-          <Login />
-        </Tab.Pane>
-        <Tab.Pane eventKey="register">
-          <Register />
-        </Tab.Pane>
-      </Tab.Content>
-    </Tab.Container>
+    isExistingUser === 'register' ?
+    <Register handleModalType={changeLoginModal} />
+    :
+    <Login handleModalType={changeLoginModal} />
   );
 };
 
