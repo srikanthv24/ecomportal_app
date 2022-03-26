@@ -169,7 +169,7 @@ class AuthService {
         cognitoUser.refreshSession(res.refreshToken, (error, result) => {
           console.log('refreshedToken--->', error, result)
           
-          sessionStorage.setItem("token", result.accessToken.jwtToken);
+          localStorage.setItem("token", result.accessToken.jwtToken);
           resolve(result);
         })
       });

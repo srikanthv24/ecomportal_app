@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  Spinner,
-  Button,
-  FormControl,
-  InputGroup,
-} from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { BiRupee } from "react-icons/bi";
 import { BsPencil, BsTrash, BsTrashFill } from "react-icons/bs";
@@ -40,7 +34,6 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
     );
   };
 
-  console.log("oooooo", ProductDetails);
   useEffect(() => {
     let temp = { ...Addresses };
     if (ProductDetails.subscription && ProductDetails.subscription.length) {
@@ -51,6 +44,8 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
     ProductDetails?.subscription?.map((item, index) => {
       if (item.isDelivery) {
         temp[item?.meal_type] =
+          item.address.tag +
+          ":" +
           item.address.aline1 +
           ", " +
           item.address.aline2 +
@@ -76,8 +71,6 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
       }
     });
   }, [ProductDetails]);
-
-  console.log("Addressss", Addresses);
 
   return (
     <div className="w-100p">
@@ -106,41 +99,9 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
                 .replace("OUTPUT", " %")
                 .replace("-", "")}
             </p>
-            {/* <p className="ff-2 clr-black mb-0 d-flex justify-content-between"> */}
-            {/* {ProductDetails.category === "Snacks" ? (
-                <span
-                  style={{
-                    fontSize: "12px",
-                    wordWrap: "break-word",
-                  }}
-                >
-                  (Qty: {ProductDetails?.qty} X <BiRupee />
-                  {Number(ProductDetails?.sub_total).toFixed(2)} /{" "}
-                  {ProductDetails.uom_name}) + Tax: {ProductDetails.tax_amount}{" "}
-                  ={" "}
-                </span>
-              ) : (
-                <span
-                  style={{
-                    fontSize: "12px",
-                    wordWrap: "break-word",
-                  }}
-                >
-                  (Qty: {ProductDetails?.qty} X <BiRupee />
-                  {Number(ProductDetails?.subscription[0]?.sale_val).toFixed(
-                    2
-                  )}{" "}
-                  /
-                </span>
-              )} */}
-            {/* <span>
-              {ProductDetails?.uom_name} + Tax{" "}
-                  {ProductDetails?.tax_amount} + Inclues{" "}                  
-              </span> */}
             <p className="cart-list-product-detailes-attribute-kind mb-2">
               Tax {ProductDetails?.tax_amount} Includes{" "}
             </p>
-            {/* </p> */}
             <p className="ff-2 clr-black mb-0 d-flex justify-content-between">
               <div className="ff-2 mb-0 cart-list-product-detailes-sale-price">
                 <BiRupee />
@@ -240,9 +201,6 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
             style={{
               borderRadius: "50%",
               display: "inline-flex",
-              // position: "absolute",
-              // bottom: 10,
-              // right: 10,
             }}
           >
             <Button

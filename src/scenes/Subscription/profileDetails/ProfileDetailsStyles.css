@@ -1,0 +1,63 @@
+.gender-card {
+    display: inline-flex;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gender-card .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gender-card .card-body svg {
+    cursor: pointer;
+    width: auto;
+    height: 100px;
+    margin: 0 15px;
+}
+
+.bio-card {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 300px;
+    padding: 0 20px;
+}
+
+.bio-card .height-row {
+    display: flex;
+}
+
+.bio-card .height-row .input-group:first-child {
+    width: calc(60% - 8px);
+    margin-right: 16px;
+}
+
+.bio-card .height-row .input-group:last-child {
+    width: calc(40% - 8px);
+}
+
+.footer-button-wrap {
+    display: flex;
+    margin: 30px auto 0;
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+.footer-button-wrap button {
+    width: calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.footer-button-wrap button:last-child {
+    margin-right: 0;
+}
+
+.footer-button-wrap button svg {
+    margin: 0 5px;
+}

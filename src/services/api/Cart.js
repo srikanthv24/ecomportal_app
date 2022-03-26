@@ -15,7 +15,7 @@ import { api_urls } from "../../utils";
 //m76 : Common_API_URL
 export class Cart {
   static getCart= async(params) =>{
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -38,8 +38,7 @@ export class Cart {
   }
 
   static getCartSummary = async(params)=> {
-    const getToken= await sessionStorage.getItem('token') ;
-    console.log("parrrrr",params)
+    const getToken= await localStorage.getItem('token') ;
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -47,7 +46,6 @@ export class Cart {
           method: "POST",
           headers: {
             "Authorization": getToken,
-           // "X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
           },
           body: JSON.stringify({
             query: CartSummary,
@@ -61,12 +59,7 @@ export class Cart {
   }
 
   static createCart=async(params)=> {
-    // console.log('PARAQMS', `mutation {
-    //   createCart(input: {${params.payload}}) {
-    //     id
-    //   }
-    // }`)
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     let payload = params.payload;
     try {
       return fetch(
@@ -92,12 +85,11 @@ export class Cart {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
   static updateCart(params) {
-    console.log("my_params", params);
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -124,7 +116,7 @@ export class Cart {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -149,7 +141,7 @@ export class Cart {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log("<===UpdateCartQtyFailed===>", error);
+      // console.log("<===UpdateCartQtyFailed===>", error);
     }
   }
 }

@@ -1,8 +1,9 @@
 import { api_urls } from "../../utils";
+const API_KEY = process.env.REACT_APP_POSTALCODE_API_KEY
 
 export class Adresses {
   static getAddressList = async (id) => {
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await localStorage.getItem('token')
     return await fetch(
       `${api_urls.Common_API_URL}`,
       {
@@ -38,16 +39,14 @@ export class Adresses {
   };
 
   static postAddress = async(data) => {
-    console.log("post address data in fetch api:::", data);
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await localStorage.getItem('token');
     return fetch(
       `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-         // "Authorization": getToken,
+         "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -70,15 +69,14 @@ export class Adresses {
   };
 
   static deleteAddress = async(data) => {
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await localStorage.getItem('token')
     return fetch(
       `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-         // "Authorization": getToken,
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -99,15 +97,14 @@ export class Adresses {
   };
 
   static getPostalCodes = async() => {
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await localStorage.getItem('token')
     return fetch(
       `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          //"X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
-          "Authorization": getToken,
+          "X-API-Key": `${API_KEY}`,
         },
         body: JSON.stringify({
           query: `
@@ -131,5 +128,3 @@ export class Adresses {
       });
   };
 }
-
-//578461ea-bc50-4d40-8c0a-5c4546abc2d7

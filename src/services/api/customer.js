@@ -1,17 +1,8 @@
 import { api_urls } from "../../utils";
 
-
-const API_URL =
-  "https://rd7pbwckwvb2lgexcirzcswalu.appsync-api.us-east-1.amazonaws.com/graphql/";
-const API_KEY = "da2-ikrgaao25re4pflusa3hijenoi";
-//const API_URL = process.env.REACT_APP_API_URL;
-// const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
-
-
-//rd7 - Customer_REL_API_URL
 export class Customer {
   static getGender = async () => {
-     const getToken = await sessionStorage.getItem('token')
+     const getToken = await localStorage.getItem('token')
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -40,7 +31,7 @@ export class Customer {
   };
 
   static getPhysicalActivity = async () => {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -69,7 +60,7 @@ export class Customer {
   };
 
   static getDietPreference = async () => {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -98,7 +89,7 @@ export class Customer {
   };
 
   static getGoalList = async () => {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -127,8 +118,7 @@ export class Customer {
   };
 
   static createCustomer = async(data) => {
-    console.log("data to fetch call::::", data);
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "post",
       headers: {
@@ -137,19 +127,22 @@ export class Customer {
       },
       body: JSON.stringify({
         query: `mutation {
-                  createCustomer(input: {address: "Jublihills", 
-                                        dietpreference: ${data.dietpreference}, 
-                                        display_name: "${data.name}", 
-                                        dob: "16-12-1996", 
-                                        goal: ${data.goal}, 
-                                        name: "${data.name}", 
-                                        mobile: "9550163323", 
-                                        physicalactivity: ${data.physicalactivity}, 
-                                        upd_by:"${data.name}",
-                                        personalinfo: {age: ${data.age}, 
-                                                      gender: ${data.gender}, 
-                                                      heightcm: ${data.height}, 
-                                                      weightkg: ${data.weight}}}) 
+                  createCustomer(input: 
+                    {
+                      display_name: "${data.name}",
+                      goal: ${data.goal},
+                      id: "${data.id}",
+                      mobile: "${data.mobile}", 
+                      personalinfo: {
+                        age: ${data.age}, 
+                        gender: ${data.gender}, 
+                        heightft: {
+                          feet: ${data.heightFeet}, 
+                          inch: ${data.heightInches}
+                        }, 
+                        weightkg: ${data.weight}
+                      }, 
+                    }) 
                   {
                     id
                   }

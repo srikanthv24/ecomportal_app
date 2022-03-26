@@ -16,15 +16,28 @@ import {
   authLoading,
   clearAuthError
 } from "../../store/actions/auth";
-import { useHistory } from "react-router";
-// import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "../Login/styles.css";
 import auth_services from "../../services/auth_services";
+import * as yup from "yup";
+
+const registerSchema = yup.object().shape({
+  password: yup.string().required("Password is required."),
+  name: yup
+    .string()
+    .required("Name field is required.")
+    .min(4, "Name field must be atleast 4 characters long")
+    .matches(/^[A-Z]([a-z][A-Z]?)+$/, "Name field must contain Uppercase letter"),
+  phone: yup
+    .string()
+    .required("Phone is required.")
+    .max(10, "Phone number shouldn't exceed 10 digits")
+    .min(10, "Phone number must be 10 digits"),
+});
+
 
 const Register = (props) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const dispatch = useDispatch();
-
   const { loading, cognitoUserDetails, error } = useSelector(
     (state) => state.auth
   );

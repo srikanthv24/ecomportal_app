@@ -120,7 +120,7 @@ export const MealBooking = () => {
     // 			createCart({
     // 				customer_id: userDetails.sub,
     // 				item: { ...data, subscription: filteredPayload },
-    // 				accessToken: sessionStorage.getItem("token"),
+    // 				accessToken: localStorage.getItem("token"),
     // 			})
     // 		);
 
@@ -144,7 +144,7 @@ export const MealBooking = () => {
       createCart({
         customer_id: userDetails.sub,
         item: { ...payload, subscription: filteredPayload },
-        accessToken: sessionStorage.getItem("token"),
+        accessToken: localStorage.getItem("token"),
       })
     );
     history.push("/cart-summary");

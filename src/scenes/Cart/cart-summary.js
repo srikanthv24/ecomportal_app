@@ -3,19 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { getAddresses } from "../../store/actions";
-import { getCartSummary, getCart } from "../../store/actions/cart";
-import CartSummaryItem from "./cart-summary-item";
-import { hideAlert, showAlert } from "../../store/actions/alert";
 import { useHistory } from "react-router";
-import ModalComponent from "../../components/Modal/Modal";
-
-var phantom = {
-  display: "block",
-  padding: "10px",
-  height: "10px",
-  width: "100%",
-};
+import { getAddresses, getCartSummary, getCart, hideAlert, showAlert } from "../../store/actions";
+import ModalComponent from "../../components/Modal/modal";
+import CartSummaryItem from "./cart-summary-item";
+import { displayCurrency } from "../../helpers/displayCurrency";
+import api_urls from "../../utils/UrlConfig";
 
 const CartSummary = () => {
   const history = useHistory();
@@ -23,16 +16,17 @@ const CartSummary = () => {
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
-  const Cart = useSelector((state) => state.Cart);
+  const {cartSummary, cartDetails, cartLoading} = useSelector((state) => state.Cart);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    dispatch(getAddresses({ customerId: userDetails.sub }));
+    if(userDetails.sub) {
+      dispatch(getAddresses({ customerId: userDetails.sub }));
+    }
   }, []);
 
   useEffect(() => {
     let temp = [];
-
     if (Addresses.listAddresses) {
       const items = Addresses.listAddresses.items;
       items.map((address) => {
@@ -51,11 +45,6 @@ const CartSummary = () => {
     }
   }, [Addresses.listAddresses]);
 
-  const CartReducer = useSelector((state) => state.Cart);
-  const cartSummary = useSelector((state) => state.Cart.cartSummary);
-  const cartDetails = useSelector((state) => state.Cart.cartDetails);
-
-  console.log("Currency==>", "1267000".replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
   useEffect(() => {
     if (userDetails.sub)
@@ -98,12 +87,11 @@ const CartSummary = () => {
           </div>
         }
       />
-
       <div className="p-21 bg-1 cart-summary-wrapper">
         <p className="h3 page-title">Cart Summary</p>
         <div className="d-flex align-items-center w-100p">
           <div className="w-100p d-flex align-items-center">
-            <div className="w-50p">
+            <div className="w-50">
               <p className="cart-summary-desc-item-container mb-0">
                 Items{" "}
                 <strong>
@@ -113,17 +101,11 @@ const CartSummary = () => {
                 </strong>
               </p>
             </div>
-            {/* <div className="w-50p">
-              <p className="cart-summary-desc-item-container mb-0 text-right d-flex align-items-center justify-content-end">
-                TOTAL{" "}
-                <BiRupee /><strong>{(cartSummary?.data && String(cartSummary?.data?.grand_total).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) || 0}</strong>    
-              </p>
-            </div> */}
           </div>
         </div>
 
         <section className="cart-items-block">
-          {cartSummary?.isLoading || CartReducer.cartLoading ? (
+          {cartSummary?.isLoading || cartLoading ? (
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100"
               style={{ height: "100% " }}
@@ -132,7 +114,6 @@ const CartSummary = () => {
               Loading...
             </div>
           ) : cartSummary?.data?.items?.length ? (
-            // cartSummary?.data?.items[0]?.items?.map((item) => {
             cartSummary?.data?.items?.map((item, index) => {
               return (
                 <CartSummaryItem ProductDetails={item.item} pindex={index} />
@@ -184,12 +165,7 @@ const CartSummary = () => {
             <p class="cart-order-summery-list-total mb-0">Total</p>
             <p class="cart-order-summery-list-total-price mb-0">
               <BiRupee />
-              {(cartSummary?.data &&
-                String(cartSummary?.data?.grand_total).replace(
-                  /\B(?=(\d{3})+(?!\d))/g,
-                  ","
-                )) ||
-                0}
+              {displayCurrency(cartSummary?.data?.grand_total)}
             </p>
           </div>
         </section>
@@ -199,27 +175,24 @@ const CartSummary = () => {
             <p>Sub-total</p>
             <p>
               <BiRupee />{" "}
-              {(cartSummary?.data && Number(cartSummary?.data?.sub_total)) || 0}
+              {displayCurrency(cartSummary?.data?.sub_total)}
             </p>
           </span>
           <span className="d-flex justify-content-between align-items-center">
             <p>Delivery Charges</p>
             <p>
               <BiRupee />
-              {(cartSummary?.data && Number(cartSummary?.data?.sub_total)) || 0}
+              {displayCurrency(cartSummary?.data?.sub_total)}
             </p>
           </span>
           <span className="d-flex justify-content-between align-items-center">
             <p className="fw-bold">Total</p>
             <p className="fw-bold">
               <BiRupee />
-              {(cartSummary?.data && Number(cartSummary?.data?.grand_total)) ||
-                0}
-              {/* { (cartSummary?.data !== null)  ? (cartSummary?.data?.grand_total) :  0} */}
+              {displayCurrency(cartSummary?.data?.grand_total)}
             </p>
           </span>
         </section>
-        <div style={phantom} />
         <div
           style={{
             position: "fixed",
@@ -227,24 +200,16 @@ const CartSummary = () => {
             right: 0,
             left: 0,
             padding: 5,
+            backgroundColor:"#F2CBBD"
           }}
         >
           <Button
             className="w-100 custom-primary-btn"
             style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
             onClick={handleContinue}
-            // disabled={cartSummary?.data?.items?.length}
             disabled={cartSummary?.data?.items?.length ? false : true}
           >
-            Confirm and Pay <BiRupee />
-            {/* {Number(
-              cartSummary?.data &&
-                cartSummary?.data?.grand_total || 0
-            ).toFixed(2)} */}
-            {String(cartSummary?.data?.grand_total || 0).replace(
-              /\B(?=(\d{3})+(?!\d))/g,
-              ","
-            )}
+            Confirm and Pay <BiRupee />{displayCurrency(cartSummary?.data?.grand_total)}
           </Button>
         </div>
       </div>
@@ -267,10 +232,8 @@ const CartSummary = () => {
 
   async function handleContinue() {
     const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
+     `${api_urls.Razorpay_API_URL}`
     );
-
-    console.log("RESPOINSNS", res);
 
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
@@ -283,26 +246,18 @@ const CartSummary = () => {
       amount: Number(
         parseInt(parseFloat(cartSummary?.data?.grand_total).toFixed(2)) * 100
       ),
-      //amount: Number(cartSummary?.data?.grand_total * 100),
       currency: "INR",
       receipt: "Receipt #20",
       id: cartSummary?.data?.items[0].id,
-      // id: Cart.cartDetails.items[0].id,
       customer_id: userDetails.sub,
       phone: userDetails.phone_number.substring(3),
     };
 
-    console.log("zzzzzz", req);
     const result = await fetch(
-      "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
+      `${api_urls.Payment_API_URL}`,
       { method: "POST", body: JSON.stringify(req) }
     ).then((res) => res.json());
-
-    console.log(
-      req,
-      parseFloat(cartSummary?.data?.items[0]?.grand_total).toFixed(2)
-    );
-    console.log("RESS", result);
+    
     if (!result) {
       alert("Server error. Are you online?");
       return;
@@ -311,14 +266,14 @@ const CartSummary = () => {
     // Getting the order details back
     const { amount, id: order_id, currency } = result;
     const options = {
-      key: "rzp_live_JvYF2a7kJsppDt", // Enter the Key ID generated from the Dashboard
+      key: `${api_urls.payment_key}`, // Enter the Key ID generated from the Dashboard
       amount: amount,
       currency: currency,
       name: userDetails.name,
       order_id: order_id,
       upi_link: true,
       handler: async function (response) {
-        console.log("response", response);
+        // console.log("response", response);
         dispatch(getCart({ customer_id: userDetails.sub }));
         dispatch(
           showAlert({
@@ -332,38 +287,10 @@ const CartSummary = () => {
             title: "Payment Success",
           })
         );
-        // const data = {
-        //   type: "success",
-        //   phone: userDetails.phone_number.substring(3),
-        //   amount: amount.toString(),
-        //   orderCreationId: order_id,
-        //   cart_id: Cart.cartDetails.items[0].id,
-        //   razorpayPaymentId: response.razorpay_payment_id,
-        //   razorpayOrderId: response.razorpay_order_id,
-        //   razorpaySignature: response.razorpay_signature,
-        //   description: "VL",
-        // };
-
-        //console.log(data);
-        // const result = await fetch(
-        //   "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
-        //   { body: JSON.stringify(data), method: "POST" }
-        // ).then((res) => res.json());
-        // alert(result.data.msg);
-        //console.log("REDD=>", result);
-
-        // if (result.status === "success") {
-        //   console.log("200");
-        //   dispatch(getCartSummary({ customer_id: userDetails.sub }));
-        //   dispatch(getCart({ customer_id: userDetails.sub }));
-        // } else {
-        //   console.log("401");
-        // }
       },
       prefill: {
         name: userDetails.name,
         contact: userDetails.phone_number.substring(3),
-        // email: '@gmail.com',
       },
       notes: {
         address: "VL",

@@ -17,11 +17,20 @@ import {
   updateUserDetails,
   clearAuthError,
 } from "../../store/actions/auth";
-// import VLogo from "../../assets/Vibrant-Living-logo.png";
 import "./styles.css";
 // import "./styles.css";
 import auth_services from "../../services/auth_services";
 import { hideLogin } from "../../store/actions";
+import * as yup from "yup";
+
+const registerSchema = yup.object().shape({
+  password: yup.string().required("Password is required."),
+  phone: yup
+    .string()
+    .required("Phone is required.")
+    .max(10, "Phone number shouldn't exceed 10 digits")
+    .min(10, "Phone number must be 10 digits"),
+});
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -36,7 +45,7 @@ const Login = (props) => {
         getUserDetails();
         //console.log("OnSuccess: ", res, res.accessToken);
         dispatch(loginSuccess(res));
-        sessionStorage.setItem("token", res.accessToken.jwtToken);
+        localStorage.setItem("token", res.accessToken.jwtToken);
         dispatch(hideLogin());
       })
       .catch((err) => {

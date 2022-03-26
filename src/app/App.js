@@ -28,7 +28,7 @@ function App() {
   const { showModal, errors } = useSelector((state) => state.sessionExpire);
 
   useEffect(async () => {
-    const getToken = await sessionStorage.getItem("token");
+    const getToken = await localStorage.getItem("token");
     if (getToken == null) {
       dispatch(getTokenFailure());
     } else {
