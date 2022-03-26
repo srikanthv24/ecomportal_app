@@ -143,7 +143,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
       return false;
     });
 
-    console.log("filtered Payload", { ...data, subscription: filteredPayload });
+    // console.log("filtered Payload", { ...data, subscription: filteredPayload });
 
     if (userDetails.sub) {
       dispatch(
@@ -233,10 +233,10 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
     );
   };
 
-  useEffect(() => {
-    console.log("products.productDetails", products.productDetails);
-    console.log("Cart.cartDetails", Cart.cartDetails);
-  }, [products.productDetails, Cart.cartDetails]);
+  // useEffect(() => {
+  //   console.log("products.productDetails", products.productDetails);
+  //   console.log("Cart.cartDetails", Cart.cartDetails);
+  // }, [products.productDetails, Cart.cartDetails]);
 
   const onDecrement = () => {
     if (ExistingProduct.item.qty == 1) {
@@ -262,14 +262,14 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   };
 
   useEffect(() => {
-    console.log("subscription__", variants);
+    // console.log("subscription__", variants);
     let temp = 0;
     let tempArr = [];
     let duration = VarItems?.Duration?.duration;
 
-    console.log("itm.sale_val in useeffect____");
+    // console.log("itm.sale_val in useeffect____");
     subscription.map((subscribed) => {
-      console.log("itm.sale_val____1", subscribed);
+      // console.log("itm.sale_val____1", subscribed);
       if (subscribed.is_included) {
         if (subscribed.meal_type == "B") {
           let aprice = 0;
@@ -317,7 +317,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
               duration,
           };
         }
-        console.log("itm.sale_val____11", subscribed);
+        // console.log("itm.sale_val____11", subscribed);
         tempArr.push(subscribed);
         temp = temp + subscribed.sale_val;
       }
@@ -332,7 +332,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   ]);
 
   const variantsSelected = (varItems) => {
-    console.log("itm.sale_val_____", varItems);
+    // console.log("itm.sale_val_____", varItems);
     setVarItems(varItems);
   };
 
@@ -344,17 +344,13 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   };
 
   useEffect(() => {
-    if (userId && Object.keys(cartCreated).length) {
+    if (userId && Object.keys(cartCreated).length && formSubmitted) {
       history.push("/cart-summary");
     }
-  }, [userId, cartCreated])
+  }, [userId, cartCreated, formSubmitted])
 
 
-  console.log("existtt", ExistingProduct);
-  console.log("isOnboarding", isOnboarding);
-
-
-  console.log("WIZARD___", goal, cuisine, profileDetails);
+  // console.log("WIZARD___", goal, cuisine, profileDetails);
   return (
     <FormProvider {...methods}>
       <AddressModal
@@ -440,7 +436,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
                   </Button>
                 )}
               </>
-            ) : // _________________________________________________________________________________________
+            ) :
               ExistingProduct?.item?.qty ? (
                 <InputGroup className="p-2 w-100">
                   <Button
