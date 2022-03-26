@@ -3,7 +3,7 @@ const API_KEY = process.env.REACT_APP_POSTALCODE_API_KEY
 
 export class Adresses {
   static getAddressList = async (id) => {
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await localStorage.getItem('token')
     return await fetch(
       `${api_urls.Common_API_URL}`,
       {
@@ -39,7 +39,7 @@ export class Adresses {
   };
 
   static postAddress = async(data) => {
-    const getToken  = await sessionStorage.getItem('token');
+    const getToken  = await localStorage.getItem('token');
     return fetch(
       `${api_urls.Common_API_URL}`,
       {
@@ -69,7 +69,7 @@ export class Adresses {
   };
 
   static deleteAddress = async(data) => {
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await localStorage.getItem('token')
     return fetch(
       `${api_urls.Common_API_URL}`,
       {
@@ -97,7 +97,7 @@ export class Adresses {
   };
 
   static getPostalCodes = async() => {
-    const getToken  = await sessionStorage.getItem('token')
+    const getToken  = await localStorage.getItem('token')
     return fetch(
       `${api_urls.Common_API_URL}`,
       {

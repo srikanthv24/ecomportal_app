@@ -5,7 +5,7 @@ import { api_urls } from "../../utils";
 
 export class OrdersApi {
   static getOrders = async(params) => {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     try {
       return await fetch(
         `${api_urls.SUB_REL_API_URL}`,

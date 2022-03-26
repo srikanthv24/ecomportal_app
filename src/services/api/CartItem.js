@@ -8,7 +8,7 @@ import { api_urls } from "../../utils";
 
 export class CartItem {
   static getCartItem =async (params)=> {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -31,7 +31,7 @@ export class CartItem {
   }
 
   static createCartItem= async(params) => {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -56,7 +56,7 @@ export class CartItem {
   }
 
   static updateCartItem=async(params) =>{
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -81,7 +81,7 @@ export class CartItem {
   }
 
   static deleteCartItem  = async (params)=> {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,

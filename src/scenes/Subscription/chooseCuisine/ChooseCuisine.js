@@ -6,26 +6,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMealPlans } from "../../../store/actions/mealPlans";
 
 const CuisineCard = ({ name, onClick, isSelected, CuisineSrc }) => (
-  <Card
-    onClick={() => onClick()}
-    className={`cuisine-card${isSelected ? " bg-success" : ""}`}
-  >
-    {/* <Card.Img
-            variant="top"
-            src={CuisineSrc}
-
-        /> */}
-    <div className="prd-image-thumbnile prd-image-thumbnile-none">
-      <img src={CuisineSrc || CuisineImg} alt="img" className="subimg" />
-    </div>
-    <Card.Body>
-      <Card.Title
-        className={`text-center m-0 py-1${isSelected ? " text-white" : ""}`}
-      >
-        {name}
-      </Card.Title>
-    </Card.Body>
-  </Card>
+   <Card
+   style={{
+     marginBottom: 30,
+     borderColor: "transparent",
+     padding: "0px",
+     background: "transparent",
+   }}
+   onClick={() => onClick()}
+className={`cuisine-card${isSelected ? " bg-success" : ""}`}
+  
+ >
+   <Card.Body
+     variant="top"
+     className="p-2"
+   >
+     <div className="prd-image-thumbnile">
+       <img src={ CuisineSrc|| CuisineImg} alt="img" />
+     </div>
+   </Card.Body>
+   <Card.Body
+     className="pt-1 text-center px-1"
+     style={{ minHeight: 40 }}
+   >
+     <Card.Text
+       className="h6 mb-0 pb-0 col-12 text-truncate text-center"
+       style={{
+         fontSize: "15px",
+         lineHeight: "25px",
+         fontWeight: "700",
+         color: "#352817",
+         fontFamily: "Roboto Condensed",
+       }}
+     >
+       {name}
+     </Card.Text>
+   </Card.Body>
+ </Card>
 );
 
 const ChooseCuisine = ({ handleNextStep, selectedCuisine, setCuisine }) => {

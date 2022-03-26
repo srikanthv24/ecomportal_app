@@ -17,12 +17,12 @@ export const SessionModal = ({ showModal }) => {
 
     // auth_services.refreshToken().then((res) => {
     //   dispatch(loginSuccess(res));
-    //   sessionStorage.setItem("token", res.accessToken.jwtToken);
+    //   localStorage.setItem("token", res.accessToken.jwtToken);
     // });
     dispatch(handleModalClose());
 
     auth_services.logout();
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     dispatch(clearUserDetails());
     dispatch(getTokenFailure());
     // setMenu(false);

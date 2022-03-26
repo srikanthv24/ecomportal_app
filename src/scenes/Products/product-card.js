@@ -62,7 +62,7 @@ const ProductCard = ({ product ,pindex}) => {
            createCart({
              customer_id: userDetails.sub,
              item: { ...temp, qty: 1 },
-             accessToken: sessionStorage.getItem("token"),
+             accessToken: localStorage.getItem("token"),
            })
          );
        setButtonLoading(true)

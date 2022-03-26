@@ -67,7 +67,7 @@ export class Products {
 	};
 
 	static ProductDetails = async (id) => {
-		const getToken = await sessionStorage.getItem('token')
+		const getToken = await localStorage.getItem('token')
 		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
@@ -90,7 +90,7 @@ export class Products {
 	};
 
 	static getAddressList = async (id) => {
-		const getToken = await sessionStorage.getItem('token')
+		const getToken = await localStorage.getItem('token')
 		return await fetch(
 			`${api_urls.Common_API_URL}`,
 			{
