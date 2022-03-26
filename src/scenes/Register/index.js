@@ -1,10 +1,20 @@
-import React, { useState } from "react";
-import { Form, Button, Row, Col, Alert } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useForm } from 'react-hook-form';
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Alert,
+  FloatingLabel,
+  InputGroup
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
   signupSuccess,
   authError,
   authLoading,
+  clearAuthError
 } from "../../store/actions/auth";
 import "../Login/styles.css";
 import auth_services from "../../services/auth_services";
@@ -25,72 +35,33 @@ const registerSchema = yup.object().shape({
 });
 
 
-const Register = () => {
+const Register = (props) => {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const dispatch = useDispatch();
   const { loading, cognitoUserDetails, error } = useSelector(
     (state) => state.auth
   );
 
-  const [FormData, setFormData] = useState({
-    phone: "",
-    password: "",
-    name: "",
-  });
-
-  const [FormErrors, setFormErrors] = useState({});
-
-  const handleChange = (key, value) => {
-        let FormErrorsCopy = {...FormErrors};
-        delete FormErrorsCopy[key];
-        setFormErrors(FormErrorsCopy);
-        if (key == "phone") {
-          if (value.length <= 10)
-            setFormData((prevState) => ({ ...prevState, [key]: value }));
-        } else {
-          setFormData((prevState) => ({ ...prevState, [key]: value }));
-        }
-
+  const onSubmit = (data) => {
+    dispatch(authLoading());
+    auth_services
+      .registerUser(data.name, data.phone, data.password)
+      .then((res) => {
+        dispatch(signupSuccess(res));
+      })
+      .catch((error) => {
+        dispatch(authError(error.message));
+      });
   };
 
-  const handleSubmit = (e) => {
-    // console.log("FormData", FormData);
-    registerSchema.isValid(FormData).then((res) => {
-      if (res) {
-        // console.log("isValid", res);
-        setFormErrors({});
-        dispatch(authLoading());
-        e.preventDefault();
-        auth_services
-          .registerUser(FormData.name, FormData.phone, FormData.password)
-          .then((res) => {
-            dispatch(signupSuccess(res));
-          })
-          .catch((error) => {
-            dispatch(authError(error.message));
-          });
-      } else {
-        let isVaidated = registerSchema
-          .validate(FormData, {
-            abortEarly: false,
-          })
-          .then((res) => {
-            console.log("isValid-1", res);
-            return res;
-          })
-          .catch((err) => {
-            let temp = {};
-            err.inner.map((error) => {
-              // console.log("isValidError", error.path);
-              temp[error.path] = error.message;
-            });
-            setFormErrors(temp);
-            // console.log("TEMP_+_+", temp);
-            return err;
-          });
-        // console.log("isValid___", isVaidated);
-      }
-    });
-  };
+  useEffect(() => {
+    dispatch(clearAuthError());
+    reset();
+  }, []);
+
+  const handleLogInClick = () => {
+    props.handleModalType('login');
+  }
 
   if (loading) {
     return <p className="fs-5 fw-bold mt-2 text-center">Loading....</p>;
@@ -100,87 +71,78 @@ const Register = () => {
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <p className="fs-5 fw-bold mt-4 mb-3 secondary-color text-center">
-            Create Account
-          </p>
-          <Form>
-            <Form.Group className="mb-3" controlId="forMobileNumber">
+          <p class="h3 mb-3 text-center" style={{
+              fontFamily: "Roboto",
+              fontWeight: "700",
+            }}>Signup</p>
+          {/* <div className="text-center mt-4">
+            <Image src={VLogo} height="40" />
+          </div> */}
+          <p class="fw-bold">Sign up with your mobile number, name and password</p>
+          <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
+            <InputGroup className="mb-3" hasValidation>
+              <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
-                type="number"
-                placeholder="Enter Phone Number"
-                maxLength={10}
-                value={FormData.phone}
-                onChange={(ev) => handleChange("phone", ev.target.value)}
-                style={{ height: "52px" }}
-                required
-              />
-              <p
-                className="text-danger"
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  paddingLeft: 5,
-                  paddingTop: 5
-                }}
-              >
-                {FormErrors.phone}
-              </p>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="forName">
-              <Form.Control
+                className={errors.phone && 'is-invalid'}
                 type="text"
-                required
-                value={FormData.name}
-                onChange={(ev) => handleChange("name", ev.target.value)}
-                style={{ height: "52px" }}
-                placeholder="Name"
+                {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
-                <p
-                className="text-danger"
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  paddingLeft: 5,
-                  paddingTop: 5
-                }}
-              >
-                {FormErrors.name}
-              </p>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                required
-                value={FormData.password}
-                onChange={(ev) => handleChange("password", ev.target.value)}
-              />
-               <p
-                className="text-danger"
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  paddingLeft: 5,
-                  paddingTop:5
-                }}
-              >
-                {FormErrors.password}
-              </p>
-            </Form.Group>
-            <Button
-              variant="primary"
-              onClick={handleSubmit}
-              className="custom-btn w-100 mt-2"
+            </InputGroup>
+            {errors.phone && <p className="text-danger" style={{ textAlign: "left" }}>Please enter a valid phone no</p>}
+            <FloatingLabel
+              controlId="name"
+              label="Name"
+              className="mb-3"
             >
-              Register
+              <Form.Control
+                placeholder="Name"
+                className={errors.name && 'is-invalid'}
+                type="text"
+                {...register("name", {
+                    required: true
+                })}
+              />
+            </FloatingLabel>
+            {errors.name && <p className="text-danger" style={{ textAlign: "left" }}>Please enter your name</p>}
+            <FloatingLabel
+              controlId="password"
+              label="Password"
+              className="mb-3"
+            >
+              <Form.Control
+                placeholder="password"
+                className={errors.password && 'is-invalid'}
+                type="password"
+                {...register("password", {
+                    required: true,
+                    pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
+                })}
+              />
+            </FloatingLabel>
+            {errors.password && 
+              <p className="text-danger" style={{ textAlign: "left" }}>Your password should be min 8 Char and one small letter, one capital letter and one number atleast</p>
+            }
+            <p className="text-right">
+              Forgot Password?
+            </p>
+            <Button
+              className="w-100 mt-2 mb-3 btn btn-primary btn-lg"
+              variant="primary"
+              type="submit"
+              size="lg"
+            >
+              SignUp
             </Button>
+
+            <p className="text-muted text-center">
+              Already an account with Vibrant Living? <a href="#" onClick={handleLogInClick}>Sign In</a>
+            </p>
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+              </Alert>
+            )}
           </Form>
-          {error && (
-            <Alert variant="danger" className="mt-3">
-              {error}
-            </Alert>
-          )}
         </Col>
       </Row>
     </div>

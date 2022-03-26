@@ -1,10 +1,10 @@
 .login-container{
     max-width: 600px !important;
     position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height:450px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 450px;
 }
 .customform .form-floating>.form-control{
     padding: .5rem .75rem;
