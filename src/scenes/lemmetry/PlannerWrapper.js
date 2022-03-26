@@ -57,10 +57,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const { customerId: userId } = useSelector(state => state.customer);
   const { cartDetails: cartCreated } = useSelector(state => state.Cart);
 
-  useEffect(() => {
-    if (formSubmitted && !isLoggedIn && userLoggedIn) handleSubmit(handleCartSubmit)();
-  }, [formSubmitted, isLoggedIn, userLoggedIn]);
-
   const methods = useForm({
     defaultValues: {
       item_id: "",
@@ -102,6 +98,10 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const { control, handleSubmit, setValue, watch } = methods;
 
   const { subscription, variants } = watch();
+
+  useEffect(() => {
+    if (formSubmitted && !isLoggedIn && userLoggedIn && userDetails.sub) handleSubmit(handleCartSubmit)();
+  }, [formSubmitted, isLoggedIn, userLoggedIn, userDetails]);
 
   const handleAddToCart = () => {
     if (userDetails.sub) {

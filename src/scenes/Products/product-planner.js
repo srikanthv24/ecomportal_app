@@ -102,10 +102,6 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 			newAddressesObj = { ...addresses, [sessionAddress[session]]: sessionAddrCopy };
 		}
 		setAddresses(newAddressesObj);
-		updateAddresses(Object.entries(sessionAddress)
-			.map(([key, value]) =>
-				({ ...(typeof value === 'number' ? newAddressesObj.other[value] : newAddressesObj[value]), tag: typeof value === 'number' ? 'other' : value, postalcode: pincodes[sessionsOrder.indexOf(key)] })
-			));
 	};
 
 	const getFieldValue = (session, fieldName) => {
@@ -113,20 +109,20 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 	};
 
 	const handleAddrTagClick = (session, addrType) => {
-		let newAddressesObj;
 		if (typeof addrType === 'number' && typeof addresses.other[addrType] !== 'object') {
 			const otherAddrsCopy = [...addresses.other];
 			otherAddrsCopy[addrType] = getNewAddress(customerId, userDetails.name);
-			newAddressesObj = { ...addresses, other: otherAddrsCopy };
-			setAddresses(newAddressesObj);
+			setAddresses({ ...addresses, other: otherAddrsCopy });
 		}
-		const newSessionAddrObj = { ...sessionAddress, [session]: addrType };
-		setSessionAddress(newSessionAddrObj);
-		updateAddresses(Object.entries(newSessionAddrObj)
-			.map(([key, value]) =>
-				({ ...(typeof value === 'number' ? newAddressesObj.other[value] : newAddressesObj[value]), tag: typeof value === 'number' ? 'other' : value, postalcode: pincodes[sessionsOrder.indexOf(key)] })
-			));
+		setSessionAddress({ ...sessionAddress, [session]: addrType });
 	};
+
+	useEffect(() => {
+		updateAddresses(Object.entries(sessionAddress)
+			.map(([key, value]) =>
+				({ ...(typeof value === 'number' ? addresses.other[value] : addresses[value]), tag: typeof value === 'number' ? 'other' : value, postalcode: pincodes[sessionsOrder.indexOf(key)] })
+			));
+	}, [addresses, pincodes, sessionAddress, updateAddresses]);
 
 	const { fields } = useFieldArray({
 		control: control,
