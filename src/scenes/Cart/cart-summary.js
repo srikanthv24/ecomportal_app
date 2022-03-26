@@ -8,7 +8,7 @@ import { getCartSummary, getCart } from "../../store/actions/cart";
 import CartSummaryItem from "./cart-summary-item";
 import { hideAlert, showAlert } from "../../store/actions/alert";
 import { useHistory } from "react-router";
-import ModalComponent from "../../components/Modal/modal";
+import ModalComponent from "../../components/Modal/Modal";
 
 var phantom = {
   display: "block",
