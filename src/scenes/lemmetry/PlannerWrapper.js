@@ -106,6 +106,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const handleAddToCart = () => {
     if (userDetails.sub) {
       handleSubmit(handleCartSubmit)();
+      setFormSubmitted(true);
     } else {
       dispatch(showLogin());
       setFormSubmitted(true);
@@ -150,7 +151,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
         createCart({
           customer_id: userDetails.sub,
           item: { ...data, subscription: filteredPayload },
-          accessToken: sessionStorage.getItem("token"),
+          accessToken: localStorage.getItem("token"),
         })
       );
       dispatch(createCustomer({

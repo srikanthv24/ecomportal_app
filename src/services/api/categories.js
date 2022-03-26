@@ -27,7 +27,7 @@ export class Categories {
   };
 
   static createCategory = async(data) => {
-    const getToken = await sessionStorage.getItem('token')
+    const getToken = await localStorage.getItem('token')
     let date = new Date();
     return fetch(`${api_urls.Product_REL_API_URL}`, {
       method: "post",

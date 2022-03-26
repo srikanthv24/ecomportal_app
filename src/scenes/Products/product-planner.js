@@ -705,7 +705,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 															(!servicePinCodes.find(pincode => parseInt(pincodes[index]) === pincode)) ? (
 																<>
 																	<div className="card text-dark text-center bg-transparent border-0">
-																		Oops Unfortunately our services are not available in your area, please give a call to arrange alternate delivery options
+																		Unfortunately our services are not available in your area, please give a call to arrange alternate delivery options
 																	</div>
 																	<div class="card mx-auto my-3 p-0 bg-transparent border-0">
 																		<div class="card-body d-flex align-items-center p-0" style={{ whiteSpace: 'nowrap' }}>
