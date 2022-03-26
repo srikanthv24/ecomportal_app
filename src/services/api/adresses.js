@@ -1,4 +1,5 @@
 import { api_urls } from "../../utils";
+const API_KEY = process.env.REACT_APP_POSTALCODE_API_KEY
 
 export class Adresses {
   static getAddressList = async (id) => {
@@ -103,7 +104,7 @@ export class Adresses {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "X-API-Key": `${API_KEY}`,
         },
         body: JSON.stringify({
           query: `

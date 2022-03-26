@@ -31,3 +31,10 @@
 .prd-image-thumbnile-none{
     border-radius: 0px !important;
 }
+
+.cuisine-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: "#f05922";
+} 

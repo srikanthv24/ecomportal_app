@@ -720,8 +720,8 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 															) : (
 																<>
 																	<div className="d-flex mb-2 mt-4">
-																		<button onClick={() => handleAddrTagClick(sessionsOrder[index], 'office')} type="button" class={`btn me-2 ${getAddrTypeClassName(sessionsOrder[index], 'office')}`}>Office</button>
 																		<button onClick={() => handleAddrTagClick(sessionsOrder[index], 'home')} type="button" class={`btn me-2 ${getAddrTypeClassName(sessionsOrder[index], 'home')}`}>Home</button>
+																		<button onClick={() => handleAddrTagClick(sessionsOrder[index], 'office')} type="button" class={`btn me-2 ${getAddrTypeClassName(sessionsOrder[index], 'office')}`}>Office</button>
 																		<button onClick={() => handleAddrTagClick(sessionsOrder[index], index)} type="button" class={`btn me-2 ${getAddrTypeClassName(sessionsOrder[index], 'other')}`}>Other</button>
 																	</div>
 
