@@ -23,7 +23,7 @@ import FooterLogoIcon from "../../assets/footer/footer-logo-mobile.svg";
 import "./styles.css";
 
 function Footer() {
-
+  let history = useHistory();
   return (
     <>
       <div className="footer-background relative footer-background w-full bottom-0 px-4">
@@ -83,10 +83,12 @@ function Footer() {
               <li className="w-full md:w-auto pt-3 md:pt-0">
                 <p className="text-20 text-chocolate-800 font-bold leading-8">Other</p>
                 <ul className="flex-row flex justify-between flex-wrap md:block text-chocolate-900 text-16 font-normal leading-5">
-                  <li className="py-1 w-[4.75rem] md:w-full"><a href="#">Privacy Policy</a></li>
-                  <li className="py-1 w-[4.75rem] md:w-full md:opacity-75"><a href="#">Terms and Conditions</a></li>
-                  <li className="py-1 w-[4.75rem] md:w-full md:opacity-75"><a href="#">Shipping</a></li>
-                  <li className="py-1 w-[4.75rem] md:w-full md:opacity-75"><a href="#">Made with Ellipsis</a></li>
+                  <li className="py-1 w-full md:w-full"><a href="#">Privacy Policy</a></li>
+                  <li className="py-1 w-full md:w-full md:opacity-75"><a href="#"  onClick={() => {                   
+                    history.push("/legalcontent");
+                  }}>Terms and Conditions</a></li>
+                  {/* <li className="py-1 w-[4.75rem] md:w-full md:opacity-75"><a href="#">Shipping</a></li>
+                  <li className="py-1 w-[4.75rem] md:w-full md:opacity-75"><a href="#">Made with Ellipsis</a></li> */}
                   <li className="py-1 w-full md:opacity-75"><a href="#">Payments</a></li>
                 </ul>
               </li>
