@@ -70,6 +70,10 @@ const Login = (props) => {
   const handleSignUpClick = () => {
     props.handleModalType('register');
   }
+
+  const handleForgotClick = () => {
+    props.handleModalType('forgot');
+  }
   
 
   if (loading) {
@@ -121,7 +125,7 @@ const Login = (props) => {
               label="Remember me"
             />
             <p className="text-right">
-              Forgot Password?
+            <a href="#" onClick={handleForgotClick}>Forgot Password?</a>
             </p>
             <Button
               className="w-100 mt-2 mb-3 btn btn-primary btn-lg"
