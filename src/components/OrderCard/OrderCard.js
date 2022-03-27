@@ -2,27 +2,139 @@ import React from "react";
 import moment from "moment";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import DefaultImage from "./../../assets/default_thumbnail.png";
+import MoreIcon from "./../../assets/more.png";
+import StartTimeIcon from "./../../assets/start-time.png";
+import EndTimeIcon from "./../../assets/end-time.png";
 import { useHistory } from "react-router";
+import { BiRupee } from "react-icons/bi";
+import { displayCurrency } from "../../helpers/displayCurrency";
 
 const OrderCard = ({ordersList, cancelSubscription}) => {
     const history = useHistory();
 return(<section
     className="bg-1"
-    style={{ minHeight: "calc(100vh - 0px)", padding: "100px 5px 0px", position:'relative'}}
+    style={{ minHeight: "calc(100vh - 0px)", padding: "100px 5px 60px", position:'relative'}}
   >
-    <p className="h5 m-2 page-title">Subscription</p>
+    <div className="w-100p d-flex justify-content-between align-items-center">
+      <p className="h5 m-2 page-title">Subscription</p>
+      {/* <div className="legends">
+        <ul className="list-unstyled mb-0 mx-3">
+          <li><span className="icon"></span><span className="infotext">C</span></li>
+          <li><span className="icon"></span><span className="infotext">O</span></li>
+          <li><span className="icon"></span><span className="infotext">P/C</span></li>
+          <li><span className="icon"></span><span className="infotext">R</span></li>
+          </ul>
+      </div> */}
+    </div>
+   
     {ordersList?.length > 0 ? (
       ordersList?.map((order,index) => {
-        return (
+        return (         
           <Card
             border="default"
             key={order.id} className="m-2"
             style={{ border:'none', boxShadow:'none', background:'transparent'
             }}
           >
-            <div className="contaner" style={{padding:'0px 12px'}}>
-              <Row className="bg-1"
-            >
+    <div className="orders-info-3 w-100p">
+      <div className="w-100p d-flex justify-content-between align-items-center">
+          <h4 className="subs-id mb-0"># {order.id}</h4>
+          <div className="more-info">         
+            <img src={MoreIcon} alt="icon" height="24" />
+            <div className="more-dp-info">
+              <ul className="list-unstyled">
+                <li>Pause</li>
+                <li onClick={() => cancelSubscription(order.id)}> Cancel Subscrition</li>
+              </ul>
+            </div>
+          </div>
+      </div>
+      <div className="w-100p d-flex justify-content-between align-items-start my-1">
+          <h4 className="prd-item mb-0"> <span>{order?.product?.display_name}</span>
+                <p className="text-muted text-elipses mb-0">{order?.product?.category}</p>
+          </h4>
+          <div className="amount-info">
+          <BiRupee />{displayCurrency(order?.paid_amount)|| 0}
+          </div>
+      </div>
+      <div className="w-100p d-flex justify-content-between mt-1">
+          <div className="date-info">
+            <img src={StartTimeIcon} alt="icon" height="18" />
+            <span>{moment(order?.start_date).format("ll")}</span>
+          </div>
+          <div className="date-info">
+            <img src={EndTimeIcon} alt="icon" height="18" />
+            <span>{moment(order?.finish_date).format("ll")}</span>
+          </div>
+      </div>
+      <div className="sub-result-info mt-1">
+      <table className="order-details-table">
+        <tr>
+            <td></td>
+            <td className="food-info-txt">Ordered</td>
+            <td className="food-info-txt">Delivered</td>           
+            {/* <td className="food-info-txt">P/C</td> */}
+            <td className="food-info-txt">Balance</td>
+        </tr>
+        <tr>
+            <td className="food-info-txt">Breakfast</td>
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[0]?.meals_ordered}</span>
+            </td>
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[0]?.meals_consumed}</span>
+            </td>           
+            {/* <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[0]?.meals_pausedORcancelled}</span>
+            </td> */}
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[0]?.meals_remaining}</span>
+            </td>
+        </tr>
+        <tr>
+            <td className="food-info-txt">Lunch</td>
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[1]?.meals_ordered}</span>
+            </td>
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[1]?.meals_consumed}</span>
+            </td>           
+            {/* <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[1]?.meals_pausedORcancelled}</span>
+            </td> */}
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[1]?.meals_remaining}</span>
+            </td>
+        </tr>
+        <tr>
+            <td className="food-info-txt">Dinner</td>
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[2]?.meals_ordered}</span>
+            </td>
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[2]?.meals_consumed}</span>
+            </td>            
+            {/* <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[2]?.meals_pausedORcancelled}</span>
+            </td> */}
+            <td>
+                <span className="order-info-txt">{ordersList[index]?.orderscount[2]?.meals_remaining}</span>
+            </td>
+        </tr>
+      </table>      
+      </div>
+        
+      {/* <div className="orders__footer">
+        <Button variant="secondary" size="sm">Pause</Button>
+        <Button variant="secondary" size="sm" onClick={() =>
+          cancelSubscription(order.id)
+        }>Cancel Subscrition</Button>
+      </div> */}
+    </div>
+
+          <section style={{padding:'0px 12px', display:'none'}}>
+            <div className="contaner" style={{padding:'0px 12px', display:'none'}}>
+              <Row className="bg-1">
               <Col xs={3}>
                 <div>
                   <img
@@ -267,12 +379,15 @@ return(<section
             </Row>
             
             </div>
+
             <div className="orders__footer">
               <Button variant="secondary" size="sm">Pause</Button>
               <Button variant="secondary" size="sm" onClick={() =>
                 cancelSubscription(order.id)
               }>Cancel Subscrition</Button>
             </div>
+            </section>
+
           </Card>
         );
       })

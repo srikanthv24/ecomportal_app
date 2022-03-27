@@ -9,7 +9,6 @@ import ModalComponent from "../../components/Modal/modal";
 import CartSummaryItem from "./cart-summary-item";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import api_urls from "../../utils/UrlConfig";
-
 const CartSummary = () => {
   const history = useHistory();
   const dispatch = useDispatch();
