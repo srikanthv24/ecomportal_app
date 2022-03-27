@@ -9,7 +9,7 @@ export class mealPlans {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": `${MEAL_PLAN_API_KEY}`,
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: `{
@@ -66,7 +66,7 @@ export class mealPlans {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": `${MEAL_PLANDETAILS_API_KEY}`,
+        'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: `{
