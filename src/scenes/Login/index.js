@@ -46,6 +46,7 @@ const Login = (props) => {
         //console.log("OnSuccess: ", res, res.accessToken);
         dispatch(loginSuccess(res));
         localStorage.setItem("token", res.accessToken.jwtToken);
+        localStorage.setItem('expiry-time', Date.now());
         dispatch(hideLogin());
       })
       .catch((err) => {

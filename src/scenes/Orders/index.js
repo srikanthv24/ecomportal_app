@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ModalComponent from "../../components/Modal/Modal";
+import ModalComponent from "../../components/Modal/modal";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../store/actions/orders";
