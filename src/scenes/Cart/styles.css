@@ -27,3 +27,7 @@
     height: 30px,
 }
 
+.btn-outline-primary {
+    color: #f05922 !important;
+    border-color: #f05922 !important;
+}

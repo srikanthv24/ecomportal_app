@@ -181,21 +181,23 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
           <div className="btn-group btn-group-sm" role="group">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-outline-primary"
               onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
               disabled={Cart.cartLoading}
             >
               <GrSubtract />
             </button>
-            <input
-              type="text"
-              value={ProductDetails.qty}
-              className="form-control"
-              style={{ width: "50px", textAlign: "center" }}
-            />
             <button
               type="button"
-              className="btn btn-secondary text-align-center  "
+              className="btn btn-outline-primary"
+              onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
+              disabled={Cart.cartLoading}
+            >
+             {ProductDetails.qty}
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-primary"
               onClick={() => (!Cart.cartLoading ? onIncrement(pindex) : null)}
               disabled={Cart.cartLoading}
             >

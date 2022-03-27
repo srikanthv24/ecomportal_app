@@ -120,7 +120,7 @@ const ProductDetails = ({
 		}
 	};
 
-	console.log("rrrr", products.loading);
+	console.log("rrrr", ProductDetails);
 
 	return (
 		<FormProvider {...methods}>{isLoading && <div className="fullscreen-loader"> <Spinner animation="grow" /></div>}
@@ -172,12 +172,10 @@ const ProductDetails = ({
 							<Col sm={12} lg={6}>
 								<p className="h4 mt-3 ff-2">{ProductDetails?.display_name}</p>
 								<p className=" h6 text-muted ff-3">{ProductDetails?.category}</p>
-
-								<div
+								<img 
+									src ={ProductDetails?.defaultimg_url} 
+									width="100%" 
 									style={{
-										backgroundImage: `url(${ProductDetails?.defaultimg_url ||
-											"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-											})`,
 										backgroundSize: "cover",
 										backgroundRepeat: "no-repeat",
 										backgroundPosition: "center",
@@ -185,19 +183,7 @@ const ProductDetails = ({
 										height: "250px",
 										borderRadius:"10px"
 									}}
-								/>
-							</Col>
-							<Col sm={12} lg={6}>
-								{/* <h1>
-						<small className="text-muted col-12 h6">
-						Including{" "}
-						{String(ProductDetails.tax_methods)
-							.replace("Output", "")
-							.replace("-", "")}
-						</small>
-						<br />
-						<BiRupee /> {ProductDetails.sale_val} / {ProductDetails.uom_name}
-					</h1> */}
+									/>
 							</Col>
 						</Row>
 						<Row>

@@ -113,6 +113,14 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
     }
   };
 
+  useEffect(() => {
+    if (userId && Object.keys(cartCreated).length) {
+      history.push("/cart-summary");
+    }
+  }, [userId, cartCreated])
+  
+
+
   const handleCartSubmit = (data) => {
     console.log("use_form_data", data);
     setShowModal(false);
@@ -343,13 +351,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
       [e.target.name]: e.target.value,
     });
   };
-
-  useEffect(() => {
-    if (userId && Object.keys(cartCreated).length && formSubmitted) {
-      history.push("/cart-summary");
-    }
-  }, [userId, cartCreated, formSubmitted])
-
 
   // console.log("WIZARD___", goal, cuisine, profileDetails);
   return (
