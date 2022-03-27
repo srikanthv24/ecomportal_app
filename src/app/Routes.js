@@ -13,6 +13,7 @@ import Orders from "../scenes/Orders";
 import { Spinner } from "react-bootstrap";
 import {Profile} from '../scenes/Profile';
 import { MealBooking } from "../scenes/MealBooking";
+import LegalContent from "../components/LegalContent"
 
 function Routes() {
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -48,6 +49,7 @@ function Routes() {
           <Route path="/subscription" component={LemmeTry} />
           <Route path="/profile" component={Profile} />
           <Route path="/mealbooking" component={MealBooking}/>
+          <Route path="/legalcontent" component={LegalContent}/>
           {/* <Route path="/subscription" component={MealBooking}/> */}
           {userDetails.sub && (
             <>
