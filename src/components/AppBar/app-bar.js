@@ -66,7 +66,7 @@ export default function AppBar() {
 
   const logoutCognitoUser = () => {
     auth_services.logout();
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     dispatch(clearUserDetails());
     dispatch(getTokenFailure());
     setMenu(false);
@@ -76,7 +76,7 @@ export default function AppBar() {
   const handleRefresh = () => {
     auth_services.refreshToken().then(res => {
       dispatch(loginSuccess(res));
-        sessionStorage.setItem("token", res.accessToken.jwtToken);
+        localStorage.setItem("token", res.accessToken.jwtToken);
     })
   }
 

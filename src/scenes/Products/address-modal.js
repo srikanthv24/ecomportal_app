@@ -8,7 +8,8 @@ export const AddressModal = ({
   customerId,
   showModal,
   handleClose,
-  handleShow,
+  updateAddress,
+  handleSubmit
 }) => {
   const dispatch = useDispatch();
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
@@ -19,8 +20,10 @@ export const AddressModal = ({
   const [filteredPinCode, setFilteredPinCode] = useState(0);
 
   useEffect(() => {
-    dispatch(getPostalCodes());
-  }, [dispatch]);
+    if(userDetails.sub) {
+      dispatch(getPostalCodes());
+    }
+  }, [userDetails]);
 
   useEffect(() => {
     if (postalCodes?.listPostalCodes && postalCodes?.listPostalCodes?.items?.length) {
@@ -32,7 +35,7 @@ export const AddressModal = ({
     aline1: "",
     aline2: "",
     community: "",
-    area: "",
+    // area: "",
     landmark: "",
     city: "",
     state: "",
@@ -57,10 +60,11 @@ export const AddressModal = ({
     });
   };
 
-  const handleSubmit = () => {
-    dispatch(postAddress(newAddress));
-    dispatch(getAddresses({ customerId }));
-    handleClose();
+  const handleAddressSubmit = () => {
+    // dispatch(postAddress(newAddress));
+    // dispatch(getAddresses({ customerId }));
+    // handleClose();
+    handleSubmit(newAddress);
   };
 
   return (
@@ -85,6 +89,7 @@ export const AddressModal = ({
                 type="tel"
                 placeholder="pinCode"
                 name="postalcode"
+                onBlur={updateAddress}
                 // onChange={e => setValue(e.target.value)}
                 onChange={(e) => handlePostalCodes(e)}
                 maxLength="6"
@@ -110,6 +115,7 @@ export const AddressModal = ({
                     type="text"
                     placeholder="tag"
                     name="tag"
+                    onBlur={updateAddress}
                     onChange={(e) =>
                       handleAddress(e.target.name, e.target.value)
                     }
@@ -124,6 +130,7 @@ export const AddressModal = ({
                   <Form.Control
                     type="text"
                     placeholder="houseNo"
+                    onBlur={updateAddress}
                     name="aline1"
                     onChange={(e) =>
                       handleAddress(e.target.name, e.target.value)
@@ -138,6 +145,7 @@ export const AddressModal = ({
                   <Form.Control
                     type="text"
                     placeholder="apartmentNo"
+                    onBlur={updateAddress}
                     name="aline2"
                     onChange={(e) =>
                       handleAddress(e.target.name, e.target.value)
@@ -152,13 +160,14 @@ export const AddressModal = ({
                   <Form.Control
                     type="text"
                     placeholder="street"
+                    onBlur={updateAddress}
                     name="community"
                     onChange={(e) =>
                       handleAddress(e.target.name, e.target.value)
                     }
                   />
                 </FloatingLabel>
-                <FloatingLabel
+                {/* <FloatingLabel
                   //controlId="floatingInput"
                   label="Area"
                   className="mb-2"
@@ -167,11 +176,12 @@ export const AddressModal = ({
                     type="text"
                     placeholder="area"
                     name="area"
+                    onBlur={updateAddress}
                     onChange={(e) =>
                       handleAddress(e.target.name, e.target.value)
                     }
                   />
-                </FloatingLabel>
+                </FloatingLabel> */}
                 <FloatingLabel
                   //controlId="floatingInput"
                   label="Landmark"
@@ -181,6 +191,7 @@ export const AddressModal = ({
                     type="text"
                     placeholder="landmark"
                     name="landmark"
+                    onBlur={updateAddress}
                     onChange={(e) =>
                       handleAddress(e.target.name, e.target.value)
                     }
@@ -194,6 +205,7 @@ export const AddressModal = ({
                   <Form.Control
                     type="text"
                     placeholder="city"
+                    onBlur={updateAddress}
                     name="city"
                     onChange={(e) =>
                       handleAddress(e.target.name, e.target.value)
@@ -207,6 +219,7 @@ export const AddressModal = ({
                 >
                   <Form.Control
                     type="text"
+                    onBlur={updateAddress}
                     placeholder="state"
                     name="state"
                     onChange={(e) =>
@@ -229,7 +242,7 @@ export const AddressModal = ({
             <Button className="vl-close-btn" onClick={handleClose}>
               Close
             </Button>
-            <Button className="vl-save-btn" onClick={handleSubmit}>
+            <Button className="vl-save-btn" onClick={handleAddressSubmit}>
               Save Address
             </Button>
           </Modal.Footer>

@@ -8,7 +8,7 @@ const intialState = {
     dietList: [],
     goalList: [],
     custData: {},
-    // customerId: "578461ea-bc50-4d40-8c0a-5c4546abc2d7",
+    customerId: "",
 }
 
 export const customerReducer = (state = intialState, action) => {
