@@ -67,24 +67,38 @@ const ProfileDetails = ({ handleBack, handleNextStep, profileDetails, setProfile
         <section className="text-center" style={{ background: "rgb(249, 243, 223)" }}>
             <p className="fs-4 fw-bold mb-3 text-center page-title">I Am</p>
             <div>
-                <Card className="gender-card p-0 border-0 bg-transparent">
+                <Card className="bio-card p-0 border-0 bg-transparent">
                     <Card.Body className="py-3 px-0">
-                        <div className={`d-flex rounded${errors.gender ? ' border border-danger' : ''}`}>
-                            <MdMale
+                        <div className={`d-flex rounded justify-content-around${errors.gender ? ' border border-danger' : ''}`}>
+                            {/* <MdMale
                                 className={gender === 'Male' ? 'text-primary' : ''}
                                 onClick={() => {
                                     setErrors({ ...errors, gender: false });
                                     changeDetails({ gender: 'Male' });
                                 }}
-                            />
-                            <div class="vr"></div>
-                            <MdFemale
+                            /> */}
+                             <p
+                                className={`fs-4 fw-bold my-0${gender === 'Male' ? ' text-primary' : ' '}`}
+                                onClick={() => {
+                                    setErrors({ ...errors, gender: false });
+                                    changeDetails({ gender: 'Male' });
+                                }}
+                            >Male</p>
+                            <div className="vr"></div>
+                            {/* <MdFemale
                                 className={gender === 'Female' ? 'text-primary' : ''}
                                 onClick={() => {
                                     setErrors({ ...errors, gender: false });
                                     changeDetails({ gender: 'Female' });
                                 }}
-                            />
+                            /> */}
+                            <p 
+                               className={`fs-4 fw-bold my-0${gender === 'Female' ? ' text-primary' : ' '}`}  
+                             onClick={() => {
+                                 setErrors({ ...errors, gender: false });
+                                 changeDetails({ gender: 'Female' });
+                             }}
+                            >Female</p>
                         </div>
                     </Card.Body>
                 </Card>

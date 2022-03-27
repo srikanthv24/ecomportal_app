@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { call, put, takeEvery, select } from "redux-saga/effects";
+import { call, put, takeEvery, select, takeLatest } from "redux-saga/effects";
 import { Cart } from "../../services/api/Cart";
 import { createCart, getCart, getCartSummary as getCartSummaryAction } from "../actions/cart";
 import { types } from "../constants";
@@ -86,12 +86,25 @@ function* UpdateCart(params) {
 function* updateCartQty(params) {
 	try {
 		const { data, errors } = yield call(Cart.updateCartQty, params);
-		const state = yield select();
-		// console.log("UPDATE_CART_QTY_RESPONSE===>", response);
-		yield put(getCart({ customer_id: state.auth.userDetails.sub }));
-		yield put(getCartSummaryAction({ customer_id: state.auth.userDetails.sub }));
+		if(data) {
+			yield put({
+				type: types.UPDATE_CART_QTY_SUCCESS,
+				payload: data,
+			})
+			const state = yield select();
+			yield put(getCart({ customer_id: state.auth.userDetails.sub }));
+			yield put(getCartSummaryAction({ customer_id: state.auth.userDetails.sub }));
+		}else {
+			yield put({
+				type: types.UPDATE_CART_QTY_FAILURE,
+				payload: errors
+			})
+		}
 	} catch (error) {
-		// console.log("<===UpdateCartQtyFailed===>", error);
+		yield put({
+			type: types.UPDATE_CART_QTY_FAILURE,
+			payload:error
+		})
 	}
 }
 
@@ -123,9 +136,9 @@ function* getCartSummary(params) {
 }
 
 export function* CartSaga() {
-	yield takeEvery(types.CREATE_CART, CreateCart);
-	yield takeEvery(types.UPDATE_CART, UpdateCart);
-	yield takeEvery(types.GET_CART, GetCart);
-	yield takeEvery(types.UPDATE_CART_QTY, updateCartQty);
-	yield takeEvery(types.GET_CART_SUMMARY, getCartSummary);
+	yield takeLatest(types.CREATE_CART, CreateCart);
+	yield takeLatest(types.UPDATE_CART, UpdateCart);
+	yield takeLatest(types.GET_CART, GetCart);
+	yield takeLatest(types.UPDATE_CART_QTY, updateCartQty);
+	yield takeLatest(types.GET_CART_SUMMARY, getCartSummary);
 }

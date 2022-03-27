@@ -7,12 +7,12 @@ export const getCartItems = (payload) => {
     }
 }
 
-export const addCardItem = (payload) => {
-    return {
-        type: types.ADD_CART_ITEM,
-        payload
-    }
-}
+// export const addCardItem = (payload) => {
+//     return {
+//         type: types.ADD_CART_ITEM,
+//         payload
+//     }
+// }
 
 export const updateCardItem = (payload) => {
     return {

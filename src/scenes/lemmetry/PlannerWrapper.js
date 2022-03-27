@@ -106,7 +106,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const handleAddToCart = () => {
     if (userDetails.sub) {
       handleSubmit(handleCartSubmit)();
-      setFormSubmitted(true);
+      // setFormSubmitted(true);
     } else {
       dispatch(showLogin());
       setFormSubmitted(true);

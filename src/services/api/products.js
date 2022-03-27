@@ -89,23 +89,23 @@ export class Products {
 		}).then((res) => res.json());
 	};
 
-	static getAddressList = async (id) => {
-		const getToken = await localStorage.getItem('token')
-		return await fetch(
-			`${api_urls.Common_API_URL}`,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": getToken,
-				},
-				body: JSON.stringify({
-					query: getAddressList,
-					variables: {
-						customerId: id,
-					},
-				}),
-			}
-		).then((res) => res.json());
-	};
+	// static getAddressList = async (id) => {
+	// 	const getToken = await localStorage.getItem('token')
+	// 	return await fetch(
+	// 		`${api_urls.Common_API_URL}`,
+	// 		{
+	// 			method: "POST",
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 				"Authorization": getToken,
+	// 			},
+	// 			body: JSON.stringify({
+	// 				query: getAddressList,
+	// 				variables: {
+	// 					customerId: id,
+	// 				},
+	// 			}),
+	// 		}
+	// 	).then((res) => res.json());
+	// };
 }

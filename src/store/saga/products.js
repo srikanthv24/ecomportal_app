@@ -146,7 +146,7 @@ function* getAddons(action) {
 export function* productsSaga() {
   yield takeEvery(types.GET_ADDONS, getAddons);
   yield takeEvery(types.PRODUCT_LIST, getProducts);
-  yield takeEvery(types.ADDRESS_LIST, getAddresses);
+  // yield takeEvery(types.ADDRESS_LIST, getAddresses);
   yield takeEvery(types.PRODUCT_SEARCH, SearchProduct);
   yield takeEvery(types.PRODUCT_DETAILS, getProductById);
 }

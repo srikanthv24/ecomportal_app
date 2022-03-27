@@ -120,7 +120,8 @@ export class Cart {
     }
   }
 
-  static updateCartQty(params) {
+  static updateCartQty = async(params)  => {
+    const getToken = await localStorage.getItem('token')
     const { id, customer_id, qty, cart_item_id } = params.payload;
     try {
       return fetch(
@@ -128,7 +129,7 @@ export class Cart {
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: updateCartQty,

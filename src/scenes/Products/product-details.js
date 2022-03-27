@@ -188,7 +188,6 @@ const ProductDetails = ({
 								/>
 							</Col>
 							<Col sm={12} lg={6}>
-								<p className="mt-3 ff-4">{ProductDetails?.description}</p>
 								{/* <h1>
 						<small className="text-muted col-12 h6">
 						Including{" "}

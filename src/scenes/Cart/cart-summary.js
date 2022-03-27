@@ -4,8 +4,15 @@ import { Button, Spinner } from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { getAddresses, getCartSummary, getCart, hideAlert, showAlert } from "../../store/actions";
+import {
+  getAddresses,
+  getCartSummary,
+  getCart,
+  hideAlert,
+  showAlert,
+} from "../../store/actions";
 import ModalComponent from "../../components/Modal/modal";
+import { OrderCheckList } from "./order-checklist";
 import CartSummaryItem from "./cart-summary-item";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import api_urls from "../../utils/UrlConfig";
@@ -16,12 +23,18 @@ const CartSummary = () => {
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
-  const {cartSummary, cartDetails, cartLoading} = useSelector((state) => state.Cart);
+  const { cartDetails, cartLoading, cartUpdateLoading } = useSelector(
+    (state) => state.Cart
+  );
+  const { isLoading, data : cartData } = useSelector(
+    (state) => state.Cart.cartSummary
+  );
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if(userDetails.sub) {
+    if (userDetails.sub) {
       dispatch(getAddresses({ customerId: userDetails.sub }));
+      dispatch(getCartSummary({ customer_id: userDetails.sub }));
     }
   }, []);
 
@@ -45,11 +58,10 @@ const CartSummary = () => {
     }
   }, [Addresses.listAddresses]);
 
-
-  useEffect(() => {
-    if (userDetails.sub)
-      dispatch(getCartSummary({ customer_id: userDetails.sub }));
-  }, [userDetails.sub, cartDetails]);
+  // useEffect(() => {
+  //   if (userDetails.sub)
+  //     dispatch(getCartSummary({ customer_id: userDetails.sub }));
+  // }, [userDetails.sub, cartDetails]);
 
   useEffect(() => {
     if (cartDetails?.items && cartDetails.items?.length) {
@@ -63,7 +75,7 @@ const CartSummary = () => {
       });
       setItems(temp);
     }
-  }, [cartSummary.data, cartDetails?.items]);
+  }, [cartData, cartDetails?.items]);
 
   return (
     <div>
@@ -90,22 +102,13 @@ const CartSummary = () => {
       <div className="p-21 bg-1 cart-summary-wrapper">
         <p className="h3 page-title">Cart Summary</p>
         <div className="d-flex align-items-center w-100p">
-          <div className="w-100p d-flex align-items-center">
-            <div className="w-50">
-              <p className="cart-summary-desc-item-container mb-0">
-                Items{" "}
-                <strong>
-                  {(cartSummary?.data?.items?.length &&
-                    cartSummary?.data?.items?.length) ||
-                    0}
-                </strong>
-              </p>
-            </div>
-          </div>
+          <p className="cart-summary-desc-item-container mb-0">
+            Items <strong>{cartData?.items?.length || 0}</strong>
+          </p>
         </div>
 
         <section className="cart-items-block">
-          {cartSummary?.isLoading || cartLoading ? (
+          {isLoading || cartUpdateLoading ? (
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100"
               style={{ height: "100% " }}
@@ -113,14 +116,20 @@ const CartSummary = () => {
               <Spinner animation="grow" variant="primary" />
               Loading...
             </div>
-          ) : cartSummary?.data?.items?.length ? (
-            cartSummary?.data?.items?.map((item, index) => {
-              return (
-                <CartSummaryItem ProductDetails={item.item} pindex={index} />
-              );
-            })
-          ) : (
-            <div className="flex-column text-center">
+          ) : null
+          } 
+          {
+            !isLoading && !cartUpdateLoading && cartData && cartData.items?.length > 0 &&  (
+              cartData?.items?.map((item, index) => {
+                return (
+                  <CartSummaryItem ProductDetails={item.item} pindex={index} />
+                );
+              })
+            )
+          }
+          {
+            cartData && !isLoading && !cartUpdateLoading && cartData.items?.length === 0 && (
+              <div className="flex-column text-center">
               <div className="h5 d-flex justify-content-center align-items-center">
                 No Items added to cart
               </div>
@@ -138,78 +147,16 @@ const CartSummary = () => {
             </div>
           )}
         </section>
-
-        <section className="cart-order-summery-container mb-5">
-          <p class="cart-order-summery-header mb-0">ORDER SUMMARY</p>
-          <ul className="cart-order-summery-list mb-0">
-            {/* <li>
-          <p class="cart-order-summery-list-titles mb-0">Subtotal</p>
-          <p class="cart-order-summery-list-subtotal mb-0">
-             <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
-         </li> */}
-            {/* <li>
-            <p class="cart-order-summery-list-titles mb-0">Discount</p> 
-            <p class="cart-order-summery-list-discount mb-0">0</p>
-         </li> */}
-            {/* <li>
-           <p class="cart-order-summery-list-titles mb-0">Delivery Charges</p>
-           <p class="cart-order-summery-list-subtotal mb-0">
-             <BiRupee />{(cartSummary?.data && Number(cartSummary?.data?.sub_total)) ||0}</p>
-         </li> */}
-            {/* <li>
-           <p class="cart-order-summery-list-titles mb-0">Coupon Discount</p>
-           <p class="cart-order-summery-list-coupon-discount mb-0">0</p>
-         </li> */}
-          </ul>
-          <div class="flex justify-between px-3 py-2">
-            <p class="cart-order-summery-list-total mb-0">Total</p>
-            <p class="cart-order-summery-list-total-price mb-0">
-              <BiRupee />
-              {displayCurrency(cartSummary?.data?.grand_total)}
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-4" style={{ display: "none" }}>
-          <span className="d-flex justify-content-between align-items-center">
-            <p>Sub-total</p>
-            <p>
-              <BiRupee />{" "}
-              {displayCurrency(cartSummary?.data?.sub_total)}
-            </p>
-          </span>
-          <span className="d-flex justify-content-between align-items-center">
-            <p>Delivery Charges</p>
-            <p>
-              <BiRupee />
-              {displayCurrency(cartSummary?.data?.sub_total)}
-            </p>
-          </span>
-          <span className="d-flex justify-content-between align-items-center">
-            <p className="fw-bold">Total</p>
-            <p className="fw-bold">
-              <BiRupee />
-              {displayCurrency(cartSummary?.data?.grand_total)}
-            </p>
-          </span>
-        </section>
-        <div
-          style={{
-            position: "fixed",
-            bottom: 0,
-            right: 0,
-            left: 0,
-            padding: 5,
-            backgroundColor:"#F2CBBD"
-          }}
-        >
+        <OrderCheckList grandTotal={cartData?.grand_total} />
+        <div className="confirm-button-container">
           <Button
-            className="w-100 custom-primary-btn"
+            className="w-100 custom-primary-btn "
             style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
             onClick={handleContinue}
-            disabled={cartSummary?.data?.items?.length ? false : true}
+            disabled={cartData?.items?.length ? false : true}
           >
-            Confirm and Pay <BiRupee />{displayCurrency(cartSummary?.data?.grand_total)}
+            Confirm and Pay <BiRupee />
+            {displayCurrency(cartData?.grand_total)}
           </Button>
         </div>
       </div>
@@ -231,9 +178,7 @@ const CartSummary = () => {
   }
 
   async function handleContinue() {
-    const res = await loadScript(
-     `${api_urls.Razorpay_API_URL}`
-    );
+    const res = await loadScript(`${api_urls.Razorpay_API_URL}`);
 
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
@@ -244,20 +189,20 @@ const CartSummary = () => {
       type: "createorder",
       items: items,
       amount: Number(
-        parseInt(parseFloat(cartSummary?.data?.grand_total).toFixed(2)) * 100
+        parseInt(parseFloat(cartData?.grand_total).toFixed(2)) * 100
       ),
       currency: "INR",
       receipt: "Receipt #20",
-      id: cartSummary?.data?.items[0].id,
+      id: cartData?.items[0].id,
       customer_id: userDetails.sub,
       phone: userDetails.phone_number.substring(3),
     };
 
-    const result = await fetch(
-      `${api_urls.Payment_API_URL}`,
-      { method: "POST", body: JSON.stringify(req) }
-    ).then((res) => res.json());
-    
+    const result = await fetch(`${api_urls.Payment_API_URL}`, {
+      method: "POST",
+      body: JSON.stringify(req),
+    }).then((res) => res.json());
+
     if (!result) {
       alert("Server error. Are you online?");
       return;
