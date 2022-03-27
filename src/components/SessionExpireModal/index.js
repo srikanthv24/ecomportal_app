@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
 import auth_services from "../../services/auth_services";
@@ -14,21 +14,27 @@ export const SessionModal = ({ showModal }) => {
   // const userDetails = useSelector((state) => state.auth.userDetails);
   
   const handleRefresh = () => {
-
-    // auth_services.refreshToken().then((res) => {
-    //   dispatch(loginSuccess(res));
-    //   localStorage.setItem("token", res.accessToken.jwtToken);
-    // });
-    dispatch(handleModalClose());
-
-    auth_services.logout();
-    localStorage.removeItem("token");
-    dispatch(clearUserDetails());
-    dispatch(getTokenFailure());
-    // setMenu(false);
-    history.push("/");
-    dispatch(showLogin())
+    auth_services.getUserToken()
+      .then(res => {
+        dispatch(handleModalClose());
+        console.log(res, "========>>>>>>sess succ");
+      })
+      .catch(err => {
+        dispatch(handleModalClose());
+        auth_services.logout();
+        localStorage.removeItem("token");
+        dispatch(clearUserDetails());
+        dispatch(getTokenFailure());
+        // setMenu(false);
+        history.push("/");
+        dispatch(showLogin())
+        console.log(err, "========>>>>>>sess errr");
+      })
   };
+
+  useEffect(() => {
+    handleRefresh();
+  }, [])
 
   return (
     <Modal size="sm" show={showModal} centered>

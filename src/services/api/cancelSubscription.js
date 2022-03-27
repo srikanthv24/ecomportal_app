@@ -1,7 +1,9 @@
 import { CANCEL_SUBSCRIPTION } from "../../services/graphql/mutations";
+import { RefreshToken } from "../../helpers/refreshSession";
 import { api_urls } from "../../utils";
+
  export const cancelSubscriptionApi = async(id) => {
-    const getToken = await sessionStorage.getItem('token')
+  const getToken  = await RefreshToken.getRefreshedToken();
     try {
     const response = await fetch(
       `${api_urls.SUB_REL_API_URL}`,

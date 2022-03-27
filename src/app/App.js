@@ -19,6 +19,7 @@ import LoginModal from "../components/LoginModal";
 import { hideLogin } from "../store/actions";
 import "./App.css";
 import { SessionModal } from "../components/SessionExpireModal";
+import { RefreshToken } from "../helpers/refreshSession";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function App() {
   const { showModal, errors } = useSelector((state) => state.sessionExpire);
 
   useEffect(async () => {
-    const getToken = await localStorage.getItem("token");
+    const getToken = await RefreshToken.getRefreshedToken();
     if (getToken == null) {
       dispatch(getTokenFailure());
     } else {

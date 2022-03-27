@@ -111,6 +111,34 @@ class AuthService {
     });
   }
 
+  getUserToken() {
+    return new Promise((resolve, reject) => {
+      let currentUser = UserPool.getCurrentUser();
+      if (currentUser !== null) {
+        let cognitoUser = getCognitoUser({
+          Pool: UserPool,
+          Username: currentUser.username,
+        });
+        cognitoUser.getSession((err, res) => {
+          if (res) {
+            cognitoUser.refreshSession(res.refreshToken, (error, result) => {
+              if (result) {
+                localStorage.setItem("token", result.accessToken.jwtToken);
+                resolve(result);
+              } else {
+                reject(error);
+              }
+            })
+          } else {
+            reject(err);
+          }
+        });
+      } else {
+        reject("No user found");
+      }
+    })
+  }
+
   getUser() {
     return new Promise((resolve, reject) => {
       let currentUser = UserPool.getCurrentUser();

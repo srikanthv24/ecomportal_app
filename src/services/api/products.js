@@ -1,4 +1,5 @@
 import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 import {
 	getAddressList,
 	getProductDetails,
@@ -67,7 +68,7 @@ export class Products {
 	};
 
 	static ProductDetails = async (id) => {
-		const getToken = await localStorage.getItem('token')
+		const getToken = await RefreshToken.getRefreshedToken()
 		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
@@ -90,7 +91,7 @@ export class Products {
 	};
 
 	static getAddressList = async (id) => {
-		const getToken = await localStorage.getItem('token')
+		const getToken = await RefreshToken.getRefreshedToken()
 		return await fetch(
 			`${api_urls.Common_API_URL}`,
 			{
