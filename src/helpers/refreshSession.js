@@ -10,7 +10,6 @@ export class RefreshToken {
       const newToken = await auth_services.getUserToken();
       token = newToken.accessToken.jwtToken;
       localStorage.setItem('expiry-time', Date.now());
-      debugger;
     }
     return token;
   }
