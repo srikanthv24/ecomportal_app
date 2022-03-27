@@ -1,6 +1,5 @@
 import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
-const API_KEY = process.env.REACT_APP_POSTALCODE_API_KEY
 
 export class Adresses {
   static getAddressList = async (id) => {
@@ -105,7 +104,7 @@ export class Adresses {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-Key": `${API_KEY}`,
+          "X-API-Key": `${api_urls.Postal_API_KEY}`,
         },
         body: JSON.stringify({
           query: `
