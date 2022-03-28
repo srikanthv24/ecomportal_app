@@ -27,6 +27,18 @@ export const loginSuccess = (tokenList) => {
   };
 };
 
+export const resetSuccess = () => {
+  return {
+    type: types.RESET_SUCCESS
+  };
+};
+
+export const resetFailure = () => {
+  return {
+    type: types.RESET_FAILURE
+  };
+};
+
 export const getTokenSucces = () => {
   return {
     type: types.GET_SESSION_TOKEN_SUCCESS,

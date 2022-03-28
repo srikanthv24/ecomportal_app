@@ -34,7 +34,7 @@ const registerSchema = yup.object().shape({
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const { tokenList, loading, error, isRegistered } = useSelector((state) => state.auth);
+  const { tokenList, loading, error, isRegistered, resetSuccessMessage } = useSelector((state) => state.auth);
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const onSubmit = (data) => {
@@ -70,6 +70,10 @@ const Login = (props) => {
 
   const handleSignUpClick = () => {
     props.handleModalType('register');
+  }
+
+  const handleForgotClick = () => {
+    props.handleModalType('forgot');
   }
   
 
@@ -122,7 +126,7 @@ const Login = (props) => {
               label="Remember me"
             />
             <p className="text-right">
-              Forgot Password?
+            <a href="#" onClick={handleForgotClick}>Forgot Password?</a>
             </p>
             <Button
               className="w-100 mt-2 mb-3 btn btn-primary btn-lg"
@@ -139,6 +143,11 @@ const Login = (props) => {
             {error && (
               <Alert variant="danger" className="mt-3">
                 {error}
+              </Alert>
+            )}
+            {resetSuccessMessage && (
+              <Alert variant="success" className="mt-2">
+                {resetSuccessMessage}
               </Alert>
             )}
           </Form>
