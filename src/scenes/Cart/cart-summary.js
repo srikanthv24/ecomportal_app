@@ -26,15 +26,12 @@ const CartSummary = () => {
   const { cartDetails, cartLoading, cartUpdateLoading } = useSelector(
     (state) => state.Cart
   );
-  const { isLoading, data : cartData } = useSelector(
-    (state) => state.Cart.cartSummary
-  );
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     if (userDetails.sub) {
       dispatch(getAddresses({ customerId: userDetails.sub }));
-      dispatch(getCartSummary({ customer_id: userDetails.sub }));
+      dispatch(getCart({ customer_id: userDetails.sub }));
     }
   }, []);
 
@@ -58,10 +55,6 @@ const CartSummary = () => {
     }
   }, [Addresses.listAddresses]);
 
-  // useEffect(() => {
-  //   if (userDetails.sub)
-  //     dispatch(getCartSummary({ customer_id: userDetails.sub }));
-  // }, [userDetails.sub, cartDetails]);
 
   useEffect(() => {
     if (cartDetails?.items && cartDetails.items?.length) {
@@ -75,7 +68,7 @@ const CartSummary = () => {
       });
       setItems(temp);
     }
-  }, [cartData, cartDetails?.items]);
+  }, [ cartDetails?.items]);
 
   return (
     <div>
@@ -103,12 +96,12 @@ const CartSummary = () => {
         <p className="h3 page-title">Cart Summary</p>
         <div className="d-flex align-items-center w-100p">
           <p className="cart-summary-desc-item-container mb-0">
-            Items <strong>{cartData?.items?.length || 0}</strong>
+            Items <strong>{cartDetails?.items?.length || 0}</strong>
           </p>
         </div>
 
         <section className="cart-items-block">
-          {isLoading || cartUpdateLoading ? (
+          {cartLoading || cartUpdateLoading ? (
             <div
               className="d-flex flex-column align-items-center justify-content-center w-100"
               style={{ height: "100% " }}
@@ -119,8 +112,8 @@ const CartSummary = () => {
           ) : null
           } 
           {
-            !isLoading && !cartUpdateLoading && cartData && cartData.items?.length > 0 &&  (
-              cartData?.items?.map((item, index) => {
+            !cartLoading && !cartUpdateLoading && cartDetails && cartDetails.items?.length > 0 &&  (
+              cartDetails?.items?.map((item, index) => {
                 return (
                   <CartSummaryItem ProductDetails={item.item} pindex={index} />
                 );
@@ -128,7 +121,7 @@ const CartSummary = () => {
             )
           }
           {
-            cartData && !isLoading && !cartUpdateLoading && cartData.items?.length === 0 && (
+            cartDetails && !cartLoading && !cartUpdateLoading && cartDetails.items?.length === 0 && (
               <div className="flex-column text-center">
               <div className="h5 d-flex justify-content-center align-items-center">
                 No Items added to cart
@@ -147,16 +140,16 @@ const CartSummary = () => {
             </div>
           )}
         </section>
-        <OrderCheckList grandTotal={cartData?.grand_total} />
+        <OrderCheckList grandTotal={cartDetails?.grand_total} />
         <div className="confirm-button-container">
           <Button
             className="w-100 custom-primary-btn "
             style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
             onClick={handleContinue}
-            disabled={cartData?.items?.length ? false : true}
+            disabled={cartDetails?.items?.length ? false : true}
           >
             Confirm and Pay <BiRupee />
-            {displayCurrency(cartData?.grand_total)}
+            {displayCurrency(cartDetails?.grand_total)}
           </Button>
         </div>
       </div>
@@ -189,11 +182,11 @@ const CartSummary = () => {
       type: "createorder",
       items: items,
       amount: Number(
-        parseInt(parseFloat(cartData?.grand_total).toFixed(2)) * 100
+        parseInt(parseFloat(cartDetails?.grand_total).toFixed(2)) * 100
       ),
       currency: "INR",
       receipt: "Receipt #20",
-      id: cartData?.items[0].id,
+      id: cartDetails?.items[0].id,
       customer_id: userDetails.sub,
       phone: userDetails.phone_number.substring(3),
     };

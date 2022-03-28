@@ -62,10 +62,10 @@ function* DeleteCartItem(params) {
         type: types.DELETE_CART_ITEM_SUCCESS,
         payload: response,
       });
-      yield put({
-        type: types.GET_CART_SUMMARY,
-        payload: params.payload,
-      });
+      // yield put({
+      //   type: types.GET_CART_SUMMARY,
+      //   payload: params.payload,
+      // });
       yield put({
         type: types.GET_CART,
         payload: params.payload,

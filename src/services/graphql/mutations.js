@@ -261,9 +261,12 @@ export const getCart = `query ($customer_id: ID!){
     listCarts(filter: {customer_id: {eq: $customer_id},pay_status:{eq:"UNPAID"}}) {
     items {
       customer_id
-      pay_status
+      customer_mobile
+      customer_name
       id
       ciid
+      grand_total
+      pay_status
       item {
         defaultimg_url
         item_name
@@ -273,10 +276,15 @@ export const getCart = `query ($customer_id: ID!){
         item_id
         sub_total
         qty
-        
+        tax_amount
         subscription {
           address {
-              aline1
+            aline1
+            aline2
+            city
+            tag
+            landmark
+            postalcode
           }
           isDelivery
           meal_type
@@ -310,14 +318,12 @@ export const CartSummary = `query ($customer_id: ID!){
         defaultimg_url
         item_name
         tax_methods
-        
-        sub_total
-        tax_amount
         uom_name
         category
         item_id
+        sub_total
         qty
-       
+        tax_amount
         subscription {
           address {
               aline1

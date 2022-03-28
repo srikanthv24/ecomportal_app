@@ -93,7 +93,7 @@ function* updateCartQty(params) {
 			})
 			const state = yield select();
 			yield put(getCart({ customer_id: state.auth.userDetails.sub }));
-			yield put(getCartSummaryAction({ customer_id: state.auth.userDetails.sub }));
+			// yield put(getCartSummaryAction({ customer_id: state.auth.userDetails.sub }));
 		}else {
 			yield put({
 				type: types.UPDATE_CART_QTY_FAILURE,
