@@ -31,6 +31,26 @@ class AuthService {
     });
   }
 
+  reset(phone, code, password) {
+    const user = new CognitoUser({
+      Username: `+91${phone}`,
+      Pool: UserPool,
+    });
+
+    return new Promise((resolve, reject) => {
+      user.confirmPassword(code, password, {
+        onSuccess: (data) => {
+          console.log("OnSuccess:------------>>>>>>>> ", data);
+          resolve(data);
+        },
+        onFailure: (err) => {
+          console.log("onFailure:-------------->>>>>>>>> ", err.message);
+          reject(err);
+        }
+      });
+    });
+  }
+
   login(phone, password) {
     const user = new CognitoUser({
       Username: `+91${phone}`,

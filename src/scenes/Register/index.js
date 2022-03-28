@@ -122,9 +122,6 @@ const Register = (props) => {
             {errors.password && 
               <p className="text-danger" style={{ textAlign: "left" }}>Your password should be min 8 Char and one small letter, one capital letter and one number atleast</p>
             }
-            <p className="text-right">
-              Forgot Password?
-            </p>
             <Button
               className="w-100 mt-2 mb-3 btn btn-primary btn-lg"
               variant="primary"

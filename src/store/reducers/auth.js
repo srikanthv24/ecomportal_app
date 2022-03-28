@@ -12,6 +12,8 @@ const initialState = {
     phone_number: "",
     sub: "",
   },
+  resetSuccessMessage: "",
+  resetFailureMessage: ""
 };
 
 export const AuthReducer = (state = initialState, action) => {
@@ -44,6 +46,12 @@ export const AuthReducer = (state = initialState, action) => {
         loading: false,
         isLoggedIn: true,
         tokenList: action.payload,
+      };
+    case types.RESET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        resetSuccessMessage: "Password reset successfully. Login to coninue",
       };
     case types.GET_SESSION_TOKEN_SUCCESS:
       return {
