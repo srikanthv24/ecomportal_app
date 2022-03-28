@@ -145,3 +145,12 @@
     width: 1.1rem !important;
     height: 1.1rem !important;
 }
+
+@media screen and (max-width: 360px) {
+    .contact-info{
+        flex-direction: column;
+    }
+   .contact-phone{
+       margin-top: 10px;
+   }
+}

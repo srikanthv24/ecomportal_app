@@ -723,12 +723,16 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 																		Unfortunately our services are not available in your area, please give a call to arrange alternate delivery options
 																	</div>
 																	<div class="card mx-auto my-3 p-0 bg-transparent border-0">
-																		<div class="card-body d-flex align-items-center p-0" style={{ whiteSpace: 'nowrap' }}>
+																		<div class="card-body d-flex align-items-center p-0 justify-content-around contact-info">
+																			<div>
 																			<FaWhatsapp className="me-2" style={{ width: '30px', height: 'auto' }} />
-																			+91 999 999 9999
-																			<div className="vr mx-3" />
+																			+91 8096091111
+																			</div>
+																			{/* <div className="vr mx-3 divider" /> */}
+																			<div className="contact-phone">
 																			<FaPhoneAlt className="me-2" style={{ width: '20px', height: 'auto' }} />
-																			+91 999 999 9999
+																			+91 8096091111
+																			</div>
 																		</div>
 																	</div>
 																</>

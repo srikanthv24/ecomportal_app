@@ -17,7 +17,6 @@ export const SessionModal = ({ showModal }) => {
     auth_services.getUserToken()
       .then(res => {
         dispatch(handleModalClose());
-        console.log(res, "========>>>>>>sess succ");
       })
       .catch(err => {
         dispatch(handleModalClose());
@@ -28,13 +27,8 @@ export const SessionModal = ({ showModal }) => {
         // setMenu(false);
         history.push("/");
         dispatch(showLogin())
-        console.log(err, "========>>>>>>sess errr");
       })
   };
-
-  useEffect(() => {
-    handleRefresh();
-  }, [])
 
   return (
     <Modal size="sm" show={showModal} centered>
