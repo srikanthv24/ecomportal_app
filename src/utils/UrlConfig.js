@@ -21,7 +21,7 @@ if (server === "production") {
     payment_key: "rzp_live_JvYF2a7kJsppDt",
     Razorpay_API_URL: "https://checkout.razorpay.com/v1/checkout.js",
     Product_REL_API_KEY: "da2-xclkxhpjbbbxfcyw2vtp3zc64e",
-    Postal_API_KEY: "da2-bi33lqfzljfdjdfszwr5gmx3nm"
+    Postal_API_KEY: "da2-bi33lqfzljfdjdfszwr5gmx3nm",
   };
 } else {
   api_urls = {
@@ -45,5 +45,8 @@ if (server === "production") {
     Postal_API_KEY: "da2-j7yxgxymtrarzavgivfwda4h5u",
   };
 }
+
+export const Common_API_URL1 =
+  "https://vuez5pxhgzabxbypjbvs3gnd24.appsync-api.ap-south-1.amazonaws.com/graphql";
 
 export default api_urls;

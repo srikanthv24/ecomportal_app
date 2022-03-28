@@ -44,7 +44,9 @@ export class OrdersApi {
                     display_name
                     category
                   }
-                  finish_date
+                  finish_date,
+                  cartitem_id,
+                  cart_id
                 }
               }
               }`,
