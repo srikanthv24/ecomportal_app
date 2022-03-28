@@ -1,0 +1,68 @@
+.order-modal-content {
+    background: #D1EBE8;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.order-modal-content h4 {
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.01em;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+}
+.order-modal-content .form-check-label{
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 16px;
+    line-height:24px;
+}
+.order-modal-content .modal-body{
+    padding: 0px;
+}
+
+.modal-body-content {
+    /* padding: 15px;
+    border: 1px solid #d3d3d3; */
+    border-radius: 4px;
+}
+.modal-footer-btn-group{
+    display:flex;
+    justify-content: space-between;
+}
+.order-form-control{
+    padding: 5px 0px;
+    margin-bottom:4px;
+}
+.order-form-control span.date-info {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 16px;
+    line-height:24px;
+    min-width:100px;
+    display: inline-block;
+}
+.rmdp-container input.rmdp-input{
+    padding: 4px 12px;
+    border: 1px solid #d3d3d3;
+    min-height: 32px;
+}
+.rmdp-calendar {   
+    overflow: auto;
+    background: #ffffff;
+}
+.modal-body-content .rmdp-wrapper.rmdp-shadow{
+    margin: 0px !important;
+}
+.vl-btn-primary{
+    color: #fff;
+    background-color: #f05922 !important;
+    border-color: #f05922 !important;
+}
+.vl-btn-secondary{
+    color: #fff;
+    background-color: #424142 !important;
+    border-color: #424142 !important;
+}
