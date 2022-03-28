@@ -1,6 +1,6 @@
 import { getCategories } from "../graphql/mutations";
 import { api_urls } from "../../utils";
-const API_KEY = process.env.REACT_APP_CATEGORY_KEY;
+import { RefreshToken } from "../../helpers/refreshSession";
 
 export class Categories {
   static getCategories = async(params) => {
@@ -8,7 +8,7 @@ export class Categories {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": `${API_KEY}`,
+        'X-API-Key': `${api_urls.Product_REL_API_KEY}`
       },
       body: JSON.stringify({
         query: getCategories,
@@ -27,7 +27,7 @@ export class Categories {
   };
 
   static createCategory = async(data) => {
-    const getToken = await localStorage.getItem('token')
+    const getToken = await RefreshToken.getRefreshedToken()
     let date = new Date();
     return fetch(`${api_urls.Product_REL_API_URL}`, {
       method: "post",

@@ -1,4 +1,5 @@
 import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 import {
 	getAddressList,
 	getProductDetails,
@@ -7,9 +8,6 @@ import {
 	getStaples,
 	searchProducts,
 } from "../graphql/mutations";
-const ADDON_API_URL = process.env.REACT_APP_ADDON_API_URL;
-const ADDON_API_KEY = process.env.REACT_APP_ADDON_API_KEY;
-const CATEGORY_API_KEY = process.env.REACT_APP_CATEGORY_KEY;
 
 export class Products {
 	static getAddons = (data) => {
@@ -28,11 +26,11 @@ export class Products {
 				}
 			}
 		}`;
-		return fetch(`${ADDON_API_URL}`, {
+		return fetch(`${api_urls.Product_REL_API_URL}`, {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-API-Key': `${ADDON_API_KEY}`
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: q
@@ -50,7 +48,7 @@ export class Products {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-API-KEY": `${CATEGORY_API_KEY}`,
+					'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 				},
 				body: JSON.stringify({
 					query: params.payload.category === "Staples" ? getStaples : getProducts,
@@ -67,12 +65,12 @@ export class Products {
 	};
 
 	static ProductDetails = async (id) => {
-		const getToken = await localStorage.getItem('token')
+		const getToken = await RefreshToken.getRefreshedToken()
 		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": `${CATEGORY_API_KEY}`,
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: getProductDetails(id.payload),
 		}).then((res) => res.json());
@@ -83,29 +81,29 @@ export class Products {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": `${ADDON_API_KEY}`,
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: searchProducts(query),
 		}).then((res) => res.json());
 	};
 
-	// static getAddressList = async (id) => {
-	// 	const getToken = await localStorage.getItem('token')
-	// 	return await fetch(
-	// 		`${api_urls.Common_API_URL}`,
-	// 		{
-	// 			method: "POST",
-	// 			headers: {
-	// 				"Content-Type": "application/json",
-	// 				"Authorization": getToken,
-	// 			},
-	// 			body: JSON.stringify({
-	// 				query: getAddressList,
-	// 				variables: {
-	// 					customerId: id,
-	// 				},
-	// 			}),
-	// 		}
-	// 	).then((res) => res.json());
-	// };
+	static getAddressList = async (id) => {
+		const getToken = await RefreshToken.getRefreshedToken()
+		return await fetch(
+			`${api_urls.Common_API_URL}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": getToken,
+				},
+				body: JSON.stringify({
+					query: getAddressList,
+					variables: {
+						customerId: id,
+					},
+				}),
+			}
+		).then((res) => res.json());
+	};
 }

@@ -9,13 +9,13 @@ import {
   updateCartQty,
 } from "../graphql/mutations";
 import { api_urls } from "../../utils";
-
+import { RefreshToken } from "../../helpers/refreshSession";
 
 
 //m76 : Common_API_URL
 export class Cart {
   static getCart= async(params) =>{
-    const getToken = await localStorage.getItem('token')
+    const getToken = await RefreshToken.getRefreshedToken();
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -38,7 +38,7 @@ export class Cart {
   }
 
   static getCartSummary = async(params)=> {
-    const getToken= await localStorage.getItem('token') ;
+    const getToken= await RefreshToken.getRefreshedToken() ;
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
@@ -59,7 +59,7 @@ export class Cart {
   }
 
   static createCart=async(params)=> {
-    const getToken = await localStorage.getItem('token')
+    const getToken = await RefreshToken.getRefreshedToken()
     let payload = params.payload;
     try {
       return fetch(
@@ -89,14 +89,15 @@ export class Cart {
     }
   }
 
-  static updateCart(params) {
+  static updateCart = async(params) => {
+    const getToken= await RefreshToken.getRefreshedToken() ;
     try {
       return fetch(
         `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: `mutation ($id: ID!,$ciid: ID!, $customer_id: ID!, $item: UpdateCartItemInput!) {
@@ -120,8 +121,8 @@ export class Cart {
     }
   }
 
-  static updateCartQty = async(params)  => {
-    const getToken = await localStorage.getItem('token')
+  static updateCartQty = async(params) => {
+    const getToken= await RefreshToken.getRefreshedToken() ;
     const { id, customer_id, qty, cart_item_id } = params.payload;
     try {
       return fetch(

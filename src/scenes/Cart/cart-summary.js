@@ -16,7 +16,6 @@ import { OrderCheckList } from "./order-checklist";
 import CartSummaryItem from "./cart-summary-item";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import api_urls from "../../utils/UrlConfig";
-
 const CartSummary = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -140,16 +139,16 @@ const CartSummary = () => {
             </div>
           )}
         </section>
-        <OrderCheckList grandTotal={cartDetails?.grand_total} />
+        {!cartLoading && !cartUpdateLoading && <OrderCheckList grandTotal={cartDetails?.grand_total} /> }
         <div className="confirm-button-container">
           <Button
             className="w-100 custom-primary-btn "
             style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
             onClick={handleContinue}
-            disabled={cartDetails?.items?.length ? false : true}
+            disabled={cartDetails?.items?.length === 0 || cartLoading || cartUpdateLoading ? true : false}
           >
             Confirm and Pay <BiRupee />
-            {displayCurrency(cartDetails?.grand_total)}
+            {cartLoading || cartUpdateLoading ? "0" : displayCurrency(cartDetails?.grand_total)}
           </Button>
         </div>
       </div>

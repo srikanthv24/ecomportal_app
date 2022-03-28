@@ -1,8 +1,9 @@
 import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 
 export class Customer {
   static getGender = async () => {
-     const getToken = await localStorage.getItem('token')
+     const getToken = await RefreshToken.getRefreshedToken()
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -31,7 +32,7 @@ export class Customer {
   };
 
   static getPhysicalActivity = async () => {
-    const getToken = await localStorage.getItem('token')
+    const getToken = await RefreshToken.getRefreshedToken()
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -60,7 +61,7 @@ export class Customer {
   };
 
   static getDietPreference = async () => {
-    const getToken = await localStorage.getItem('token')
+    const getToken = await RefreshToken.getRefreshedToken()
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -89,7 +90,7 @@ export class Customer {
   };
 
   static getGoalList = async () => {
-    const getToken = await localStorage.getItem('token')
+    const getToken = await RefreshToken.getRefreshedToken()
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
@@ -118,7 +119,7 @@ export class Customer {
   };
 
   static createCustomer = async(data) => {
-    const getToken = await localStorage.getItem('token')
+    const getToken = await RefreshToken.getRefreshedToken()
     return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "post",
       headers: {
