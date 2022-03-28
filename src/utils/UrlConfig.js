@@ -17,7 +17,7 @@ if (server === "production") {
     KotOrders_REL_API_URL:
       "https://c3vy4pkb7g.execute-api.ap-south-1.amazonaws.com/prod/kotorder",
     Payment_API_URL:
-      "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
+      "https://c3vy4pkb7g.execute-api.ap-south-1.amazonaws.com/prod/payment",
     payment_key: "rzp_live_JvYF2a7kJsppDt",
     Razorpay_API_URL: "https://checkout.razorpay.com/v1/checkout.js",
     Product_REL_API_KEY: "da2-xclkxhpjbbbxfcyw2vtp3zc64e",
