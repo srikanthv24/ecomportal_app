@@ -1,0 +1,12 @@
+.tc_lead {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    color: #424142;
+    text-align: left;
+}
+.oe_structure{
+    padding: 6rem 1rem;
+}
