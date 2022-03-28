@@ -11,11 +11,7 @@ import {
   InputGroup
 } from "react-bootstrap";
 import {
-  loginSuccess,
-  authError,
-  authLoading,
-  updateUserDetails,
-  clearAuthError,
+  resetSuccess,
 } from "../../store/actions/auth";
 // import "./styles.css";
 import auth_services from "../../services/auth_services";
@@ -49,6 +45,7 @@ const ForgotPassword = (props) => {
         .then((res) => {
           setLoading(prev => !prev);
           setShowOtp(prev => !prev);
+          dispatch(resetSuccess());
           handleLogInClick();
         })
         .catch((err) => {
