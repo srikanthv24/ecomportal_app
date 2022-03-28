@@ -1,26 +1,40 @@
 import { Orders } from "../graphql/mutations";
+import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
+
+//4du - 
 
 export class OrdersApi {
-  static getOrders = (params) => {
-    console.log("params.payload.cutomer_mobile", params);
+  static getOrders = async(params) => {
+    const getToken = await RefreshToken.getRefreshedToken()
     try {
-      return fetch(
-        "https://4du5xi23jneq5gmwctl2vl42ty.appsync-api.us-east-1.amazonaws.com/graphql",
+      return await fetch(
+        `${api_urls.SUB_REL_API_URL}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-API-KEY": "da2-ob4lwer67nc2rbnury6cxczx4i",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: `{
-                listSubscriptions(filter: {customer_mobile: {eq: ${JSON.stringify(
-                  params.payload.customer_number
+                listSubscriptions(filter: {status: {eq: "A"},customer_mobile: {eq: ${JSON.stringify(
+                  params
                 )}}}) {
+                  item_count
+                  items {
                   id
                   customer {
                     mobile
                     display_name
+                  }
+                  paid_amount
+                  orderscount {
+                  meal_type
+                  meals_consumed
+                  meals_ordered
+                  meals_pausedORcancelled
+                  meals_remaining
                   }
                   B_balance
                   D_balance
@@ -32,6 +46,7 @@ export class OrdersApi {
                   }
                   finish_date
                 }
+              }
               }`,
           }),
         }

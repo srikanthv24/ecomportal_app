@@ -1,5 +1,5 @@
 export const getProducts = `query ($limit: Int, $nextToken: String, $category: String) {
-  listItems (filter: {category: {eq: $category}}, limit: $limit, nextToken: $nextToken){
+  listItems (filter: {category: {eq: $category},status: {eq: "A"}}, limit: $limit, nextToken: $nextToken){
     items {
       id
       is_mealplan
@@ -48,7 +48,7 @@ export const getProducts = `query ($limit: Int, $nextToken: String, $category: S
 }`;
 
 export const getAllProducts = `query ($limit: Int, $nextToken: String) {
-  listItems (limit: $limit, nextToken: $nextToken){
+  listItems (filter: {status: {eq: "A"}},limit: $limit, nextToken: $nextToken){
     items {
       id
       is_mealplan
@@ -97,12 +97,11 @@ export const getAllProducts = `query ($limit: Int, $nextToken: String) {
 }`;
 
 export const getProductsByCategory = (params) => {
-	console.log("PAPAPA", params.payload);
-	return JSON.stringify({
-		query: `{
+  return JSON.stringify({
+    query: `{
     listItems (filter: {category: {eq: ${JSON.stringify(
-			params.payload.filter.category.eq
-		)}}}) {
+      params.payload.filter.category.eq
+    )}},status: {eq: "A"}}) {
       items {
         saleprice
         category
@@ -120,15 +119,15 @@ export const getProductsByCategory = (params) => {
       }
     } 
   }`,
-	});
+  });
 };
 
 export const searchProducts = (searchQuery) => {
-	return JSON.stringify({
-		query: `{
-      listItems (filter: {display_name: {contains: ${JSON.stringify(
-			searchQuery.payload
-		)}}}, limit: 1000) {
+  return JSON.stringify({
+    query: `{
+      listItems (filter: {name: {contains: ${JSON.stringify(
+        searchQuery.payload
+      )}},status: {eq: "A"}}, limit: 1000) {
         items {
           id
           is_mealplan
@@ -151,8 +150,6 @@ export const searchProducts = (searchQuery) => {
       tax_inclusive
       tax_methods
       uom_name
-      upd_by
-      upd_on
       variants {
         is_sale_value_absolute
         is_multiselect
@@ -174,12 +171,12 @@ export const searchProducts = (searchQuery) => {
     }
   }
 }`,
-	});
+  });
 };
 
 export const getProductDetails = (id) =>
-	JSON.stringify({
-		query: `{​​​​​​​
+  JSON.stringify({
+    query: `{​​​​​​​
       getItem(id: ${JSON.stringify(id)}) {​​​​​​​
         id
         category
@@ -224,7 +221,7 @@ export const getProductDetails = (id) =>
         }​​​​​​​
       }​​​​​​​
     }​​​​​​​`,
-	});
+  });
 
 export const getAddressList = `query ($customerId: ID!) {
     listAddresses (filter: {customer_id: {eq: $customerId}}) {
@@ -264,8 +261,12 @@ export const getCart = `query ($customer_id: ID!){
     listCarts(filter: {customer_id: {eq: $customer_id},pay_status:{eq:"UNPAID"}}) {
     items {
       customer_id
-      pay_status
+      customer_mobile
+      customer_name
       id
+      ciid
+      grand_total
+      pay_status
       item {
         defaultimg_url
         item_name
@@ -273,12 +274,17 @@ export const getCart = `query ($customer_id: ID!){
         uom_name
         category
         item_id
-        cart_item_id
+        sub_total
         qty
-        sale_val
+        tax_amount
         subscription {
           address {
-              aline1
+            aline1
+            aline2
+            city
+            tag
+            landmark
+            postalcode
           }
           isDelivery
           meal_type
@@ -294,6 +300,7 @@ export const getCart = `query ($customer_id: ID!){
         }
       }
     }
+    grand_total
   }
 }`;
 
@@ -304,20 +311,19 @@ export const CartSummary = `query ($customer_id: ID!){
       customer_mobile
       customer_name
       id
+      ciid
       grand_total
       pay_status
       item {
         defaultimg_url
         item_name
         tax_methods
-        cart_item_id
-        sub_total
-        tax_amount
         uom_name
         category
         item_id
+        sub_total
         qty
-        sale_val
+        tax_amount
         subscription {
           address {
               aline1
@@ -341,12 +347,12 @@ export const CartSummary = `query ($customer_id: ID!){
         }
       }
     }
+    grand_total
   }
 }`;
 
 export const createCart = (params) => {
-	console.log("PARQAMS", params);
-	return `mutation {
+  return `mutation {
   createCart(input: ${params.payload}) {
     id
   }
@@ -417,7 +423,7 @@ export const getCartItemSchema = `query ($cartId: ID) {
 }`;
 
 export const createCartItem = (
-	data
+  data
 ) => `mutation ($item: ID!, $cart: ID!, $qty: Int!, $Subscription_data: SubscriptionData) {
   createCartItem(input: {item_id: $item, cart_id: $cart, qty: $qty, subscription_data: $Subscription_data}) {
     id
@@ -435,27 +441,26 @@ export const updateCartItem = (params) => `mutation {
   }
 }`;
 
-export const deleteCartItem = `mutation($ID: ID!){
-  deleteCartItem(input:{
-    id:$ID
+export const deleteCartItem = `mutation($id: ID!,$ciid: ID!){
+  deleteCart(input:{
+    id:$id
+    ciid :$ciid
   })
   {
     id
   }
 }`;
 
-export const updateCartQty = `mutation ($item_id: ID!, $qty: Int!, $cart_id: ID!, $cart_item_id: ID!) { UpdateCartItemQty(input: {qty: $qty, cart_id: $cart_id, item_id: $item_id, cart_item_id: $cart_item_id}) {
+export const updateCartQty = `mutation ( $qty: Int!, $id: ID!, $ciid: ID!) { UpdateCartItemQty(input: {qty: $qty, id: $id, ciid: $ciid}) {
   id
   customer_id
   customer_mobile
   customer_name
-  items {
+  item {
   defaultimg_url
   category
-  cart_item_id
   qty
   item_id
-  sale_val
   sub_total
   item_name
   is_mealplan
@@ -468,7 +473,9 @@ export const updateCartQty = `mutation ($item_id: ID!, $qty: Int!, $cart_id: ID!
   }`;
 
 export const Orders = `query ($cutomer_mobile: String){
-  listSubscriptions(filter: {customer_mobile: {eq: $cutomer_mobile}}) {
+  listSubscriptions(filter: {status: {eq: "A"},customer_mobile: {eq: $cutomer_mobile}}) {
+    item_count
+    items {
     id
     customer {
       mobile
@@ -484,4 +491,31 @@ export const Orders = `query ($cutomer_mobile: String){
     }
     finish_date
   }
+}
 }`;
+
+export const getStaples = `query ($limit: Int, $nextToken: String, $category: String) {
+  listItemCategories (filter: {category: {eq: $category},status: {eq: "A"}}, limit: $limit, nextToken: $nextToken){
+    items {
+      id
+      
+      category
+      defaultimg_url
+      description
+      display_name
+      img_url
+      name
+      status
+      upd_by
+      upd_on
+    }
+    nextToken
+  }
+}`;
+
+export const CANCEL_SUBSCRIPTION = `mutation($id: Int!) {
+  cancelSubscription(input: {id: $id})
+    {
+      id
+    }
+  }`

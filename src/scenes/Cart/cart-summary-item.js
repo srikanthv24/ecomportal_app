@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  Spinner,
-  Button,
-  FormControl,
-  InputGroup,
-} from "react-bootstrap";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { BiRupee } from "react-icons/bi";
-import { BsPencil, BsTrash, BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { updateCartQty } from "../../store/actions/cart";
 
-const CartSummaryItem = ({ ProductDetails }) => {
+import { Card, Button } from "react-bootstrap";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import { GrAdd, GrSubtract } from "react-icons/gr";
+import { BiRupee } from "react-icons/bi";
+import { BsTrashFill } from "react-icons/bs";
+
+import { deleteCartItem } from "../../store/actions/cart-item";
+import { updateCartQty } from "../../store/actions";
+import { displayCurrency } from "../../helpers/displayCurrency";
+import "./styles.css";
+
+const CartSummaryItem = ({ ProductDetails, pindex }) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -21,112 +21,123 @@ const CartSummaryItem = ({ ProductDetails }) => {
   const [isExpanded, setisExpanded] = useState(false);
 
   const [Addresses, setAddresses] = useState({
-    B: "Pickup",
-    L: "Pickup",
-    D: "Pickup",
+    B: "",
+    L: "",
+    D: "",
   });
 
+  const [mealItem, setMealItem] = useState(false);
   const [Duration, setDuration] = useState(null);
-
-  const onDelete = () => {
+  const onDelete = (pindex) => {
     dispatch(
-      updateCartQty({
-        cart_item_id: ProductDetails.cart_item_id,
-        id: Cart?.cartDetails?.items[0]?.id,
+      deleteCartItem({
+        cart_item_id: Cart?.cartDetails?.items[pindex].ciid,
+        id: Cart?.cartDetails?.items[pindex]?.id,
         customer_id: userDetails.sub,
-        item_id: ProductDetails.item_id,
-        qty: 0,
       })
     );
   };
 
   useEffect(() => {
     let temp = { ...Addresses };
-    ProductDetails.subscription.map((item) => {
+    if (ProductDetails.subscription && ProductDetails.subscription.length) {
+      setMealItem(true);
+    } else {
+      setMealItem(false);
+    }
+    ProductDetails?.subscription?.map((item, index) => {
       if (item.isDelivery) {
         temp[item?.meal_type] =
+          item.address.tag +
+          ":" +
           item.address.aline1 +
           ", " +
           item.address.aline2 +
           ", " +
-          item.landmark +
-          ", "  +
-          item.address.city   +
+          item.address.landmark +
           ", " +
-          item.postalcode;
+          item.address.city +
+          ", " +
+          item.address.postalcode;
+      } else {
+        temp[item?.meal_type] = "Pickup";
       }
     });
     setAddresses(temp);
 
-    // data.queryCartsByCustomerIndex.items[0].items[1].variants[0].items[0].display_name
-    ProductDetails.variants.map((item) => {
+    ProductDetails?.variants?.map((item) => {
       if (item.display_name == "Duration") {
         setDuration(item.items[0].display_name);
       }
     });
   }, [ProductDetails]);
 
+  const onIncrement = (pindex) => {
+    dispatch(
+      updateCartQty({
+        cart_item_id: Cart.cartDetails.items[pindex].ciid,
+        id: Cart.cartDetails.items[pindex].id,
+        customer_id: userDetails.sub,
+        item_id: ProductDetails.item_id,
+        qty: ProductDetails.qty + 1,
+      })
+    );
+  };
+
+  const onDecrement = (pindex) => {
+    if (ProductDetails.qty == 1) {
+      dispatch(
+        deleteCartItem({
+          cart_item_id: Cart?.cartDetails?.items[pindex].ciid,
+          id: Cart?.cartDetails?.items[pindex]?.id,
+          customer_id: userDetails.sub,
+        })
+      );
+    } else {
+      dispatch(
+        updateCartQty({
+          cart_item_id: Cart.cartDetails.items[pindex].ciid,
+          id: Cart.cartDetails.items[pindex].id,
+          customer_id: userDetails.sub,
+          item_id: ProductDetails.item_id,
+          qty: ProductDetails.qty - 1,
+        })
+      );
+    }
+  };
+
   return (
-    <div>
-      <Card className="my-1">
+    <div className="w-100p">
+      <Card className="my-1 bg-1">
         <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
-          <div
-            style={{
-              backgroundImage: `url(${
-                ProductDetails.defaultimg_url ||
-                "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-              })`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              height: "100px",
-              width: "100px",
-              borderRadius: "50%",
-              margin: 10,
-            }}
-          />
-          <div style={{ width: "70%" }}>
-            <Card.Text className="fs-9 mb-0 pb-0 col-12 text-truncate">
+          <div className="cart-list-image-container">
+            <img src={ProductDetails.defaultimg_url} alt="img" />
+          </div>
+          <div style={{ width: "calc(100% - 7rem)", paddingLeft: "10px" }}>
+            <Card.Text className="cart-list-product-detailes-name mb-0 clr-black">
               {ProductDetails.item_name}
             </Card.Text>
-            <p className="fs-9 p-0 m-0 col-12 text-truncate text-muted">
+            <p className="cart-list-product-detailes-despname m-0 col-12 ff-4 clr-secondary">
               {ProductDetails.category}
             </p>
-
-            <small className="col-12 text-muted">
+            <p className="col-12 ff-4 clr-black cart-list-product-detailes-attribute-kind mb-0">
               Including{" "}
               {String(ProductDetails.tax_methods)
-                .replace("Output", "")
+                .replace("GST", "GST ")
+                .replace("OUTPUT", " %")
                 .replace("-", "")}
-            </small>
-            <p>
-              <span
-                style={{
-                  fontSize: "12px",
-                  color: "#212121",
-                  wordWrap: "break-word",
-                }}
-              >
-                (Qty: {ProductDetails.qty} X <BiRupee />
-                {Number(ProductDetails?.subscription[0]?.sale_val).toFixed(
-                  2
-                )} / {ProductDetails.uom_name}) + Tax:{" "}
-                {ProductDetails.tax_amount} ={" "}
-              </span>
-
-              <div
-                style={{
-                  fontSize: "14px",
-                  color: "#000000",
-                  fontWeight: "700",
-                }}
-              >
+            </p>
+            <p className="cart-list-product-detailes-attribute-kind mb-2">
+              Tax {ProductDetails?.tax_amount} Includes{" "}
+            </p>
+            <p className="ff-2 clr-black mb-0 d-flex justify-content-between">
+              <div className="ff-2 mb-0 cart-list-product-detailes-sale-price">
                 <BiRupee />
-                {ProductDetails.sub_total}
+                {displayCurrency(ProductDetails.sub_total)}
               </div>
             </p>
 
-            {isExpanded && (
+            {mealItem && isExpanded && (
               <div>
                 <span style={{ fontSize: 12, fontWeight: 600 }}>
                   Subscribed for {Duration}
@@ -143,7 +154,7 @@ const CartSummaryItem = ({ ProductDetails }) => {
                 )}
 
                 {Addresses.L && (
-                  <div className="d-flex flex-column my-2">
+                  <div className="d-flex flex-column mb-2">
                     <span style={{ fontSize: 12 }} className="text-muted">
                       Lunch Address
                     </span>
@@ -166,54 +177,65 @@ const CartSummaryItem = ({ ProductDetails }) => {
             )}
           </div>
         </Card.Body>
-        <Card.Footer
-          style={{
-            padding: 5,
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItem: "center",
-          }}
-        >
-          <Button
-            style={{ borderRadius: "50%", marginLeft: 10 }}
-            variant="outline-primary"
-            size="sm"
-            onClick={() => history.push("/cart")}
-          >
-            <BsPencil />
-          </Button>
-          {isExpanded ? (
-            <span
-              variant="link"
-              className="w-100 text-center text-primary"
-              onClick={() => setisExpanded(false)}
+        <Card.Footer className="cart-summary-footer">
+          <div className="btn-group btn-group-sm" role="group">
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
+              disabled={Cart.cartLoading}
             >
-              <AiFillCaretUp /> view less
-            </span>
-          ) : (
-            <span
-              variant="link"
-              className="w-100 text-center text-primary"
-              onClick={() => setisExpanded(true)}
+              <GrSubtract />
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
+              disabled={Cart.cartLoading}
             >
-              <AiFillCaretDown /> view more
-            </span>
+             {ProductDetails.qty}
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => (!Cart.cartLoading ? onIncrement(pindex) : null)}
+              disabled={Cart.cartLoading}
+            >
+              <GrAdd />
+            </button>
+          </div>
+          {mealItem && (
+            <div>
+              {isExpanded ? (
+                <span
+                  variant="link"
+                  className="w-100 text-center clr-black"
+                  onClick={() => setisExpanded(false)}
+                >
+                  <AiFillCaretUp /> view less
+                </span>
+              ) : (
+                <span
+                  variant="link"
+                  className="w-100 text-center clr-black"
+                  onClick={() => setisExpanded(true)}
+                >
+                  <AiFillCaretDown /> view more
+                </span>
+              )}
+            </div>
           )}
           <div
             style={{
               borderRadius: "50%",
               display: "inline-flex",
-              // position: "absolute",
-              // bottom: 10,
-              // right: 10,
             }}
           >
             <Button
-              style={{ borderRadius: "50%", marginLeft: 10 }}
+              className="delete-button"
               variant="outline-danger"
               size="sm"
-              onClick={onDelete}
+              onClick={() => onDelete(pindex)}
             >
               <BsTrashFill />
             </Button>

@@ -1,15 +1,16 @@
-//const API_URL = process.env.REACT_APP_API_URL;
-// const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
+import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 
 export class Adresses {
   static getAddressList = async (id) => {
+    const getToken  = await RefreshToken.getRefreshedToken()
     return await fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `${api_urls.Common_API_URL}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `{
@@ -37,20 +38,22 @@ export class Adresses {
     ).then((res) => res.json());
   };
 
-  static postAddress = (data) => {
-    console.log("post address data in fetch api:::", data);
+  static postAddress = async(data) => {
+    const getToken  = await RefreshToken.getRefreshedToken();
     return fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+         "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
-              createAddress(input: {customer_id:"${data.customer_id}",aline1: "${data.aline1}", aline2: "${data.aline2}", city: "${data.city}", customer_name: "${data.name}", community: "${data.community}", landmark: "${data.landmark}", state: "${data.state}", tag: "${data.tag}", postalcode: "${data.postalcode}"}) {
+              createAddress(input: {customer_id:"${data.customer_id}",aline1: "${data.aline1}", aline2: "${data.aline2}", city: "${data.city}", customer_name: "${data.customer_name}", community: "${data.community}", landmark: "${data.landmark}", state: "${data.state}", tag: "${data.tag}", postalcode: "${data.postalcode}"}) {
                 id
+                customer_id
+
               }
             }
         `,
@@ -65,14 +68,15 @@ export class Adresses {
       });
   };
 
-  static deleteAddress = (data) => {
+  static deleteAddress = async(data) => {
+    const getToken  = await RefreshToken.getRefreshedToken()
     return fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "Authorization": getToken,
         },
         body: JSON.stringify({
           query: `mutation {
@@ -92,14 +96,15 @@ export class Adresses {
       });
   };
 
-  static getPostalCodes = () => {
+  static getPostalCodes = async() => {
+    const getToken  = await RefreshToken.getRefreshedToken()
     return fetch(
-      "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+      `${api_urls.Common_API_URL}`,
       {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+          "X-API-Key": `${api_urls.Postal_API_KEY}`,
         },
         body: JSON.stringify({
           query: `
@@ -108,6 +113,8 @@ export class Adresses {
                     items{
                       id
                       postalcode
+                      city
+                      state
                     }
                   }
                 }
@@ -123,5 +130,3 @@ export class Adresses {
       });
   };
 }
-
-//578461ea-bc50-4d40-8c0a-5c4546abc2d7

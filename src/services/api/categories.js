@@ -1,15 +1,14 @@
 import { getCategories } from "../graphql/mutations";
-
-const API_URL = process.env.REACT_APP_API_URL;
-const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
+import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 
 export class Categories {
-  static getCategories = (params) => {
-    return fetch(`${API_URL}`, {
+  static getCategories = async(params) => {
+    return fetch(`${api_urls.Product_REL_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "da2-orjjngnz3ffc3jjnn75bfm4roi",
+        'X-API-Key': `${api_urls.Product_REL_API_KEY}`
       },
       body: JSON.stringify({
         query: getCategories,
@@ -27,13 +26,14 @@ export class Categories {
       });
   };
 
-  static createCategory = (data) => {
+  static createCategory = async(data) => {
+    const getToken = await RefreshToken.getRefreshedToken()
     let date = new Date();
-    return fetch(`${API_URL}`, {
+    return fetch(`${api_urls.Product_REL_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": API_KEY,
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `mutation {

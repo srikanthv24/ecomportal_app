@@ -20,10 +20,13 @@
 }
 
 .nav-menu-cart .badge {
-    background-color: #f05922 !important;
+    background-color: rgba(53,40,23,1) !important;
+    border: 1px solid rgba(249,243,223,1);
     position: absolute;
-    top: -8px;
-    left: 20px;
+    top: -10px;
+    left: 10px;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .profile-name-txt {
@@ -37,6 +40,11 @@
 }
 
 .back-btn {
+    background-color: #f05922 !important;
+    border-color: #f05922 !important;
+    border-radius: .25rem 0px 0px .25rem !important;
+}
+.back-btn:focus {
     background-color: #f05922 !important;
     border-color: #f05922 !important;
     border-radius: .25rem 0px 0px .25rem !important;
@@ -64,7 +72,7 @@
     .search-section {
         order: 2;
         position: absolute;
-        top: 75px;
+        top: 80px;
         width: 100%;
         left: 0px;
     }
@@ -79,4 +87,61 @@
 
 .MuiStepLabel-label {
     margin-top: 5px !important;
+}
+
+.closeBtn .btn-close{
+   color:#ffffff !important;
+   background-color: rgba(0,0,0,0.45);
+   border-radius: 50%;
+}
+.list-group-item{
+    font-size: 18px;
+    line-height: 30px;
+    font-family: "Roboto Mono";
+    font-weight: 500;
+    text-transform: uppercase;
+    background:transparent !important;
+}
+.bg-chocolate-900{
+    background-color: rgba(53,40,23,1) !important;
+    border-color: rgba(53,40,23,1) !important;
+}
+.sideMenuListview{
+    /* background: #dddddd; */
+}
+.sideMenuListview .list-group-item{
+    font-size: 35px;
+    border-bottom:none;
+    font-family: 'Playfair Display',serif !important;
+    font-weight: 700;
+    margin: 14px auto;
+    text-transform: capitalize;
+}
+.sideMenuWrapper{
+    width:100% !important;
+}
+@media screen and (max-width:767px) {
+    .sideMenuWrapper{
+        max-width:100% !important;
+        border-right: none !important;
+    }
+}
+@media screen and (min-width: 768px) {
+    .sideMenuWrapper{
+        max-width:70% !important;
+    }
+}
+.cart-loading{
+    /* background: #cccccc; */
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+.cart-loading .spinner-border{
+    width: 1.1rem !important;
+    height: 1.1rem !important;
 }

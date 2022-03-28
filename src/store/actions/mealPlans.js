@@ -1,7 +1,6 @@
 import { types} from '../constants'
 
 export const saveMealPlanId = (id) => {
-    console.log("meal plan action:::", id);
     return {
         type: types.MEAL_PLAN_ID,
         id

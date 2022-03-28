@@ -7,7 +7,7 @@ import CategoryList from "./category-list";
 var phantom = {
   display: "block",
   padding: "20px",
-  height: "70px",
+  height: "56px",
   width: "100%",
 };
 const Categories = () => {
@@ -27,13 +27,13 @@ const Categories = () => {
           top: 118,
           zIndex: 999,
           width: "100%",
-          background: "#f5f5f5",
+          background: "#F2CBBD",
         }}
       >
         <div className="w-100">
-          <div>
-            <p className="h5 m-0 p-0"> Categories</p>
-            <small className="text-muted">
+          <div className="d-block text-left">
+            <p className="h5 m-0 p-0 page-title"> Categories</p>
+            <small className="text-muted value-txt">
               {categories.categories.length} Categories found
             </small>
           </div>
@@ -47,7 +47,7 @@ const Categories = () => {
           </div>
         </div>
       </Card.Header>
-      <Container fluid>
+      <Container fluid style={{background: "#F2CBBD"}}>
         <CategoryList list={categories.categories} loading={categories.loading} />
       </Container>
     </>

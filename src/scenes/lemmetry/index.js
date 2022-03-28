@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import UserDetails from "./../Subscription/user-details";
-import MealPlans from "../Subscription/second-step";
+import { ChooseCuisine, ChooseGoal, ProfileDetails } from "./../Subscription";
 import { useDispatch, useSelector } from "react-redux";
-import { createCustomer } from "../../store/actions/customer";
 import PlannerWrapper from "./PlannerWrapper";
 import { makeStyles } from "@material-ui/core";
+import { AddressModal } from "../Products/address-modal";
 
 function getSteps() {
-  return ["Profile", "Meal Plan", "Schedule"];
+  return ["Cuisine", "Goal", "Profile", "Schedule"];
 }
 
 const useStyles = makeStyles({
@@ -21,6 +20,14 @@ const useStyles = makeStyles({
   stepLabel: {
     marginTop: 5,
   },
+  stepperBg: {
+    background: "rgb(249, 243, 223) !important",
+    minHeight: "100vh",
+    paddingTop: "100px",
+    "& > $div": {
+      background: "rgb(249, 243, 223) !important",
+    },
+  },
 });
 
 const LemmeTry = () => {
@@ -29,6 +36,16 @@ const LemmeTry = () => {
   const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
   const userData = useSelector((state) => state.customer.custData);
+
+  const [cuisine, setCuisine] = useState("");
+  const [goal, setGoal] = useState("");
+  const [profileDetails, setProfileDetails] = useState({
+    gender: "",
+    age: "",
+    heightFeet: "",
+    heightInch: "",
+    weight: "",
+  });
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -39,14 +56,23 @@ const LemmeTry = () => {
   };
 
   const handleMyStepper = () => {
-    if (activeStep === 0) {
-      dispatch(createCustomer(userData));
-    }
+    // if (activeStep === 1) {
+    //   dispatch(createCustomer(userData));
+    // }
     handleNext();
   };
 
+  const [showModal, setShowModal] = useState(false);
+  const handleShow = () => setShowModal(true);
+
   return (
-    <>
+    <section className={classes.stepperBg}>
+      <AddressModal
+        // customerId={userDetails.sub}
+        handleClose={() => setShowModal(false)}
+        handleShow={handleShow}
+        showModal={showModal}
+      />
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -66,19 +92,41 @@ const LemmeTry = () => {
         ))}
       </Stepper>
       <div>
-        {activeStep == 0 ? (
-          <UserDetails handleNextStep={handleMyStepper} />
-        ) : activeStep == 1 ? (
-          <MealPlans handleBack={handleBack} handleNextStep={handleMyStepper} />
-        ) : activeStep == 2 ? (
+        {activeStep === 0 && (
+          <ChooseCuisine
+            handleNextStep={handleMyStepper}
+            selectedCuisine={cuisine}
+            setCuisine={setCuisine}
+          />
+        )}
+        {activeStep === 1 && (
+          <ChooseGoal
+            handleBack={handleBack}
+            handleNextStep={handleMyStepper}
+            selectedGoal={goal}
+            setGoal={setGoal}
+          />
+        )}
+        {activeStep === 2 && (
+          <ProfileDetails
+            handleBack={handleBack}
+            handleNextStep={handleMyStepper}
+            profileDetails={profileDetails}
+            setProfileDetails={setProfileDetails}
+          />
+        )}
+        {activeStep === 3 && (
           <PlannerWrapper
             handleBack={handleBack}
             handleNextStep={handleMyStepper}
             isOnboarding={true}
+            goal={goal}
+            cuisine={cuisine}
+            profileDetails={profileDetails}
           />
-        ) : null}
+        )}
       </div>
-    </>
+    </section>
   );
 };
 

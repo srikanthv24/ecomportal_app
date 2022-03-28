@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import vlLogo from "./../../assets/Vibrant-Living-logo.png";
+import vlLogoWhite from "./../../assets/home/vl-logo-white.svg";
 import {
   Badge,
   Button,
@@ -10,6 +11,7 @@ import {
   Offcanvas,
   Row,
   ListGroup,
+  Spinner
 } from "react-bootstrap";
 import "./styles.css";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -18,10 +20,13 @@ import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
-import { clearUserDetails, getTokenFailure } from "../../store/actions/auth";
-import ProfileImg from "./../../assets/thumbnail-profile-pic.jpg";
+import { clearUserDetails, getTokenFailure, loginSuccess } from "../../store/actions/auth";
+import ProfileImg from "./../../assets/thumbnail-profile-pic.png";
 import auth_services from "../../services/auth_services";
 import { showLogin } from "../../store/actions";
+import arrowRightIcon from "./../../assets/arrow-right.png";
+import MenuIcon from "./../../assets/home/search-normal.svg";
+import CustomSpinner from "../CustomSpinner";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -38,8 +43,12 @@ export default function AppBar() {
   const mapValuesForOptions = (options) => {
     let newOptions = [];
     options?.items?.map((item) => {
-      newOptions.push({ value: item.id, label: item.display_name });
-      return null;
+      console.log("itemmm", item);
+      if(item !== null ){
+        newOptions.push({ value: item.id, label: item.display_name });
+        return null;
+      }
+      
     });
     console.log("NewOPtions", newOptions);
     setSearchedProducts(newOptions);
@@ -50,51 +59,67 @@ export default function AppBar() {
   }, [products.searchResults]);
 
   const handleInputChange = (newValue) => {
-    const inputValue = newValue.replace(/\W/g, "");
+    const inputValue = newValue.replace(/\W/g, "").toUpperCase();
     setQuery(inputValue);
     dispatch(searchProducts(inputValue));
   };
 
   const logoutCognitoUser = () => {
     auth_services.logout();
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     dispatch(clearUserDetails());
     dispatch(getTokenFailure());
     setMenu(false);
     history.push("/");
   };
 
+  const handleRefresh = () => {
+    auth_services.refreshToken().then(res => {
+      dispatch(loginSuccess(res));
+        localStorage.setItem("token", res.accessToken.jwtToken);
+    })
+  }
+
+  console.log("searched products", searchedProducts);
+
   return (
     <>
       <Navbar
         collapseOnSelect
         expand="lg"
-        bg="light"
+        // bg="light"
         variant="light"
-        sticky="top"
+        sticky="top" style={{background:"transparent", position:'fixed', width:'100%'}}
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>
-            <Navbar.Toggle
+            <div style={{position:'absolute', right:'1rem', top:'1rem'}}>
+            {/* <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
-              // className="border-0 px-0"
               onClick={() => setMenu(true)}
-            />
+            /> */}
+            <img
+                  alt=""
+                  src={MenuIcon}
+                  height="25"
+                  className="d-inline-block align-top" onClick={() => setMenu(true)}
+                />
+            </div>
             <Navbar.Brand>
               <Link to="/">
                 <img
                   alt=""
-                  src={vlLogo}
-                  height="50"
-                  className="d-inline-block align-top mx-2"
+                  src={vlLogoWhite}
+                  height="70"
+                  className="d-inline-block align-top" style={{marginTop:'-.5rem'}}
                 />
               </Link>
             </Navbar.Brand>
           </div>
-          <Nav>
-            <Container fluid>
+          <Nav style={{paddingRight:'2rem'}}>
+            <Container fluid className="px-0">
               <Row>
-                <Col className="d-lg-block search-section">
+                <Col className="d-lg-block1 search-section1 d-none">
                   <div
                     style={{
                       display: "flex",
@@ -137,27 +162,44 @@ export default function AppBar() {
 
                 {userDetails.sub ? (
                   <Col className="d-flex flex-nowrap px-0 profile-menu">
-                    <Nav.Link>
+                    <Nav.Link onClick={handleRefresh}>
                       <div className="customNavBar">
                         <strong className="text-black profile-name-txt">
                           Hello, {userDetails.name}
                         </strong>
                       </div>
                     </Nav.Link>
-
-                    <Nav.Link onClick={() => history.push("/cart-summary")}>
+                    {Cart?.cartLoading ?(
+                      <Nav.Link onClick={() => history.push("/cart-summary")}>
                       <h6 className="text-black nav-menu-cart">
                         <AiOutlineShoppingCart size={24} />
+                        {console.log("sdsdSD",Cart)}                        
                         <Badge pill>
+                        <span className="cart-loading"><Spinner animation="border" role="status" /></span>
                           {Cart?.cartDetails?.items?.length &&
-                            Cart?.cartDetails?.items[0]?.items?.length}
+                            Cart?.cartDetails?.items?.length}
                         </Badge>
                       </h6>
                     </Nav.Link>
+									    	
+                        // <CustomSpinner/>
+								    	) : (
+                        <Nav.Link onClick={() => history.push("/cart-summary")}>
+                        <h6 className="text-black nav-menu-cart">
+                          <AiOutlineShoppingCart size={24} />
+                          {console.log("sdsdSD",Cart)}
+                          <Badge pill>
+                          {/* <span className="cart-loading"><Spinner animation="border" role="status" /></span> */}
+                            {Cart?.cartDetails?.items?.length &&
+                              Cart?.cartDetails?.items?.length}
+                          </Badge>
+                        </h6>
+                      </Nav.Link>
+                    )}
                   </Col>
                 ) : (
                   <Nav.Link onClick={() => dispatch(showLogin())}>
-                    <p className="text-black nav-menu-cart">Login / Signup</p>
+                    <p className="text-black nav-menu-cart" style={{paddingRight:"1rem"}}>Login / Signup</p>
                   </Nav.Link>
                 )}
               </Row>
@@ -170,14 +212,13 @@ export default function AppBar() {
         show={showMenu}
         onHide={() => setMenu(false)}
         backdrop={true}
-        style={{ width: 350 }}
+        className="sideMenuWrapper"
       >
-        <Offcanvas.Header closeButton />
-        <Offcanvas.Body>
-          <div style={{ position: "relative", height: 180 }}>
-            <div
-              style={{ height: 100, background: "rgba(240, 89, 34, 0.4)" }}
-            ></div>
+        
+        <Offcanvas.Body style={{padding:'0px',position:'relative', background:'#FFF'}}>
+        <Offcanvas.Header closeButton className="closeBtn" style={{position:'absolute',top:'0px',right:'0px',zIndex:'100', color:'#ffffff', padding:'1.5rem'}} />
+          {/* <div style={{ position: "relative", height: 204 }}>
+            <div style={{ height: 150, background: "#F38144" }}></div>
             <div
               style={{
                 height: 100,
@@ -188,7 +229,7 @@ export default function AppBar() {
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 position: "absolute",
-                top: 50,
+                top: 100,
                 bottom: 0,
                 left: 0,
                 right: 0,
@@ -196,41 +237,66 @@ export default function AppBar() {
                 marginRight: "auto",
               }}
             ></div>
-          </div>
-          <h6 className="text-center">
+          </div> */}
+          {/* <h6 className="text-center">
             {userDetails.name} <br /> {userDetails.phone_number}
-          </h6>
-
-          <ListGroup variant="flush">
+          </h6> */}
+<div style={{minHeight:'150px'}}> </div>
+          <ListGroup variant="flush" className="sideMenuListview">
             <ListGroup.Item
               onClick={() => {
                 setMenu(false);
                 history.push("/");
               }}
             >
-              Home
+             
+              <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
+                Home
+                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+              </div>
             </ListGroup.Item>
             {userDetails.sub ? (
               <>
-                <ListGroup.Item>My Profile</ListGroup.Item>
-                <ListGroup.Item>Subscriptions</ListGroup.Item>
+                <ListGroup.Item 
+                  className="menuItem"
+                  onClick={() => {
+                    setMenu(false);
+                    history.push("/profile");
+                  }}
+                  >                 
+                 <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
+                 My Profile
+                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+              </div>
+                  </ListGroup.Item>
+                {/* <ListGroup.Item className="menuItem">Subscriptions</ListGroup.Item> */}
                 <ListGroup.Item
                   onClick={() => {
                     setMenu(false);
                     history.push("/orders/");
                   }}
                 >
-                  My Orders
+                
+                  <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
+                  Subscriptions
+                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+              </div>
                 </ListGroup.Item>
               </>
             ) : null}
             {userDetails.sub ? (
-              <ListGroup.Item onClick={logoutCognitoUser}>
+              <ListGroup.Item onClick={logoutCognitoUser}>                
+                <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
                 Log Out
+                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+              </div>
               </ListGroup.Item>
             ) : (
-              <ListGroup.Item onClick={() => dispatch(showLogin())}>
+              <ListGroup.Item onClick={() => dispatch(showLogin())}>                
+              <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
                 Log In
+                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+              </div>
               </ListGroup.Item>
             )}
           </ListGroup>

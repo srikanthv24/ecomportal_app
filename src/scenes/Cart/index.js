@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
+import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { displayCurrency } from "../../helpers/displayCurrency";
 import { getCart } from "../../store/actions/cart";
 import CardProduct from "./cart-product";
 
@@ -38,50 +40,47 @@ const Cart = () => {
   };
 
   return (
-    <>
-      <div style={phantom2} />
-      <Card.Header
-        style={{
-          position: "fixed",
-          top: 118,
-          zIndex: 999,
-          width: "100%",
-          background: "#f5f5f5",
-        }}
-      >
-        <div className="w-100">
-          <div>
-            <p className="h5 m-0 p-0"> Cart</p>
-            <small className="text-muted">
-              Sub-Total: {Number(totalPrice)?.toFixed(2)}
-            </small>
+    <section className="bg-1 cart-edit-wrapper">
+      <div style={phantom2}  />
+      <Card.Header className="mt-4">
+        <div className="w-100 text-left">
+          <div className="d-block text-left">
+            <p className="h5 m-0 p-0 page-title"> Cart</p>
+            <small className="d-flex align-items-center text-muted value-txt">
+            Sub-Total: <BiRupee />  {displayCurrency(Cart?.cartDetails?.grand_total)}
+              </small>
           </div>
           <div></div>
         </div>
       </Card.Header>
-      <div div style={{ padding: 10 }}>
-        <>
+      <div className="cart-info-block">
+        <>        
+        {/* <div className="cart-items-block"> */}
+      
           {Cart?.cartDetails?.items?.length ? (
-            Cart?.cartDetails?.items[0]?.items?.map((item) => {
+            
+            // Cart?.cartDetails?.items[0]?.items?.map((item) => {
+              Cart?.cartDetails?.items?.map((item,index) => {
               if (item) {
                 console.log("ITEM-->", item);
-                total = total + item.qty;
+                total = total + item.item.qty;
               }
 
-              return item && item?.qty ? (
+              return item.item && item.item?.qty ? (               
                 <CardProduct
-                  key={item.id}
-                  productId={item && item}
+                  pindex={index}
+                  key={item.item_id}
+                  productId={item && item.item}
                   cartDetails={Cart?.cartDetails}
                   totalQty={total}
                   pushPrice={(p) => calculatePrice(p)}
-                />
+                />                
               ) : null;
             })
           ) : (
             <div className="d-flex flex-column justify-content-center align-items-center mt-4">
               <h5>No Items found!</h5>
-              <Button onClick={() => history.push("/")}>
+              <Button onClick={() => history.push("/")} className="btn custom-primary-btn">
                 Explore products now
               </Button>
             </div>
@@ -92,14 +91,14 @@ const Cart = () => {
               position: "fixed",
               bottom: 0,
               right: 0,
-              left: 0,
-              background: "#FFF",
+              left: 0,              
               padding: 10,
               boxShadow: "1px 0px 3px 0px rgba(0,0,0,0.4)",
               zIndex: 10000,
+              background:"#F2CBBD"
             }}
           >
-            <Button
+            <Button className="btn custom-primary-btn"
               style={{ width: "100%" }}
               // onClick={handleContinue}
               onClick={() => history.push("/cart-summary")}
@@ -109,7 +108,7 @@ const Cart = () => {
           </div>
         </>
       </div>
-    </>
+    </section>
   );
 };
 

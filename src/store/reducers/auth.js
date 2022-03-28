@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   cognitoUserDetails: "",
   tokenList: "",
+  isRegistered: false,
   userDetails: {
     name: "",
     phone_number: "",
@@ -20,6 +21,7 @@ export const AuthReducer = (state = initialState, action) => {
         ...state,
         // isLoggedIn: true,
         loading: false,
+        isRegistered: true
         //cognitoUserDetails: action.payload
       };
     case types.AUTH_LOADING:
@@ -32,6 +34,7 @@ export const AuthReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        isRegistered: false,
         error: action.payload,
       };
 
@@ -52,9 +55,10 @@ export const AuthReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: false,
+        isRegistered: false,
       };
 
-    case "CLEAR_USER_DETAILS":
+    case types.CLEAR_USER_DETAILS:
       return {
         ...state,
         userDetails: {
@@ -62,6 +66,11 @@ export const AuthReducer = (state = initialState, action) => {
           phone_number: "",
           sub: "",
         },
+      };
+     case types.CLEAR_AUTH_ERROR:
+      return {
+        ...state,
+        error: null
       };
     case types.UPDATE_USER_DETAILS:
       return {

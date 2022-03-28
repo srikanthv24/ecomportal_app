@@ -4,16 +4,19 @@ import {
   getCartItemSchema,
   updateCartItem,
 } from "../graphql/mutations";
+import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 
 export class CartItem {
-  static getCartItem(params) {
+  static getCartItem =async (params)=> {
+    const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: getCartItemSchema,
@@ -24,18 +27,19 @@ export class CartItem {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
-  static createCartItem(params) {
+  static createCartItem= async(params) => {
+    const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: createCartItem(params.payload.sub_data),
@@ -48,18 +52,19 @@ export class CartItem {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
-  static updateCartItem(params) {
+  static updateCartItem=async(params) =>{
+    const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: updateCartItem,
@@ -72,23 +77,25 @@ export class CartItem {
         }
       ).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
-  static deleteCartItem(params) {
+  static deleteCartItem  = async (params)=> {
+    const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        "https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+        `${api_urls.Common_API_URL}`,
         {
           method: "POST",
           headers: {
-            "X-Api-Key": "da2-j7yxgxymtrarzavgivfwda4h5u",
+            "Authorization": getToken,
           },
           body: JSON.stringify({
             query: deleteCartItem,
             variables: {
-              ID: params.payload.cartItemId,
+              ciid: params.payload.cart_item_id,
+              id: params.payload.id,
             },
           }),
         }

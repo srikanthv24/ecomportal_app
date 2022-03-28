@@ -41,10 +41,10 @@ export default function UserDetails({
     weight: "",
     height: "",
     gender: "",
-    name: "ChittyTheRobo",
-    email: "robo@email.com",
-    phone: "987654321",
-    age: "27",
+    name: "",
+    email: "",
+    phone: "",
+    age: "",
   });
 
   useEffect(() => {
@@ -102,8 +102,8 @@ export default function UserDetails({
   };
 
   return (
-    <>
-      <p className="fs-4 fw-bold mb-3 text-center">Personal Information</p>
+    <section style={{background: "rgb(249, 243, 223)"}}>
+      <p className="fs-4 fw-bold mb-3 text-center page-title">Personal Information</p>
       <Form className="m-3">
         <p className="h6 text-start mb-1">What is your goal?</p>
         <Select
@@ -157,7 +157,7 @@ export default function UserDetails({
         </FloatingLabel>
       </Form>
 
-      <div className="d-flex mt-2">
+      <div className="d-flex px-3 pb-3">
        {!activeStep == 0 ? <Button
           disabled={activeStep === 0}
           onClick={handleBack}
@@ -170,6 +170,6 @@ export default function UserDetails({
           Next
         </Button>
       </div>
-    </>
+    </section>
   );
 }

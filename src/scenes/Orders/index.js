@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import ModalComponent from "../../components/Modal/modal";
+import OrderCard from "../../components/OrderCard/OrderCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../store/actions/orders";
-import DefaultImage from "./../../assets/default_thumbnail.png";
-import moment from "moment";
+import "./orders.scss";
+import { cancelSubscriptionApi } from "../../services/api/cancelSubscription";
 
 const Orders = () => {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.auth.userDetails);
   const OrdersList = useSelector((state) => state.Orders.ordersList);
+  const [showCancelSubscriptionModal, setShowCancelSubscriptionModal] = useState(false);
+  const [selectedSubscriptionId, setSelectedSubscriptionId] = useState();
 
   const order_list = [
     {
@@ -27,74 +30,44 @@ const Orders = () => {
   ];
 
   useEffect(() => {
-    console.log("OrdersListOrdersList", OrdersList);
-  }, [OrdersList]);
-
-  useEffect(() => {
-    // dispatch(getOrders({ customer_number: userDetails.phone_number.substring(3) }));
-    dispatch(getOrders({ customer_number: userDetails.phone_number.substring(3) }));
+    dispatch(
+      getOrders({ customer_number: userDetails.phone_number.substring(3) })
+    );
   }, []);
 
+  const cancelSubscription = async() => {
+    const cancelledSubscriptionId = await cancelSubscriptionApi(selectedSubscriptionId)
+    setShowCancelSubscriptionModal(false);
+    if(selectedSubscriptionId === cancelledSubscriptionId){
+      
+      dispatch(
+        getOrders({ customer_number: userDetails.phone_number.substring(3) })
+      );
+    } 
+  }
+
+  const openCancelSubscriptionPopup = (id) => {
+    setSelectedSubscriptionId(id);
+    setShowCancelSubscriptionModal(true);
+  }
+
+
   return (
-    <section style={{ padding: 5 }}>
-      <p className="h5 m-2">Your Orders</p>
-      {OrdersList?.length &&
-        OrdersList?.map((order) => {
-          return (
-            <Card
-              border="light"
-              key={order.id}
-              style={{
-                width: "100%",
-                padding: "10px 0px",
-                boxSizing: "border-box",
-                margin: 10,
-              }}
-            >
-              <Row
-                style={{
-                  marginLeft: 0,
-                  marginRight: 0,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Col xs={3}>
-                  <div>
-                    <img
-                      alt="img"
-                      src={order?.product?.defaultimg_url || DefaultImage}
-                      style={{ height: 60, borderRadius: "50%" }}
-                    />
-                  </div>
-                </Col>
-                <Col xs={9}>
-                  <span className="h6">{order?.product?.display_name}</span>
-                  <p className="text-muted">{order?.product?.category}</p>
-                </Col>
-              </Row>
-              <Row style={{backgroundColor: '#efefef'}}>
-                <Col>
-                  <small className="fs-8 text-muted">Order date:</small>
-                  <br />
-                  <small>
-                    <b>{moment(order?.start_date).format("ll")}</b>
-                  </small>
-                </Col>
-                {order?.start_date ? (
-                  <Col>
-                    <small className="fs-8 text-muted">Finish date:</small>
-                    <br />
-                    <small>
-                      <b>{moment(order?.finish_date).format("ll")}</b>
-                    </small>
-                  </Col>
-                ) : null}
-              </Row>
-            </Card>
-          );
-        })}
-    </section>
+    <>
+    <OrderCard ordersList={OrdersList} cancelSubscription={openCancelSubscriptionPopup}/>
+
+    <ModalComponent
+      show={showCancelSubscriptionModal}
+      showModalHeader={false}
+      primaryButtonText="Ok"
+      secondaryButtonText="Return"
+      primaryButtonClick={cancelSubscription}
+      secondaryButtonClick={() => setShowCancelSubscriptionModal(false)}
+      fullscreen={false}
+      showImage={false}
+      Body="Do you want to cancel the subscription? "
+      />
+</>
   );
 };
 

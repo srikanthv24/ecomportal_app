@@ -17,9 +17,16 @@
 
 }
 
-.bg-1 {
+/* .bg-1 {
     background-color: #f9f9f9 !important;
+} */
+.bg-1 {
+    background-color: #F2CBBD!important;
 }
+
+/* .primary-color{
+        background-color: #F2CBBD;
+} */
 
 .bg-2 {
     background-color: #f4f4f4;
@@ -29,18 +36,21 @@
     background-color: #f9f9f9 !important;
 }
 
-.content-title {
+/* .content-title {
     font-family: 'Raleway';
     font-size: 1.875rem;
     color: #424141;
     font-weight: 600;
-}
+} */
 
 .viewall-txt {
     font-family: 'Raleway';
     font-size: 18px;
     color: #f05922;
     font-weight: 500;
+    display: inline-block;
+    width:100%;
+    margin-bottom: 15px;
 }
 
 .no-bg {
@@ -52,7 +62,7 @@
 
     .content-body {
         padding-top: 0px;
-        background: #fff;
+        background:#F2CBBD;
     }
 
     .page-content {
@@ -67,4 +77,10 @@
     .subscription-section {
         margin: 0px !important;
     }
+}
+hr.hr-divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)) !important; 
+    background-color:transparent !important ;
 }

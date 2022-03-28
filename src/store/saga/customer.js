@@ -73,7 +73,6 @@ function* goal() {
 
 function* postCustomerData(action) {
     const response = yield call(Customer.createCustomer, action.payload);
-    console.log("response from saga:::", response);
     if (response) {
         if (response.data) {
             yield put({

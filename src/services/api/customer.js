@@ -1,16 +1,14 @@
-const API_URL =
-  "https://rd7pbwckwvb2lgexcirzcswalu.appsync-api.us-east-1.amazonaws.com/graphql/";
-const API_KEY = "da2-ikrgaao25re4pflusa3hijenoi";
-//const API_URL = process.env.REACT_APP_API_URL;
-// const API_KEY = process.env.REACT_APP_CATLOG_X_API_KEY;
+import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 
 export class Customer {
   static getGender = async () => {
-    return await fetch(API_URL, {
+     const getToken = await RefreshToken.getRefreshedToken()
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -34,11 +32,12 @@ export class Customer {
   };
 
   static getPhysicalActivity = async () => {
-    return await fetch(API_URL, {
+    const getToken = await RefreshToken.getRefreshedToken()
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -62,11 +61,12 @@ export class Customer {
   };
 
   static getDietPreference = async () => {
-    return await fetch(API_URL, {
+    const getToken = await RefreshToken.getRefreshedToken()
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -90,11 +90,12 @@ export class Customer {
   };
 
   static getGoalList = async () => {
-    return await fetch(API_URL, {
+    const getToken = await RefreshToken.getRefreshedToken()
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `
@@ -117,29 +118,32 @@ export class Customer {
       });
   };
 
-  static createCustomer = (data) => {
-    console.log("data to fetch call::::", data);
-    return fetch(`${API_URL}`, {
+  static createCustomer = async(data) => {
+    const getToken = await RefreshToken.getRefreshedToken()
+    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": "da2-ikrgaao25re4pflusa3hijenoi",
+        "Authorization": getToken,
       },
       body: JSON.stringify({
         query: `mutation {
-                  createCustomer(input: {address: "Jublihills", 
-                                        dietpreference: ${data.dietpreference}, 
-                                        display_name: "${data.name}", 
-                                        dob: "16-12-1996", 
-                                        goal: ${data.goal}, 
-                                        name: "${data.name}", 
-                                        mobile: "9550163323", 
-                                        physicalactivity: ${data.physicalactivity}, 
-                                        upd_by:"${data.name}",
-                                        personalinfo: {age: ${data.age}, 
-                                                      gender: ${data.gender}, 
-                                                      heightcm: ${data.height}, 
-                                                      weightkg: ${data.weight}}}) 
+                  createCustomer(input: 
+                    {
+                      display_name: "${data.name}",
+                      goal: ${data.goal},
+                      id: "${data.id}",
+                      mobile: "${data.mobile}", 
+                      personalinfo: {
+                        age: ${data.age}, 
+                        gender: ${data.gender}, 
+                        heightft: {
+                          feet: ${data.heightFeet}, 
+                          inch: ${data.heightInches}
+                        }, 
+                        weightkg: ${data.weight}
+                      }, 
+                    }) 
                   {
                     id
                   }

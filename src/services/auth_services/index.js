@@ -3,12 +3,32 @@ import {
   CognitoUser,
   CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
-import UserPool from "../../scenes/Login/UserPool";
+import UserPool, { poolData } from "../../scenes/Login/UserPool";
 import { getCognitoUser } from "../getCognitoUser";
 
 class AuthService {
   constructor() {
     this.currentUser = UserPool.getCurrentUser();
+  }
+
+  forgot(phone) {
+    const user = new CognitoUser({
+      Username: `+91${phone}`,
+      Pool: UserPool,
+    });
+
+    return new Promise((resolve, reject) => {
+      user.forgotPassword({
+        onSuccess: (data) => {
+          console.log("OnSuccess:------------>>>>>>>> ", data, data.accessToken);
+          resolve(data);
+        },
+        onFailure: (err) => {
+          console.log("onFailure:-------------->>>>>>>>> ", err.message);
+          reject(err);
+        }
+      });
+    });
   }
 
   login(phone, password) {
@@ -91,6 +111,34 @@ class AuthService {
     });
   }
 
+  getUserToken() {
+    return new Promise((resolve, reject) => {
+      let currentUser = UserPool.getCurrentUser();
+      if (currentUser !== null) {
+        let cognitoUser = getCognitoUser({
+          Pool: UserPool,
+          Username: currentUser.username,
+        });
+        cognitoUser.getSession((err, res) => {
+          if (res) {
+            cognitoUser.refreshSession(res.refreshToken, (error, result) => {
+              if (result) {
+                localStorage.setItem("token", result.accessToken.jwtToken);
+                resolve(result);
+              } else {
+                reject(error);
+              }
+            })
+          } else {
+            reject(err);
+          }
+        });
+      } else {
+        reject("No user found");
+      }
+    })
+  }
+
   getUser() {
     return new Promise((resolve, reject) => {
       let currentUser = UserPool.getCurrentUser();
@@ -133,6 +181,27 @@ class AuthService {
         reject("No user found");
       }
     });
+  }
+
+  refreshToken() {
+
+    return new Promise((resolve, reject) => {
+      let currentUser = UserPool.getCurrentUser();
+      let cognitoUser = getCognitoUser({
+        Pool: UserPool,
+        Username: currentUser.username,
+      });
+  
+      cognitoUser.getSession((err, res) => {
+        console.log("ERR-RESS", err, res);
+        cognitoUser.refreshSession(res.refreshToken, (error, result) => {
+          console.log('refreshedToken--->', error, result)
+          
+          localStorage.setItem("token", result.accessToken.jwtToken);
+          resolve(result);
+        })
+      });
+    })
   }
 }
 

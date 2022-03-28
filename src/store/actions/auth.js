@@ -48,6 +48,12 @@ export const updateUserDetails = (payload) => {
 
 export const clearUserDetails = () => {
   return {
-    type: "CLEAR_USER_DETAILS"
+    type: types.CLEAR_USER_DETAILS
+  }
+}
+
+export const clearAuthError = () => {
+  return {
+    type: types.CLEAR_AUTH_ERROR,
   }
 }

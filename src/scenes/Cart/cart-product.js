@@ -11,13 +11,19 @@ import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartQty } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
+import {deleteCartItem} from "../../store/actions/cart-item";
+import { displayCurrency } from "../../helpers/displayCurrency";
 
-const CardProduct = ({ productId, pushPrice }) => {
+const CardProduct = ({ productId, pushPrice ,pindex,key}) => {
   const history = useHistory();
   const Cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
   const [ProductDetails, setProductDetails] = useState({});
+  const [ButtonLoader, setButtonLoader] = useState(false);
   const userDetails = useSelector((state) => state.auth.userDetails);
+
+
+  console.log("pindex",pindex )
 
   useEffect(() => {
     // Products.ProductDetails({ payload: productId.item_id }).then((res) => {
@@ -30,41 +36,49 @@ const CardProduct = ({ productId, pushPrice }) => {
     pushPrice((productId.sale_val && productId.sale_val) * productId.qty);
   }, [productId]);
 
-  const onIncrement = () => {
+  const onIncrement = (pindex) => {
     console.log(ProductDetails);
     dispatch(
       updateCartQty({
-        cart_item_id: productId.cart_item_id,
-        id: Cart.cartDetails.items[0].id,
+        cart_item_id: Cart.cartDetails.items[pindex].ciid,
+        id: Cart.cartDetails.items[pindex].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,
         qty: productId.qty + 1,
       })
     );
+    setButtonLoader(true)
   };
 
-  const onDecrement = () => {
+  const onDecrement = (pindex) => {
+    if(productId.qty==1){
+      dispatch(
+        deleteCartItem(
+        {
+        cart_item_id: Cart?.cartDetails?.items[pindex].ciid,
+        id: Cart?.cartDetails?.items[pindex]?.id,
+        customer_id: userDetails.sub,
+      })
+    );
+
+    }
+     else{
     dispatch(
       updateCartQty({
-        cart_item_id: productId.cart_item_id,
-        id: Cart.cartDetails.items[0].id,
+        cart_item_id: Cart.cartDetails.items[pindex].ciid,
+        id: Cart.cartDetails.items[pindex].id,
         customer_id: userDetails.sub,
         item_id: productId.item_id,
         qty: productId.qty - 1,
       })
     );
+    setButtonLoader(true)
+     }
   };
 
   return (
-    <div>
-      <Card
-        style={{
-          marginBottom: 10,
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "row",
-        }}
-      >
+    <div className="cart-edit-pcard">
+      <Card className="cart-edit-pcard-item">
         <Card.Body
           variant="top"
           className="p-1"
@@ -81,12 +95,13 @@ const CardProduct = ({ productId, pushPrice }) => {
               backgroundPosition: "center",
               height: "120px",
               width: "120px",
+              borderRadius:'40px'
             }}
           />
         </Card.Body>
-        <Card.Body className="pt-2">
+        <Card.Body className="pt-2 cart-edit-pcard-item-info">
           <Card.Text
-            className="h6 mb-0 pb-0 col-12 text-truncate"
+            className="h6 mb-0 pb-0 col-12 text-truncate"             
             onClick={() => history.push("/products/" + ProductDetails.item_id)}
           >
             {ProductDetails.item_name}
@@ -97,8 +112,8 @@ const CardProduct = ({ productId, pushPrice }) => {
 
           <Card.Text>
             <span className="d-flex justify-content-start">
-              <span className="d-flex">
-                <BiRupee /> {Number(ProductDetails.sale_val).toFixed(2)} /{" "}
+              <span className="d-flex align-items-center">
+                <BiRupee />  {displayCurrency(ProductDetails.sub_total)} /{" "} 
                 {ProductDetails.uom_name}
               </span>
             </span>
@@ -110,17 +125,17 @@ const CardProduct = ({ productId, pushPrice }) => {
             </small>
           </Card.Text>
 
-          {Cart.cartLoading ? (
+          {Cart.cartLoading && ButtonLoader? (
             <Spinner animation="border" variant="primary" />
           ) : (
             <InputGroup size="sm">
               <Button
                 size="sm"
                 variant="outline-secondary"
-                onClick={() => (!Cart.cartLoading ? onDecrement() : null)}
+                onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
                 disabled={Cart.cartLoading}
               >
-                {Cart.cartLoading ? (
+                {Cart.cartLoading && ButtonLoader ? (
                   <Spinner animation="border" variant="primary" />
                 ) : (
                   <GrSubtract />
@@ -138,10 +153,10 @@ const CardProduct = ({ productId, pushPrice }) => {
               <Button
                 variant="outline-secondary"
                 size="sm"
-                onClick={() => (!Cart.cartLoading ? onIncrement() : null)}
+                onClick={() => (!Cart.cartLoading ? onIncrement(pindex) : null)}
                 disabled={Cart.cartLoading}
               >
-                {Cart.cartLoading ? (
+                {Cart.cartLoading && ButtonLoader ? (
                   <Spinner animation="border" variant="primary" />
                 ) : (
                   <GrAdd />

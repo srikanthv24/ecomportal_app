@@ -1,20 +1,22 @@
+import { api_urls } from "../../utils";
+import { RefreshToken } from "../../helpers/refreshSession";
 import {
 	getAddressList,
 	getProductDetails,
 	getProducts,
 	getProductsByCategory,
+	getStaples,
 	searchProducts,
 } from "../graphql/mutations";
-
-const API_URL = process.env.REACT_APP_API_URL;
-// const API_KEY = process.env.REACT_APP_PRODUCT_API_KEY;
 
 export class Products {
 	static getAddons = (data) => {
 		let q = `{listItems`;
 		if (data.search) {
-			q += `(filter:{display_name: {contains:"${data.search}"}})`
-		}
+			q += `(filter:{display_name: {contains:"${data.search}"},is_mealplan: {eq: true},status: {eq: "A"}})`
+		}else {
+			q += `(filter:{is_mealplan: {eq: false},status: {eq: "A"}})`
+			}
 		q += `{
 				items {
 					category
@@ -24,11 +26,11 @@ export class Products {
 				}
 			}
 		}`;
-		return fetch(`${process.env.REACT_APP_ADDON_API_URL}`, {
+		return fetch(`${api_urls.Product_REL_API_URL}`, {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-API-Key': process.env.REACT_APP_ADDON_API_KEY
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: q
@@ -42,19 +44,16 @@ export class Products {
 
 	static getProducts = async (params) => {
 		try {
-			console.log("PARAARARAMS==>", JSON.stringify(params.payload.category));
-			// console.log("PARAMSSSS", getProductsByCategory(params));
-			return await fetch(API_URL, {
+			return await fetch(api_urls.Product_REL_API_URL, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+					'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 				},
-				// body: params.payload ? getProductsByCategory(params) : getProducts(),
 				body: JSON.stringify({
-					query: getProducts,
+					query: params.payload.category === "Staples" ? getStaples : getProducts,
 					variables: {
-						category: params.payload.category,
+						category: params.payload.category || "",
 						limit: params.payload.limit,
 						nextToken: params.payload.nextToken,
 					},
@@ -66,36 +65,37 @@ export class Products {
 	};
 
 	static ProductDetails = async (id) => {
-		console.log("IIIIDDD", id);
-		return await fetch(API_URL, {
+		const getToken = await RefreshToken.getRefreshedToken()
+		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: getProductDetails(id.payload),
 		}).then((res) => res.json());
 	};
 
 	static productSearch = async (query) => {
-		return await fetch(API_URL, {
+		return await fetch(api_urls.Product_REL_API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: searchProducts(query),
 		}).then((res) => res.json());
 	};
 
 	static getAddressList = async (id) => {
+		const getToken = await RefreshToken.getRefreshedToken()
 		return await fetch(
-			"https://m76jgm5mv5a5ta56kwht6e6ipm.appsync-api.us-east-1.amazonaws.com/graphql",
+			`${api_urls.Common_API_URL}`,
 			{
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-API-KEY": "da2-j7yxgxymtrarzavgivfwda4h5u",
+					"Authorization": getToken,
 				},
 				body: JSON.stringify({
 					query: getAddressList,

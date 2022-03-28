@@ -34,13 +34,13 @@ const OwlCurousel = ({ carouselItems }) => {
         autoPlay
         responsive={{ ...responsive }}
       >
-        {carouselItems.map((item) => (
+        {carouselItems?.map((item) => (
           <Row
-            key={item.id}
-            onClick={() => history.push(`/products/${item.id}`)}
+            key={item?.id}
+            onClick={() => history.push(`/products/${item?.id}`)}
           >
             <Col sm={12} xs={12}>
-              <div className="item" key={item.id}>
+              <div className="item" key={item?.id}>
                 {/* <h4>{item.display_name}</h4> */}
                 <ProductCard product={item} />
               </div>

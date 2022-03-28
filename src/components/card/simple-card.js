@@ -10,23 +10,23 @@ import { Link } from "react-router-dom";
 const SimpleCard = () => {
   const [show, setShow] = useState(false);
   const OrdersList = useSelector((state) => state.Orders.ordersList);
-
+  console.log("OrdersList--", OrdersList.items);
   const GetSubscriptions = () => {
     for (let i = 0; i < 2; i++) {
       const order = OrdersList[i];
       console.log('OrdersList[i]', OrdersList[i])
       return (
-        <div className="d-inline-flex align-items-center justify-content-between w-100">
+        <div className="d-inline-flex align-items-center justify-content-between w-100 mb-2">
           <div className="d-inline-flex align-items-center">
             <div className="avatar h4 me-3">
               {order.customer.display_name.charAt(0)}
             </div>
             <div>
-              <span className="h6 fw-normal">
+              <span className="h6 fw-normal ff-2">
                 {order.customer.display_name}
               </span>
               <div
-                className="text-muted"
+                className="text-muted ff-3"
                 style={{
                   overflow: "wrap",
                   wordBreak: "break-word",
@@ -50,11 +50,11 @@ const SimpleCard = () => {
 
   if (OrdersList && OrdersList.length !== 0) {
     return (
-      <Card border="light" className="subscription-section">
+      <Card className="subscription-section bg-1">
         <Card.Header className="content-title no-bg">
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center ff-1">
             Subscriptions
-            <Link to="/orders/" className="viewmore-txt">
+            <Link to="/orders/" className="viewmore-txt ff-1">
               View all
             </Link>
           </div>

@@ -5,6 +5,7 @@ const initialState = {
   error: false,
   addressList: [],
   postalCodes: [],
+  deleteAddress: {},
 };
 
 export const Addresses = (state = initialState, action) => {
@@ -37,19 +38,20 @@ export const Addresses = (state = initialState, action) => {
      case types.DELETE_ADDRESS: 
      return { ...state, loading: true };
 
-   case types.DELETE_ADDRESS_SUCCESS:
-     return { 
-         ...state, 
-         loading : false,
-         newAddress: action.payload
-       }
+    case types.DELETE_ADDRESS_SUCCESS:
+      return { 
+          ...state, 
+          loading : false,
+          deleteAddress: action.payload
+        }
 
-   case types.DELETE_ADDRESS_FAILURE:
-     return { 
-         ...state, 
-         loading : false,
-         error: true,
-       }
+    case types.DELETE_ADDRESS_FAILURE:
+      return { 
+          ...state, 
+          loading : false,
+          error: true,
+          deleteAddress: action.payload
+        }
 
 
      //postal codes

@@ -9,7 +9,6 @@ const initialState = {
 export const AlertReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SHOW_ALERT:
-      console.log("AlertReducer==>", action);
       return {
         ...state,
         showAlert: true,

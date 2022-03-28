@@ -1,17 +1,19 @@
-const API_URL = process.env.REACT_APP_API_URL;
+import { api_urls } from "../../utils";
 
+const MEAL_PLAN_API_KEY = process.env.REACT_APP_ADDON_API_KEY;
+const MEAL_PLANDETAILS_API_KEY = process.env.REACT_APP_CATEGORY_KEY;
 
 export class mealPlans {
 	static getMealPlans = async () => {
-		return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {
+    return await fetch(`${api_urls.Product_REL_API_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: `{
-              listItems(filter: {is_mealplan: {eq: true}}, limit: 10000) {
+              listItems(filter: {is_mealplan: {eq: true},status: {eq: "A"}}, limit: 10000) {
                 items {
                   id
                   is_mealplan
@@ -34,8 +36,6 @@ export class mealPlans {
                   tax_inclusive
                   tax_methods
                   uom_name
-                  upd_by
-                  upd_on
                   variants {
                     is_sale_value_absolute
                     is_multiselect
@@ -62,11 +62,11 @@ export class mealPlans {
 	};
 
 	static mealPlanDetails = async (id) => {
-		return await fetch("https://ca57f53chjghzmmjskz3e6sptq.appsync-api.us-east-1.amazonaws.com/graphql", {
+		return await fetch(`${api_urls.Product_REL_API_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"X-API-KEY": "da2-qp52v6iixvh6bdgd2qjdqa3dyq",
+        'X-API-Key': `${api_urls.Product_REL_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: `{
@@ -98,6 +98,7 @@ export class mealPlans {
               is_exclusive
               is_multiselect
               name
+
               variant_items {
                 saleprice
                 image

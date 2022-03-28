@@ -8,10 +8,6 @@ import "./styles.css";
 
 const CategoryList = ({ list, loading }) => {
   const history = useHistory();
-
-  
-
- 
   return (
     <>
       <Row
@@ -31,7 +27,7 @@ const CategoryList = ({ list, loading }) => {
                 history.push(`/products?category=${category.display_name}`)
               }
             >
-              <div className="category-item">
+              <div className="category-item1">
                 <div
                   style={{
                     textAlign: "center",
@@ -69,7 +65,7 @@ const CategoryList = ({ list, loading }) => {
                             ? category.defaultimg_url
                             : test
                         }
-                        style={{ maxWidth: "128px", maxHeight: "128px" }}
+                        style={{ maxWidth: "128px", maxHeight: "128px",borderRadius: "10%", }}
                       />
                     </div>
                   </div>
@@ -83,9 +79,12 @@ const CategoryList = ({ list, loading }) => {
                   >
                     <h6
                       style={{
-                        lineHeight: 1.5,
+                        fontSize:'20px',
+                        fontFamily: "Playfair Display ,serif",
+                        fontWeight:700,
+                        lineHeight:"25px",
                         textOverflow: "ellipsis",
-                        color: "#212121",
+                        color: "#352817",
                       }}
                     >
                       {category.display_name}
