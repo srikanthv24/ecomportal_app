@@ -56,7 +56,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 	const Addresses = useSelector((state) => state.Addresses.addressList);
 	const postalCodes = useSelector((state) => state.Addresses.postalCodes);
 	const [servicePinCodes, setServicePinCodes] = useState([]);
-
+	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [Variants, setVariants] = useState([]);
 	const [AddressList, setAddressList] = useState([]);
 	const [startDate, setStartDate] = useState({
@@ -356,6 +356,21 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 		setValue("variants", temp);
 		variantsSelected(VariantValue);
 	}, [VariantValue]);
+
+	useEffect(() => {
+		if(pincodes && pincodes[selectedIndex].length === 6) {
+			const filter = postalCodes?.listPostalCodes?.items.find(pincode => parseInt(pincodes[selectedIndex]) === pincode.postalcode);
+			if(filter) {
+				handleAddress(sessionsOrder[selectedIndex], 'city', filter.city);
+				handleAddress(sessionsOrder[selectedIndex], 'state', filter.state);
+			}
+		}
+	}, [pincodes]);
+
+	const setDeliveryPinCodes = (e, index) => {
+		setPincodes(pincodes.map((x, i) => i === index ? e.target.value : x));
+		setSelectedIndex(index);
+	}
 
 
 	const handleAddOns = (index, item, value, onChange) => {
@@ -689,7 +704,7 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 																type="tel"
 																placeholder="pinCode"
 																name="postalcode"
-																onChange={(e) => setPincodes(pincodes.map((x, i) => i === index ? e.target.value : x))}
+																onChange={(e) => setDeliveryPinCodes(e, index)}
 																maxLength="6"
 															/>
 														</FloatingLabel>
