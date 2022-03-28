@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/Modal/modal";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../store/actions/orders";
@@ -143,7 +143,7 @@ const Orders = () => {
           subscriptionId={selectedSubscriptionId}
         />
       )}
-      /** Cancel Subscription Modal **/
+      
       <Modal
         show={showCancelSubscriptionModal}
         showModalHeader={false}
@@ -155,7 +155,7 @@ const Orders = () => {
         showImage={false}
         Body="Do you want to cancel the subscription? "
       />
-      /** Error Modal **/
+      
       <Modal
         show={showErrorModal}
         showModalHeader={false}
@@ -165,8 +165,7 @@ const Orders = () => {
         showImage={false}
         Body={errorMessage}
       />
-      /** Error Modal **/
-      /** Confirmation Modal **/
+    
       <Modal
         show={showConfirmationModal}
         showModalHeader={false}
@@ -178,7 +177,7 @@ const Orders = () => {
         showImage={false}
         Body="Do you want to pause the subscription?"
       />
-      /** Confirmation Modal **/
+     
     </>
   );
 };

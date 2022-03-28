@@ -9,6 +9,7 @@ import SubscriptionButtonGroup from "./SubscriptionButtonGroup";
 import SubscriptionTitle from "./SubscriptionTitle";
 import moment from "moment";
 import SubscriptionComments from "./SubscriptionComments";
+import "./styles.css";
 
 const PauseSubscriptionModal = ({
   serviceType,
@@ -63,18 +64,20 @@ const PauseSubscriptionModal = ({
 
   return (
     <Modal show={show}>
+      <section className="order-modal-content">
       <SubscriptionTitle text={SERVICE_LABELS[serviceType]} />
       <Modal.Body>
+      <section className="modal-body-content">
         {serviceType === SERVICE_TYPE.PAUSE_TOMORROW ||
         serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
         serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ? (
           <>
             {(serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
               serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) && (
-              <div>
-                <span>From Date:</span>
+              <div className="order-form-control">
+                <span className="date-info">From Date:</span>
                 <DatePicker
-                  name="from_date"
+                  name="from_date" className="order-form-control-input"
                   minDate={getMinDateAsToday}
                   value={fromDate}
                   onChange={(date) => setFromDate(date.format("YYYY-MM-DD"))}
@@ -82,10 +85,10 @@ const PauseSubscriptionModal = ({
               </div>
             )}
             {serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN && (
-              <div>
-                <span>To Date:</span>
+              <div className="order-form-control">
+                <span className="date-info">To Date:</span>
                 <DatePicker
-                  name="to_date"
+                  name="to_date" className="order-form-control-input"
                   minDate={getMinDateAsToday}
                   value={toDate}
                   onChange={(date) => setToDate(date.format("YYYY-MM-DD"))}
@@ -104,7 +107,9 @@ const PauseSubscriptionModal = ({
         ) : (
           <></>
         )}
+        </section>
       </Modal.Body>
+      </section>
     </Modal>
   );
 };

@@ -11,7 +11,7 @@ import {
   hideAlert,
   showAlert,
 } from "../../store/actions";
-import ModalComponent from "../../components/Modal/Modal";
+import ModalComponent from "../../components/Modal/modal";
 import { OrderCheckList } from "./order-checklist";
 import CartSummaryItem from "./cart-summary-item";
 import { displayCurrency } from "../../helpers/displayCurrency";
