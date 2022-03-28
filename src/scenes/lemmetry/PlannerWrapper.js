@@ -25,6 +25,7 @@ import { deleteCartItem } from "../../store/actions/cart-item";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import { AddressModal } from "../Products/address-modal";
 import { createCustomer } from "../../store/actions/customer";
+import { useLocation } from "react-router-dom";
 
 var phantom = {
   display: "block",
@@ -34,6 +35,7 @@ var phantom = {
 };
 
 const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profileDetails }) => {
+  const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
   const mealPlanId = useSelector((state) => state.mealPlans);
@@ -118,7 +120,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   };
 
   useEffect(() => {
-    if (userId && Object.keys(cartCreated).length && sideEffect ) {
+    if (userId && Object.keys(cartCreated || {}).length && sideEffect ) {
       history.push("/cart-summary");
     }
   }, [userId, cartCreated, sideEffect])
@@ -166,7 +168,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
           accessToken: localStorage.getItem("token"),
         })
       );
-      dispatch(createCustomer({
+      if(location.pathname == '/subscription') {
+        dispatch(createCustomer({
         name: userDetails?.name,
         goal: goal && goal.length ? goal : "",
         id: userDetails?.sub,
@@ -177,6 +180,7 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
         heightInches: profileDetails?.heightInch,
         weight: profileDetails?.weight,
       }));
+    }
     }
   };
 
