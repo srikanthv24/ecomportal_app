@@ -5,8 +5,8 @@ export let poolData ={}
 
 if(server == "production" ){
      poolData ={
-        UserPoolId:"ap-south-1_dTkI9Ztc5",
-        ClientId:"2tuua9a609jrh9puhportsvs7c"
+        UserPoolId:"ap-south-1_2bBWYvNqM",
+        ClientId:"6346flpmjrjnlcf88sihvpr4rt"
     }
 }else {
     poolData ={
