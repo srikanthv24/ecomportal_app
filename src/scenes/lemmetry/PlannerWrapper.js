@@ -57,6 +57,8 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const { customerId: userId } = useSelector(state => state.customer);
   const { cartDetails: cartCreated } = useSelector(state => state.Cart);
 
+  const [sideEffect, setSideEffect] = useState(false);
+
   const methods = useForm({
     defaultValues: {
       item_id: "",
@@ -106,12 +108,22 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
   const handleAddToCart = () => {
     if (userDetails.sub) {
       handleSubmit(handleCartSubmit)();
-      setFormSubmitted(true);
+      // setFormSubmitted(true);
+      setSideEffect(true);
     } else {
       dispatch(showLogin());
       setFormSubmitted(true);
+      setSideEffect(true);
     }
   };
+
+  useEffect(() => {
+    if (userId && Object.keys(cartCreated).length && sideEffect ) {
+      history.push("/cart-summary");
+    }
+  }, [userId, cartCreated, sideEffect])
+  
+
 
   const handleCartSubmit = (data) => {
     console.log("use_form_data", data);
@@ -343,13 +355,6 @@ const PlannerWrapper = ({ handleBack, isOnboarding = false, goal, cuisine, profi
       [e.target.name]: e.target.value,
     });
   };
-
-  useEffect(() => {
-    if (userId && Object.keys(cartCreated).length && formSubmitted) {
-      history.push("/cart-summary");
-    }
-  }, [userId, cartCreated, formSubmitted])
-
 
   // console.log("WIZARD___", goal, cuisine, profileDetails);
   return (

@@ -113,6 +113,8 @@ export class Adresses {
                     items{
                       id
                       postalcode
+                      city
+                      state
                     }
                   }
                 }

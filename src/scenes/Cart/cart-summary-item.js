@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button } from "react-bootstrap";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { BiRupee } from "react-icons/bi";
-import { BsPencil, BsTrash, BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { getCartSummary } from "../../store/actions/cart";
+
+import { Card, Button } from "react-bootstrap";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import { GrAdd, GrSubtract } from "react-icons/gr";
+import { BiRupee } from "react-icons/bi";
+import { BsTrashFill } from "react-icons/bs";
+
 import { deleteCartItem } from "../../store/actions/cart-item";
+import { updateCartQty } from "../../store/actions";
+import { displayCurrency } from "../../helpers/displayCurrency";
+import "./styles.css";
 
 const CartSummaryItem = ({ ProductDetails, pindex }) => {
   const history = useHistory();
@@ -22,7 +27,6 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
   });
 
   const [mealItem, setMealItem] = useState(false);
-  const [mealType, setMealType] = useState("");
   const [Duration, setDuration] = useState(null);
   const onDelete = (pindex) => {
     dispatch(
@@ -58,10 +62,6 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
       } else {
         temp[item?.meal_type] = "Pickup";
       }
-
-      if (item.meal_type) {
-        setMealType(item.meal_type);
-      }
     });
     setAddresses(temp);
 
@@ -72,20 +72,48 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
     });
   }, [ProductDetails]);
 
+  const onIncrement = (pindex) => {
+    dispatch(
+      updateCartQty({
+        cart_item_id: Cart.cartDetails.items[pindex].ciid,
+        id: Cart.cartDetails.items[pindex].id,
+        customer_id: userDetails.sub,
+        item_id: ProductDetails.item_id,
+        qty: ProductDetails.qty + 1,
+      })
+    );
+  };
+
+  const onDecrement = (pindex) => {
+    if (ProductDetails.qty == 1) {
+      dispatch(
+        deleteCartItem({
+          cart_item_id: Cart?.cartDetails?.items[pindex].ciid,
+          id: Cart?.cartDetails?.items[pindex]?.id,
+          customer_id: userDetails.sub,
+        })
+      );
+    } else {
+      dispatch(
+        updateCartQty({
+          cart_item_id: Cart.cartDetails.items[pindex].ciid,
+          id: Cart.cartDetails.items[pindex].id,
+          customer_id: userDetails.sub,
+          item_id: ProductDetails.item_id,
+          qty: ProductDetails.qty - 1,
+        })
+      );
+    }
+  };
+
   return (
     <div className="w-100p">
       <Card className="my-1 bg-1">
         <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
           <div className="cart-list-image-container">
-            <img
-              src={
-                ProductDetails.defaultimg_url ||
-                "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-              }
-              alt="img"
-            />
+            <img src={ProductDetails.defaultimg_url} alt="img" />
           </div>
-          <div style={{ width: "calc(100% - 7rem)" }}>
+          <div style={{ width: "calc(100% - 7rem)", paddingLeft: "10px" }}>
             <Card.Text className="cart-list-product-detailes-name mb-0 clr-black">
               {ProductDetails.item_name}
             </Card.Text>
@@ -105,7 +133,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
             <p className="ff-2 clr-black mb-0 d-flex justify-content-between">
               <div className="ff-2 mb-0 cart-list-product-detailes-sale-price">
                 <BiRupee />
-                {ProductDetails.sub_total}
+                {displayCurrency(ProductDetails.sub_total)}
               </div>
             </p>
 
@@ -149,33 +177,33 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
             )}
           </div>
         </Card.Body>
-        <Card.Footer
-          style={{
-            padding: 5,
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItem: "center",
-            background: "rgba(245, 224, 188, 1) !important",
-          }}
-        >
-          <Button
-            style={{
-              borderRadius: "50%",
-              marginLeft: 10,
-              color: "#424141",
-              borderColor: "#424141",
-              display: "flex",
-              alignItems: "center",
-              width: "30px",
-              height: "30px",
-            }}
-            variant="outline-danger"
-            size="sm"
-            onClick={() => history.push("/cart")}
-          >
-            <BsPencil />
-          </Button>
+        <Card.Footer className="cart-summary-footer">
+          <div className="btn-group btn-group-sm" role="group">
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
+              disabled={Cart.cartLoading}
+            >
+              <GrSubtract />
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => (!Cart.cartLoading ? onDecrement(pindex) : null)}
+              disabled={Cart.cartLoading}
+            >
+             {ProductDetails.qty}
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => (!Cart.cartLoading ? onIncrement(pindex) : null)}
+              disabled={Cart.cartLoading}
+            >
+              <GrAdd />
+            </button>
+          </div>
           {mealItem && (
             <div>
               {isExpanded ? (
@@ -204,16 +232,7 @@ const CartSummaryItem = ({ ProductDetails, pindex }) => {
             }}
           >
             <Button
-              style={{
-                borderRadius: "50%",
-                marginLeft: 10,
-                color: "#424141",
-                borderColor: "#424141",
-                display: "flex",
-                alignItems: "center",
-                width: "30px",
-                height: "30px",
-              }}
+              className="delete-button"
               variant="outline-danger"
               size="sm"
               onClick={() => onDelete(pindex)}

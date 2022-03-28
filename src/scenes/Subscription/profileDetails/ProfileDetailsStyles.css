@@ -61,3 +61,10 @@
 .footer-button-wrap button svg {
     margin: 0 5px;
 }
+
+.gender-select {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
