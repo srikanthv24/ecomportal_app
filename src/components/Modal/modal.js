@@ -21,14 +21,14 @@ const ModalComponent = ({
 }) => {
   const getDefaultFooter = () => {
     return (
-      <Modal.Footer>
+      <Modal.Footer className="order-modal-content-footer">
         {secondaryButtonText && (
-          <Button variant="secondary" onClick={secondaryButtonClick}>
+          <Button className="vl-btn-secondary" onClick={secondaryButtonClick}>
             {secondaryButtonText}
           </Button>
         )}
         {primaryButtonText && (
-          <Button variant="primary" onClick={primaryButtonClick}>
+          <Button className="vl-btn-primary" onClick={primaryButtonClick}>
             {primaryButtonText}
           </Button>
         )}
@@ -38,7 +38,7 @@ const ModalComponent = ({
   return (
     <Modal show={show} onHide={handleClose} fullscreen={fullscreen}>
       {showModalHeader && <Modal.Header closeButton />}
-      <Modal.Body>
+      <Modal.Body className="order-modal-content">
         <div
           className={
             "d-flex flex-column align-items-center justify-content-center"

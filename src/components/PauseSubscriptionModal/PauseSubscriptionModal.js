@@ -65,50 +65,58 @@ const PauseSubscriptionModal = ({
   return (
     <Modal show={show}>
       <section className="order-modal-content">
-      <SubscriptionTitle text={SERVICE_LABELS[serviceType]} />
-      <Modal.Body>
-      <section className="modal-body-content">
-        {serviceType === SERVICE_TYPE.PAUSE_TOMORROW ||
-        serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
-        serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ? (
-          <>
-            {(serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
-              serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) && (
-              <div className="order-form-control">
-                <span className="date-info">From Date:</span>
-                <DatePicker
-                  name="from_date" className="order-form-control-input"
-                  minDate={getMinDateAsToday}
-                  value={fromDate}
-                  onChange={(date) => setFromDate(date.format("YYYY-MM-DD"))}
+        <SubscriptionTitle text={SERVICE_LABELS[serviceType]} />
+        <Modal.Body>
+          <section className="modal-body-content">
+            {serviceType === SERVICE_TYPE.PAUSE_TOMORROW ||
+            serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
+            serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ||
+            serviceType === SERVICE_TYPE.RESUME_INDEFINITE ? (
+              <>
+                {(serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
+                  serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) && (
+                  <div className="order-form-control">
+                    <span className="date-info">From Date:</span>
+                    <DatePicker
+                      name="from_date"
+                      className="order-form-control-input"
+                      minDate={getMinDateAsToday}
+                      value={fromDate}
+                      onChange={(date) =>
+                        setFromDate(date.format("YYYY-MM-DD"))
+                      }
+                    />
+                  </div>
+                )}
+                {serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN && (
+                  <div className="order-form-control">
+                    <span className="date-info">To Date:</span>
+                    <DatePicker
+                      name="to_date"
+                      className="order-form-control-input"
+                      minDate={getMinDateAsToday}
+                      value={toDate}
+                      onChange={(date) => setToDate(date.format("YYYY-MM-DD"))}
+                    />
+                  </div>
+                )}
+                <SessionCordinator
+                  sessionCodes={sessionCodes}
+                  onSessionChange={onSessionChange}
                 />
-              </div>
-            )}
-            {serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN && (
-              <div className="order-form-control">
-                <span className="date-info">To Date:</span>
-                <DatePicker
-                  name="to_date" className="order-form-control-input"
-                  minDate={getMinDateAsToday}
-                  value={toDate}
-                  onChange={(date) => setToDate(date.format("YYYY-MM-DD"))}
+                <SubscriptionComments
+                  onCommentsChange={(e) => setComments(e.target.value)}
                 />
-              </div>
+                <SubscriptionButtonGroup
+                  onCancel={onCancel}
+                  onSubmit={onPause}
+                />
+              </>
+            ) : (
+              <></>
             )}
-            <SessionCordinator
-              sessionCodes={sessionCodes}
-              onSessionChange={onSessionChange}
-            />
-            <SubscriptionComments
-              onCommentsChange={(e) => setComments(e.target.value)}
-            />
-            <SubscriptionButtonGroup onCancel={onCancel} onSubmit={onPause} />
-          </>
-        ) : (
-          <></>
-        )}
-        </section>
-      </Modal.Body>
+          </section>
+        </Modal.Body>
       </section>
     </Modal>
   );
