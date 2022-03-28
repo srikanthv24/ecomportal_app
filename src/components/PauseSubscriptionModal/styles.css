@@ -66,3 +66,14 @@
     background-color: #424142 !important;
     border-color: #424142 !important;
 }
+.order-modal-content-footer{
+    background: #D1EBE8;
+    padding: 15px;
+    border-radius:0px 0px 6px 6px;
+}
+.custom-info-block{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}

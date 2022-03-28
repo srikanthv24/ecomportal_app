@@ -78,16 +78,6 @@ const OrderCard = ({ ordersList, cancelSubscription, onPauseMenuSelect }) => {
                         <li
                           onClick={() =>
                             onPauseMenuSelect(
-                              SERVICE_TYPE.RESUME_TOMORROW,
-                              order.id
-                            )
-                          }
-                        >
-                          {SERVICE_LABELS.RESUME_TOMORROW}
-                        </li>
-                        <li
-                          onClick={() =>
-                            onPauseMenuSelect(
                               SERVICE_TYPE.RESUME_INDEFINITE,
                               order.id
                             )
