@@ -25,7 +25,7 @@ const ForgotPassword = (props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset, getValues } = useForm();
   const onSubmit = (data) => {
     setLoading(prev => !prev);
     if (!showOtp) {
@@ -121,6 +121,23 @@ const ForgotPassword = (props) => {
                   </FloatingLabel>
                   {errors.password && 
                     <p className="text-danger" style={{ textAlign: "left" }}>Your password should be min 8 Char and one small letter, one capital letter and one number atleast</p>
+                  }
+                  <FloatingLabel
+                    controlId="confPassword"
+                    label="Confirm Password"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      placeholder="confirm password"
+                      className={errors.confPassword && 'is-invalid'}
+                      type="password"
+                      {...register("confPassword",  {
+                        validate: (value) => value === getValues("password")
+                      })}
+                    />
+                  </FloatingLabel>
+                  {errors.confPassword && 
+                    <p className="text-danger" style={{ textAlign: "left" }}>Your password does not match</p>
                   }
                 </>
               :
