@@ -45,7 +45,14 @@ const PlannerWrapper = ({
   const history = useHistory();
   const dispatch = useDispatch();
   const mealPlanId = useSelector((state) => state.mealPlans);
-  const [ExistingProduct, setExistingProduct] = useState({ qty: 0 });
+  const [ExistingProduct, setExistingProduct] = useState({ 
+    ciid: "",
+    customer_id: "",
+  item:{
+    item_name: "",
+    qty: 0
+  }
+ });
   const products = useSelector((state) => state.products);
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -71,7 +78,6 @@ const PlannerWrapper = ({
     defaultValues: {
       item_id: "",
       qty: 1,
-      // sale_val: 0,
       subscription: [
         {
           address: {},
@@ -117,7 +123,6 @@ const PlannerWrapper = ({
   const handleAddToCart = () => {
     if (userDetails.sub) {
       handleSubmit(handleCartSubmit)();
-      // setFormSubmitted(true);
       setSideEffect(true);
     } else {
       dispatch(showLogin());
@@ -137,9 +142,6 @@ const PlannerWrapper = ({
     setShowModal(false);
     let payload = { ...data };
     let filteredPayload = payload.subscription.filter((item, index) => {
-      //     item.hasOwnProperty("item.is_included") && item.item.is_included
-      // )
-      // .map((item) => {
       if (item.is_included) {
         delete item.is_included;
         if (item.isDelivery) {
@@ -162,8 +164,6 @@ const PlannerWrapper = ({
       }
       return false;
     });
-
-    // console.log("filtered Payload", { ...data, subscription: filteredPayload });
 
     if (userDetails.sub) {
       dispatch(
@@ -194,11 +194,6 @@ const PlannerWrapper = ({
   useEffect(() => {
     let temp = [...subscription];
     if (ExistingProduct?.subscription?.length) {
-      console.log(
-        "Subscription___",
-        subscription,
-        ExistingProduct.subscription
-      );
       subscription.map((item) => {
         if (item.meal_type == "B") {
           item = {
@@ -228,24 +223,26 @@ const PlannerWrapper = ({
       });
     }
     setValue("subscription", [...temp]);
+  }, [Cart, products.productDetails, ExistingProduct]);
 
+  useEffect(() => {
     if (Cart?.cartDetails?.items?.length) {
-      console.log("Cart?.cartDetails", Cart?.cartDetails);
       let ifExist = Cart?.cartDetails?.items.filter((item) => {
         if (item) {
           return item.item.item_id == products.productDetails.id;
+        } else {
+          return null
         }
       });
       if (ifExist?.length) {
-        setExistingProduct(ifExist[0] || { qty: 0 });
+        setExistingProduct(ifExist[0] || {  item : { qty: 0} });
         // reset(ifExist[0]);
         // setValue('subscription[0]', ifExist[0].subscription)
       }
     }
-  }, [Cart, products.productDetails, ExistingProduct]);
+  }, [Cart.cartDetails]);
 
   const onIncrement = () => {
-    console.log("gggggg", ExistingProduct);
     dispatch(
       updateCartQty({
         cart_item_id: ExistingProduct.ciid,
@@ -257,11 +254,6 @@ const PlannerWrapper = ({
     );
   };
 
-  // useEffect(() => {
-  //   console.log("products.productDetails", products.productDetails);
-  //   console.log("Cart.cartDetails", Cart.cartDetails);
-  // }, [products.productDetails, Cart.cartDetails]);
-
   const onDecrement = () => {
     if (ExistingProduct.item.qty == 1) {
       dispatch(
@@ -271,7 +263,7 @@ const PlannerWrapper = ({
           customer_id: userDetails.sub,
         })
       );
-      setExistingProduct({ qty: 0 });
+      setExistingProduct({  item : { qty: 0} });
     } else {
       dispatch(
         updateCartQty({
@@ -321,14 +313,11 @@ const PlannerWrapper = ({
   }, [subscription[0], subscription[1], subscription[2], variants]);
 
   useEffect(() => {
-    // console.log("subscription__", variants);
     let temp = 0;
     let tempArr = [];
     let duration = VarItems?.Duration?.duration;
 
-    // console.log("itm.sale_val in useeffect____");
     subscription.map((subscribed) => {
-      // console.log("itm.sale_val____1", subscribed);
       if (subscribed.is_included) {
         if (subscribed.meal_type == "B") {
           let aprice = 0;
@@ -376,7 +365,6 @@ const PlannerWrapper = ({
               duration,
           };
         }
-        // console.log("itm.sale_val____11", subscribed);
         tempArr.push(subscribed);
         temp = temp + subscribed.sale_val;
       }
@@ -391,7 +379,6 @@ const PlannerWrapper = ({
   ]);
 
   const variantsSelected = (varItems) => {
-    // console.log("itm.sale_val_____", varItems);
     setVarItems(varItems);
   };
 
@@ -402,19 +389,17 @@ const PlannerWrapper = ({
     });
   };
 
-  // console.log("WIZARD___", goal, cuisine, profileDetails);
   return (
     <FormProvider {...methods}>
       <AddressModal
         customerId={userDetails.sub}
         handleClose={() => setShowModal(false)}
         showModal={showModal}
-        // showModal={true}
         updateAddress={updateAddress}
         handleSubmit={handleSubmit(handleCartSubmit)}
       />
       <div className="bg-1">
-        <Container fluid className="product-details-wrapper">
+        <Container fluid className="product-details-wrapper" >
           <ProductDetails
             productId={cuisine}
             control={control}
@@ -432,7 +417,6 @@ const PlannerWrapper = ({
             bottom: 0,
             left: 0,
             right: 8,
-            // background: "#FFF",
             zIndex: 0,
             paddingTop: 10,
             boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
@@ -443,7 +427,6 @@ const PlannerWrapper = ({
               <div className="d-flex justify-content-between align-items-center">
                 <p className="h6 ff-3">Subscription Amount :</p>
                 <p className="h5 ff-2">
-                  {/* <BiRupee /> {parseFloat(SubscriptionTotal).toFixed(2)} */}
                   <BiRupee />
                   {displayCurrency(SubscriptionTotal)}
                 </p>
@@ -461,7 +444,7 @@ const PlannerWrapper = ({
                 >
                   Back
                 </Button>
-                {ExistingProduct?.item?.qty.length > 1 ? (
+                {ExistingProduct?.item?.qty > 1 ? (
                   <Button
                     className="w-50 m-1 custom-primary-btn"
                     // variant="success"
@@ -480,19 +463,6 @@ const PlannerWrapper = ({
                       handleAddToCart();
                     }}
                     disabled={validateAddToCart()}
-                    // disabled={
-                    //   products?.productDetails?.is_mealplan
-                    //     ? subscription.filter((item) => item.is_included).length
-                    //       ? subscription.filter((item) => item.isDelivery).length
-                    //         ? !subscription.filter(
-                    //             (item) => item.address.aline1 && item
-                    //           ).length
-                    //           ? true
-                    //           : false
-                    //         : false
-                    //       : true
-                    //     : false
-                    // }
                   >
                     {Cart.cartLoading ? (
                       <Spinner animation="border" role="status" />
@@ -515,7 +485,7 @@ const PlannerWrapper = ({
                   onClick={onDecrement}
                   size="sm"
                 >
-                  {Cart.cartLoading ? (
+                  {Cart.cartLoading || Cart.cartUpdateLoading ? (
                     <Spinner animation="border" role="status" />
                   ) : (
                     <GrSubtract />
@@ -525,13 +495,11 @@ const PlannerWrapper = ({
                   aria-label="Example text with two button addons"
                   style={{
                     textAlign: "center",
-                    border: "none",
-                    borderColor: "rgba(54,41,24,0.75)",
                     background: "transparent",
+                    borderColor: "rgba(54,41,24,0.75)",
                   }}
+                  disabled={true}
                   value={ExistingProduct?.item?.qty || ""}
-                  type="number"
-                  // onChange={(ev) => setCartItem(ev.target.value)}
                 />
 
                 <Button
@@ -545,31 +513,16 @@ const PlannerWrapper = ({
                   onClick={onIncrement}
                   size="sm"
                 >
-                  {Cart.cartLoading ? (
+                  {Cart.cartLoading || Cart.cartUpdateLoading ? (
                     <Spinner animation="border" role="status" />
                   ) : (
                     <GrAdd />
                   )}
                 </Button>
               </InputGroup>
-            ) : null}
-
-            {isOnboarding ? null : (
+            ) :  (
               <Button
                 className="m-1 custom-primary-btn"
-                // disabled={
-                //   products?.productDetails?.is_mealplan
-                //     ? subscription.filter((item) => item.is_included).length
-                //       ? subscription.filter((item) => item.isDelivery).length
-                //         ? !subscription.filter(
-                //             (item) => item.address.aline1 && item
-                //           ).length
-                //           ? true
-                //           : false
-                //         : false
-                //       : true
-                //     : false
-                // }
                 style={{
                   width: "100%",
                   height: "3rem",
@@ -578,7 +531,7 @@ const PlannerWrapper = ({
               >
                 <AiOutlineShoppingCart />
                 {"  "}
-                {Cart.cartLoading ? (
+                {Cart.cartLoading || Cart.cartUpdateLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
                   "Add to cart"

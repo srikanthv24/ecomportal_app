@@ -112,15 +112,12 @@ const ProductDetails = ({
 	}, [products.productDetails]);
 
 	const handleChange = (key, value) => {
-		console.log("key, value", key, value);
 		if (key == "variants") {
 			setFormData({ ...FormData, variant: { ...FormData.variant, ...value } });
 		} else {
 			setFormData({ ...FormData, [key]: value });
 		}
 	};
-
-	console.log("rrrr", ProductDetails);
 
 	return (
 		<FormProvider {...methods}>{isLoading && <div className="fullscreen-loader"> <Spinner animation="grow" /></div>}
@@ -131,7 +128,7 @@ const ProductDetails = ({
 					products.loading ? 
 					(<Spinner animation="border" variant="primary" />)
 					:
-				<Row>
+				<Row style={{paddingTop:"70px"}}>
 					<Col sm={12} lg={6}>
 						<p className="h4 mt-3 ff-2">{ProductDetails?.display_name}</p>
 						<p className=" h6 text-muted ff-3">{ProductDetails?.category}</p>
@@ -175,6 +172,7 @@ const ProductDetails = ({
 								<img 
 									src ={ProductDetails?.defaultimg_url} 
 									width="100%" 
+									alt="product-img"
 									style={{
 										backgroundSize: "cover",
 										backgroundRepeat: "no-repeat",

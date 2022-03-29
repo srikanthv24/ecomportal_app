@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import vlLogo from "./../../assets/Vibrant-Living-logo.png";
 import vlLogoWhite from "./../../assets/home/vl-logo-white.svg";
 import {
   Badge,
@@ -11,7 +10,7 @@ import {
   Offcanvas,
   Row,
   ListGroup,
-  Spinner
+  Spinner,
 } from "react-bootstrap";
 import "./styles.css";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -20,7 +19,11 @@ import { searchProducts } from "../../store/actions/products";
 import Select from "react-select";
 import { BiArrowBack } from "react-icons/bi";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
-import { clearUserDetails, getTokenFailure, loginSuccess } from "../../store/actions/auth";
+import {
+  clearUserDetails,
+  getTokenFailure,
+  loginSuccess,
+} from "../../store/actions/auth";
 import ProfileImg from "./../../assets/thumbnail-profile-pic.png";
 import auth_services from "../../services/auth_services";
 import { showLogin } from "../../store/actions";
@@ -40,23 +43,21 @@ export default function AppBar() {
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
 
-  const mapValuesForOptions = (options) => {
-    let newOptions = [];
-    options?.items?.map((item) => {
-      console.log("itemmm", item);
-      if(item !== null ){
-        newOptions.push({ value: item.id, label: item.display_name });
-        return null;
-      }
-      
-    });
-    console.log("NewOPtions", newOptions);
-    setSearchedProducts(newOptions);
-  };
+  // const mapValuesForOptions = (options) => {
+  //   let newOptions = [];
+  //   options?.items?.map((item) => {
+  //     if(item !== null ){
+  //       newOptions.push({ value: item.id, label: item.display_name });
+  //       return null;
+  //     }
 
-  useEffect(() => {
-    mapValuesForOptions(products.searchResults);
-  }, [products.searchResults]);
+  //   });
+  //   setSearchedProducts(newOptions);
+  // };
+
+  // useEffect(() => {
+  //   mapValuesForOptions(products.searchResults);
+  // }, [products.searchResults]);
 
   const handleInputChange = (newValue) => {
     const inputValue = newValue.replace(/\W/g, "").toUpperCase();
@@ -73,15 +74,6 @@ export default function AppBar() {
     history.push("/");
   };
 
-  const handleRefresh = () => {
-    auth_services.refreshToken().then(res => {
-      dispatch(loginSuccess(res));
-        localStorage.setItem("token", res.accessToken.jwtToken);
-    })
-  }
-
-  console.log("searched products", searchedProducts);
-
   return (
     <>
       <Navbar
@@ -89,21 +81,23 @@ export default function AppBar() {
         expand="lg"
         // bg="light"
         variant="light"
-        sticky="top" style={{background:"transparent", position:'fixed', width:'100%'}}
+        sticky="top"
+        style={{ background: "transparent", position: "fixed", width: "100%" }}
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>
-            <div style={{position:'absolute', right:'1rem', top:'1rem'}}>
-            {/* <Navbar.Toggle
+            <div style={{ position: "absolute", right: "1rem", top: "1rem", cursor: "pointer" }}>
+              {/* <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
               onClick={() => setMenu(true)}
             /> */}
-            <img
-                  alt=""
-                  src={MenuIcon}
-                  height="25"
-                  className="d-inline-block align-top" onClick={() => setMenu(true)}
-                />
+              <img
+                alt=""
+                src={MenuIcon}
+                height="25"
+                className="d-inline-block align-top"
+                onClick={() => setMenu(true)}
+              />
             </div>
             <Navbar.Brand>
               <Link to="/">
@@ -111,12 +105,13 @@ export default function AppBar() {
                   alt=""
                   src={vlLogoWhite}
                   height="70"
-                  className="d-inline-block align-top" style={{marginTop:'-.5rem'}}
+                  className="d-inline-block align-top"
+                  style={{ marginTop: "-.5rem" }}
                 />
               </Link>
             </Navbar.Brand>
           </div>
-          <Nav style={{paddingRight:'2rem'}}>
+          <Nav style={{ paddingRight: "2rem" }}>
             <Container fluid className="px-0">
               <Row>
                 <Col className="d-lg-block1 search-section1 d-none">
@@ -162,34 +157,31 @@ export default function AppBar() {
 
                 {userDetails.sub ? (
                   <Col className="d-flex flex-nowrap px-0 profile-menu">
-                    <Nav.Link onClick={handleRefresh}>
+                    <Nav.Link>
                       <div className="customNavBar">
                         <strong className="text-black profile-name-txt">
                           Hello, {userDetails.name}
                         </strong>
                       </div>
                     </Nav.Link>
-                    {Cart?.cartLoading ?(
+                    {Cart?.cartLoading ? (
                       <Nav.Link onClick={() => history.push("/cart-summary")}>
-                      <h6 className="text-black nav-menu-cart">
-                        <AiOutlineShoppingCart size={24} />
-                        {console.log("sdsdSD",Cart)}                        
-                        <Badge pill>
-                        <span className="cart-loading"><Spinner animation="border" role="status" /></span>
-                          {Cart?.cartDetails?.items?.length &&
-                            Cart?.cartDetails?.items?.length}
-                        </Badge>
-                      </h6>
-                    </Nav.Link>
-									    	
-                        // <CustomSpinner/>
-								    	) : (
-                        <Nav.Link onClick={() => history.push("/cart-summary")}>
                         <h6 className="text-black nav-menu-cart">
                           <AiOutlineShoppingCart size={24} />
-                          {console.log("sdsdSD",Cart)}
                           <Badge pill>
-                          {/* <span className="cart-loading"><Spinner animation="border" role="status" /></span> */}
+                            <span className="cart-loading">
+                              <Spinner animation="border" role="status" />
+                            </span>
+                            {Cart?.cartDetails?.items?.length &&
+                              Cart?.cartDetails?.items?.length}
+                          </Badge>
+                        </h6>
+                      </Nav.Link>
+                    ) : (
+                      <Nav.Link onClick={() => history.push("/cart-summary")}>
+                        <h6 className="text-black nav-menu-cart">
+                          <AiOutlineShoppingCart size={24} />
+                          <Badge pill>
                             {Cart?.cartDetails?.items?.length &&
                               Cart?.cartDetails?.items?.length}
                           </Badge>
@@ -199,7 +191,12 @@ export default function AppBar() {
                   </Col>
                 ) : (
                   <Nav.Link onClick={() => dispatch(showLogin())}>
-                    <p className="text-black nav-menu-cart" style={{paddingRight:"1rem"}}>Login / Signup</p>
+                    <p
+                      className="text-black nav-menu-cart"
+                      style={{ paddingRight: "1rem" }}
+                    >
+                      Login / Signup
+                    </p>
                   </Nav.Link>
                 )}
               </Row>
@@ -214,9 +211,21 @@ export default function AppBar() {
         backdrop={true}
         className="sideMenuWrapper"
       >
-        
-        <Offcanvas.Body style={{padding:'0px',position:'relative', background:'#FFF'}}>
-        <Offcanvas.Header closeButton className="closeBtn" style={{position:'absolute',top:'0px',right:'0px',zIndex:'100', color:'#ffffff', padding:'1.5rem'}} />
+        <Offcanvas.Body
+          style={{ padding: "0px", position: "relative", background: "#FFF" }}
+        >
+          <Offcanvas.Header
+            closeButton
+            className="closeBtn"
+            style={{
+              position: "absolute",
+              top: "0px",
+              right: "0px",
+              zIndex: "100",
+              color: "#ffffff",
+              padding: "1.5rem",
+            }}
+          />
           {/* <div style={{ position: "relative", height: 204 }}>
             <div style={{ height: 150, background: "#F38144" }}></div>
             <div
@@ -241,7 +250,7 @@ export default function AppBar() {
           {/* <h6 className="text-center">
             {userDetails.name} <br /> {userDetails.phone_number}
           </h6> */}
-<div style={{minHeight:'150px'}}> </div>
+          <div style={{ minHeight: "150px" }}> </div>
           <ListGroup variant="flush" className="sideMenuListview">
             <ListGroup.Item
               onClick={() => {
@@ -249,26 +258,29 @@ export default function AppBar() {
                 history.push("/");
               }}
             >
-             
-              <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
+              <div
+                className="d-flex align-items-center justify-content-center menu-item"
+              >
                 Home
-                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
               </div>
             </ListGroup.Item>
             {userDetails.sub ? (
               <>
-                <ListGroup.Item 
+                <ListGroup.Item
                   className="menuItem"
                   onClick={() => {
                     setMenu(false);
                     history.push("/profile");
                   }}
-                  >                 
-                 <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
-                 My Profile
-                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
-              </div>
-                  </ListGroup.Item>
+                >
+                  <div
+                    className="d-flex align-items-center justify-content-center menu-item"
+                    style={{ justifyContent: "space-between" }}
+                  >
+                    My Profile
+                    {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+                  </div>
+                </ListGroup.Item>
                 {/* <ListGroup.Item className="menuItem">Subscriptions</ListGroup.Item> */}
                 <ListGroup.Item
                   onClick={() => {
@@ -276,27 +288,35 @@ export default function AppBar() {
                     history.push("/orders/");
                   }}
                 >
-                
-                  <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
-                  Subscriptions
-                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
-              </div>
+                  <div
+                    className="d-flex align-items-center justify-content-center menu-item"
+                    style={{ justifyContent: "space-between" }}
+                  >
+                    Subscriptions
+                    {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+                  </div>
                 </ListGroup.Item>
               </>
             ) : null}
             {userDetails.sub ? (
-              <ListGroup.Item onClick={logoutCognitoUser}>                
-                <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
-                Log Out
-                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
-              </div>
+              <ListGroup.Item onClick={logoutCognitoUser}>
+                <div
+                  className="d-flex align-items-center justify-content-center menu-item"
+                  style={{ justifyContent: "space-between" }}
+                >
+                  Log Out
+                  {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+                </div>
               </ListGroup.Item>
             ) : (
-              <ListGroup.Item onClick={() => dispatch(showLogin())}>                
-              <div className="d-flex align-items-center justify-content-center" style={{justifyContent:"space-between"}}>
-                Log In
-                {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
-              </div>
+              <ListGroup.Item onClick={() => dispatch(showLogin())}>
+                <div
+                  className="d-flex align-items-center justify-content-center menu-item"
+                  style={{ justifyContent: "space-between" }}
+                >
+                  Log In
+                  {/* <img src={arrowRightIcon} alt="icon" height="18" /> */}
+                </div>
               </ListGroup.Item>
             )}
           </ListGroup>
