@@ -96,12 +96,16 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 			const sessionAddrCopy = addresses.other;
 			sessionAddrCopy[sessionAddress[session]][key] = value;
 			newAddressesObj = { ...addresses, other: sessionAddrCopy };
+			setAddresses(newAddressesObj);
 		} else {
 			const sessionAddrCopy = addresses[sessionAddress[session]];
 			sessionAddrCopy[key] = value;
 			newAddressesObj = { ...addresses, [sessionAddress[session]]: sessionAddrCopy };
+			const updatedAddress = {...addresses};
+			updatedAddress[sessionAddress[session][key]] = value;
+			setAddresses(updatedAddress);
 		}
-		setAddresses(newAddressesObj);
+		
 	};
 
 	const getFieldValue = (session, fieldName) => {
@@ -368,7 +372,9 @@ const ProductPlanner = ({ customerId, data, control, variantsSelected, updateAdd
 	}, [pincodes]);
 
 	const setDeliveryPinCodes = (e, index) => {
-		setPincodes(pincodes.map((x, i) => i === index ? e.target.value : x));
+		const updatedPincodes = [...pincodes];
+  	updatedPincodes[index] = e.target.value;
+		setPincodes(updatedPincodes);
 		setSelectedIndex(index);
 	}
 
