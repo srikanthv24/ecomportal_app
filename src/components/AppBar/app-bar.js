@@ -86,7 +86,7 @@ export default function AppBar() {
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>
-            <div style={{ position: "absolute", right: "1rem", top: "1rem" }}>
+            <div style={{ position: "absolute", right: "1rem", top: "1rem", cursor: "pointer" }}>
               {/* <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
               onClick={() => setMenu(true)}
