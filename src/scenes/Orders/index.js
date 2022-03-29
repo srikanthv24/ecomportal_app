@@ -6,14 +6,12 @@ import { getOrders } from "../../store/actions/orders";
 import { getSubscriptionDetails } from "../../services/api/getSubscriptionDetails";
 import "./orders.scss";
 import { cancelSubscriptionApi } from "../../services/api/cancelSubscription";
-import PauseSubscriptionModal from "../../components/PauseSubscriptionModal/PauseSubscriptionModal";
-import { pauseSubscriptionDetails } from "../../services/api/pauseSubscription";
-import {
-  getPauseSubscriptionErrorData,
-  isPauseSubscription,
-  getServicedDates,
-} from "./utils";
+import SubscriptionModal from "../../components/SubscriptionModal/SubscriptionModal";
+import { pauseSubscription } from "../../services/api/pauseSubscription";
+import { getSubscriptionErrorData, isPauseSubscriptionService } from "./utils";
 import ConfirmationModalBody from "./ConfirmationModalBody";
+import { getMinDate, getMaxDate } from "../../utils/dateUtils";
+import { resumeSubscription } from "../../services/api/resumeSubscription";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -21,8 +19,7 @@ const Orders = () => {
   const ordersList = useSelector((state) => state.Orders.ordersList);
   const [showCancelSubscriptionModal, setShowCancelSubscriptionModal] =
     useState(false);
-  const [showPauseSubscriptionModal, setShowPauseSubscriptionModal] =
-    useState(false);
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [selectedSubscriptionId, setSelectedSubscriptionId] = useState();
   const [selectedSubscriptionDetails, setSelectedSubscriptionDetails] =
     useState();
@@ -41,21 +38,23 @@ const Orders = () => {
     );
   }, []);
 
-  const onPauseMenuSelect = async (eventKey, subscriptionId) => {
-    console.log("eventKey: " + JSON.stringify(eventKey));
-    console.log("subscriptionId: " + JSON.stringify(subscriptionId));
+  const onMenuSelect = async (eventKey, subscriptionId) => {
     setServiceType(eventKey);
     setSelectedSubscriptionId(subscriptionId);
     const { cart_id, cartitem_id, id } = ordersList.find((orderData) => {
       return orderData.id === subscriptionId;
     });
-    const subscriptionDetails = await getSubscriptionDetails(
+    const { subscriptionDetails, error } = await getSubscriptionDetails(
       cart_id,
       cartitem_id,
       id
     );
-    setSelectedSubscriptionDetails(subscriptionDetails);
-    setShowPauseSubscriptionModal(true);
+    if (error) {
+      displayErrorModal(error.message);
+    } else {
+      setSelectedSubscriptionDetails(subscriptionDetails);
+      setShowSubscriptionModal(true);
+    }
   };
 
   const cancelSubscription = async () => {
@@ -79,26 +78,21 @@ const Orders = () => {
     isCheck,
     subscriptionId,
     comments,
-    pauseDates
+    dates
   ) => {
-    const { data, errors } = await pauseSubscriptionDetails(
-      isCheck,
-      subscriptionId,
-      comments,
-      pauseDates
-    );
+    const { data, errors } = isPauseSubscriptionService(serviceType)
+      ? await pauseSubscription(isCheck, subscriptionId, comments, dates)
+      : await resumeSubscription(isCheck, subscriptionId, comments, dates);
     if (errors) {
-      const { errorMessage } = getPauseSubscriptionErrorData(errors);
+      const { errorMessage } = getSubscriptionErrorData(errors);
       displayErrorModal(errorMessage);
     } else {
-      processPauseSubscriptionData(data.pauseSubscription);
+      processSubscriptionData(data.pauseSubscription);
     }
   };
 
-  const processPauseSubscriptionData = (pauseSubscriptionData) => {
-    const { errorMessage } = getPauseSubscriptionErrorData(
-      pauseSubscriptionData
-    );
+  const processSubscriptionData = (pauseSubscriptionData) => {
+    const { errorMessage } = getSubscriptionErrorData(pauseSubscriptionData);
     if (errorMessage !== "") {
       displayErrorModal(errorMessage);
     } else if (pauseSubscriptionData.check) {
@@ -116,14 +110,14 @@ const Orders = () => {
     }
   };
 
-  const onPause = (subscriptionId, comments, pauseDates) => {
-    setShowPauseSubscriptionModal(false);
+  const onSubscriptionSubmit = (subscriptionId, comments, dates) => {
+    setShowSubscriptionModal(false);
     setPauseSubscriptionData({
       subscriptionId,
       comments,
-      pauseDates,
+      dates,
     });
-    dispatchToCallSubscriptionApi(true, subscriptionId, comments, pauseDates);
+    dispatchToCallSubscriptionApi(true, subscriptionId, comments, dates);
   };
 
   const displayErrorModal = (errorMessage) => {
@@ -131,10 +125,10 @@ const Orders = () => {
     SetErrorMessage(errorMessage);
   };
 
-  const onPauseSubscriptionConfirmation = () => {
-    const { subscriptionId, comments, pauseDates } = pauseSubscriptionData;
+  const onSubscriptionConfirmation = () => {
+    const { subscriptionId, comments, dates } = pauseSubscriptionData;
     setShowConfirmationModal(false);
-    dispatchToCallSubscriptionApi(false, subscriptionId, comments, pauseDates);
+    dispatchToCallSubscriptionApi(false, subscriptionId, comments, dates);
   };
 
   return (
@@ -142,19 +136,23 @@ const Orders = () => {
       <OrderCard
         ordersList={ordersList}
         cancelSubscription={openCancelSubscriptionPopup}
-        onPauseMenuSelect={onPauseMenuSelect}
+        onMenuSelect={onMenuSelect}
       />
-      {showPauseSubscriptionModal && (
-        <PauseSubscriptionModal
+      {showSubscriptionModal && (
+        <SubscriptionModal
           serviceType={serviceType}
-          show={showPauseSubscriptionModal}
-          subscriptionDetails={selectedSubscriptionDetails}
-          onCancel={() => setShowPauseSubscriptionModal(false)}
-          onSubmit={onPause}
+          show={showSubscriptionModal}
+          onCancel={() => setShowSubscriptionModal(false)}
+          onSubmit={onSubscriptionSubmit}
           subscriptionId={selectedSubscriptionId}
+          maxDate={getMaxDate(selectedSubscriptionDetails.item.subscription)}
+          minDate={getMinDate(selectedSubscriptionDetails.item.subscription)}
+          sessionCodes={selectedSubscriptionDetails.item.subscription.map(
+            (subscription) => subscription.meal_type
+          )}
         />
       )}
-      /** Cancel Subscription Modal **/
+      {/** Cancel Subscription Modal **/}
       <Modal
         show={showCancelSubscriptionModal}
         showModalHeader={false}
@@ -166,7 +164,7 @@ const Orders = () => {
         showImage={false}
         Body="Do you want to cancel the subscription? "
       />
-      /** Error Modal **/
+      {/** Error Modal **/}
       <Modal
         show={showErrorModal}
         showModalHeader={false}
@@ -176,43 +174,28 @@ const Orders = () => {
         showImage={false}
         Body={errorMessage}
       />
-      /** Error Modal **/ /** Confirmation Modal **/
+      {/** Error Modal **/
+      /** Confirmation Modal **/}
       <Modal
         show={showConfirmationModal}
         showModalHeader={false}
         primaryButtonText="Ok"
         secondaryButtonText="Cancel"
-        primaryButtonClick={onPauseSubscriptionConfirmation}
+        primaryButtonClick={onSubscriptionConfirmation}
         secondaryButtonClick={() => setShowConfirmationModal(false)}
         fullscreen={false}
         showImage={false}
         Body={
-          <div className="d-flex custom-info-block">
-            <span className="desp-info pt-3 pb-1">
-              {`Do you want to ${
-                isPauseSubscription(serviceType) ? "pause" : "resume"
-              } the subscription?`}
-            </span>
-            <div className="d-flex justify-content-start">
-              <span className="desp-info">Meal Type:</span>
-              <span className="px-4">
-                <b>{servicedData.mealType}</b>
-              </span>
-            </div>
-            <div className="d-flex justify-content-start my-2">
-              <span className="d-inline-block pr-4">
-                {isPauseSubscription(serviceType)
-                  ? "Pause Dates:"
-                  : "Resume Dates:"}
-              </span>
-              <span className="d-inline-block px-4">
-                <b>{getServicedDates(servicedData, serviceType)}</b>
-              </span>
-            </div>
-          </div>
+          <ConfirmationModalBody
+            fromDate={servicedData.fromDate}
+            toDate={servicedData.toDate}
+            mealType={servicedData.mealType}
+            servicedData={servicedData}
+            serviceType={serviceType}
+          />
         }
-      />
-      /** Confirmation Modal **/
+      ></Modal>
+      {/** Confirmation Modal **/}
     </>
   );
 };

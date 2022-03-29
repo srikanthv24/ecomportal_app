@@ -1,6 +1,6 @@
 import { SERVICE_TYPE } from "../../utils/constants";
 
-export const getPauseSubscriptionErrorData = (errorData) => {
+export const getSubscriptionErrorData = (errorData) => {
   const { statusCode } = errorData;
   if (statusCode === 404 || statusCode === 400) {
     return {
@@ -13,8 +13,7 @@ export const getPauseSubscriptionErrorData = (errorData) => {
   return { errorMessage: "" };
 };
 
-export const isPauseSubscription = (serviceType) => {
-  console.log("service type: " + JSON.stringify(serviceType));
+export const isPauseSubscriptionService = (serviceType) => {
   return (
     serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ||
     serviceType === SERVICE_TYPE.PAUSE_TOMORROW ||
@@ -23,9 +22,9 @@ export const isPauseSubscription = (serviceType) => {
   );
 };
 
-export const getServicedDates = (servicedData, serviceType) => {
+export const getServicedDates = (fromDate, toDate, serviceType) => {
   return serviceType === SERVICE_TYPE.PAUSE_TOMORROW ||
     serviceType === SERVICE_TYPE.PAUSE_INDEFINITE
-    ? `${servicedData.fromDate}`
-    : `${servicedData.fromDate} to ${servicedData.toDate}`;
+    ? `${fromDate}`
+    : `${fromDate} to ${toDate}`;
 };

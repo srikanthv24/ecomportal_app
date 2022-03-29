@@ -21,8 +21,10 @@ export const getSubscriptionDetails = async (cart_id, cartitem_id, sub_id) => {
         },
       }),
     });
-    const subscriptionDetails = await response.json();
-    return subscriptionDetails.data.getSubscriptionDetails;
+    const { data, errors } = await response.json();
+    return data.getSubscriptionDetails
+      ? { subscriptionDetails: data.getSubscriptionDetails }
+      : { error: errors[0] };
   } catch (error) {
     return error;
   }
