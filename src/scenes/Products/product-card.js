@@ -12,7 +12,7 @@ import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createCart, updateCartQty } from "../../store/actions/cart";
+import { createCart, updateCartQty, getCart } from "../../store/actions/cart";
 import { deleteCartItem } from "../../store/actions/cart-item";
 import { showLogin } from "../../store/actions";
 
@@ -39,6 +39,19 @@ const ProductCard = ({ product, pindex }) => {
         return null;
       });
   }, [Cart.cartDetails]);
+
+  useEffect(() => {
+    Cart?.cartDetails &&
+      Cart.cartDetails?.items &&
+      Cart.cartDetails?.items?.map((item, index) => {
+        // eslint-disable-next-line no-unused-expressions
+        item.item && item?.item?.item_id === product?.id
+          ? 
+            dispatch(getCart({ customer_id: userDetails.sub }))
+          : null;
+        return null;
+      });
+  }, [Cart.cartCreated]);
 
   const handleAddToCart = (pindex) => {
     if (userDetails.sub) {

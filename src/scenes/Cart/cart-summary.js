@@ -105,13 +105,9 @@ const CartSummary = () => {
 
         <section className="cart-items-block">
           {cartLoading || cartUpdateLoading ? (
-            <div
-              className="d-flex flex-column align-items-center justify-content-center w-100"
-              style={{ height: "100% " }}
-            >
-              <Spinner animation="grow" variant="primary" />
-              Loading...
-            </div>
+            <div className="fullscreen-loader">
+            <Spinner animation="border" role="status" />
+          </div>
           ) : null}
           {!cartLoading &&
             !cartUpdateLoading &&
