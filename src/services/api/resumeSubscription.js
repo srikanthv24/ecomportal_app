@@ -1,19 +1,19 @@
-import { PAUSE_SUBSCRIPTION } from "../graphql/pauseSubscriptionMutation";
+import { RESUME_SUBSCRIPTION } from "../graphql/resumeSubscriptionMutation";
 import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
 
-export const pauseSubscription = async (
+export const resumeSubscription = async (
   check,
   subscription_id,
   comments,
-  pause_dates
+  resume_dates
 ) => {
   const getToken = await RefreshToken.getRefreshedToken();
   const input = {
     comment: comments,
     check: check,
     subscription_id: subscription_id,
-    pause_dates: pause_dates,
+    resume_dates: resume_dates,
   };
   try {
     const response = await fetch(`${api_urls.SUB_REL_API_URL}`, {
@@ -23,7 +23,7 @@ export const pauseSubscription = async (
         Authorization: getToken,
       },
       body: JSON.stringify({
-        query: PAUSE_SUBSCRIPTION,
+        query: RESUME_SUBSCRIPTION,
         variables: {
           input: input,
         },

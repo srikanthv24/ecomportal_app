@@ -10,7 +10,7 @@ import { BiRupee } from "react-icons/bi";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import { SERVICE_TYPE, SERVICE_LABELS } from "../../utils/constants";
 
-const OrderCard = ({ ordersList, cancelSubscription, onPauseMenuSelect }) => {
+const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
   return (
     <section
@@ -47,7 +47,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onPauseMenuSelect }) => {
                       <ul className="list-unstyled">
                         <li
                           onClick={() =>
-                            onPauseMenuSelect(
+                            onMenuSelect(
                               SERVICE_TYPE.PAUSE_TOMORROW,
                               order.id
                             )
@@ -57,7 +57,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onPauseMenuSelect }) => {
                         </li>
                         <li
                           onClick={() =>
-                            onPauseMenuSelect(
+                            onMenuSelect(
                               SERVICE_TYPE.PAUSE_IN_BETWEEN,
                               order.id
                             )
@@ -67,7 +67,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onPauseMenuSelect }) => {
                         </li>
                         <li
                           onClick={() =>
-                            onPauseMenuSelect(
+                            onMenuSelect(
                               SERVICE_TYPE.PAUSE_INDEFINITE,
                               order.id
                             )
@@ -77,7 +77,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onPauseMenuSelect }) => {
                         </li>
                         <li
                           onClick={() =>
-                            onPauseMenuSelect(
+                            onMenuSelect(
                               SERVICE_TYPE.RESUME_INDEFINITE,
                               order.id
                             )
