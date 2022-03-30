@@ -34,3 +34,9 @@ export const getCartSummary = (payload) => {
     payload,
   };
 };
+
+export const deleteCart = () => {
+  return {
+    type: types.CREATE_CART_FAILURE,
+  };
+};

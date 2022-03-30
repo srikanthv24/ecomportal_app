@@ -19,6 +19,7 @@ import {
   createCart,
   updateCart,
   updateCartQty,
+  deleteCart
 } from "../../store/actions/cart";
 import ProductDetails from "../Products/product-details";
 import { deleteCartItem } from "../../store/actions/cart-item";
@@ -70,7 +71,7 @@ const PlannerWrapper = ({
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [newAddress, setNewAddress] = useState({});
   const { customerId: userId } = useSelector((state) => state.customer);
-  const { cartDetails: cartCreated } = useSelector((state) => state.Cart);
+  const { cartCreated, cartDetails } = useSelector((state) => state.Cart);
 
   const [sideEffect, setSideEffect] = useState(false);
 
@@ -130,9 +131,13 @@ const PlannerWrapper = ({
       setSideEffect(true);
     }
   };
+useEffect(() => {
+  dispatch(deleteCart());
+},[])
 
   useEffect(() => {
-    if (userId && Object.keys(cartCreated || {}).length && sideEffect) {
+    if (userId && Object.keys(cartCreated || cartDetails).length && sideEffect) {
+      
       history.push("/cart-summary");
     }
   }, [userId, cartCreated, sideEffect]);
@@ -166,6 +171,7 @@ const PlannerWrapper = ({
     });
 
     if (userDetails.sub) {
+      
       dispatch(
         createCart({
           customer_id: userDetails.sub,
@@ -465,7 +471,10 @@ const PlannerWrapper = ({
                     disabled={validateAddToCart()}
                   >
                     {Cart.cartLoading ? (
-                      <Spinner animation="border" role="status" />
+                       <div className="fullscreen-loader">
+                       {" "}
+                       <Spinner animation="border" role="status" />
+                     </div>
                     ) : (
                       "Add to Cart"
                     )}

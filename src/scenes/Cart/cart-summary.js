@@ -22,7 +22,7 @@ const CartSummary = () => {
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
-  const { cartDetails, cartLoading, cartUpdateLoading } = useSelector(
+  const { cartDetails, cartLoading, cartUpdateLoading, cartCreated } = useSelector(
     (state) => state.Cart
   );
   const [items, setItems] = useState([]);
@@ -32,7 +32,7 @@ const CartSummary = () => {
       dispatch(getAddresses({ customerId: userDetails.sub }));
       dispatch(getCart({ customer_id: userDetails.sub }));
     }
-  }, []);
+  }, [cartCreated]);
 
   useEffect(() => {
     let temp = [];
@@ -54,7 +54,6 @@ const CartSummary = () => {
     }
   }, [Addresses.listAddresses]);
 
-
   useEffect(() => {
     if (cartDetails?.items && cartDetails.items?.length) {
       let temp = [];
@@ -67,7 +66,7 @@ const CartSummary = () => {
       });
       setItems(temp);
     }
-  }, [ cartDetails?.items]);
+  }, [cartDetails?.items]);
 
   return (
     <div>
@@ -94,9 +93,14 @@ const CartSummary = () => {
       <div className="p-21 bg-1 cart-summary-wrapper">
         <p className="h3 page-title">Cart Summary</p>
         <div className="d-flex align-items-center w-100p">
-          <p className="cart-summary-desc-item-container mb-0">
-            Items <strong>{cartDetails?.items?.length || 0}</strong>
-          </p>
+          {!cartLoading &&
+            !cartUpdateLoading &&
+            cartDetails &&
+            cartDetails.items?.length > 0 && (
+              <p className="cart-summary-desc-item-container mb-0">
+                Items <strong>{cartDetails?.items?.length || 0}</strong>
+              </p>
+            )}
         </div>
 
         <section className="cart-items-block">
@@ -108,49 +112,64 @@ const CartSummary = () => {
               <Spinner animation="grow" variant="primary" />
               Loading...
             </div>
-          ) : null
-          } 
-          {
-            !cartLoading && !cartUpdateLoading && cartDetails && cartDetails.items?.length > 0 &&  (
-              cartDetails?.items?.map((item, index) => {
-                return (
-                  <CartSummaryItem ProductDetails={item.item} pindex={index} />
-                );
-              })
-            )
-          }
-          {
-            cartDetails && !cartLoading && !cartUpdateLoading && cartDetails.items?.length === 0 && (
+          ) : null}
+          {!cartLoading &&
+            !cartUpdateLoading &&
+            cartDetails &&
+            cartDetails.items?.length > 0 && (
+              <>
+                {cartDetails?.items?.map((item, index) => {
+                  return (
+                    <CartSummaryItem
+                      ProductDetails={item.item}
+                      pindex={index}
+                    />
+                  );
+                })}
+                <OrderCheckList grandTotal={cartDetails?.grand_total} />
+                <div className="confirm-button-container">
+                  <Button
+                    className="w-100 custom-primary-btn "
+                    style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
+                    onClick={handleContinue}
+                    disabled={
+                      cartDetails?.items?.length === 0 ||
+                      cartLoading ||
+                      cartUpdateLoading
+                        ? true
+                        : false
+                    }
+                  >
+                    Confirm and Pay <BiRupee />
+                    {cartLoading || cartUpdateLoading
+                      ? "0"
+                      : displayCurrency(cartDetails?.grand_total)}
+                  </Button>
+                </div>
+              </>
+            )}
+          {cartDetails &&
+            !cartLoading &&
+            !cartUpdateLoading &&
+            cartDetails.items?.length === 0 && (
               <div className="flex-column text-center">
-              <div className="h5 d-flex justify-content-center align-items-center">
-                No Items added to cart
+                <div className="h5 d-flex justify-content-center align-items-center">
+                  No Items added to cart
+                </div>
+                <Button
+                  onClick={() => history.push("/")}
+                  variant="primary"
+                  style={{
+                    backgroundColor: "rgba(53,40,23,1)",
+                    borderColor: "rgba(53,40,23,1)",
+                  }}
+                  size="sm"
+                >
+                  Explore products
+                </Button>
               </div>
-              <Button
-                onClick={() => history.push("/")}
-                variant="primary"
-                style={{
-                  backgroundColor: "rgba(53,40,23,1)",
-                  borderColor: "rgba(53,40,23,1)",
-                }}
-                size="sm"
-              >
-                Explore products
-              </Button>
-            </div>
-          )}
+            )}
         </section>
-        {!cartLoading && !cartUpdateLoading && <OrderCheckList grandTotal={cartDetails?.grand_total} /> }
-        <div className="confirm-button-container">
-          <Button
-            className="w-100 custom-primary-btn "
-            style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
-            onClick={handleContinue}
-            disabled={cartDetails?.items?.length === 0 || cartLoading || cartUpdateLoading ? true : false}
-          >
-            Confirm and Pay <BiRupee />
-            {cartLoading || cartUpdateLoading ? "0" : displayCurrency(cartDetails?.grand_total)}
-          </Button>
-        </div>
       </div>
     </div>
   );
