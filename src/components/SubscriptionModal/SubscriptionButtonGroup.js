@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-const SubscriptionButtonGroup = ({ onCancel, onSubmit }) => (
+const SubscriptionButtonGroup = React.memo(({ onCancel, onSubmit }) => (
   <section className="modal-footer-btn-group">
     <Button className="vl-btn-primary" type="submit" onClick={onSubmit}>
       PAUSE
@@ -10,6 +10,6 @@ const SubscriptionButtonGroup = ({ onCancel, onSubmit }) => (
       CANCEL
     </Button>
   </section>
-);
+));
 
 export default SubscriptionButtonGroup;

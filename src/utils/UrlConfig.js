@@ -1,4 +1,4 @@
-const server = "production";
+const server = "development";
 
 export let api_urls = {};
 

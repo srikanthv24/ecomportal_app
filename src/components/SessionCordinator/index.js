@@ -15,17 +15,21 @@ const getSessionCheckBoxes = (sessionCodes, onChange) => {
   });
 };
 
-const SessionCordinator = ({ withDate, sessionCodes, onSessionChange }) => {
-  const [sessions, setSessions] = useState([]);
-  const onChange = (e) => {
-    const selectedCode = e.target.name;
-    const updatedSessionCodes = sessions.includes(selectedCode)
-      ? sessions.filter((code) => code !== selectedCode)
-      : [...sessions, selectedCode];
-    setSessions(updatedSessionCodes);
-    onSessionChange(updatedSessionCodes);
-  };
-  return <>{withDate ? null : getSessionCheckBoxes(sessionCodes, onChange)}</>;
-};
+const SessionCordinator = React.memo(
+  ({ withDate, sessionCodes, onSessionChange }) => {
+    const [sessions, setSessions] = useState([]);
+    const onChange = (e) => {
+      const selectedCode = e.target.name;
+      const updatedSessionCodes = sessions.includes(selectedCode)
+        ? sessions.filter((code) => code !== selectedCode)
+        : [...sessions, selectedCode];
+      setSessions(updatedSessionCodes);
+      onSessionChange(updatedSessionCodes);
+    };
+    return (
+      <>{withDate ? null : getSessionCheckBoxes(sessionCodes, onChange)}</>
+    );
+  }
+);
 
 export default SessionCordinator;
