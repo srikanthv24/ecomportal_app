@@ -36,6 +36,20 @@ import {
   getPostalCodes,
 } from "../../store/actions";
 
+const RupeeSvg = (
+  <svg
+    stroke="currentColor"
+    fill="currentColor"
+    stroke-width="0"
+    viewBox="0 0 24 24"
+    height="1em"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M17 6V4H6v2h3.5c1.302 0 2.401.838 2.815 2H6v2h6.315A2.994 2.994 0 0 1 9.5 12H6v2.414L11.586 20h2.828l-6-6H9.5a5.007 5.007 0 0 0 4.898-4H17V8h-2.602a4.933 4.933 0 0 0-.924-2H17z"></path>
+  </svg>
+);
+
 const getNewAddress = (customerId, userDetailsName) => ({
   aline1: "",
   aline2: "",
@@ -420,13 +434,15 @@ const ProductPlanner = ({
   };
 
   const handleAddOns = (index, item, value, onChange) => {
-    console.log("index-item-value", index, item, value);
-    console.log("onChange", onChange);
+    console.log("index-item-eitem" + JSON.stringify(item));
+    console.log("index-item-value" + JSON.stringify(value));
+    const sessionSelectedValues = AddOnView[item];
+    console.log(
+      "sessionSelectedValues: " + JSON.stringify(sessionSelectedValues)
+    );
     let temp = [...AddOnView[item]];
 
-    console.log("xxzxzx", temp);
-
-    onChange(temp);
+    
 
     let ifNotExist = temp.filter((itmm, indx) => {
       console.log("yyyy", itmm);
@@ -445,26 +461,27 @@ const ProductPlanner = ({
         );
         temp[tempIndex] = itm;
         console.log("updating", {
-          ...AddOnView,
           [item]: temp,
+          ...AddOnView,
         });
         setAddOnView({
-          ...AddOnView,
           [item]: temp,
+          ...AddOnView,
         });
-        //setValue([index, `addon_items`], temp, "subscription");
       }
     });
 
     if (!ifNotExist.length) {
-      temp.push({ ...value, qty: 1 });
+      temp = [{ ...value, qty: 1 }, ...temp];
       // setValue([index, `addon_items`], temp, "subscription");
       setAddOnView({
         ...AddOnView,
         [item]: temp,
       });
     }
-    //setSelectedAddons(value);
+
+    onChange(temp.length === 0 ? { [item]: [value] } : temp);
+    //setSelectedAddons({ item: item, value: value });
     // onChange(value);
   };
 
@@ -1116,31 +1133,29 @@ const ProductPlanner = ({
                       <Controller
                         control={control}
                         name={`subscription[${index}].addon_items`}
-                        render={({ field: { onChange, ...rest } }) => (
-                          <Select
-                            name="addon_items"
-                            placeholder="Choose addons"
-                            //isMulti={true}
-                            isSearchable={false}
-                      		menuShouldScrollIntoView={true}
-                            options={addons}
-                            className="mb-3 text-start custom-accordion-bg"
-                            {...rest}
-                            // onChange={(value) => {
-                            // 	console.log("value-inside-select", value);
-                            // 	let temp = value.map(val => {
-                            // 		return {...val, qty: 1}
-                            // 	})
-                            // 	setSelectedAddons(temp);
-                            // 	onChange(temp);
-
-                            // }}
-                            styles={colourStyles}
-                            onChange={(value) => {
-                              handleAddOns(index, deliver.id, value, onChange);
-                            }}
-                          />
-                        )}
+                        render={({ field: { onChange, ...rest } }) => {
+                          return (
+                            <Select
+                              name="addon_items"
+                              placeholder="Choose addons"
+                              isSearchable={false}
+                              menuShouldScrollIntoView={true}
+                              isMulti={false}
+                              options={addons}
+                              className="mb-3 text-start custom-accordion-bg"
+                              {...rest}
+                              styles={colourStyles}
+                              onChange={(value) => {
+                                handleAddOns(
+                                  index,
+                                  deliver.id,
+                                  value,
+                                  onChange
+                                );
+                              }}
+                            />
+                          );
+                        }}
                       />
                     </>
                   )}
