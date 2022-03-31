@@ -17,7 +17,7 @@ import { getOrders } from "../store/actions/orders";
 import { GrClose } from "react-icons/gr";
 import LoginModal from "../components/LoginModal";
 import { hideLogin } from "../store/actions";
-import "./App.css";
+import "./App.scss";
 import { SessionModal } from "../components/SessionExpireModal";
 import { RefreshToken } from "../helpers/refreshSession";
 

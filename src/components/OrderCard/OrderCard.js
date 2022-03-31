@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { Badge, Button, Card, Col, Row } from "react-bootstrap";
+import { Badge, Card, Col, Row } from "react-bootstrap";
 import DefaultImage from "./../../assets/default_thumbnail.png";
 import MoreIcon from "./../../assets/more.png";
 import StartTimeIcon from "./../../assets/start-time.png";
@@ -9,6 +9,9 @@ import { useHistory } from "react-router";
 import { BiRupee } from "react-icons/bi";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import { SERVICE_TYPE, SERVICE_LABELS } from "../../utils/constants";
+import _ from "underscore";
+import MenuList from "../MenuList/MenuList";
+import SubscriptionButtonGroup from "../SubscriptionModal/SubscriptionButtonGroup";
 
 const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
@@ -42,53 +45,19 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                 <div className="w-100p d-flex justify-content-between align-items-center">
                   <h4 className="subs-id mb-0"># {order.id}</h4>
                   <div className="more-info">
-                    <img src={MoreIcon} alt="icon" height="24" />
+                    <i class="fa-solid fa-bars"></i>
                     <div className="more-dp-info">
-                      <ul className="list-unstyled">
-                        <li
-                          onClick={() =>
-                            onMenuSelect(
-                              SERVICE_TYPE.PAUSE_TOMORROW,
-                              order.id
-                            )
-                          }
-                        >
-                          {SERVICE_LABELS.PAUSE_TOMORROW}
-                        </li>
-                        <li
-                          onClick={() =>
-                            onMenuSelect(
-                              SERVICE_TYPE.PAUSE_IN_BETWEEN,
-                              order.id
-                            )
-                          }
-                        >
-                          {SERVICE_LABELS.PAUSE_IN_BETWEEN}
-                        </li>
-                        <li
-                          onClick={() =>
-                            onMenuSelect(
-                              SERVICE_TYPE.PAUSE_INDEFINITE,
-                              order.id
-                            )
-                          }
-                        >
-                          {SERVICE_LABELS.PAUSE_INDEFINITE}
-                        </li>
-                        <li
-                          onClick={() =>
-                            onMenuSelect(
-                              SERVICE_TYPE.RESUME_INDEFINITE,
-                              order.id
-                            )
-                          }
-                        >
-                          {SERVICE_LABELS.RESUME_INDEFINITE}
-                        </li>
-                        <li onClick={() => cancelSubscription(order.id)}>
-                          Cancel Subscrition
-                        </li>
-                      </ul>
+                      <MenuList
+                        list={[
+                          SERVICE_TYPE.PAUSE_TOMORROW,
+                          SERVICE_TYPE.PAUSE_IN_BETWEEN,
+                          SERVICE_TYPE.PAUSE_INDEFINITE,
+                          SERVICE_TYPE.RESUME_INDEFINITE,
+                        ]}
+                        onMenuSelect={onMenuSelect}
+                        id={order.id}
+                        cancelSubscription={cancelSubscription}
+                      />
                     </div>
                   </div>
                 </div>
@@ -128,20 +97,17 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       <td className="food-info-txt">Breakfast</td>
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[0]?.meals_ordered}
+                          {order?.orderscount[0]?.meals_ordered}
                         </span>
                       </td>
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[0]?.meals_consumed}
+                          {order?.orderscount[0]?.meals_consumed}
                         </span>
                       </td>
-                      {/* <td>
-                <span className="order-info-txt">{ordersList[index]?.orderscount[0]?.meals_pausedORcancelled}</span>
-            </td> */}
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[0]?.meals_remaining}
+                          {order?.orderscount[0]?.meals_remaining}
                         </span>
                       </td>
                     </tr>
@@ -149,20 +115,17 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       <td className="food-info-txt">Lunch</td>
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[1]?.meals_ordered}
+                          {order?.orderscount[1]?.meals_ordered}
                         </span>
                       </td>
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[1]?.meals_consumed}
+                          {order?.orderscount[1]?.meals_consumed}
                         </span>
                       </td>
-                      {/* <td>
-                <span className="order-info-txt">{ordersList[index]?.orderscount[1]?.meals_pausedORcancelled}</span>
-            </td> */}
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[1]?.meals_remaining}
+                          {order?.orderscount[1]?.meals_remaining}
                         </span>
                       </td>
                     </tr>
@@ -170,32 +133,22 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       <td className="food-info-txt">Dinner</td>
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[2]?.meals_ordered}
+                          {order?.orderscount[2]?.meals_ordered}
                         </span>
                       </td>
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[2]?.meals_consumed}
+                          {order?.orderscount[2]?.meals_consumed}
                         </span>
                       </td>
-                      {/* <td>
-                <span className="order-info-txt">{ordersList[index]?.orderscount[2]?.meals_pausedORcancelled}</span>
-            </td> */}
                       <td>
                         <span className="order-info-txt">
-                          {ordersList[index]?.orderscount[2]?.meals_remaining}
+                          {order?.orderscount[2]?.meals_remaining}
                         </span>
                       </td>
                     </tr>
                   </table>
                 </div>
-
-                {/* <div className="orders__footer">
-        <Button variant="secondary" size="sm">Pause</Button>
-        <Button variant="secondary" size="sm" onClick={() =>
-          cancelSubscription(order.id)
-        }>Cancel Subscrition</Button>
-      </div> */}
               </div>
 
               <section style={{ padding: "0px 12px", display: "none" }}>
@@ -267,37 +220,25 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                             <td>B</td>
                             <td>
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[0]
-                                    ?.meals_consumed
-                                }
+                                {order?.orderscount[0]?.meals_consumed}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[0]
-                                    ?.meals_ordered
-                                }
+                                {order?.orderscount[0]?.meals_ordered}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[0]
-                                    ?.meals_pausedORcancelled
-                                }
+                                {order?.orderscount[0]?.meals_pausedORcancelled}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[0]
-                                    ?.meals_remaining
-                                }
+                                {order?.orderscount[0]?.meals_remaining}
                               </Badge>
                             </td>
                           </tr>
@@ -305,37 +246,25 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                             <td>L</td>
                             <td>
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[1]
-                                    ?.meals_consumed
-                                }
+                                {order?.orderscount[1]?.meals_consumed}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[1]
-                                    ?.meals_ordered
-                                }
+                                {order?.orderscount[1]?.meals_ordered}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[1]
-                                    ?.meals_pausedORcancelled
-                                }
+                                {order?.orderscount[1]?.meals_pausedORcancelled}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[1]
-                                    ?.meals_remaining
-                                }
+                                {order?.orderscount[1]?.meals_remaining}
                               </Badge>
                             </td>
                           </tr>
@@ -343,37 +272,25 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                             <td>D</td>
                             <td>
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[2]
-                                    ?.meals_consumed
-                                }
+                                {order?.orderscount[2]?.meals_consumed}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[2]
-                                    ?.meals_ordered
-                                }
+                                {order?.orderscount[2]?.meals_ordered}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[2]
-                                    ?.meals_pausedORcancelled
-                                }
+                                {order?.orderscount[2]?.meals_pausedORcancelled}
                               </Badge>
                             </td>
                             <td>
                               {" "}
                               <Badge pill bg="dark">
-                                {
-                                  ordersList[index]?.orderscount[2]
-                                    ?.meals_remaining
-                                }
+                                {order?.orderscount[2]?.meals_remaining}
                               </Badge>
                             </td>
                           </tr>
@@ -420,34 +337,25 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                           B
                           <Col>
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[0]
-                                  ?.meals_consumed
-                              }
+                              {order?.orderscount[0]?.meals_consumed}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {ordersList[index]?.orderscount[0]?.meals_ordered}
+                              {order?.orderscount[0]?.meals_ordered}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[0]
-                                  ?.meals_pausedORcancelled
-                              }
+                              {order?.orderscount[0]?.meals_pausedORcancelled}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[0]
-                                  ?.meals_remaining
-                              }
+                              {order?.orderscount[0]?.meals_remaining}
                             </Badge>
                           </Col>
                         </Row>
@@ -455,34 +363,25 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                           L
                           <Col>
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[1]
-                                  ?.meals_consumed
-                              }
+                              {order?.orderscount[1]?.meals_consumed}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {ordersList[index]?.orderscount[1]?.meals_ordered}
+                              {order?.orderscount[1]?.meals_ordered}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[1]
-                                  ?.meals_pausedORcancelled
-                              }
+                              {order?.orderscount[1]?.meals_pausedORcancelled}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[1]
-                                  ?.meals_remaining
-                              }
+                              {order?.orderscount[1]?.meals_remaining}
                             </Badge>
                           </Col>
                         </Row>
@@ -490,34 +389,25 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                           D
                           <Col>
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[2]
-                                  ?.meals_consumed
-                              }
+                              {order?.orderscount[2]?.meals_consumed}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {ordersList[index]?.orderscount[2]?.meals_ordered}
+                              {order?.orderscount[2]?.meals_ordered}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[2]
-                                  ?.meals_pausedORcancelled
-                              }
+                              {order?.orderscount[2]?.meals_pausedORcancelled}
                             </Badge>
                           </Col>
                           <Col>
                             {" "}
                             <Badge pill bg="dark">
-                              {
-                                ordersList[index]?.orderscount[2]
-                                  ?.meals_remaining
-                              }
+                              {order?.orderscount[2]?.meals_remaining}
                             </Badge>
                           </Col>
                         </Row>
@@ -525,13 +415,6 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                     </Col>
                   </Row>
                 </div>
-
-                {/*<div className="orders__footer">
-              <Button variant="secondary" size="sm">Pause</Button>
-              <Button variant="secondary" size="sm" onClick={() =>
-                cancelSubscription(order.id)
-              }>Cancel Subscrition</Button>
-            </div>*/}
               </section>
             </Card>
           );
@@ -550,4 +433,10 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   );
 };
 
-export default OrderCard;
+const arePropsEqual = (prevProps, nextProps) => {
+  const { ordersList: ordersListInPrev } = prevProps;
+  const { ordersList: ordersListInNext } = nextProps;
+  return _.isEqual(_.sortBy(ordersListInPrev), _.sortBy(ordersListInNext));
+};
+
+export default React.memo(OrderCard, arePropsEqual);
