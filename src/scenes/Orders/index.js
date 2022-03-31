@@ -82,7 +82,7 @@ const Orders = () => {
   ) => {
     const { data, errors } = isPauseSubscriptionService(serviceType)
       ? await pauseSubscription(isCheck, subscriptionId, comments, dates)
-      : await resumeSubscription(isCheck, subscriptionId, comments, dates);
+      : await resumeSubscription(isCheck, subscriptionId);
     if (errors) {
       const { errorMessage } = getSubscriptionErrorData(errors);
       displayErrorModal(errorMessage);
