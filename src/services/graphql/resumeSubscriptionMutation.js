@@ -1,5 +1,5 @@
-export const RESUME_SUBSCRIPTION = `mutation($sub_id:Int!) {
-    resumeSubscription(input: {sub_id: $sub_id}) {
+export const RESUME_SUBSCRIPTION = `mutation($subscription_id:Int!) {
+    resumeSubscription(input: {subscription_id: $subscription_id}) {
     dates
     }
     }`;

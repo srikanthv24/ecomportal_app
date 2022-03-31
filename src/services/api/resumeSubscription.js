@@ -9,9 +9,6 @@ export const resumeSubscription = async (
   resume_dates
 ) => {
   const getToken = await RefreshToken.getRefreshedToken();
-  const input = {
-    sub_id: sub_id
-  };
   try {
     const response = await fetch(`${api_urls.SUB_REL_API_URL}`, {
       method: "POST",
@@ -22,7 +19,7 @@ export const resumeSubscription = async (
       body: JSON.stringify({
         query: RESUME_SUBSCRIPTION,
         variables: {
-          input: input,
+          subscription_id: parseInt(sub_id),
         },
       }),
     });
