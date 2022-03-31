@@ -138,7 +138,7 @@ const Login = (props) => {
             </Button>
 
             <p className="text-muted text-center">
-              New to Vibrant Living? <a href="#" onClick={handleSignUpClick}>Sign Up</a>
+              New to Vibrant Living? <a style={{color: "#0a58ca"}} href="#" onClick={handleSignUpClick}>Sign Up</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">

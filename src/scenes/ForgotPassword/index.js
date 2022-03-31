@@ -154,7 +154,7 @@ const ForgotPassword = (props) => {
             </Button>
 
             <p className="text-muted text-center">
-              Don't want to reset? <a href="#" onClick={handleLogInClick}>Sign In</a>
+              Don't want to reset? <a  style={{color: "#0a58ca"}}  href="#" onClick={handleLogInClick}>Sign In</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">
