@@ -30,10 +30,10 @@ const LoginModal = () => {
   
 
   return (
-    isExistingUser === 'login' ?
+    isExistingUser === 'register' ?
     <Register handleModalType={changeLoginModal} />
     :
-    isExistingUser === 'register' ?
+    isExistingUser === 'login' ?
       <Login handleModalType={changeLoginModal} />
       :
       <ForgotPassword handleModalType={changeLoginModal} />
