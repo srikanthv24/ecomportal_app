@@ -133,7 +133,7 @@ const ProfileDetails = ({
             <Controller
               control={control}
               name="heightInch"
-              rules={{ required: true, min: 0, max: 9 }}
+              rules={{ required: true, min: 0, max: 11 }}
               render={({ field: { onChange,value, ...rest }  }) => (
                 <input
                   className={`form-control${

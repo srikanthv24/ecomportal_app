@@ -13,7 +13,7 @@ export class mealPlans {
 			},
 			body: JSON.stringify({
 				query: `{
-              listItems(filter: {is_mealplan: {eq: true},status: {eq: "A"}}, limit: 10000) {
+              listItems(filter: {is_mealplan: {eq: true},status: {eq: "A"}, category: {eq: "Fusion Foods"}}, limit: 10000) {
                 items {
                   id
                   is_mealplan

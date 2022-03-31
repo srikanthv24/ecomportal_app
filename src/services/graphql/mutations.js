@@ -242,7 +242,7 @@ export const getAddressList = `query ($customerId: ID!) {
     }`;
 
 export const getCategories = `query($limit: Int, $nextToken: String) {
-  listItemCategories (limit: $limit, nextToken: $nextToken){
+  listItemCategories (filter: {status: {eq: "A"}},limit: $limit, nextToken: $nextToken){
       items {
         defaultimg_url
         description

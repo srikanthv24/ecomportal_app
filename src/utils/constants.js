@@ -27,3 +27,10 @@ export const SESSION_TYPES = {
   L: "Lunch",
   D: "Dinner",
 };
+
+export const FILTERS = {
+  ACTIVE : "A",
+  INACTIVE: "I",
+  FUSION_FOODS: "Fusion Foods",
+  LIMIT: 1000,
+}
