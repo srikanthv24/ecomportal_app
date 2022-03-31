@@ -339,7 +339,7 @@ const PlannerWrapper = ({
           subscribed = {
             ...subscribed,
             sale_val:
-              (products.productDetails.meal_prices.breakfast_price + aprice) *
+              (products.productDetails?.meal_prices?.breakfast_price + aprice) *
               duration,
           };
         } else if (subscribed.meal_type == "D") {
