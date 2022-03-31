@@ -3,6 +3,7 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import PlannerWrapper from "../lemmetry/PlannerWrapper";
 // import ProductDetails from "./product-details";
 import Products from "./products";
+import './products.scss';
 
 const ProductsRoutes = () => {
   const { path } = useRouteMatch();

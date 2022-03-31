@@ -680,12 +680,27 @@ input[type=checkbox].acc-checkbox:checked:after {
     background-color: #ffffff;
   }
   .more-dp-info ul li{
+    margin-bottom: 3px;
+  }
+
+  .more-dp-info ul li:last-child{
+    margin-bottom: 0px;
+  }
+
+  .more-dp-info ul li a{
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
     color: rgba(53,40,23,1);
     font-family: 'Roboto Condensed';
     white-space: nowrap;
+    text-decoration: none;
+    padding:3px 12px;
+    display: block;
+  }
+
+  .more-dp-info ul li a:hover{
+    background: #F9F3DF;
   }
   .prd-item{
     color: rgba(53,40,23,1);

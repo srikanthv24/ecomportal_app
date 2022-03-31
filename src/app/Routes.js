@@ -27,7 +27,7 @@ function Routes() {
   }, []);
 
   return (
-    <>
+    <section style={{ height:'100vh',background:'#FFD7BF'}}>
       <AppBar />
       {AppLoading ? (
         <div
@@ -66,7 +66,7 @@ function Routes() {
           </Route>
         </Switch>
       )}
-    </>
+    </section>
   );
 }
 

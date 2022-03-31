@@ -121,9 +121,8 @@ const ProductDetails = ({
 
   return (
     <FormProvider {...methods}>
-      {isLoading && (
+      {products.productDetailsLoading && (
         <div className="fullscreen-loader">
-          {" "}
           <Spinner animation="grow" />
         </div>
       )}
@@ -135,30 +134,30 @@ const ProductDetails = ({
             ) : (
               <Row style={{ paddingTop: "70px" }}>
                 <Col sm={12} lg={6}>
-                  <p className="h4 mt-3 ff-2">{ProductDetails?.display_name}</p>
-                  <p className=" h6 text-muted ff-3">
+                  <p className="prd-details-title mt-3 mb-0">
+                    {ProductDetails?.display_name}
+                  </p>
+                  <p className="prd-details-category">
                     {ProductDetails?.category}
                   </p>
 
-                  <div
-                    style={{
-                      backgroundImage: `url(${
+                  <div className="prd-details-image">
+                    <img
+                      src={
                         ProductDetails?.defaultimg_url ||
                         "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
-                      })`,
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      width: "100%",
-                      height: "250px",
-                      borderRadius: "10px",
-                    }}
-                  />
+                      }
+                      className="prd-details-image-actual"
+                      alt="prd-img"
+                    />
+                  </div>
                 </Col>
                 <Col sm={12} lg={6}>
-                  <p className="mt-3 ff-4">{ProductDetails?.description}</p>
-                  <h1>
-                    <small className="text-muted col-12 h6">
+                  <p className="mt-3 prd-details-desp">
+                    {ProductDetails?.description}
+                  </p>
+                  <h1 className="prd-details-amount">
+                    <small className="prd-details-gst-txt">
                       Including{" "}
                       {String(ProductDetails.tax_methods)
                         .replace("Output", "")
@@ -181,17 +180,12 @@ const ProductDetails = ({
                   {ProductDetails?.category}
                 </p>
                 <img
-                  src={ProductDetails?.defaultimg_url}
-                  width="100%"
-                  alt="product-img"
-                  style={{
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    width: "100%",
-                    height: "250px",
-                    borderRadius: "10px",
-                  }}
+                  src={
+                    ProductDetails?.defaultimg_url ||
+                    "https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"
+                  }
+                  className="prd-details-image-actual"
+                  alt="prd-img"
                 />
               </Col>
             </Row>

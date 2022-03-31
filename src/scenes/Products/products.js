@@ -60,9 +60,6 @@ const Products = () => {
   }, [products.productList]);
 
   // eslint-disable-next-line no-array-constructor
-  let dummyList = new Array(10, {});
-
-  console.log("products", products);
 
   return (
     <>
@@ -74,11 +71,13 @@ const Products = () => {
           <div style={{ ...phantom }} />
           <Card.Header className="products-header">
             <div className="d-flex justify-content-between align-items-center">
-              <div>
-                <p className="content-title">{catId}</p>
-                <small className="text-muted value-txt">
-                  {Products.length} products found
-                </small>
+              <div className="d-flex justify-content-between align-items-center w-100p">
+                <p className="vl-page-title mb-0">{catId}</p>
+                <div>
+                  <small className="text-muted value-txt">
+                    {Products.length} products found
+                  </small>
+                </div>
               </div>
               <div className="d-none">
                 <Button
@@ -109,41 +108,6 @@ const Products = () => {
           <Col xs={12} lg={9} style={{ overflow: "auto", margin: "auto" }}>
             <Row>
               {products.loading ? (
-                // dummyList.map(() => {
-                // 	return (
-                // 		<Col lg={4} md={4} sm={6} xs={6} className="m-0 p-1">
-                // 			<div className="card" aria-hidden="true">
-                // 				<div
-                // 					style={{
-                // 						// backgroundImage: `url(${"https://kubalubra.is/wp-content/uploads/2017/11/default-thumbnail.jpg"})`,
-                // 						backgroundSize: "cover",
-                // 						backgroundRepeat: "no-repeat",
-                // 						backgroundPosition: "center",
-                // 						height: "150px",
-                // 						width: "100%",
-                // 					}}
-                // 				/>
-                // 				<div className="card-body">
-                // 					<h5 className="card-title placeholder-glow">
-                // 						<span className="placeholder col-6"></span>
-                // 					</h5>
-                // 					<p className="card-text placeholder-glow">
-                // 						<span className="placeholder col-7"></span>
-                // 						<span className="placeholder col-4"></span>
-                // 						<span className="placeholder col-4"></span>
-                // 						<span className="placeholder col-6"></span>
-                // 						<span className="placeholder col-8"></span>
-                // 					</p>
-                // 					<a
-                // 						href="#"
-                // 						tabIndex="-1"
-                // 						className="btn btn-primary disabled placeholder col-6"
-                // 					></a>
-                // 				</div>
-                // 			</div>
-                // 		</Col>
-                // 	);
-                // })
                 <Spinner
                   style={{
                     position: "absolute",
@@ -157,9 +121,7 @@ const Products = () => {
               ) : (
                 <div>
                   {parentCategory ? (
-                    <CategoryList 
-						list={products.productList.items}
-					/>
+                    <CategoryList list={products.productList.items} />
                   ) : (
                     <ProductsList
                       list={products.productList}

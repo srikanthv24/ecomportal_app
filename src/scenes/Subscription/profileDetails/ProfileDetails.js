@@ -41,7 +41,7 @@ const ProfileDetails = ({
       <div>
         <Card className="bio-card p-1 border-0 bg-transparent">
           <Card.Body className="px-0">
-            <div class="radio-toolbar d-flex justify-content-between mb-2">
+            <div class="radio-toolbar d-flex justify-content-between mb-2 pos-rel">
             <Controller
                name="gender"
               control={control}
@@ -69,20 +69,21 @@ const ProfileDetails = ({
                 </>
               )}
             />
-            </div>
-            <div>
+             <div className="error-text-block1">
             {errors.gender && (
               <p className="text-danger pr-error-text" style={{ textAlign: "center" }}>
                 Please select your gender
               </p>
             )}
             </div>
+            </div>
+           
           </Card.Body>
         </Card>
       </div>
       <Card className="bio-card p-0 border-0 bg-transparent">
         <Card.Body className="py-2 px-0">
-          <div class="input-group mb-3">
+          <div class="input-group mb-4 pos-rel">
           <Controller
               control={control}
               rules={{ required: true, min: 1, max: 100
@@ -101,16 +102,18 @@ const ProfileDetails = ({
             <div class="input-group-append">
               <span class="input-group-text">Yrs.</span>
             </div>
-          </div>
-            {errors.age && (
-              <p className="text-danger pr-error-text" style={{ textAlign: "left" }}>
+            <div className="error-text-block">
+          {errors.age && (
+              <p className="text-danger pr-error-text mb-0" style={{ textAlign: "left" }}>
                 Please enter your age between 1 - 100
               </p>
             )}
-          <div>
           </div>
-          <div className="height-row">
-            <div class="input-group mb-3">
+          </div>
+            
+         
+          <div className="height-row pos-rel">
+            <div class="input-group mb-4 pos-rel">
             <Controller
               control={control}
               name="heightFeet"
@@ -129,7 +132,7 @@ const ProfileDetails = ({
                 <span class="input-group-text">Ft.</span>
               </div>
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group mb-4">
             <Controller
               control={control}
               name="heightInch"
@@ -150,16 +153,16 @@ const ProfileDetails = ({
                 <span class="input-group-text">In.</span>
               </div>
             </div>
-          </div>
+            <div className="error-text-block">
             {errors.heightFeet || errors.heightInch ? (
               <p
                 className="text-danger pr-error-text"
                 style={{ textAlign: "left" }}
               >{`Please enter your height in ${errors.heightFeet ? "feet" : ""}${errors.heightInch ? " Inch" : ""}`}</p>
             ) : ''}
-          <div>
+            </div>
           </div>
-          <div class="input-group mb-3">
+          <div class="input-group mb-4 pos-rel">
           <Controller
               control={control}
               name="weight"
@@ -179,12 +182,15 @@ const ProfileDetails = ({
             <div class="input-group-append">
               <span class="input-group-text">Kg.</span>
             </div>
-          </div>
-          {errors.weight && (
+            <div className="error-text-block">
+            {errors.weight && (
             <p className="text-danger pr-error-text" style={{ textAlign: "left" }}>
               Please enter your weight between 1 - 200
             </p>
           )} 
+            </div>
+          </div>
+          
         </Card.Body>
       </Card>
       <div className="footer-button-wrap">
