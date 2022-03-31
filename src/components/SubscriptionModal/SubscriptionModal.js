@@ -8,6 +8,7 @@ import SubscriptionTitle from "./SubscriptionTitle";
 import moment from "moment";
 import SubscriptionComments from "./SubscriptionComments";
 import "./styles.css";
+import { isPauseSubscriptionService } from "../../utils/subscriptionUtils";
 
 const SubscriptionModal = React.memo(
   ({
@@ -110,6 +111,14 @@ const SubscriptionModal = React.memo(
                   <SubscriptionButtonGroup
                     onCancel={onCancel}
                     onSubmit={setDatesAndSubmit}
+                    isPrimaryButtonDisabled={
+                      selectedSessionCodes.length > 0 ? false : true
+                    }
+                    primaryButtonText={
+                      isPauseSubscriptionService(serviceType)
+                        ? "PAUSE"
+                        : "RESUME"
+                    }
                   />
                 </>
               ) : (

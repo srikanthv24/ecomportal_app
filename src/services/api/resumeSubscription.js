@@ -4,17 +4,11 @@ import { RefreshToken } from "../../helpers/refreshSession";
 
 export const resumeSubscription = async (
   check,
-  subscription_id,
+  sub_id,
   comments,
   resume_dates
 ) => {
   const getToken = await RefreshToken.getRefreshedToken();
-  const input = {
-    comment: comments,
-    check: check,
-    subscription_id: subscription_id,
-    resume_dates: resume_dates,
-  };
   try {
     const response = await fetch(`${api_urls.SUB_REL_API_URL}`, {
       method: "POST",
@@ -25,7 +19,7 @@ export const resumeSubscription = async (
       body: JSON.stringify({
         query: RESUME_SUBSCRIPTION,
         variables: {
-          input: input,
+          subscription_id: parseInt(sub_id),
         },
       }),
     });
