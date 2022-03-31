@@ -12,6 +12,7 @@ const initialState = {
     isLoading: false,
     data: { items: [] },
   },
+  cartCreated: {}
 };
 
 export const Cart = (state = initialState, action) => {
@@ -71,10 +72,12 @@ export const Cart = (state = initialState, action) => {
       return {
         ...state,
         cartLoading: false,
-        cartDetails: { ...action.payload.createCart },
+        // cartDetails: { ...action.payload.createCart },
+        cartCreated: { ...action.payload.createCart },
       };
     case types.CREATE_CART_FAILURE:
-      return { ...state, cartLoading: false, cartDetails: {} };
+      // return { ...state, cartLoading: false, cartDetails: {} };
+      return { ...state, cartLoading: false, cartCreated: {} };
 
     // case types.UPDATE_CART_SUCCESS:
     //   return {

@@ -3,7 +3,7 @@ import { BiRupee } from 'react-icons/bi';
 import { displayCurrency } from '../../helpers/displayCurrency';
 
 export const OrderCheckList = ({ subTotal, grandTotal }) => (
-    <section className="cart-order-summery-container mb-5">
+    <section className="cart-order-summery-container mb-5 w-100">
       <p class="cart-order-summery-header mb-0">ORDER SUMMARY</p>
       {/*   <ul className="cart-order-summery-list mb-0">
      <li>

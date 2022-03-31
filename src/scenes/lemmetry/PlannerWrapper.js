@@ -19,6 +19,7 @@ import {
   createCart,
   updateCart,
   updateCartQty,
+  deleteCart,
 } from "../../store/actions/cart";
 import ProductDetails from "../Products/product-details";
 import { deleteCartItem } from "../../store/actions/cart-item";
@@ -45,14 +46,14 @@ const PlannerWrapper = ({
   const history = useHistory();
   const dispatch = useDispatch();
   const mealPlanId = useSelector((state) => state.mealPlans);
-  const [ExistingProduct, setExistingProduct] = useState({ 
+  const [ExistingProduct, setExistingProduct] = useState({
     ciid: "",
     customer_id: "",
-  item:{
-    item_name: "",
-    qty: 0
-  }
- });
+    item: {
+      item_name: "",
+      qty: 0,
+    },
+  });
   const products = useSelector((state) => state.products);
   const Cart = useSelector((state) => state.Cart);
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -63,14 +64,14 @@ const PlannerWrapper = ({
   const [VarItems, setVarItems] = useState({});
 
   const [addresses, setAddresses] = useState([]);
-
+  const[loader, setLoader] = useState(true);
   const [BreakUps, setBreakUps] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [newAddress, setNewAddress] = useState({});
   const { customerId: userId } = useSelector((state) => state.customer);
-  const { cartDetails: cartCreated } = useSelector((state) => state.Cart);
+  const { cartCreated, cartDetails } = useSelector((state) => state.Cart);
 
   const [sideEffect, setSideEffect] = useState(false);
 
@@ -130,9 +131,16 @@ const PlannerWrapper = ({
       setSideEffect(true);
     }
   };
+  useEffect(() => {
+    dispatch(deleteCart());
+  }, []);
 
   useEffect(() => {
-    if (userId && Object.keys(cartCreated || {}).length && sideEffect) {
+    if (
+      userId &&
+      Object.keys(cartCreated || cartDetails).length &&
+      sideEffect
+    ) {
       history.push("/cart-summary");
     }
   }, [userId, cartCreated, sideEffect]);
@@ -231,11 +239,11 @@ const PlannerWrapper = ({
         if (item) {
           return item.item.item_id == products.productDetails.id;
         } else {
-          return null
+          return null;
         }
       });
       if (ifExist?.length) {
-        setExistingProduct(ifExist[0] || {  item : { qty: 0} });
+        setExistingProduct(ifExist[0] || { item: { qty: 0 } });
         // reset(ifExist[0]);
         // setValue('subscription[0]', ifExist[0].subscription)
       }
@@ -263,7 +271,7 @@ const PlannerWrapper = ({
           customer_id: userDetails.sub,
         })
       );
-      setExistingProduct({  item : { qty: 0} });
+      setExistingProduct({ item: { qty: 0 } });
     } else {
       dispatch(
         updateCartQty({
@@ -389,6 +397,14 @@ const PlannerWrapper = ({
     });
   };
 
+  if (Cart.cartLoading) {
+    return (
+      <div className="fullscreen-loader">
+        <Spinner animation="border" role="status" />
+      </div>
+    );
+  }
+
   return (
     <FormProvider {...methods}>
       <AddressModal
@@ -399,7 +415,7 @@ const PlannerWrapper = ({
         handleSubmit={handleSubmit(handleCartSubmit)}
       />
       <div className="bg-1">
-        <Container fluid className="product-details-wrapper" >
+        <Container fluid className="product-details-wrapper">
           <ProductDetails
             productId={cuisine}
             control={control}
@@ -464,11 +480,7 @@ const PlannerWrapper = ({
                     }}
                     disabled={validateAddToCart()}
                   >
-                    {Cart.cartLoading ? (
-                      <Spinner animation="border" role="status" />
-                    ) : (
-                      "Add to Cart"
-                    )}
+                    Add to Cart
                   </Button>
                 )}
               </>
@@ -520,7 +532,7 @@ const PlannerWrapper = ({
                   )}
                 </Button>
               </InputGroup>
-            ) :  (
+            ) : (
               <Button
                 className="m-1 custom-primary-btn"
                 style={{
