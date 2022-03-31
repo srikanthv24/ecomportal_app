@@ -120,11 +120,11 @@ const Login = (props) => {
             {errors.password && 
               <p className="text-danger" style={{ textAlign: "left" }}>Please enter your password</p>
             }
-            <Form.Check 
+            {/* <Form.Check 
               type="checkbox"
               id="remember-me"
               label="Remember me"
-            />
+            /> */}
             <p className="text-right">
             <a href="#" onClick={handleForgotClick}>Forgot Password?</a>
             </p>

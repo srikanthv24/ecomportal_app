@@ -29,12 +29,12 @@
 }
 
 .bio-card .height-row .input-group:first-child {
-    width: calc(60% - 8px);
+    /* width: calc(60% - 8px); */
     margin-right: 16px;
 }
 
 .bio-card .height-row .input-group:last-child {
-    width: calc(40% - 8px);
+    /* width: calc(40% - 8px); */
 }
 
 .footer-button-wrap {
@@ -76,19 +76,19 @@
 
 .radio-toolbar label {
     display: inline-block;
-    /* background-color: #ddd; */
+    background-color: #ddd;
     padding: 10px 20px;
     font-family: "roboto",sans-serif, Arial;
     font-size: 16px;
-    /* border: 2px solid #444; */
-    /* border-radius: 4px; */
+    border: 2px solid #444;
+    border-radius: 4px;
     cursor: pointer;
     min-height: 44px;
 }  
 
 .radio-toolbar input[type="radio"] + label {
-    /* background-color:#ccc;
-    border-color: #ccc; */
+    background-color:#ccc;
+    border-color: #ccc;
     color:#424141;
     font-size: 16px;
     font-weight: normal;
@@ -96,20 +96,34 @@
 
 
 .radio-toolbar input[type="radio"]:checked + label {
-    color:#f05922;
+    color:#fff;
+    background-color:#f05922;
     font-size: 16px;
     font-weight: 500;
 }
 
 .radio-toolbar input[type="radio"]:focus + label {
-    /* border: 2px solid #f05922; */
+    border: 2px solid #f05922;
 }
 
 .radio-toolbar label:hover {
-    /* background-color: #dfd; */
+    background-color: #dfd;
   }
 
 .pr-error-text {
     font-size: 12px;
-    margin-top: -15px;
+    margin-top: -12px;
+    margin-bottom: 0px;
+}
+.pos-rel{
+    position: relative !important;
+  }
+
+.error-text-block {
+    position: absolute;
+    top: 54px;
+}
+.error-text-block1 {
+    position: absolute;
+    top: 64px;
 }

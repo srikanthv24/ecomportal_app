@@ -18,12 +18,13 @@ export const products = (state = initialState, action) => {
 
 		case types.PRODUCT_LIST_FAILURE:
 			return { ...state, productList: [], loading: false };
-
+		case types.PRODUCT_DETAILS:
+			return { ...state, productDetailsLoading: true}
 		case types.PRODUCT_DETAILS_SUCCESS:
-			return { ...state, productDetails: action.payload };
+			return { ...state, productDetailsLoading: false, productDetails: action.payload };
 
 		case types.PRODUCT_DETAILS_FAILURE:
-			return { ...state, productDetails: {} };
+			return { ...state, productDetails: {}, productDetailsLoading: false, };
 		case types.PRODUCT_SEARCH_SUCCESS:
 			return { ...state, searchResults: action.payload };
 

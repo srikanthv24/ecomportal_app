@@ -51,7 +51,7 @@ const SimpleCard = () => {
   if (OrdersList && OrdersList.length !== 0) {
     return (
       <Card className="subscription-section bg-1">
-        <Card.Header className="content-title no-bg">
+        <Card.Header className="vl-page-title no-bg">
           <div className="d-flex justify-content-between align-items-center ff-1">
             Subscriptions
             <Link to="/orders/" className="viewmore-txt ff-1">

@@ -111,7 +111,7 @@ const ProductCard = ({ product, pindex }) => {
         onClick={() => history.push(`/products/${product?.id}`)}
         className="p-2"
       >
-        <div className="prd-image-thumbnile">
+        <div className="prd-image">
           <img
             src={
               product?.defaultimg_url ||
@@ -125,43 +125,27 @@ const ProductCard = ({ product, pindex }) => {
         className="pt-1 text-center px-1"
         onClick={() => history.push(`/products/${product.id}`)}
       >
-        <Card.Text className="mb-0 pb-0 col-12 text-truncate text-center prd-name-txt">
+        <Card.Text className="mb-0 pb-0 col-12 text-center prd-title">
           {product?.display_name}
         </Card.Text>
-        <small
-          className="col-12 text-truncate text-center"
-          style={{
-            fontSize: "15px",
-            lineHeight: "25px",
-            fontWeight: "400",
-            color: "#352817",
-            fontFamily: "Roboto Condensed",
-          }}
+        {/* <small
+          className="col-12 text-truncate text-center prd-category"
         >
           {product?.category}
-        </small>
+        </small> */}
         {!product?.is_mealplan && (
-          <Card.Text>
-            <span
-              className="d-flex justify-content-center"
-              style={{
-                fontSize: "15px",
-                lineHeight: "20px",
-                color: "#352817",
-                fontWeight: "400",
-                fontFamily: "Roboto Condensed",
-              }}
-            >
+          <Card.Text className="mt-2 d-flex justify-content-center ">
+            <span className="prd-value">
               <span>
-                <BiRupee /> {Number(product?.sale_val).toFixed(2)} /{" "}
-                {product?.uom_name}
+                <BiRupee /> {Number(product?.sale_val).toFixed(2)} 
+                    {/*/{" "} {product?.uom_name} */}
               </span>
             </span>
           </Card.Text>
         )}
       </Card.Body>
       {!product?.is_mealplan && (
-        <div style={{ marginTop: 24 }}>
+        <div className="text-center mt-2">
           {ExistingProduct?.item?.qty ? (
             <InputGroup className="mb-3">
               <Button
@@ -204,13 +188,7 @@ const ProductCard = ({ product, pindex }) => {
           ) : (
             <Button
               size="sm"
-              className="cutom-btn add-cart-btn bg-chocolate-800"
-              style={{
-                display: "flex",
-                fontSize: "15px",
-                fontWeight: "500",
-                fontFamily: "Roboto Condensed",
-              }}
+              className="prd-btn d-flex align-items-center justify-content-around"              
               onClick={() => handleAddToCart(pindex)}
             >
               <AiOutlineShoppingCart />{" "}
