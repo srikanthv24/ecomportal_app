@@ -132,7 +132,7 @@ const Register = (props) => {
             </Button>
 
             <p className="text-muted text-center">
-              Already an account with Vibrant Living? <a href="#" style={{whiteSpace:"nowrap"}} onClick={handleLogInClick}>Sign In</a>
+              Already an account with Vibrant Living? <a style={{color: "#0a58ca"}} href="#" style={{whiteSpace:"nowrap"}} onClick={handleLogInClick}>Sign In</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">

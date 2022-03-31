@@ -164,8 +164,7 @@ const ProductDetails = ({
                         .replace("-", "")}
                     </small>
                     <br />
-                    <BiRupee /> {ProductDetails.sale_val} /{" "}
-                    {ProductDetails.uom_name}
+                    <BiRupee /> {ProductDetails.sale_val}
                   </h1>
                 </Col>
               </Row>
@@ -173,7 +172,7 @@ const ProductDetails = ({
           </>
         ) : (
           <>
-            <Row>
+             <Row>
               <Col sm={12} lg={6}>
                 <p className="h4 mt-3 ff-2">{ProductDetails?.display_name}</p>
                 <p className=" h6 text-muted ff-3">
