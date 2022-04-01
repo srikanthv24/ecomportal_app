@@ -29,6 +29,7 @@ const Orders = () => {
   const [pauseSubscriptionData, setPauseSubscriptionData] = useState();
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [servicedData, setServicedData] = useState([]);
+  const [productName, setProductName] = useState();
 
   React.useEffect(() => {}, [selectedSubscriptionId]);
 
@@ -41,14 +42,17 @@ const Orders = () => {
   const onMenuSelect = async (eventKey, subscriptionId) => {
     setServiceType(eventKey);
     setSelectedSubscriptionId(subscriptionId);
-    const { cart_id, cartitem_id, id } = ordersList.find((orderData) => {
-      return orderData.id === subscriptionId;
-    });
+    const { cart_id, cartitem_id, id, product } = ordersList.find(
+      (orderData) => {
+        return orderData.id === subscriptionId;
+      }
+    );
     const { subscriptionDetails, error } = await getSubscriptionDetails(
       cart_id,
       cartitem_id,
       id
     );
+    setProductName(product.display_name);
     if (error) {
       displayErrorModal(error.message);
     } else {
@@ -87,26 +91,38 @@ const Orders = () => {
       const { errorMessage } = getSubscriptionErrorData(errors);
       displayErrorModal(errorMessage);
     } else {
-      processSubscriptionData(data.pauseSubscription);
+      const { pauseSubscription, resumeSubscription } = data;
+      pauseSubscription && processPauseSubscriptionData(pauseSubscription);
+      resumeSubscription && processResumeSubscriptionData(resumeSubscription);
     }
   };
 
-  const processSubscriptionData = (pauseSubscriptionData) => {
+  const processPauseSubscriptionData = (pauseSubscriptionData) => {
     const { errorMessage } = getSubscriptionErrorData(pauseSubscriptionData);
+    const { check, pause_dates, product_name } = pauseSubscriptionData;
     if (errorMessage !== "") {
       displayErrorModal(errorMessage);
-    } else if (pauseSubscriptionData.check) {
+    } else if (check) {
       setShowConfirmationModal(true);
       setServicedData({
-        fromDate: pauseSubscriptionData.pause_dates[0].from_date,
-        toDate: pauseSubscriptionData.pause_dates[0].to_date,
-        mealType: pauseSubscriptionData.product_name,
+        fromDate: pause_dates[0].from_date,
+        toDate: pause_dates[0].to_date,
+        mealType: product_name,
       });
     } else {
       dispatch(
         getOrders({ customer_number: userDetails.phone_number.substring(3) })
       );
       displayErrorModal("subscription paused");
+    }
+  };
+
+  const processResumeSubscriptionData = (resumeSubscriptionData) => {
+    const { errorMessage } = getSubscriptionErrorData(resumeSubscriptionData);
+    if (errorMessage !== "") {
+      displayErrorModal(errorMessage);
+    } else {
+      displayErrorModal("subscription resumed"); // To be Developed
     }
   };
 
@@ -140,6 +156,7 @@ const Orders = () => {
       />
       {showSubscriptionModal && (
         <SubscriptionModal
+          productName={productName}
           serviceType={serviceType}
           show={showSubscriptionModal}
           onCancel={() => setShowSubscriptionModal(false)}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { updateScheduleErrorStatus } from "../../store/actions";
 
 import {
   Accordion,
@@ -80,6 +81,7 @@ const ProductPlanner = ({
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
+  const { errorStatus } = useSelector((state) => state.schedule);
   const [servicePinCodes, setServicePinCodes] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [Variants, setVariants] = useState([]);
@@ -257,7 +259,6 @@ const ProductPlanner = ({
       data?.variants &&
       data?.variants?.map((variant) => {
         let temp1 = [];
-        console.log("varItem===>", variant);
 
         variant?.items.map((varItem) => {
           temp1.push({
@@ -434,24 +435,14 @@ const ProductPlanner = ({
   };
 
   const handleAddOns = (index, item, value, onChange) => {
-    console.log("index-item-eitem" + JSON.stringify(item));
-    console.log("index-item-value" + JSON.stringify(value));
     const sessionSelectedValues = AddOnView[item];
-    console.log(
-      "sessionSelectedValues: " + JSON.stringify(sessionSelectedValues)
-    );
     let temp = [...AddOnView[item]];
 
-    
-
     let ifNotExist = temp.filter((itmm, indx) => {
-      console.log("yyyy", itmm);
       if (itmm.value === value.value) {
         return itmm;
       }
     });
-
-    console.log("ifNotExist", ifNotExist);
 
     ifNotExist.map((itm, idx) => {
       if (itm.value === value.value) {
@@ -460,10 +451,6 @@ const ProductPlanner = ({
           (tempItem) => tempItem.value == value.value
         );
         temp[tempIndex] = itm;
-        console.log("updating", {
-          [item]: temp,
-          ...AddOnView,
-        });
         setAddOnView({
           [item]: temp,
           ...AddOnView,
@@ -486,24 +473,17 @@ const ProductPlanner = ({
   };
 
   const updatedQuantity = (q, idxx, session, index) => {
-    console.log("check", q, idxx, session);
     let temp = AddOnView[session].map((itm, idx) => {
       if (idx === idxx) {
         let obj = { ...itm, qty: Number(q) };
-        console.log("checkMate", obj);
         return obj;
       } else {
         return itm;
       }
     });
-    console.log("temppppp", temp);
     setAddOnView({ ...AddOnView, [session]: temp });
     setValue(`subscription[${index}].addon_items`, temp);
   };
-
-  console.log("AddOnView", AddOnView);
-  console.log("productState", productState);
-  console.log("gloabalState_subscription", subscription);
 
   return (
     <div>
@@ -525,23 +505,35 @@ const ProductPlanner = ({
                   control={control}
                   name={`variants.${variant.display_name}`}
                   render={({ field: { onChange, name, value, ref } }) => (
-                    <Select
-                      name={name}
-                      placeholder={variant.display_name}
-                      isMulti={variant.is_multiselect}
-                      options={variant.items}
-                      value={VariantValue[variant.display_name]}
-                      className="prd-planning-select-box"
-                      isSearchable={false}
-                      menuShouldScrollIntoView={true}
-                      styles={colourStyles}
-                      onChange={(value) => {
-                        setVariantValue({
-                          ...VariantValue,
-                          [variant.display_name]: value,
-                        });
-                      }}
-                    />
+                    <>
+                      <Select
+                        name={name}
+                        placeholder={variant.display_name}
+                        isMulti={variant.is_multiselect}
+                        options={variant.items}
+                        value={VariantValue[variant.display_name]}
+                        className="prd-planning-select-box"
+                        isSearchable={false}
+                        menuShouldScrollIntoView={true}
+                        styles={colourStyles}
+                        onChange={(value) => {
+                          setVariantValue({
+                            ...VariantValue,
+                            [variant.display_name]: value,
+                          });
+                          dispatch(
+                            updateScheduleErrorStatus({
+                              showDurationError: false,
+                            })
+                          );
+                        }}
+                      />
+                      {errorStatus.showDurationError && (
+                        <span className="error-text">
+                          Please select duration to proceed.
+                        </span>
+                      )}
+                    </>
                   )}
                 />
               </>
@@ -577,6 +569,10 @@ const ProductPlanner = ({
                       ...temp[index],
                       is_included: ev.target.checked,
                     };
+                    ev.target.checked &&
+                      dispatch(
+                        updateScheduleErrorStatus({ showSessionError: false })
+                      );
                     setValue("subscription", temp);
                   }}
                 />
@@ -636,7 +632,11 @@ const ProductPlanner = ({
 											/>
 										</>
 									)} */}
-
+                  {errorStatus?.startDateValidationStatus[index] && (
+                    <span className="error-text">
+                      Please select the Start Date to proceed
+                    </span>
+                  )}
                   <InputGroup className="my-2 dp-date">
                     <InputGroup.Text>Start Date</InputGroup.Text>
                     <FormControl
@@ -662,6 +662,11 @@ const ProductPlanner = ({
                           );
                         }
                         setValue(`subscription[${index}].order_dates`, temp);
+                        dispatch(
+                          updateScheduleErrorStatus({
+                            startDateValidationStatus: [false, false, false],
+                          })
+                        );
                       }}
                     />
                   </InputGroup>
@@ -1165,6 +1170,9 @@ const ProductPlanner = ({
           );
         })}
       </Accordion>
+      {errorStatus?.showSessionError && (
+        <span className="error-text">Please select any of the session</span>
+      )}
       {/* Meals */}
     </div>
   );

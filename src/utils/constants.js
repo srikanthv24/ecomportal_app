@@ -5,6 +5,7 @@ export const SERVICE_TYPE = {
   PAUSE_CUSTOM: "PAUSE_CUSTOM",
   RESUME_TOMORROW: "RESUME_TOMORROW",
   RESUME_INDEFINITE: "RESUME_INDEFINITE",
+  EDIT_SUBSCRIPTION: "EDIT_SUBSCRIPTION",
 };
 
 export const SERVICE_LABELS = {
@@ -14,6 +15,7 @@ export const SERVICE_LABELS = {
   PAUSE_CUSTOM: "Pause Custom",
   RESUME_TOMORROW: "Resume Tomorrow",
   RESUME_INDEFINITE: "Resume Indefinite",
+  EDIT_SUBSCRIPTION: "Edit Subscription",
 };
 
 export const SESSION_CODES = {
@@ -29,8 +31,8 @@ export const SESSION_TYPES = {
 };
 
 export const FILTERS = {
-  ACTIVE : "A",
+  ACTIVE: "A",
   INACTIVE: "I",
   FUSION_FOODS: "Fusion Foods",
   LIMIT: 1000,
-}
+};

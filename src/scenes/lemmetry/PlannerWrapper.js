@@ -14,7 +14,7 @@ import { BiRupee } from "react-icons/bi";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { showLogin } from "../../store/actions";
+import { showLogin, setScheduleErrorStatus } from "../../store/actions";
 import {
   createCart,
   updateCart,
@@ -64,7 +64,7 @@ const PlannerWrapper = ({
   const [VarItems, setVarItems] = useState({});
 
   const [addresses, setAddresses] = useState([]);
-  const[loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(true);
   const [BreakUps, setBreakUps] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
@@ -122,6 +122,8 @@ const PlannerWrapper = ({
   }, [formSubmitted, isLoggedIn, userLoggedIn, userDetails]);
 
   const handleAddToCart = () => {
+    const isValidated = validateAddToCart();
+    if (!isValidated) return;
     if (userDetails.sub) {
       handleSubmit(handleCartSubmit)();
       setSideEffect(true);
@@ -232,7 +234,7 @@ const PlannerWrapper = ({
     }
     setValue("subscription", [...temp]);
   }, [Cart, products.productDetails, ExistingProduct]);
-  
+
   useEffect(() => {
     Cart?.cartDetails &&
       Cart.cartDetails?.items &&
@@ -249,7 +251,6 @@ const PlannerWrapper = ({
       });
   }, [Cart.cartDetails, products.productDetails]);
 
-
   const handleCartItem = (pindex) => {
     if (userDetails.sub) {
       let temp = { item_id: products.productDetails.id };
@@ -265,7 +266,6 @@ const PlannerWrapper = ({
       dispatch(showLogin());
     }
   };
-
 
   const onIncrement = () => {
     dispatch(
@@ -304,15 +304,15 @@ const PlannerWrapper = ({
   const validateAddToCart = () => {
     // return variants[0]
     // console.log("console.count()", subscription);
-    const validate = subscription.filter((subsc) => subsc.is_included);
-    let validate0 = false;
-    validate.forEach((subsc) => {
-      console.log("subsc.order_dates", subsc.order_dates);
-      subsc.order_dates.length > 0 ? (validate0 = true) : (validate0 = false);
-    });
-    const validate1 = variants.filter((variant) => variant.items).length;
-
-    let validate2 = true;
+    const validateSessionSelection = subscription.filter(
+      (subsc) => subsc.is_included
+    );
+    const startDateSelections = subscription.map(
+      (s) => s.order_dates.length === 0 && s.is_included
+    );
+    const isStartDateValidated = !startDateSelections.includes(true);
+    const validateDuration = variants.filter((variant) => variant.items).length;
+    let validateAddress = true;
     // validate.forEach((itm) => {
     //   if (itm.isDelivery) {
     //     if (itm.address.aline1 !== "" && itm.address.aline2 !== "") {
@@ -326,16 +326,25 @@ const PlannerWrapper = ({
     //   }
     // });
 
-    if (validate.length && validate1 && validate0 && validate2) {
-      return false;
+    dispatch(
+      setScheduleErrorStatus({
+        showDurationError: validateDuration === 0,
+        showSessionError: validateSessionSelection.length === 0,
+        startDateValidationStatus: startDateSelections,
+      })
+    );
+
+    if (
+      validateSessionSelection.length &&
+      validateDuration &&
+      isStartDateValidated &&
+      validateAddress
+    ) {
+      return true;
     }
 
-    return true;
+    return false;
   };
-
-  useEffect(() => {
-    validateAddToCart();
-  }, [subscription[0], subscription[1], subscription[2], variants]);
 
   useEffect(() => {
     let temp = 0;
@@ -423,7 +432,7 @@ const PlannerWrapper = ({
   }
 
   console.log("cs_ExistingProduct", ExistingProduct);
-  
+
   return (
     <FormProvider {...methods}>
       <AddressModal
@@ -471,28 +480,32 @@ const PlannerWrapper = ({
           <div className="d-flex align-items-center justify-content-between w-100">
             {products.productDetails?.is_mealplan ? (
               <>
-              {isOnboarding && (
-                <Button
-                  onClick={handleBack}s
-                  className="w-50 m-1"
-                  variant="secondary"
-                  style={{ borderColor: "rgba(54,41,24,0.75)" }}
-                >
-                  Back
-                </Button>
-                 )}
+                {isOnboarding && (
                   <Button
-                    className={`${isOnboarding ? "w-50 m-1 custom-primary-btn" : "w-100 m-1 custom-primary-btn"}`}
-                    style={{
-                      width: "100%",
-                    }}
-                    onClick={() => {
-                      handleAddToCart();
-                    }}
-                    disabled={validateAddToCart()}
+                    onClick={handleBack}
+                    s
+                    className="w-50 m-1"
+                    variant="secondary"
+                    style={{ borderColor: "rgba(54,41,24,0.75)" }}
                   >
-                    Add to Cart_1
+                    Back
                   </Button>
+                )}
+                <Button
+                  className={`${
+                    isOnboarding
+                      ? "w-50 m-1 custom-primary-btn"
+                      : "w-100 m-1 custom-primary-btn"
+                  }`}
+                  style={{
+                    width: "100%",
+                  }}
+                  onClick={() => {
+                    handleAddToCart();
+                  }}
+                >
+                  Add to Cart
+                </Button>
               </>
             ) : ExistingProduct?.item?.qty ? (
               <InputGroup className="p-2 w-100">
@@ -556,7 +569,7 @@ const PlannerWrapper = ({
                 {Cart.cartLoading || Cart.cartUpdateLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
-                  "Add to Cart_2"
+                  "Add to Cart"
                 )}
               </Button>
             )}

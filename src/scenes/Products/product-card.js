@@ -195,7 +195,7 @@ const ProductCard = ({ product, pindex }) => {
               {Cart.cartLoading || Cart.cartUpdateLoading ? (
                 <Spinner animation="border" role="status" />
               ) : (
-                "Add to Cart_3"
+                "Add to Cart"
               )}
             </Button>
           )}
