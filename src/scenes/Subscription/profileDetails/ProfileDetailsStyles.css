@@ -41,7 +41,7 @@
     display: flex;
     margin: 30px auto 0;
     width: 100%;
-    max-width: 500px;
+    max-width: 300px;
     padding: 0 20px;
 }
 
@@ -68,6 +68,12 @@
     padding: 10px;
 }
 
+.radio-toolbar{
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #614731;
+    display: inline-block;
+}
 .radio-toolbar input[type="radio"] {
     opacity: 0;
     position: fixed;
@@ -80,8 +86,7 @@
     padding: 10px 20px;
     font-family: "roboto",sans-serif, Arial;
     font-size: 16px;
-    border: 2px solid #444;
-    border-radius: 4px;
+    border: 2px solid #444;    
     cursor: pointer;
     min-height: 44px;
 }  
@@ -103,7 +108,8 @@
 }
 
 .radio-toolbar input[type="radio"]:focus + label {
-    border: 2px solid #f05922;
+    /* border: 2px solid #f05922; */
+    outline: none;
 }
 
 .radio-toolbar label:hover {

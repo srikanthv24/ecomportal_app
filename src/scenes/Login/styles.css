@@ -55,3 +55,20 @@
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgb(240 89 34 / 25%) !important;
 }
+.input-error-txt{
+  margin-top: -0.75rem;
+    margin-bottom: 0.25rem;
+    line-height: 20px;
+    font-size: 14px;
+}
+.modal-footer-btn{
+  color: #ffffff !important;
+  background-color: #614731 !important;
+  border-color: #614731 !important;
+    outline: 0;
+}
+.customform .input-group-text{
+  color: #ffffff !important;
+  background-color: #614731 !important;
+  border-color: #614731 !important;
+}

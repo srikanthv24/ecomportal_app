@@ -1,5 +1,5 @@
 .order-modal-content {
-  background: #d1ebe8;
+  background: #ffffff;
   padding: 15px;
   border-radius: 6px;
 }
@@ -62,12 +62,12 @@
   border-color: #f05922 !important;
 }
 .vl-btn-secondary {
-  color: #fff;
-  background-color: #424142 !important;
-  border-color: #424142 !important;
+  color: #212121 !important;
+  background-color: #cccccc !important;
+  border-color: #d3d3d3 !important;
 }
 .order-modal-content-footer {
-  background: #d1ebe8;
+  /* background: #d1ebe8; */
   padding: 15px;
   border-radius: 0px 0px 6px 6px;
 }

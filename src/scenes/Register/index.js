@@ -71,7 +71,7 @@ const Register = (props) => {
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <p class="h3 mb-3 text-center" style={{
+          <p class="h3 my-3 text-center" style={{
               fontFamily: "Roboto",
               fontWeight: "700",
             }}>Signup</p>
@@ -84,11 +84,11 @@ const Register = (props) => {
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
                 className={errors.phone && 'is-invalid'}
-                type="text"
+                type="number"
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>
-            {errors.phone && <p className="text-danger" style={{ textAlign: "left" }}>Please enter a valid phone no</p>}
+            {errors.phone && <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Please enter a valid phone number</p>}
             <FloatingLabel
               controlId="name"
               label="Name"
@@ -103,7 +103,7 @@ const Register = (props) => {
                 })}
               />
             </FloatingLabel>
-            {errors.name && <p className="text-danger" style={{ textAlign: "left" }}>Please enter your name</p>}
+            {errors.name && <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Please enter your name</p>}
             <FloatingLabel
               controlId="password"
               label="Password"
@@ -120,19 +120,18 @@ const Register = (props) => {
               />
             </FloatingLabel>
             {errors.password && 
-              <p className="text-danger" style={{ textAlign: "left" }}>Your password should be min 8 Char and one small letter, one capital letter and one number atleast</p>
+              <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Your password should be minimum 8 characters and 1 small letter, 1 capital letter, 1 number and 1 special character atleast</p>
             }
             <Button
-              className="w-100 mt-2 mb-3 btn btn-primary btn-lg"
-              variant="primary"
-              type="submit"
+              className="w-100 mt-2 mb-3 btn btn-lg modal-footer-btn"
+               type="submit"
               size="lg"
             >
               SignUp
             </Button>
 
             <p className="text-muted text-center">
-              Already an account with Vibrant Living? <a style={{color: "#0a58ca"}} href="#" style={{whiteSpace:"nowrap"}} onClick={handleLogInClick}>Sign In</a>
+              Already an account with Vibrant Living? <a style={{color: "#614731",whiteSpace:"nowrap"}} href="#" onClick={handleLogInClick}>Sign In</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">

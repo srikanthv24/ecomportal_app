@@ -195,14 +195,18 @@ export default function AppBar() {
                     )}
                   </Col>
                 ) : (
+                  <>
+                  <div className="d-flex">
                   <Nav.Link onClick={handleLoginModal}>
                     <p
                       className="text-black nav-menu-cart"
                       style={{ paddingRight: "1rem" }}
                     >
-                      Login
+                      Login / SignUp
                     </p>
-                  </Nav.Link>
+                  </Nav.Link>                 
+                  </div>
+                  </>
                 )}
               </Row>
             </Container>
@@ -217,7 +221,7 @@ export default function AppBar() {
         className="sideMenuWrapper"
       >
         <Offcanvas.Body
-          style={{ padding: "0px", position: "relative", background: "#FFF" }}
+          style={{ padding: "0px", position: "relative", background: "#F7F2DF" }}
         >
           <Offcanvas.Header
             closeButton

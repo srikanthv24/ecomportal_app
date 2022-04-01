@@ -52,7 +52,7 @@ const ModalComponent = ({
             />
           )}
           {Title && <div className="h4 m-2">{Title}</div>}
-          <div className="fs-6">{Body}</div>
+          <div className="fs-6 my-4">{Body}</div>
         </div>
       </Modal.Body>
       {footer ? <Modal.Footer>{footer}</Modal.Footer> : getDefaultFooter()}

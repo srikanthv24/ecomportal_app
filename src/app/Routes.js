@@ -27,7 +27,7 @@ function Routes() {
   }, []);
 
   return (
-    <section style={{ height:'100vh',background:'#FFD7BF'}}>
+    <section style={{ height:'100vh',background:'#f1935d'}}>
       <AppBar />
       {AppLoading ? (
         <div
@@ -39,7 +39,7 @@ function Routes() {
             height: 500,
           }}
         >
-          <Spinner animation="grow" variant="primary" />
+          <Spinner animation="grow" style={{background: "#614731"}} />
           Loading...
         </div>
       ) : (
