@@ -23,10 +23,15 @@ const useStyles = makeStyles({
   stepperBg: {
     background: "rgb(249, 243, 223) !important",
     minHeight: "100vh",
-    paddingTop: "100px",
+    paddingTop: "70px",
     "& > $div": {
+      paddingTop:'15px',
+      paddingBottom:'15px',
       background: "rgb(249, 243, 223) !important",
     },
+    "& .ProductDetailsSection": {
+      paddingTop:'0px',
+    }
   },
 });
 

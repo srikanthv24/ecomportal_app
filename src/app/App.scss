@@ -180,7 +180,7 @@
 }
 .product-details-wrapper {
   min-height: calc(100vh - 120px);
-  /* padding-top: 90px; */
+  /* padding-top: 90px;
 }
 .prd-planning-select-box {
   /* background:#cccccc !important; */
@@ -897,4 +897,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   color: #212121 !important;
   background-color: #cccccc !important;
   border-color: #d3d3d3 !important;
+}
+.ProductDetailsSection{
+  padding-top: 70px;
 }

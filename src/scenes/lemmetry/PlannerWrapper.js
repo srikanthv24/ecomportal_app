@@ -442,7 +442,7 @@ const PlannerWrapper = ({
         updateAddress={updateAddress}
         handleSubmit={handleSubmit(handleCartSubmit)}
       />
-      <div className="bg-1">
+      <div className="bg-1 ProductDetailsSection">
         <Container fluid className="product-details-wrapper">
           <ProductDetails
             productId={cuisine}
