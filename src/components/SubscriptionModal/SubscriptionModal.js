@@ -65,7 +65,7 @@ const SubscriptionModal = React.memo(
       }
     };
     return (
-      <Modal show={show} centered>
+      <Modal show={show} centered >
         <section className="order-modal-content">
           <SubscriptionTitle text={SERVICE_LABELS[serviceType]} />
           <Modal.Body>
@@ -158,6 +158,7 @@ const SubscriptionModal = React.memo(
                     onCancel={onCancel}
                     onSubmit={onCancel}
                     primaryButtonText="Ok"
+                    hideCancelButton={true}
                   />
                 </>
               )}
