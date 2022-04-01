@@ -70,7 +70,7 @@ function App() {
           <GrClose />
         </Button>
 
-        <Container style={{ background: "#FFF", height: 600, width: "100%" }}>
+        <Container style={{ background: "#F7F2DF", minHeight: 600, width: "100%" }}>
           <LoginModal />
         </Container>
       </Modal>

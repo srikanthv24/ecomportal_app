@@ -364,6 +364,10 @@
 }
 
 /* profile-info-block */
+.profile-info-block{
+  background-color: #F7F2DF;
+  height: calc(100vh - 250px);
+}
 .profile-info-block .value-txt {
   font-size: 20px !important;
 }
@@ -430,7 +434,7 @@
 .profile-icon-bg {
   width: 150px;
   height: 150px;
-  background: #fcb63b;
+  background: #F7F2DF;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -853,4 +857,44 @@ input[type="checkbox"].acc-checkbox:checked:after {
 
 .error-text{
   color: red;
+}
+
+.form-switch {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-switch .form-check-input {
+  width: 4rem !important;
+  background-size: 2rem auto;
+  height: 30px;
+  margin-right: 0.75rem !important;
+}
+
+.rmdp-calendar {
+  border-radius: 6px !important;
+}
+
+.css-tlfecz-indicatorContainer {
+  color: rgba(54, 41, 24, 0.75) !important;
+}
+
+.css-tj5bde-Svg {
+  fill: rgba(54, 41, 24, 0.75) !important;
+}
+// .vl-btn-primary {
+//   color: #fff;
+//   background-color: #f05922 !important;
+//   border-color: #f05922 !important;
+// }
+// .vl-btn-secondary {
+//   color: #fff;
+//   background-color: #424142 !important;
+//   border-color: #424142 !important;
+// }
+.vl-btn-secondary-1 {
+  color: #212121 !important;
+  background-color: #cccccc !important;
+  border-color: #d3d3d3 !important;
 }

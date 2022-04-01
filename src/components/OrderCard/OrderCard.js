@@ -20,7 +20,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
       className="bg-1"
       style={{
         minHeight: "calc(100vh - 0px)",
-        padding: "100px 5px 60px",
+        padding: "70px 5px 60px",
         position: "relative",
       }}
     >

@@ -186,24 +186,28 @@ const ProductPlanner = ({
   // const handleShow = () => setShowModal(true);
 
   const colourStyles = {
-    menuList: (styles) => ({
-      ...styles,
-      background: "rgba(209,235,232,1)",
+    menuList: styles => ({
+        ...styles,
+        background: "#ffffff",
+        padding: '10px 10px',
+        borderRadius: '4px'
     }),
     option: (styles, { isFocused, isSelected }) => ({
-      ...styles,
-      background: isFocused
-        ? "#F2CBBD"
-        : isSelected
-        ? "rgba(54,41,24,1)"
-        : undefined,
-      zIndex: 1,
+        ...styles,
+        background: isFocused
+            ? '#f2cbbd'
+            : isSelected
+                ? '#f2cbbd'
+                : undefined,
+        zIndex: 1,
+        borderRadius: '4px',
+        color: '#424141'
     }),
-    menu: (base) => ({
-      ...base,
-      zIndex: 100,
-    }),
-  };
+    menu: base => ({
+        ...base,
+        zIndex: 100
+    })
+};
 
   useEffect(() => {
     dispatch(getAddons({ search: addonSearch }));
@@ -638,7 +642,7 @@ const ProductPlanner = ({
                     </span>
                   )}
                   <InputGroup className="my-2 dp-date">
-                    <InputGroup.Text>Start Date</InputGroup.Text>
+                    <InputGroup.Text style={{pointerEvents:'none'}}>Start Date</InputGroup.Text>
                     <FormControl
                       type="date"
                       min={moment(new Date()).format("YYYY-MM-DD")}
@@ -1126,7 +1130,7 @@ const ProductPlanner = ({
                               );
                             }}
                           >
-                            <MdCancel style={{ marginTop: "-17px" }} />
+                            <MdCancel style={{ marginTop: "-17px",fontSize:'20px' }} />
                           </span>
                         </p>
                       );

@@ -31,6 +31,12 @@ const ProfileDetails = ({
     setProfileDetails({ ...data });
     handleNextStep();
   };
+  React.useEffect(() => {
+    setValue("gender", "Male", {
+      shouldValidate: true,
+    });
+
+  },[]);
 
   return (
     <section
@@ -41,7 +47,7 @@ const ProfileDetails = ({
       <div>
         <Card className="bio-card p-1 border-0 bg-transparent">
           <Card.Body className="px-0">
-            <div class="radio-toolbar d-flex justify-content-between mb-2 pos-rel">
+            <div class="radio-toolbar mb-2 pos-rel mx-auto">
             <Controller
                name="gender"
               control={control}
@@ -51,7 +57,7 @@ const ProfileDetails = ({
                 <input
                 type="radio"
                 id="gender-male"
-                value="Male"
+                value="Male" checked
                 {...rest}
                 defaultChecked={gender === "Male" ? true : false}
                 onChange={(e) => {setValue('gender', e.target.value, { shouldValidate: true })}}
@@ -92,7 +98,7 @@ const ProfileDetails = ({
                 <input
                 className={`form-control${errors.age ? " border border-danger" : ""}`}
                 value={value}
-                placeholder="Age"
+                placeholder="Age" type="number"
                 {...rest}
                 onChange={(e) => {setValue('age', e.target.value, { shouldValidate: true })}}
               />
@@ -122,7 +128,7 @@ const ProfileDetails = ({
               <input
                 className={`form-control${errors.heightFeet ? " border border-danger" : ""}`}
                 value={value}
-                placeholder="Height"
+                placeholder="Height" type="number"
                 {...rest}
                 onChange={(e) => {setValue('heightFeet', e.target.value, { shouldValidate: true })}}
               />
@@ -135,15 +141,14 @@ const ProfileDetails = ({
             <div class="input-group mb-4">
             <Controller
               control={control}
-              name="heightInch"
+              name="heightInch" 
               rules={{ required: true, min: 0, max: 11 }}
               render={({ field: { onChange,value, ...rest }  }) => (
                 <input
                   className={`form-control${
                     errors.heightInch ? " border border-danger" : ""
                   }`}
-                  value={value}
-                  type="text"
+                  value={value} type="number"                  
                   {...rest}
                   onChange={(e) => {setValue('heightInch', e.target.value,  { shouldValidate: true })}}
                 />
@@ -173,7 +178,7 @@ const ProfileDetails = ({
                     errors.weight ? " border border-danger" : ""
                   }`}
                   value={value}
-                  placeholder="Weight"
+                  placeholder="Weight" type="number"
                   {...rest}
                   onChange={(e) => {setValue('weight', e.target.value,  { shouldValidate: true })}}
                 />
@@ -193,12 +198,12 @@ const ProfileDetails = ({
           
         </Card.Body>
       </Card>
-      <div className="footer-button-wrap">
-        <Button onClick={() => handleBack()} variant="secondary">
+      <div className="footer-button-wrap bio-card px-0">
+        <Button onClick={() => handleBack()} className="vl-btn-secondary-1">
           <FaChevronLeft />
           BACK
         </Button>
-        <Button onClick={handleSubmit(onSubmit)} variant="success">
+        <Button onClick={handleSubmit(onSubmit)} className="vl-btn-primary">
           NEXT
           <FaChevronRight />
         </Button>

@@ -74,7 +74,7 @@ const ForgotPassword = (props) => {
           {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
           </div> */}
-          <p class="fw-bold">Reset your password with your registered phone no</p>
+          <p class="fw-bold">Reset your password with your registered phone number</p>
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>
@@ -85,7 +85,7 @@ const ForgotPassword = (props) => {
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>
-            {errors.phone && <p className="text-danger" style={{ textAlign: "left" }}>Please enter a valid phone no</p>}
+            {errors.phone && <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Please enter a valid phone number</p>}
             {
               showOtp ?
                 <>
@@ -103,7 +103,7 @@ const ForgotPassword = (props) => {
                       })}
                     />
                   </FloatingLabel>
-                  {errors.otp && <p className="text-danger" style={{ textAlign: "left" }}>Please enter a valid otp</p>}
+                  {errors.otp && <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Please enter a valid otp</p>}
                   <FloatingLabel
                     controlId="password"
                     label="New Password"
@@ -137,7 +137,7 @@ const ForgotPassword = (props) => {
                     />
                   </FloatingLabel>
                   {errors.confPassword && 
-                    <p className="text-danger" style={{ textAlign: "left" }}>Your password does not match</p>
+                    <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Your password does not match</p>
                   }
                 </>
               :
@@ -145,8 +145,7 @@ const ForgotPassword = (props) => {
             }
             
             <Button
-              className="w-100 mt-2 mb-3 btn btn-primary btn-lg"
-              variant="primary"
+              className="w-100 mt-2 mb-3 btn btn-lg modal-footer-btn"             
               type="submit"
               size="lg"
             >
@@ -154,7 +153,7 @@ const ForgotPassword = (props) => {
             </Button>
 
             <p className="text-muted text-center">
-              Don't want to reset? <a  style={{color: "#0a58ca"}}  href="#" onClick={handleLogInClick}>Sign In</a>
+              Don't want to reset? <a  style={{color: "#614731"}}  href="#" onClick={handleLogInClick}>Sign In</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">

@@ -22,7 +22,8 @@ export const Profile = () => {
 
 
     return (
-        <Container fluid>
+        <Container fluid className="px-0">
+            <Container fluid>
             <Row className="bg-1">
                 <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "250px" }}>
                     {/* <img src="https://ui-avatars.com/api/?name=Ania+Bista&background=A1A1A1&color=FFFFFF&rounded=true"
@@ -34,7 +35,8 @@ export const Profile = () => {
                     </div>
                 </Col>
             </Row>
-            <section className="profile-info-block">
+            </Container>
+            <section className="profile-info-block px-4">
             {userDetails?.name && (
                 <>
                     <Row className="pt-4">

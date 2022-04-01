@@ -461,7 +461,7 @@ const PlannerWrapper = ({
             bottom: 0,
             left: 0,
             right: 8,
-            zIndex: 0,
+            zIndex: 999,
             paddingTop: 10,
             boxShadow: "0px 2px 5px 0px rgba(0,0,0,0.75)",
           }}

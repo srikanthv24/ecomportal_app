@@ -102,7 +102,7 @@ const Login = (props) => {
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>
-            {errors.phone && <p className="text-danger" style={{ textAlign: "left" }}>Please enter a valid phone no</p>}
+            {errors.phone && <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Please enter a valid phone number</p>}
             <FloatingLabel
               controlId="password"
               label="Password"
@@ -118,7 +118,7 @@ const Login = (props) => {
               />
             </FloatingLabel>
             {errors.password && 
-              <p className="text-danger" style={{ textAlign: "left" }}>Please enter your password</p>
+              <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Please enter your password</p>
             }
             {/* <Form.Check 
               type="checkbox"
@@ -126,19 +126,18 @@ const Login = (props) => {
               label="Remember me"
             /> */}
             <p className="text-right">
-            <a href="#" style={{color: "#0a58ca"}} onClick={handleForgotClick}>Forgot Password?</a>
+            <a href="#" style={{color: "#614731"}} onClick={handleForgotClick}>Forgot Password?</a>
             </p>
             <Button
-              className="w-100 mt-2 mb-3 btn btn-primary btn-lg"
-              variant="primary"
-              type="submit"
+              className="w-100 mt-2 mb-3 btn btn-lg modal-footer-btn"
+             type="submit"
               size="lg"
             >
               SignIn
             </Button>
 
             <p className="text-muted text-center">
-              New to Vibrant Living? <a style={{color: "#0a58ca"}} href="#" onClick={handleSignUpClick}>Sign Up</a>
+              New to Vibrant Living? <a style={{color: "#614731"}} href="#" onClick={handleSignUpClick}>Sign Up</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">
