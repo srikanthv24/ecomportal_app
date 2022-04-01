@@ -250,6 +250,23 @@ const PlannerWrapper = ({
     }
   }, [Cart.cartDetails]);
 
+  const handleCartItem = (pindex) => {
+    if (userDetails.sub) {
+      let temp = { item_id: products.productDetails.id };
+      dispatch(
+        createCart({
+          customer_id: userDetails.sub,
+          item: { ...temp, qty: 1 },
+          accessToken: localStorage.getItem("token"),
+        })
+      );
+      // setButtonLoading(true);
+    } else {
+      dispatch(showLogin());
+    }
+  };
+
+
   const onIncrement = () => {
     dispatch(
       updateCartQty({
@@ -405,6 +422,7 @@ const PlannerWrapper = ({
     );
   }
 
+  
   return (
     <FormProvider {...methods}>
       <AddressModal
@@ -450,7 +468,7 @@ const PlannerWrapper = ({
             </div>
           )}
           <div className="d-flex align-items-center justify-content-between w-100">
-            {isOnboarding ? (
+            {products.productDetails?.is_mealplan ? (
               <>
                 <Button
                   onClick={handleBack}
@@ -460,16 +478,6 @@ const PlannerWrapper = ({
                 >
                   Back
                 </Button>
-                {ExistingProduct?.item?.qty > 1 ? (
-                  <Button
-                    className="w-50 m-1 custom-primary-btn"
-                    // variant="success"
-                    style={{ border: "none" }}
-                    onClick={() => history.push("/cart-summary")}
-                  >
-                    Go to Cart
-                  </Button>
-                ) : (
                   <Button
                     className="w-50 m-1 custom-primary-btn"
                     style={{
@@ -480,9 +488,8 @@ const PlannerWrapper = ({
                     }}
                     disabled={validateAddToCart()}
                   >
-                    Add to Cart
+                    Add to Cart_1
                   </Button>
-                )}
               </>
             ) : ExistingProduct?.item?.qty ? (
               <InputGroup className="p-2 w-100">
@@ -539,14 +546,14 @@ const PlannerWrapper = ({
                   width: "100%",
                   height: "3rem",
                 }}
-                onClick={handleSubmit(handleCartSubmit)}
+                onClick={handleCartItem}
               >
                 <AiOutlineShoppingCart />
                 {"  "}
                 {Cart.cartLoading || Cart.cartUpdateLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
-                  "Add to cart"
+                  "Add to Cart_2"
                 )}
               </Button>
             )}
