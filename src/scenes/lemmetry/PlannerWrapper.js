@@ -471,16 +471,18 @@ const PlannerWrapper = ({
           <div className="d-flex align-items-center justify-content-between w-100">
             {products.productDetails?.is_mealplan ? (
               <>
+              {isOnboarding && (
                 <Button
-                  onClick={handleBack}
+                  onClick={handleBack}s
                   className="w-50 m-1"
                   variant="secondary"
                   style={{ borderColor: "rgba(54,41,24,0.75)" }}
                 >
                   Back
                 </Button>
+                 )}
                   <Button
-                    className="w-50 m-1 custom-primary-btn"
+                    className={`${isOnboarding ? "w-50 m-1 custom-primary-btn" : "w-100 m-1 custom-primary-btn"}`}
                     style={{
                       width: "100%",
                     }}

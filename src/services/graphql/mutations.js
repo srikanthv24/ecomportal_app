@@ -266,6 +266,9 @@ export const getCart = `query ($customer_id: ID!){
       id
       ciid
       grand_total
+      total_tax
+      total_deliveryCharge
+      total_discount
       pay_status
       item {
         defaultimg_url
@@ -314,6 +317,9 @@ export const CartSummary = `query ($customer_id: ID!){
       ciid
       grand_total
       pay_status
+      total_tax
+      total_deliveryCharge
+      total_discount
       item {
         defaultimg_url
         item_name

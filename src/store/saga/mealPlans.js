@@ -61,7 +61,7 @@ function* getMealPlanById(action) {
 
 export function* mealPlansSaga() {
   yield all([
-    yield takeEvery(types.MEALPLANS_LIST, getMealPlans),
+    yield takeLatest(types.MEALPLANS_LIST, getMealPlans),
     yield takeLatest(types.MEALPLAN_DETAILS, getMealPlanById),
   ]);
 }

@@ -46,14 +46,14 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    if (userDetails.sub) {
-      dispatch(getCart({ customer_id: userDetails.sub }));
-      dispatch(
-        getOrders({ customer_number: userDetails.phone_number.substring(3) })
-      );
-    }
-  }, [userDetails.sub]);
+  // useEffect(() => {
+  //   if (userDetails.sub) {
+  //     dispatch(getCart({ customer_id: userDetails.sub }));
+  //     dispatch(
+  //       getOrders({ customer_number: userDetails.phone_number.substring(3) })
+  //     );
+  //   }
+  // }, [userDetails.sub]);
 
   return (
     <div className="App">

@@ -25,3 +25,9 @@ export const hideLogin = () => {
     type: types.HIDE_LOGIN_MODAL,
   };
 };
+
+export const handleLoginLink = () => {
+  return {
+    type: types.HANDLE_LOGIN_LINK,
+  }
+}

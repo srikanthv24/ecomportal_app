@@ -26,7 +26,7 @@ import {
 } from "../../store/actions/auth";
 import ProfileImg from "./../../assets/thumbnail-profile-pic.png";
 import auth_services from "../../services/auth_services";
-import { showLogin } from "../../store/actions";
+import { handleLoginLink, showLogin } from "../../store/actions";
 import arrowRightIcon from "./../../assets/arrow-right.png";
 import MenuIcon from "./../../assets/home/search-normal.svg";
 import CustomSpinner from "../CustomSpinner";
@@ -73,6 +73,11 @@ export default function AppBar() {
     setMenu(false);
     history.push("/");
   };
+
+  const handleLoginModal = () => {
+    dispatch(handleLoginLink());
+    dispatch(showLogin());
+  }
 
   return (
     <>
@@ -190,12 +195,12 @@ export default function AppBar() {
                     )}
                   </Col>
                 ) : (
-                  <Nav.Link onClick={() => dispatch(showLogin())}>
+                  <Nav.Link onClick={handleLoginModal}>
                     <p
                       className="text-black nav-menu-cart"
                       style={{ paddingRight: "1rem" }}
                     >
-                      Login / Signup
+                      Login
                     </p>
                   </Nav.Link>
                 )}
@@ -309,7 +314,7 @@ export default function AppBar() {
                 </div>
               </ListGroup.Item>
             ) : (
-              <ListGroup.Item onClick={() => dispatch(showLogin())}>
+              <ListGroup.Item onClick={handleLoginModal}>
                 <div
                   className="d-flex align-items-center justify-content-center menu-item"
                   style={{ justifyContent: "space-between" }}
