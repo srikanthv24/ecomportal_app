@@ -85,6 +85,11 @@ export const AuthReducer = (state = initialState, action) => {
         ...state,
         userDetails: { ...state.userDetails, ...action.payload },
       };
+     case types.HANDLE_LOGIN_LINK:
+      return {
+        ...state,
+        isRegistered: true,
+      };
 
     default:
       return state;

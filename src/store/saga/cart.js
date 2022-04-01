@@ -39,10 +39,10 @@ function* CreateCart(params) {
 				type: types.CREATE_CART_SUCCESS,
 				payload: data,
 			});
-			// yield put({
-			// 	type: types.GET_CART,
-			// 	payload: { customer_id: data.createCart.customer_id },
-			// });
+			yield put({
+				type: types.GET_CART,
+				payload: { customer_id: data.createCart.customer_id },
+			});
 		} else if(errors && errors[0]?.errorType === "UnauthorizedException"){
 			yield put({
 				type: types.SESSION_EXPIRED,

@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from "redux-saga/effects";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 import { Adresses } from "../../services/api/adresses";
 import { types } from "../constants";
 
@@ -123,9 +123,9 @@ function* getPostalCodes(action) {
 
 export function* addressesSaga() {
   yield all([
-    yield takeEvery(types.ADDRESS_LIST, getAddresses),
-    yield takeEvery(types.CREATE_ADDRESS, postAddress),
-    yield takeEvery(types.GET_POSTALCODES, getPostalCodes),
-    yield takeEvery(types.DELETE_ADDRESS, deleteAddress),
+    yield takeLatest(types.ADDRESS_LIST, getAddresses),
+    yield takeLatest(types.CREATE_ADDRESS, postAddress),
+    yield takeLatest(types.GET_POSTALCODES, getPostalCodes),
+    yield takeLatest(types.DELETE_ADDRESS, deleteAddress),
   ]);
 }

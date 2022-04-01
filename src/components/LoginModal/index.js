@@ -10,7 +10,7 @@ import {clearAuthError} from '../../store/actions/auth';
 const LoginModal = () => {
   const dispatch = useDispatch();
   const { isRegistered } = useSelector((state) => state.auth);
-  const [isExistingUser, setExistingUser] = useState("register");
+  const [isExistingUser, setExistingUser] = useState("login");
 
   useEffect(() => {
     if (isRegistered) {
@@ -20,21 +20,22 @@ const LoginModal = () => {
     }
   }, [isRegistered]);
 
-  useEffect(() => {
-    dispatch(clearAuthError());
-  }, [isExistingUser])
+  // useEffect(() => {
+  //   dispatch(clearAuthError());
+  // }, [isExistingUser])
 
   const changeLoginModal = (type) => {
     setExistingUser(type);
   }
-  
+
+  console.log("isExistingUser", isExistingUser);
 
   return (
+    isExistingUser === 'login' ?
+    <Login handleModalType={changeLoginModal} />
+    :
     isExistingUser === 'register' ?
     <Register handleModalType={changeLoginModal} />
-    :
-    isExistingUser === 'login' ?
-      <Login handleModalType={changeLoginModal} />
       :
       <ForgotPassword handleModalType={changeLoginModal} />
   );

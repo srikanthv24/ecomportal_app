@@ -686,7 +686,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   right: 0;
   top: 100%;
   background: #ffffff;
-  padding: 10px;
+  padding: 0px;
   border-radius: 6px;
 }
 .more-dp-info ul {
@@ -694,7 +694,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   background-color: #ffffff;
 }
 .more-dp-info ul li {
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   }
 
   .more-dp-info ul li:last-child{
@@ -703,11 +703,14 @@ input[type="checkbox"].acc-checkbox:checked:after {
 
   .more-dp-info ul li a{
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: rgba(53, 40, 23, 1);
   font-family: "Roboto Condensed";
   white-space: nowrap;
+  padding: 5px 15px;
+  display: block;
+
 }
 .prd-item {
   color: rgba(53, 40, 23, 1);

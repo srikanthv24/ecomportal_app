@@ -94,7 +94,7 @@ function Home() {
           <h2 className="title-text">
             <img src={DeliciouslyHealthyTxtImage} alt="a curve" class="text-center dhtxt-img" />
           </h2>
-          <Link to="/products?category=Staples" className="my-2 leading-8 bg-chocolate-800 py-1 px-7 tracking-wide rounded-full inline-block text-decoration-none">
+          <Link to="/products?category=Meal Subscription" className="my-2 leading-8 bg-chocolate-800 py-1 px-7 tracking-wide rounded-full inline-block text-decoration-none">
             <p class="capitalize secondary-font-mono text-14 text-white mb-0">explore</p>
           </Link>
           <img src={DHImage} alt="icon" className="dh-image" />

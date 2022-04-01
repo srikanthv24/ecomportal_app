@@ -232,23 +232,40 @@ const PlannerWrapper = ({
     }
     setValue("subscription", [...temp]);
   }, [Cart, products.productDetails, ExistingProduct]);
-
+  
   useEffect(() => {
-    if (Cart?.cartDetails?.items?.length) {
-      let ifExist = Cart?.cartDetails?.items.filter((item) => {
-        if (item) {
-          return item.item.item_id == products.productDetails.id;
-        } else {
-          return null;
-        }
+    Cart?.cartDetails &&
+      Cart.cartDetails?.items &&
+      Cart.cartDetails?.items?.map((item, index) => {
+        // eslint-disable-next-line no-unused-expressions
+        item.item && item?.item?.item_id == products.productDetails.id
+          ? setExistingProduct({
+              ...products.productDetails,
+              ...item,
+              item: { ...item.item, qty: item.item.qty },
+            })
+          : null;
+        return null;
       });
-      if (ifExist?.length) {
-        setExistingProduct(ifExist[0] || { item: { qty: 0 } });
-        // reset(ifExist[0]);
-        // setValue('subscription[0]', ifExist[0].subscription)
-      }
+  }, [Cart.cartDetails, products.productDetails]);
+
+
+  const handleCartItem = (pindex) => {
+    if (userDetails.sub) {
+      let temp = { item_id: products.productDetails.id };
+      dispatch(
+        createCart({
+          customer_id: userDetails.sub,
+          item: { ...temp, qty: 1 },
+          accessToken: localStorage.getItem("token"),
+        })
+      );
+      // setButtonLoading(true);
+    } else {
+      dispatch(showLogin());
     }
-  }, [Cart.cartDetails]);
+  };
+
 
   const onIncrement = () => {
     dispatch(
@@ -405,6 +422,8 @@ const PlannerWrapper = ({
     );
   }
 
+  console.log("cs_ExistingProduct", ExistingProduct);
+  
   return (
     <FormProvider {...methods}>
       <AddressModal
@@ -450,28 +469,20 @@ const PlannerWrapper = ({
             </div>
           )}
           <div className="d-flex align-items-center justify-content-between w-100">
-            {isOnboarding ? (
+            {products.productDetails?.is_mealplan ? (
               <>
+              {isOnboarding && (
                 <Button
-                  onClick={handleBack}
+                  onClick={handleBack}s
                   className="w-50 m-1"
                   variant="secondary"
                   style={{ borderColor: "rgba(54,41,24,0.75)" }}
                 >
                   Back
                 </Button>
-                {ExistingProduct?.item?.qty > 1 ? (
+                 )}
                   <Button
-                    className="w-50 m-1 custom-primary-btn"
-                    // variant="success"
-                    style={{ border: "none" }}
-                    onClick={() => history.push("/cart-summary")}
-                  >
-                    Go to Cart
-                  </Button>
-                ) : (
-                  <Button
-                    className="w-50 m-1 custom-primary-btn"
+                    className={`${isOnboarding ? "w-50 m-1 custom-primary-btn" : "w-100 m-1 custom-primary-btn"}`}
                     style={{
                       width: "100%",
                     }}
@@ -480,9 +491,8 @@ const PlannerWrapper = ({
                     }}
                     disabled={validateAddToCart()}
                   >
-                    Add to Cart
+                    Add to Cart_1
                   </Button>
-                )}
               </>
             ) : ExistingProduct?.item?.qty ? (
               <InputGroup className="p-2 w-100">
@@ -539,14 +549,14 @@ const PlannerWrapper = ({
                   width: "100%",
                   height: "3rem",
                 }}
-                onClick={handleSubmit(handleCartSubmit)}
+                onClick={handleCartItem}
               >
                 <AiOutlineShoppingCart />
                 {"  "}
                 {Cart.cartLoading || Cart.cartUpdateLoading ? (
                   <Spinner animation="border" role="status" />
                 ) : (
-                  "Add to cart"
+                  "Add to Cart_2"
                 )}
               </Button>
             )}
