@@ -8,7 +8,11 @@ import SubscriptionTitle from "./SubscriptionTitle";
 import moment from "moment";
 import SubscriptionComments from "./SubscriptionComments";
 import "./styles.css";
-import { isPauseSubscriptionService } from "../../utils/subscriptionUtils";
+import {
+  isPauseSubscriptionService,
+  getSubscriptionConfirmationText,
+} from "../../utils/subscriptionUtils";
+import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 
 const SubscriptionModal = React.memo(
   ({
@@ -20,6 +24,7 @@ const SubscriptionModal = React.memo(
     maxDate,
     minDate,
     sessionCodes,
+    productName,
   }) => {
     const [selectedSessionCodes, setSelectedSessionCodes] = useState([]);
     const [fromDate, setFromDate] = useState(minDate);
@@ -70,6 +75,9 @@ const SubscriptionModal = React.memo(
               serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ||
               serviceType === SERVICE_TYPE.RESUME_INDEFINITE ? (
                 <>
+                  <div className="subscription-description">
+                    {getSubscriptionConfirmationText(serviceType, productName)}
+                  </div>
                   {(serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
                     serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) && (
                     <div className="order-form-control">
@@ -122,7 +130,36 @@ const SubscriptionModal = React.memo(
                   />
                 </>
               ) : (
-                <></>
+                <>
+                  <div className="card text-dark text-center bg-transparent border-0">
+                    We are happy to here you help you on more customisation
+                    options, please reach us on
+                  </div>
+                  <div class="card mx-auto my-3 p-0 bg-transparent border-0">
+                    <div class="card-body d-flex align-items-center p-0 justify-content-around contact-info">
+                      <div>
+                        <FaWhatsapp
+                          className="me-2"
+                          style={{ width: "30px", height: "auto" }}
+                        />
+                        +91 8096091111
+                      </div>
+                      {/* <div className="vr mx-3 divider" /> */}
+                      <div className="contact-phone">
+                        <FaPhoneAlt
+                          className="me-2"
+                          style={{ width: "20px", height: "auto" }}
+                        />
+                        +91 8096091111
+                      </div>
+                    </div>
+                  </div>
+                  <SubscriptionButtonGroup
+                    onCancel={onCancel}
+                    onSubmit={onCancel}
+                    primaryButtonText="Ok"
+                  />
+                </>
               )}
             </section>
           </Modal.Body>

@@ -53,6 +53,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                           SERVICE_TYPE.PAUSE_IN_BETWEEN,
                           SERVICE_TYPE.PAUSE_INDEFINITE,
                           SERVICE_TYPE.RESUME_INDEFINITE,
+                          SERVICE_TYPE.EDIT_SUBSCRIPTION,
                         ]}
                         onMenuSelect={onMenuSelect}
                         id={order.id}
