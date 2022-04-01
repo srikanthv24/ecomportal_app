@@ -232,23 +232,23 @@ const PlannerWrapper = ({
     }
     setValue("subscription", [...temp]);
   }, [Cart, products.productDetails, ExistingProduct]);
-
+  
   useEffect(() => {
-    if (Cart?.cartDetails?.items?.length) {
-      let ifExist = Cart?.cartDetails?.items.filter((item) => {
-        if (item) {
-          return item.item.item_id == products.productDetails.id;
-        } else {
-          return null;
-        }
+    Cart?.cartDetails &&
+      Cart.cartDetails?.items &&
+      Cart.cartDetails?.items?.map((item, index) => {
+        // eslint-disable-next-line no-unused-expressions
+        item.item && item?.item?.item_id == products.productDetails.id
+          ? setExistingProduct({
+              ...products.productDetails,
+              ...item,
+              item: { ...item.item, qty: item.item.qty },
+            })
+          : null;
+        return null;
       });
-      if (ifExist?.length) {
-        setExistingProduct(ifExist[0] || { item: { qty: 0 } });
-        // reset(ifExist[0]);
-        // setValue('subscription[0]', ifExist[0].subscription)
-      }
-    }
-  }, [Cart.cartDetails]);
+  }, [Cart.cartDetails, products.productDetails]);
+
 
   const handleCartItem = (pindex) => {
     if (userDetails.sub) {
@@ -422,6 +422,7 @@ const PlannerWrapper = ({
     );
   }
 
+  console.log("cs_ExistingProduct", ExistingProduct);
   
   return (
     <FormProvider {...methods}>
