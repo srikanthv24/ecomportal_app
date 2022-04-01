@@ -2,7 +2,13 @@ import React from "react";
 import { Button } from "react-bootstrap";
 
 const SubscriptionButtonGroup = React.memo(
-  ({ onCancel, onSubmit, primaryButtonText, isPrimaryButtonDisabled }) => (
+  ({
+    onCancel,
+    onSubmit,
+    primaryButtonText,
+    isPrimaryButtonDisabled,
+    hideCancelButton,
+  }) => (
     <section className="modal-footer-btn-group">
       <Button
         className="vl-btn-primary"
@@ -12,9 +18,11 @@ const SubscriptionButtonGroup = React.memo(
       >
         {primaryButtonText}
       </Button>
-      <Button className="vl-btn-secondary" onClick={onCancel}>
-        CANCEL
-      </Button>
+      {!hideCancelButton && (
+        <Button className="vl-btn-secondary" onClick={onCancel}>
+          CANCEL
+        </Button>
+      )}
     </section>
   )
 );
