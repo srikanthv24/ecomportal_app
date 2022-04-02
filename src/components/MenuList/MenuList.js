@@ -7,13 +7,13 @@ const MenuList = React.memo(
       <ul className="list-unstyled">
         {list.map((listItem) => (
           <li>
-            <a onClick={() => onMenuSelect(listItem, id)}>
+            <a href="#" onClick={() => onMenuSelect(listItem, id)}>
               {SERVICE_LABELS[listItem]}
             </a>
           </li>
         ))}
         <li>
-          <a onClick={() => cancelSubscription(id)}>Cancel Subscrition</a>
+          <a href="#" onClick={() => cancelSubscription(id)}>Cancel Subscrition</a>
         </li>
       </ul>
     );

@@ -715,7 +715,10 @@ input[type="checkbox"].acc-checkbox:checked:after {
   white-space: nowrap;
   padding: 5px 15px;
   display: block;
-
+  text-decoration: none;
+}
+.more-dp-info ul li a:hover{
+  background: #F7F2DF;
 }
 .prd-item {
   color: rgba(53, 40, 23, 1);
