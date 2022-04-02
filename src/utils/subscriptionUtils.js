@@ -1,5 +1,6 @@
 import { SERVICE_TYPE } from "./constants";
 import moment from "moment";
+import { getDateInTextFormat } from "./dateUtils";
 
 export const isPauseSubscriptionService = (serviceType) => {
   return (
@@ -12,9 +13,9 @@ export const isPauseSubscriptionService = (serviceType) => {
 
 export const getSubscriptionConfirmationText = (serviceType, mealType) => {
   if (serviceType === SERVICE_TYPE.PAUSE_TOMORROW) {
-    return `You are pausing ${mealType} on ${moment()
-      .add(1, "days")
-      .format("L")}`;
+    return `You are pausing ${mealType} on ${getDateInTextFormat(
+      moment().add(1, "days")
+    )}`;
   } else if (serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN) {
     return `Your are pausing ${mealType}`;
   } else if (serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) {
@@ -23,4 +24,3 @@ export const getSubscriptionConfirmationText = (serviceType, mealType) => {
     return `Your are resuming ${mealType} indefinetly from`;
   }
 };
-

@@ -301,6 +301,9 @@ export const getCart = `query ($customer_id: ID!){
       }
     }
     grand_total
+    total_tax
+    total_deliverycharge
+    total_discount
   }
 }`;
 
@@ -348,6 +351,9 @@ export const CartSummary = `query ($customer_id: ID!){
       }
     }
     grand_total
+    total_tax
+    total_deliveryCharge
+    total_discount
   }
 }`;
 

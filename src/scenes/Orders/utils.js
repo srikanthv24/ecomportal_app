@@ -1,4 +1,5 @@
 import { SERVICE_TYPE } from "../../utils/constants";
+import { getDateInTextFormat } from "../../utils/dateUtils";
 
 export const getSubscriptionErrorData = (errorData) => {
   const { statusCode } = errorData;
@@ -23,8 +24,7 @@ export const isPauseSubscriptionService = (serviceType) => {
 };
 
 export const getServicedDates = (fromDate, toDate, serviceType) => {
-  return serviceType === SERVICE_TYPE.PAUSE_TOMORROW ||
-    serviceType === SERVICE_TYPE.PAUSE_INDEFINITE
-    ? `${fromDate}`
-    : `${fromDate} to ${toDate}`;
+  return serviceType === SERVICE_TYPE.PAUSE_TOMORROW
+    ? `${getDateInTextFormat(fromDate)}`
+    : `${getDateInTextFormat(fromDate)} to ${getDateInTextFormat(toDate)}`;
 };

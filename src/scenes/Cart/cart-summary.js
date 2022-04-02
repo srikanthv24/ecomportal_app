@@ -22,9 +22,8 @@ const CartSummary = () => {
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
-  const { cartDetails, cartLoading, cartUpdateLoading, cartCreated } = useSelector(
-    (state) => state.Cart
-  );
+  const { cartDetails, cartLoading, cartUpdateLoading, cartCreated } =
+    useSelector((state) => state.Cart);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -106,8 +105,8 @@ const CartSummary = () => {
         <section className="cart-items-block">
           {cartLoading || cartUpdateLoading ? (
             <div className="fullscreen-loader">
-            <Spinner animation="border" role="status" />
-          </div>
+              <Spinner animation="border" role="status" />
+            </div>
           ) : null}
           {!cartLoading &&
             !cartUpdateLoading &&
@@ -122,7 +121,12 @@ const CartSummary = () => {
                     />
                   );
                 })}
-                <OrderCheckList grandTotal={cartDetails?.grand_total} />
+                <OrderCheckList
+                  grandTotal={cartDetails?.grand_total}
+                  taxes={cartDetails?.total_tax}
+                  discount={cartDetails?.total_discount}
+                  deliveryCharges={cartDetails?.total_deliverycharge}
+                />
                 <div className="confirm-button-container">
                   <Button
                     className="w-100 custom-primary-btn "

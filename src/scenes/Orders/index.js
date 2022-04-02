@@ -12,9 +12,12 @@ import { getSubscriptionErrorData, isPauseSubscriptionService } from "./utils";
 import ConfirmationModalBody from "./ConfirmationModalBody";
 import { getMinDate, getMaxDate } from "../../utils/dateUtils";
 import { resumeSubscription } from "../../services/api/resumeSubscription";
+import { SERVICE_TYPE } from "../../utils/constants";
+import { useHistory } from "react-router-dom";
 
 const Orders = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const userDetails = useSelector((state) => state.auth.userDetails);
   const ordersList = useSelector((state) => state.Orders.ordersList);
   const [showCancelSubscriptionModal, setShowCancelSubscriptionModal] =
@@ -40,6 +43,8 @@ const Orders = () => {
   }, []);
 
   const onMenuSelect = async (eventKey, subscriptionId) => {
+    if (eventKey === SERVICE_TYPE.EDIT_SUBSCRIPTION)
+      history.push(`/products/${subscriptionId}`);
     setServiceType(eventKey);
     setSelectedSubscriptionId(subscriptionId);
     const { cart_id, cartitem_id, id, product } = ordersList.find(

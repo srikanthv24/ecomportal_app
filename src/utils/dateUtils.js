@@ -1,4 +1,5 @@
 import moment from "moment";
+
 export const getMinDateAsToday = () => moment().format("YYYY-MM-DD");
 
 export const getCustomMinDate = () => moment().format("YYYY-MM-DD");
@@ -18,4 +19,8 @@ export const getMaxDate = (subscriptions) => {
   );
   // As of now all end dates are same
   return endDatesofSessions[0].date;
+};
+
+export const getDateInTextFormat = (date) => {
+  return moment(new Date(date)).format("MMMM Do, YYYY");
 };

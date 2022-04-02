@@ -47,9 +47,9 @@ const SubscriptionModal = React.memo(
 
     const getToDate = () => {
       if (serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) {
-        return null;
+        return maxDate;
       } else if (serviceType === SERVICE_TYPE.PAUSE_TOMORROW) {
-        moment().add(1, "days").format("YYYY-MM-DD");
+        return moment().add(1, "days").format("YYYY-MM-DD");
       } else if (serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN) {
         return toDate;
       }
@@ -61,7 +61,7 @@ const SubscriptionModal = React.memo(
         serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ||
         serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN
       ) {
-        return toDate;
+        return fromDate;
       }
     };
     return (
