@@ -12,7 +12,7 @@ import {
   isPauseSubscriptionService,
   getSubscriptionConfirmationText,
 } from "../../utils/subscriptionUtils";
-import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+
 
 const SubscriptionModal = React.memo(
   ({
@@ -65,7 +65,7 @@ const SubscriptionModal = React.memo(
       }
     };
     return (
-      <Modal show={show} centered >
+      <Modal show={show} centered>
         <section className="order-modal-content">
           <SubscriptionTitle text={SERVICE_LABELS[serviceType]} />
           <Modal.Body>
@@ -131,35 +131,7 @@ const SubscriptionModal = React.memo(
                 </>
               ) : (
                 <>
-                  <div className="card text-dark text-center bg-transparent border-0">
-                    We are happy to here you help you on more customisation
-                    options, please reach us on
-                  </div>
-                  <div class="card mx-auto my-3 p-0 bg-transparent border-0">
-                    <div class="card-body d-flex align-items-center p-0 justify-content-around contact-info">
-                      <div>
-                        <FaWhatsapp
-                          className="me-2"
-                          style={{ width: "30px", height: "auto" }}
-                        />
-                        +91 8096091111
-                      </div>
-                      {/* <div className="vr mx-3 divider" /> */}
-                      <div className="contact-phone">
-                        <FaPhoneAlt
-                          className="me-2"
-                          style={{ width: "20px", height: "auto" }}
-                        />
-                        +91 8096091111
-                      </div>
-                    </div>
-                  </div>
-                  <SubscriptionButtonGroup
-                    onCancel={onCancel}
-                    onSubmit={onCancel}
-                    primaryButtonText="Ok"
-                    hideCancelButton={true}
-                  />
+                  
                 </>
               )}
             </section>

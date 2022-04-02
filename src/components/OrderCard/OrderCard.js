@@ -12,6 +12,7 @@ import { SERVICE_TYPE, SERVICE_LABELS } from "../../utils/constants";
 import _ from "underscore";
 import MenuList from "../MenuList/MenuList";
 import SubscriptionButtonGroup from "../SubscriptionModal/SubscriptionButtonGroup";
+import Disclaimer from "../../components/Disclaimer/Disclaimer";
 
 const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
@@ -423,6 +424,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
       ) : (
         <small className="text-mut`ed value-txt px-2">No Orders</small>
       )}
+      <Disclaimer/>
       <button
         className="w-100 bg-chocolate-900 btn btn-primary"
         style={{ position: "absolute", bottom: "0px", left: "0" }}
