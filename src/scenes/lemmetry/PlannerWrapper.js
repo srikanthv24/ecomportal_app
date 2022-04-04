@@ -27,6 +27,7 @@ import { displayCurrency } from "../../helpers/displayCurrency";
 import { AddressModal } from "../Products/address-modal";
 import { createCustomer } from "../../store/actions/customer";
 import { useLocation } from "react-router-dom";
+import { MEAL_PRICE_TYPES } from "../../utils/constants";
 
 var phantom = {
   display: "block",
@@ -353,52 +354,15 @@ const PlannerWrapper = ({
 
     subscription.map((subscribed) => {
       if (subscribed.is_included) {
-        if (subscribed.meal_type == "B") {
-          let aprice = 0;
-          if (subscribed.addon_items && subscribed.addon_items.length > 0) {
-            subscribed.addon_items.forEach((element) => {
-              if (element.price) {
-                aprice += element.price * element.qty;
-              }
-            });
-          }
-          subscribed = {
-            ...subscribed,
-            sale_val:
-              (products.productDetails?.meal_prices?.breakfast_price + aprice) *
-              duration,
-          };
-        } else if (subscribed.meal_type == "D") {
-          let aprice = 0;
-          if (subscribed.addon_items && subscribed.addon_items.length > 0) {
-            subscribed.addon_items.forEach((element) => {
-              if (element.price) {
-                aprice += element.price * element.qty;
-              }
-            });
-          }
-          subscribed = {
-            ...subscribed,
-            sale_val:
-              (products.productDetails.meal_prices.dinner_price + aprice) *
-              duration,
-          };
-        } else if (subscribed.meal_type == "L") {
-          let aprice = 0;
-          if (subscribed.addon_items && subscribed.addon_items.length > 0) {
-            subscribed.addon_items.forEach((element) => {
-              if (element.price) {
-                aprice += element.price * element.qty;
-              }
-            });
-          }
-          subscribed = {
-            ...subscribed,
-            sale_val:
-              (products.productDetails.meal_prices.lunch_price + aprice) *
-              duration,
-          };
-        }
+        const addonPrice = subscribed?.addon_items?.map(
+          (addOn) => addOn.price * addOn.qty
+        );
+        const { [MEAL_PRICE_TYPES[subscribed.meal_type]]: mealPrice } =
+          products.productDetails?.meal_prices;
+        subscribed = {
+          ...subscribed,
+          sale_val: (mealPrice + addonPrice) * duration,
+        };
         tempArr.push(subscribed);
         temp = temp + subscribed.sale_val;
       }
@@ -406,6 +370,7 @@ const PlannerWrapper = ({
     setBreakUps(tempArr);
     setSubscriptionTotal(temp);
   }, [
+    VarItems?.Duration?.duration,
     subscription,
     subscription[0].addon_items,
     subscription[1].addon_items,
