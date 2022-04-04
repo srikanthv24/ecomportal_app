@@ -36,3 +36,9 @@ export const FILTERS = {
   FUSION_FOODS: "Fusion Foods",
   LIMIT: 1000,
 };
+
+export const MEAL_PRICE_TYPES = {
+  B: "breakfast_price",
+  D: "dinner_price",
+  L: "lunch_price",
+};
