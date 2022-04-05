@@ -1,0 +1,45 @@
+{
+  "persionalinfo": {
+    "age": 0,
+    "gender": "",
+    "weight": 0,
+    "height": { "feet": 0, "inch": 0 },
+    "goal": ""
+  },
+  "item": {
+    "item_id": "",
+    "qty": 1,
+    "delivery_charge": 0,
+    "discount": 0,
+    "subscription": [
+      {
+        "address": {},
+        "addon_items": [],
+        "isDelivery": false,
+        "meal_type": "B",
+        "notes": "",
+        "order_dates": [],
+        "is_included": false
+      },
+      {
+        "address": {},
+        "addon_items": [],
+        "isDelivery": false,
+        "meal_type": "L",
+        "notes": "",
+        "order_dates": [],
+        "is_included": false
+      },
+      {
+        "address": {},
+        "addon_items": [],
+        "isDelivery": false,
+        "meal_type": "D",
+        "notes": "",
+        "order_dates": [],
+        "is_included": false
+      }
+    ],
+    "variants": []
+  }
+}

@@ -1,0 +1,31 @@
+.meal-container {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+.meal-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: "#f05922";
+}
+
+
+.custom-diet-btn {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+    height: 50px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #f05922;
+    color: #fff;
+    border-radius: 10px;
+  }

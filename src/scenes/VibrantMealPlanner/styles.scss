@@ -1,0 +1,33 @@
+.planner-container {
+  padding-top: 70px;
+}
+
+.prd-image-thumbnile-none {
+  border-radius: 0px !important;
+}
+
+// stepperComponent
+.stepperComponent{
+    // background-color: #cccccc !important;
+}
+.stepperComponent .MuiStepLabel-labelContainer{
+    display: none !important;
+}
+// stepperComponent
+
+.stepper-btn-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: inline-flex;
+  padding: 10px 0px;
+  background-color: rgb(249, 243, 223),
+}
+
+.stepper-btn {
+  width: 50%;
+  background: #F05922 !important;
+  border-color: #F05922 !important;;
+}
