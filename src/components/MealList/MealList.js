@@ -1,11 +1,13 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
-import MealCard from "./MealCard";
-import { MEAL_PLAN_STEPS } from "../../../utils/constants";
+import MealCard from '../MealCard/MealCard';
+import { MEAL_PLAN_STEPS } from "../../utils/constants";
+import './meallist.scss';
 
-const ChooseMeal = ({ handleNextStep, selectedMeal, setMeal,loading, list, handleCustomDiet}) => {
+
+const MealList = ({ handleNextStep, selectedMeal, onMealClick,loading, list, handleCustomDiet}) => {
   const handleClick = (mealId) => {
-    setMeal(mealId);
+    onMealClick(mealId);
     handleNextStep();
   };
 
@@ -36,4 +38,4 @@ const ChooseMeal = ({ handleNextStep, selectedMeal, setMeal,loading, list, handl
   );
 };
 
-export default ChooseMeal;
+export default MealList;

@@ -1,11 +1,12 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Step, StepLabel, Stepper } from "@material-ui/core";
-import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
-import ChooseMeal from "./ChooseMeal";
 import { getMealPlans } from "../../store/actions/mealPlans";
 import { useHistory } from "react-router-dom";
+import MealList from '../../components/MealList/MealList';
+import "./styles.scss";
+import { Button } from "bootstrap";
 
 function getSteps() {
   return [
@@ -35,9 +36,7 @@ function VibrantMealPlanner() {
 
   useEffect(() => {
     dispatch(getMealPlans());
-  }, [dispatch])
-  
-  console.log("meal_iddd", meal);
+  }, []);
 
   return (
     <section className="planner-container">
@@ -51,10 +50,10 @@ function VibrantMealPlanner() {
 
       <div>
         {activeStep === 0 && (
-          <ChooseMeal
+          <MealList
             list={mealList}
             loading={mealLoading}
-            setMeal={setMeal}
+            onMealClick={setMeal}
             handleNextStep={handleNext}
             // selectedMeal={selectedMeal}
             handleCustomDiet={() => history.push("/disclaimer")}
@@ -64,6 +63,41 @@ function VibrantMealPlanner() {
         {activeStep === 2 && <h1>Step 3</h1>}
         {activeStep === 3 && <h1>Step 4</h1>}
       </div>
+      <div
+              style={{
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                width: "100%",
+                display: "inline-flex",
+                padding: "20px 0px",
+                backgroundColor: "rgb(249, 243, 223)",
+              }}
+            >
+              <Button
+                className="w-50 m-1"
+                style={{
+                  width: "50%",
+                  background: "#F05922",
+                  borderColor: "#F05922",
+                }}
+                onClick={() => handleBack()}
+                disabled={activeStep === 0 ? true : false}
+              >
+                Back
+              </Button>
+              <Button
+                className="w-50 m-1"
+                style={{
+                  width: "50%",
+                  background: "#F05922",
+                  borderColor: "#F05922",
+                }}
+              >
+                Next
+              </Button>
+            </div>
     </section>
   );
 }

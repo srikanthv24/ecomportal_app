@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import MealImg from "../../../assets/meal.jpeg";
+import MealImg from '../../assets/meal.jpeg';
+import './mealcard.scss';
 
 const MealCard = ({ name, onClick, isSelected, MealSrc }) => (
   <Card
