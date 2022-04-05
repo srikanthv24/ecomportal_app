@@ -9,6 +9,7 @@ import {
   balanceReducer,
   sessionExpireReducer,
   schedule,
+  subscriptionReducer,
 } from "./reducers";
 import { AlertReducer } from "./reducers/alert";
 import { Login } from "./reducers/login";
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   balanceReducer: balanceReducer,
   sessionExpire: sessionExpireReducer,
   schedule: schedule,
+  subscription: subscriptionReducer,
 });
 
 export default rootReducer;

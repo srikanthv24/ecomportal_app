@@ -43,6 +43,7 @@ export class OrdersApi {
                   product {
                     display_name
                     category
+                    id
                   }
                   finish_date,
                   cartitem_id,

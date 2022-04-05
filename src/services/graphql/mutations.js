@@ -494,6 +494,7 @@ export const Orders = `query ($cutomer_mobile: String){
     product {
       display_name
       category
+      id
     }
     finish_date
   }

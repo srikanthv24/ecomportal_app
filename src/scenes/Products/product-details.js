@@ -106,7 +106,10 @@ const ProductDetails = ({
 
   useEffect(() => {
     setProductDetails(products.productDetails);
-    if (Object.keys(products.productDetails).length) {
+    if (
+      products.productDetails &&
+      Object.keys(products.productDetails).length
+    ) {
       setLoading(false);
     }
   }, [products.productDetails]);
@@ -159,7 +162,7 @@ const ProductDetails = ({
                   <h1 className="prd-details-amount">
                     <small className="prd-details-gst-txt">
                       Including{" "}
-                      {String(ProductDetails.tax_methods)
+                      {String(ProductDetails?.tax_methods)
                         .replace("Output", "")
                         .replace("-", "")}
                     </small>
@@ -172,7 +175,7 @@ const ProductDetails = ({
           </>
         ) : (
           <>
-             <Row>
+            <Row>
               <Col sm={12} lg={6}>
                 <p className="h4 mt-3 ff-2">{ProductDetails?.display_name}</p>
                 <p className=" h6 text-muted ff-3">

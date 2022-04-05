@@ -3,6 +3,7 @@ import Modal from "../../components/Modal/Modal";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../store/actions/orders";
+import { setSubscriptionDetails } from "../../store/actions/subscription";
 import { getSubscriptionDetails } from "../../services/api/getSubscriptionDetails";
 import "./orders.scss";
 import { cancelSubscriptionApi } from "../../services/api/cancelSubscription";
@@ -43,8 +44,6 @@ const Orders = () => {
   }, []);
 
   const onMenuSelect = async (eventKey, subscriptionId) => {
-    if (eventKey === SERVICE_TYPE.EDIT_SUBSCRIPTION)
-      history.push(`/products/${subscriptionId}`);
     setServiceType(eventKey);
     setSelectedSubscriptionId(subscriptionId);
     const { cart_id, cartitem_id, id, product } = ordersList.find(
@@ -61,6 +60,9 @@ const Orders = () => {
     if (error) {
       displayErrorModal(error.message);
     } else {
+      dispatch(setSubscriptionDetails(subscriptionDetails));
+      if (eventKey === SERVICE_TYPE.EDIT_SUBSCRIPTION)
+        history.push(`/products/${subscriptionDetails?.item?.item_id}`);
       setSelectedSubscriptionDetails(subscriptionDetails);
       setShowSubscriptionModal(true);
     }
