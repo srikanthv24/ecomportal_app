@@ -6,7 +6,7 @@ import { getMealPlans } from "../../store/actions/mealPlans";
 import { useHistory } from "react-router-dom";
 import MealList from '../../components/MealList/MealList';
 import "./styles.scss";
-import { Button } from "bootstrap";
+import { Button } from "react-bootstrap";
 
 function getSteps() {
   return [
@@ -63,37 +63,17 @@ function VibrantMealPlanner() {
         {activeStep === 2 && <h1>Step 3</h1>}
         {activeStep === 3 && <h1>Step 4</h1>}
       </div>
-      <div
-              style={{
-                position: "fixed",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                width: "100%",
-                display: "inline-flex",
-                padding: "20px 0px",
-                backgroundColor: "rgb(249, 243, 223)",
-              }}
+      <div className="stepper-btn-container"
             >
               <Button
-                className="w-50 m-1"
-                style={{
-                  width: "50%",
-                  background: "#F05922",
-                  borderColor: "#F05922",
-                }}
+                className="w-50 m-1 stepper-btn"
                 onClick={() => handleBack()}
                 disabled={activeStep === 0 ? true : false}
               >
                 Back
               </Button>
               <Button
-                className="w-50 m-1"
-                style={{
-                  width: "50%",
-                  background: "#F05922",
-                  borderColor: "#F05922",
-                }}
+                className="w-50 m-1 stepper-btn"
               >
                 Next
               </Button>
