@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
 import { getMealPlans } from "../../store/actions/mealPlans";
 import { useHistory } from "react-router-dom";
-import MealList from '../../components/MealList/MealList';
+import MealList from "../../components/MealList/MealList";
 import "./styles.scss";
 import { Button } from "react-bootstrap";
 
@@ -24,7 +24,9 @@ function VibrantMealPlanner() {
   const [activeStep, setActiveStep] = useState(0);
   const [meal, setMeal] = useState("");
 
-  const { mealPlansList: mealList, loading: mealLoading } = useSelector((state) => state.mealPlans);
+  const { mealPlansList: mealList, loading: mealLoading } = useSelector(
+    (state) => state.mealPlans
+  );
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -40,7 +42,11 @@ function VibrantMealPlanner() {
 
   return (
     <section className="planner-container">
-      <Stepper activeStep={activeStep} alternativeLabel className="stepperComponent">
+      <Stepper
+        activeStep={activeStep}
+        alternativeLabel
+        className="stepperComponent"
+      >
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
@@ -63,21 +69,18 @@ function VibrantMealPlanner() {
         {activeStep === 2 && <h1>Step 3</h1>}
         {activeStep === 3 && <h1>Step 4</h1>}
       </div>
-      <div className="stepper-btn-container"
-            >
-              <Button
-                className="w-50 m-1 stepper-btn"
-                onClick={() => handleBack()}
-                disabled={activeStep === 0 ? true : false}
-              >
-                Back
-              </Button>
-              <Button
-                className="w-50 m-1 stepper-btn"
-              >
-                Next
-              </Button>
-            </div>
+      <div className="stepper-btn-container">
+        <Button
+          className="w-50 m-1 stepper-btn"
+          onClick={() => handleBack()}
+          disabled={activeStep === 0 ? true : false}
+        >
+          Back
+        </Button>
+        <Button className="w-50 m-1 stepper-btn" onClick={() => handleNext()}>
+          Next
+        </Button>
+      </div>
     </section>
   );
 }
