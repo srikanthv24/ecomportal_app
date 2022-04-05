@@ -1,16 +1,16 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import MealImg from '../../assets/meal.jpeg';
+import defaultMealImg from '../../assets/meal.jpeg';
 import './mealcard.scss';
 
-const MealCard = ({ name, onClick, isSelected, MealSrc }) => (
+const MealCard = ({ name, onClick, isSelected, mealImgUrl }) => (
   <Card
     onClick={() => onClick()}
     className={`meal-card${isSelected ? " bg-success" : ""}`}
   >
     <Card.Body variant="top" className="p-2">
       <div className="prd-image-thumbnile">
-        <img src={MealSrc || MealImg} alt="img" />
+        <img src={mealImgUrl || defaultMealImg} alt="img" />
       </div>
     </Card.Body>
     <Card.Body className="pt-1 text-center px-1" style={{ minHeight: 40 }}>
