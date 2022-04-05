@@ -15,6 +15,8 @@ import {Profile} from '../scenes/Profile';
 import { MealBooking } from "../scenes/MealBooking";
 import LegalContent from "../components/LegalContent";
 import PrivacyPolicyContent from "../components/PrivacyPolicyContent";
+import VibrantMealPlanner from "../scenes/VibrantMealPlanner";
+import Disclaimer from "../components/Disclaimer/Disclaimer";
 
 function Routes() {
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -49,9 +51,10 @@ function Routes() {
           <Route path="/categories" component={Categories} />
           <Route path="/subscription" component={LemmeTry} />
           <Route path="/profile" component={Profile} />
-          <Route path="/mealbooking" component={MealBooking}/>
+          <Route path="/mealsubscription" component={VibrantMealPlanner}/>
           <Route path="/legalcontent" component={LegalContent}/>
           <Route path="/privacypolicy" component={PrivacyPolicyContent}/>
+          <Route path="/disclaimer" component={Disclaimer}/>
           {/* <Route path="/subscription" component={MealBooking}/> */}
           {userDetails.sub && (
             <>

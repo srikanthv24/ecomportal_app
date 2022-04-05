@@ -42,3 +42,18 @@ export const MEAL_PRICE_TYPES = {
   D: "dinner_price",
   L: "lunch_price",
 };
+
+export const MEAL_PLAN_STEPS = {
+  CHOOSE_YOUR_MEAL: "Choose your Meal",
+  CHOOSE_YOUR_GOAL: "Choose your Goal",
+  MY_PROFILE: "My Profile",
+  SCHEDULE: "Schedule",
+  CUSTOM_DIET : "I need Custom Diet"
+};
+
+export const DISCLAIMER_DATA = {
+  CONTACT_NUMBER:  '8096091111',
+  PRIMARY_TEXT : "Give us an Opportunity to understand your requirements and serve you better",
+
+}
+
