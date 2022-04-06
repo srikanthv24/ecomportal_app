@@ -5,14 +5,14 @@ import { MEAL_PLAN_STEPS } from "../../utils/constants";
 import './meallist.scss';
 
 
-const MealList = ({ handleNextStep, selectedMeal, onMealClick,loading, list, handleCustomDiet}) => {
+const MealList = ({ handleNextStep, selectedMealId, onMealClick,loading, list, handleCustomDiet}) => {
   const handleClick = (mealId) => {
     onMealClick(mealId);
     handleNextStep();
   };
 
   return (
-    <section style={{ background: "rgb(249, 243, 223)" }}>
+    <section>
       <p className="fs-4 fw-bold mb-3 text-center page-title">
         {MEAL_PLAN_STEPS.CHOOSE_YOUR_MEAL}
       </p>
@@ -23,10 +23,10 @@ const MealList = ({ handleNextStep, selectedMeal, onMealClick,loading, list, han
           list.map((meal) => (
             <MealCard
               key={meal.id}
-              isSelected={selectedMeal === meal.id}
+              isSelected={selectedMealId === meal.id}
               onClick={() => handleClick(meal.id)}
               name={meal.display_name}
-              MealSrc={meal.defaultimg_url}
+              mealImgUrl={meal.defaultimg_url}
             />
           ))}
       </div>
