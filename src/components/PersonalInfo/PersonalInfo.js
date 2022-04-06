@@ -58,7 +58,7 @@ const PersonalInfo = ({
 
   return (
     <section
-      className="text-center w-50p mx-auto"
+      className="text-center w-100p mx-auto"
     >
       <div className="py-4">
         <Card.Body className="py-3 px-0 d-flex justify-content-between">
@@ -105,7 +105,7 @@ const PersonalInfo = ({
           </label>
         </Card.Body>
 
-        <Card.Body className="px-0 d-flex justify-content-between">
+        <Card.Body className="py-3 px-0 d-flex justify-content-between">
            <div className="pinfo-box">
               <div className="text-muted">
               <label>Height-Feet</label>
@@ -154,7 +154,7 @@ const PersonalInfo = ({
         
         </Card.Body>
 
-        <Card.Body className="px-0 d-flex justify-content-between">
+        <Card.Body className="py-3 px-0 d-flex justify-content-between">
            <div className="pinfo-box">
               <div className="text-muted">
               <label>Weight</label>
