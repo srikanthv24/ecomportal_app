@@ -26,7 +26,7 @@ const MealList = ({ handleNextStep, selectedMeal, onMealClick,loading, list, han
               isSelected={selectedMeal === meal.id}
               onClick={() => handleClick(meal.id)}
               name={meal.display_name}
-              MealSrc={meal.defaultimg_url}
+              mealImgUrl={meal.defaultimg_url}
             />
           ))}
       </div>

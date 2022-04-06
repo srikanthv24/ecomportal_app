@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
 import { getMealPlans } from "../../store/actions/mealPlans";
 import { useHistory } from "react-router-dom";
-import MealList from "../../components/MealList/MealList";
-import "./styles.scss";
 import { Button } from "react-bootstrap";
+import MealList from "../../components/MealList/MealList";
+import GoalList from "../../components/GoalList/GoalList";
+import { FaWeight, FaLeaf, FaRegGrinHearts } from "react-icons/fa";
+import "./styles.scss";
 
 function getSteps() {
   return [
@@ -17,12 +19,31 @@ function getSteps() {
   ];
 }
 
+const goals = [
+  {
+    name: "Manage My Weight",
+    value: "MANAGEMYWEIGHT",
+    icon: <FaWeight />,
+  },
+  {
+    name: "Detox My Body",
+    value: "DETOXMYBODY",
+    icon: <FaLeaf />,
+  },
+  {
+    name: "Have Delicious Healthy Food",
+    value: "HEALTHYFOOD",
+    icon: <FaRegGrinHearts />,
+  },
+];
+
 function VibrantMealPlanner() {
   const steps = getSteps();
   const dispatch = useDispatch();
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
   const [meal, setMeal] = useState("");
+  const [goal, setGoal] = useState("");
 
   const { mealPlansList: mealList, loading: mealLoading } = useSelector(
     (state) => state.mealPlans
@@ -61,11 +82,18 @@ function VibrantMealPlanner() {
             loading={mealLoading}
             onMealClick={setMeal}
             handleNextStep={handleNext}
-            // selectedMeal={selectedMeal}
+            selectedMeal={meal}
             handleCustomDiet={() => history.push("/disclaimer")}
           />
         )}
-        {activeStep === 1 && <h1>Step 2</h1>}
+        {activeStep === 1 && (
+          <GoalList
+            goals={goals}
+            handleNextStep={handleNext}
+            onGoalClick={setGoal}
+            selectedGoal={goal}
+          />
+        )}
         {activeStep === 2 && <h1>Step 3</h1>}
         {activeStep === 3 && <h1>Step 4</h1>}
       </div>

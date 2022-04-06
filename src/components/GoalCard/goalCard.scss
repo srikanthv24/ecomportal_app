@@ -1,0 +1,31 @@
+.goal-card {
+    cursor: pointer;
+    padding: 10px;
+    width: calc(50% - 10px);
+    margin-right: 10px;
+    margin-bottom: 20px;
+    border-color: "transparent";
+    // padding: 0px;
+    background: "transparent";
+}
+
+.goal-card:last-child {
+    margin-bottom: 20px;
+}
+
+.goal-card .card-body {
+    display: block;
+}
+
+.goal-card .card-body svg {
+    width: 40px;
+    height: auto;
+}
+
+.goal-card.bg-success .card-body svg {
+    color: white;
+}
+
+.goal-title {
+    font-size: 14px !important;
+}
