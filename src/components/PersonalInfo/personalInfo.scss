@@ -1,10 +1,11 @@
 .gender-card {
-    display:"flex !important";
-    background-color: #fff;
+    display:flex !important;
+    // background-color: #fff;
     border-radius: var(--card-radius);
     position: relative;
     width: 100%;
-    max-width: calc(50% - 10px);
+    max-width: calc(50% - 0px);
+    justify-content: space-around;
     &:hover {
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
     }
@@ -73,9 +74,13 @@
     border-radius: var(--card-radius);
     cursor: pointer;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: var(--card-padding);
     transition: border-color 0.2s ease-out;
+    height: 120px;
+    width: 100%;
+    border-radius: 20px;
   }
   
   .card:hover .plan-details {
@@ -85,6 +90,10 @@
   .radio:checked ~ .plan-details {
     border-color: var(--color-green);
     background-color: yellow;
+  }
+  .radio ~ .plan-details {
+    border-color: var(--color-green);
+    background-color: #ffffff;
   }
   
   .radio:focus ~ .plan-details {
@@ -111,7 +120,51 @@
   
   
   .plan-cost {
-    font-size: 2.5rem;
+    font-size:4rem;
     font-weight: bold;
     padding: 0.5rem 0;
   }
+.pinfo-box{
+  width: calc(100% - 20px);
+  background: #ffffff;
+  margin: 0px 20px;
+  border-radius: 20px;
+  padding: 15px;
+  height: 120px; 
+  .pinfo-box-item{
+      
+    display: flex;
+    justify-content: space-between;
+    .pinfo-box-item-btn{
+      width: calc(35% - 20px);
+      // height: 100px;
+      border:1px solid #d3d3d3;
+      border-radius: 10px 0px 0px 10px;
+    }
+    .pinfo-box-item-btn:last-child{
+      border-radius: 0px 10px 10px 0px;
+    }
+    input{
+      width: 30%;
+      line-height: 50px;
+      background-color: transparent !important;
+      border:none;
+      text-align: center;
+      font-size: 50px;
+      text-indent: 0px;
+      font-family: 'Roboto';
+      font-weight: 300;
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+    }    
+  }
+  .text-muted label{
+    font-size: 18px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    color:#424141;
+    margin-bottom: 0px;
+  }
+  
+}
