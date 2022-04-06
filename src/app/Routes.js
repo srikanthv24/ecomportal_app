@@ -51,11 +51,10 @@ function Routes() {
           <Route path="/categories" component={Categories} />
           <Route path="/subscription" component={LemmeTry} />
           <Route path="/profile" component={Profile} />
-          <Route path="/mealsubscription" component={VibrantMealPlanner}/>
+          <Route path="/vibrant-meal-planner" component={VibrantMealPlanner}/>
           <Route path="/legalcontent" component={LegalContent}/>
           <Route path="/privacypolicy" component={PrivacyPolicyContent}/>
           <Route path="/disclaimer" component={Disclaimer}/>
-          {/* <Route path="/subscription" component={MealBooking}/> */}
           {userDetails.sub && (
             <>
               <Route path="/cart-summary" component={CartSummary} />
