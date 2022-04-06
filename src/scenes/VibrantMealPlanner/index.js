@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import MealList from "../../components/MealList/MealList";
 import GoalList from "../../components/GoalList/GoalList";
+import PersonalInfo from "../../components/PersonalInfo/PersonalInfo";
 import { FaWeight, FaLeaf, FaRegGrinHearts } from "react-icons/fa";
 import "./styles.scss";
 
@@ -44,6 +45,13 @@ function VibrantMealPlanner() {
   const [activeStep, setActiveStep] = useState(0);
   const [meal, setMeal] = useState("");
   const [goal, setGoal] = useState("");
+  const [profileDetails, setProfileDetails] = useState({
+    gender: "Male",
+    heightFeet: 0,
+    heightInch: 0,
+    weight: 0,
+    age: 0,
+  });
 
   const { mealPlansList: mealList, loading: mealLoading } = useSelector(
     (state) => state.mealPlans
@@ -82,7 +90,7 @@ function VibrantMealPlanner() {
             loading={mealLoading}
             onMealClick={setMeal}
             handleNextStep={handleNext}
-            selectedMeal={meal}
+            selectedMealId={meal}
             handleCustomDiet={() => history.push("/disclaimer")}
           />
         )}
@@ -94,18 +102,27 @@ function VibrantMealPlanner() {
             selectedGoal={goal}
           />
         )}
-        {activeStep === 2 && <h1>Step 3</h1>}
+        {activeStep === 2 && (
+          <PersonalInfo
+            onProfileDetailsSubmit={setProfileDetails}
+            defaultGender={profileDetails.gender}
+            defaultHeightFeet={profileDetails.heightFeet}
+            defaultHeightInch={profileDetails.heightInch}
+            defaultWeight={profileDetails.weight}
+            defaultAge={profileDetails.weight}
+          />
+        )}
         {activeStep === 3 && <h1>Step 4</h1>}
       </div>
       <div className="stepper-btn-container">
         <Button
           className="w-50 m-1 stepper-btn"
-          onClick={() => handleBack()}
+          onClick={handleBack}
           disabled={activeStep === 0 ? true : false}
         >
           Back
         </Button>
-        <Button className="w-50 m-1 stepper-btn" onClick={() => handleNext()}>
+        <Button className="w-50 m-1 stepper-btn" onClick={handleNext}>
           Next
         </Button>
       </div>

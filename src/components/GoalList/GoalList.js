@@ -5,7 +5,7 @@ import GoalCard from "../GoalCard/GoalCard";
 import "./goalList.scss";
 import { FaRegGrinHearts } from "react-icons/fa";
 
-const GoalList = ({ handleBack, handleNextStep, selectedGoal, onGoalClick, goals }) => {
+const GoalList = ({ handleBack, handleNextStep, selectedGoalValue, onGoalClick, goals }) => {
   const history = useHistory();
   const handleClick = (goal) => {
     onGoalClick(goal.value);
@@ -13,7 +13,7 @@ const GoalList = ({ handleBack, handleNextStep, selectedGoal, onGoalClick, goals
   };
 
   return (
-    <section style={{ background: "rgb(249, 243, 223)" }}>
+    <section>
       <p className="fs-4 fw-bold mb-3 text-center page-title">
         { MEAL_PLAN_STEPS.CHOOSE_YOUR_GOAL}
       </p>
@@ -23,8 +23,8 @@ const GoalList = ({ handleBack, handleNextStep, selectedGoal, onGoalClick, goals
             key={goal}
             name={goal.name}
             icon={goal.icon}
-            onClick={() => handleClick(goal)}
-            isSelected={selectedGoal === goal.value}
+            onClick={handleClick}
+            isSelected={selectedGoalValue === goal.value}
           />
         ))}
          <GoalCard
