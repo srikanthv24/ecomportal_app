@@ -25,11 +25,13 @@ import chikkis from "../../assets/home/Chikkies.svg";
 import GiftingImage from "../../assets/home/gifting-image.svg";
 import SnacksImage from "../../assets/home/snacks-image.svg";
 import DHImage from "../../assets/home/dh-image.svg";
+import { getMealPlans } from "../../store/actions/mealPlans";
 
 import "./styles.css";
 import "./homestyles.css";
 
 function Home() {
+  const dispatch = useDispatch();
   const options = {
     margin: 30,
     responsiveClass: true,
@@ -57,6 +59,9 @@ function Home() {
       }
     }
   }
+  const onGettingStarted = () => {
+    dispatch(getMealPlans())
+  }
   return (
     <>
       <div className="banner-container1 home-banner-img1 home-page-content-1">        
@@ -72,7 +77,7 @@ function Home() {
             <div className="info-block">
               <p className="for-store-des pt-2 pb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               <a href="#" class="my-2 leading-8 bg-chocolate-800 py-1 px-7 tracking-wide rounded-full inline-block">
-               <Link to="/subscription" className="viewall-txt mb-0">
+               <Link to="/vibrant-meal-planner" className="viewall-txt mb-0" onClick={onGettingStarted}>
                   <Button
                     style={{ background: "#f05922", borderColor: "#f05910" }}
                     className="w-100 bg-chocolate-900"

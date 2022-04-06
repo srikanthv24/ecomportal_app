@@ -1,13 +1,20 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
-import MealCard from '../MealCard/MealCard';
+import MealCard from "../MealCard/MealCard";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
-import './meallist.scss';
+import "./meallist.scss";
 
-
-const MealList = ({ handleNextStep, selectedMealId, onMealClick,loading, list, handleCustomDiet}) => {
-  const handleClick = (mealId) => {
-    onMealClick(mealId);
+const MealList = ({
+  handleNextStep,
+  selectedMealId,
+  onMealClick,
+  loading,
+  list,
+  handleCustomDiet,
+}) => {
+  
+  const handleClick = (selectedMeal) => {
+    onMealClick(selectedMeal);
     handleNextStep();
   };
 
@@ -24,16 +31,15 @@ const MealList = ({ handleNextStep, selectedMealId, onMealClick,loading, list, h
             <MealCard
               key={meal.id}
               isSelected={selectedMealId === meal.id}
-              onClick={() => handleClick(meal.id)}
+              onClick={() => handleClick(meal)}
               name={meal.display_name}
               mealImgUrl={meal.defaultimg_url}
             />
           ))}
       </div>
-      <div
-        className="custom-diet-btn my-3"
-        onClick={handleCustomDiet}
-      >{MEAL_PLAN_STEPS.CUSTOM_DIET}</div>
+      <div className="custom-diet-btn my-3" onClick={handleCustomDiet}>
+        {MEAL_PLAN_STEPS.CUSTOM_DIET}
+      </div>
     </section>
   );
 };

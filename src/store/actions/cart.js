@@ -40,3 +40,10 @@ export const deleteCart = () => {
     type: types.CREATE_CART_FAILURE,
   };
 };
+
+export const createCartInput = (payload) => {
+  return {
+    type: types.CREATE_CART_INPUT,
+    payload,
+  };
+};

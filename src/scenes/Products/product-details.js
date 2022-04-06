@@ -86,11 +86,11 @@ const ProductDetails = ({
     },
   });
 
-  useEffect(() => {
+  /*useEffect(() => {
     return () => {
       dispatch(clearProducts());
     };
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     if (id) {

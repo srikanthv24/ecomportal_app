@@ -364,8 +364,8 @@
 }
 
 /* profile-info-block */
-.profile-info-block{
-  background-color: #F7F2DF;
+.profile-info-block {
+  background-color: #f7f2df;
   height: calc(100vh - 250px);
 }
 .profile-info-block .value-txt {
@@ -434,7 +434,7 @@
 .profile-icon-bg {
   width: 150px;
   height: 150px;
-  background: #F7F2DF;
+  background: #f7f2df;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -698,13 +698,13 @@ input[type="checkbox"].acc-checkbox:checked:after {
 }
 .more-dp-info ul li {
   margin-bottom: 2px;
-  }
+}
 
-  .more-dp-info ul li:last-child{
-    margin-bottom: 0px;
-  }
+.more-dp-info ul li:last-child {
+  margin-bottom: 0px;
+}
 
-  .more-dp-info ul li a{
+.more-dp-info ul li a {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -715,8 +715,8 @@ input[type="checkbox"].acc-checkbox:checked:after {
   display: block;
   text-decoration: none;
 }
-.more-dp-info ul li a:hover{
-  background: #F7F2DF;
+.more-dp-info ul li a:hover {
+  background: #f7f2df;
 }
 .prd-item {
   color: rgba(53, 40, 23, 1);
@@ -856,7 +856,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
 
 /* Subcription styles */
 
-.error-text{
+.error-text {
   color: red;
 }
 
@@ -899,6 +899,14 @@ input[type="checkbox"].acc-checkbox:checked:after {
   background-color: #cccccc !important;
   border-color: #d3d3d3 !important;
 }
-.ProductDetailsSection{
+.ProductDetailsSection {
   padding-top: 70px;
+}
+.meal-plan-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.meal-plan-wrapper > div {
+  flex-basis: 50%;
 }
