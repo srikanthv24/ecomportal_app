@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./personalInfo.scss";
 import { MdMale, MdFemale } from "react-icons/md";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 
 const PersonalInfo = ({
@@ -14,13 +14,7 @@ const PersonalInfo = ({
   defaultAge,
   onProfileDetailsSubmit,
 }) => {
-  // const [errors, setErrors] = useState({
-  //   gender: false,
-  //   age: false,
-  //   heightFeet: false,
-  //   heightInch: false,
-  //   weight: false,
-  // });
+  
   const [gender, setGender] = useState(defaultGender);
   let [heightFeet, setHeightFeet] = useState(defaultHeightFeet);
   const [heightInch, setHeightInch] = useState(defaultHeightInch);
@@ -39,39 +33,32 @@ const PersonalInfo = ({
   };
 
   const handleIncrement = (key) => {
-    switch (key) {
-      case "heightFeet":
-        return setHeightFeet(heightFeet + 1);
-      case "heightInch":
-        return setHeightInch(heightInch + 1);
-      case "weight":
-        return setWeight(weight + 1);
-      case "age":
-        return setAge(age + 1);
-      default:
-        break;
+    if (key === "heightFeet") {
+      setHeightFeet(heightFeet + 1);
+    } else if (key === "heightInch") {
+      setHeightInch(heightInch + 1);
+    } else if (key === "weight") {
+      setWeight(weight + 1);
+    } else if (key === "age") {
+      setAge(age + 1);
     }
   };
 
   const handleDecrement = (key) => {
-    switch (key) {
-      case "heightFeet":
-        return setHeightFeet(heightFeet - 1);
-      case "heightInch":
-        return setHeightInch(heightInch - 1);
-      case "weight":
-        return setWeight(weight - 1);
-      case "age":
-        return setAge(age - 1);
-      default:
-        break;
+    if (key === "heightFeet") {
+      setHeightFeet(heightFeet - 1);
+    } else if (key === "heightInch") {
+      setHeightInch(heightInch - 1);
+    } else if (key === "weight") {
+      setWeight(weight - 1);
+    } else if (key === "age") {
+      setAge(age - 1);
     }
   };
 
   return (
     <section
       className="text-center"
-      style={{ background: "rgb(249, 243, 223)" }}
     >
       <div>
         <Card.Body className="py-3 px-0 d-flex justify-content-center">
