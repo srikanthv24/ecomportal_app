@@ -78,11 +78,7 @@ const PersonalInfo = ({
               }}
             >
               <span class="plan-cost">
-                {" "}
                 <MdMale
-                  onClick={() => {
-                    setGender("Male");
-                  }}
                 />
               </span>
             </span>
@@ -103,7 +99,6 @@ const PersonalInfo = ({
               }}
             >
               <span class="plan-cost">
-                {" "}
                 <MdFemale />
               </span>
             </span>
