@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Step, StepLabel, Stepper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
