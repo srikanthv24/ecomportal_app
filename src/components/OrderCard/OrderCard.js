@@ -8,11 +8,9 @@ import EndTimeIcon from "./../../assets/end-time.png";
 import { useHistory } from "react-router";
 import { BiRupee } from "react-icons/bi";
 import { displayCurrency } from "../../helpers/displayCurrency";
-import { SERVICE_TYPE, SERVICE_LABELS } from "../../utils/constants";
+import { SERVICE_TYPE, COMPLETED } from "../../utils/constants";
 import _ from "underscore";
 import MenuList from "../MenuList/MenuList";
-import SubscriptionButtonGroup from "../SubscriptionModal/SubscriptionButtonGroup";
-import Disclaimer from "../../components/Disclaimer/Disclaimer";
 
 const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
@@ -46,25 +44,29 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                 <div className="w-100p d-flex justify-content-between align-items-center">
                   <h4 className="subs-id mb-0"># {order.id}</h4>
                   <div className="more-info">
-                    {moment(moment()).isBefore(order.finish_date) && (
-                      <>
-                        <i class="fa-solid fa-bars"></i>
-                        <div className="more-dp-info">
-                          <MenuList
-                            list={[
-                              SERVICE_TYPE.PAUSE_TOMORROW,
-                              SERVICE_TYPE.PAUSE_IN_BETWEEN,
-                              SERVICE_TYPE.PAUSE_INDEFINITE,
-                              SERVICE_TYPE.RESUME_INDEFINITE,
-                              SERVICE_TYPE.EDIT_SUBSCRIPTION,
-                            ]}
-                            onMenuSelect={onMenuSelect}
-                            id={order.id}
-                            cancelSubscription={cancelSubscription}
-                          />
-                        </div>
-                      </>
-                    )}
+                    <>
+                      {moment(moment()).isAfter(order.finish_date) ? (
+                        <Badge bg="success">{COMPLETED}</Badge>
+                      ) : (
+                        <>
+                          <i class="fa-solid fa-bars"></i>
+                          <div className="more-dp-info">
+                            <MenuList
+                              list={[
+                                SERVICE_TYPE.PAUSE_TOMORROW,
+                                SERVICE_TYPE.PAUSE_IN_BETWEEN,
+                                SERVICE_TYPE.PAUSE_INDEFINITE,
+                                SERVICE_TYPE.RESUME_INDEFINITE,
+                                SERVICE_TYPE.EDIT_SUBSCRIPTION,
+                              ]}
+                              onMenuSelect={onMenuSelect}
+                              id={order.id}
+                              cancelSubscription={cancelSubscription}
+                            />
+                          </div>
+                        </>
+                      )}
+                    </>
                   </div>
                 </div>
                 <div className="w-100p d-flex justify-content-between align-items-start my-1">
@@ -428,7 +430,6 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
       ) : (
         <small className="text-mut`ed value-txt px-2">No Orders</small>
       )}
-      <Disclaimer />
       <button
         className="w-100 bg-chocolate-900 btn btn-primary"
         style={{ position: "absolute", bottom: "0px", left: "0" }}

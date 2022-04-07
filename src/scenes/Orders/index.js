@@ -15,11 +15,13 @@ import { getMinDate, getMaxDate } from "../../utils/dateUtils";
 import { resumeSubscription } from "../../services/api/resumeSubscription";
 import { SERVICE_TYPE } from "../../utils/constants";
 import { useHistory } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 const Orders = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const userDetails = useSelector((state) => state.auth.userDetails);
+  const isLoading = useSelector((state) => state.Orders.isLoading);
   const ordersList = useSelector((state) => state.Orders.ordersList);
   const [showCancelSubscriptionModal, setShowCancelSubscriptionModal] =
     useState(false);
@@ -154,7 +156,7 @@ const Orders = () => {
     dispatchToCallSubscriptionApi(false, subscriptionId, comments, dates);
   };
 
-  return (
+  return !isLoading ? (
     <>
       <OrderCard
         ordersList={ordersList}
@@ -221,6 +223,8 @@ const Orders = () => {
       ></Modal>
       {/** Confirmation Modal **/}
     </>
+  ) : (
+    <Spinner className="meal-spinner" animation="border" />
   );
 };
 
