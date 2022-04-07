@@ -9,14 +9,15 @@ import MealList from "../../components/MealList/MealList";
 import GoalList from "../../components/GoalList/GoalList";
 import PersonalInfo from "../../components/PersonalInfo/PersonalInfo";
 import ProductPlanner from "../../components/ProductPlanner/ProductPlanner";
+import AddressComponent from "./AddressComponent";
 import { getMealPlanDetails, getOrderDates } from "./vibrantMealPlanner.utils";
 import { FaWeight, FaLeaf, FaRegGrinHearts } from "react-icons/fa";
 import { showLogin } from "../../store/actions";
 import "./styles.scss";
 
 const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
+let script = document.createElement("script");
 const loadScript = (url) => {
-  let script = document.createElement("script");
   script.type = "text/javascript";
 
   if (script.readyState) {
@@ -80,6 +81,9 @@ function VibrantMealPlanner() {
   const [selectedDuration, setSelectedDuration] = useState();
   const [selectedStartDate, setSelectedStartDate] = useState();
   const [mealPlans, setMealPlans] = useState([]);
+  const [address, setAddress] = useState({});
+  const [delivery, setDelivery] = useState({});
+  const [addressSelected, setAddressSelected] = useState(false);
   const {
     display_name,
     category,
@@ -107,9 +111,9 @@ function VibrantMealPlanner() {
     setMealPlans(getMealPlanDetails(sessions, meal_prices, variants[0]));
   };
 
-  const onDeliveryTypeChange = (e) => {
-    console.log("on delivery type change: " + JSON.stringify(e.target.value));
-    setDeliveryType(e.target.value);
+  const onDeliveryTypeChange = (value) => {
+    console.log("on delivery type change: " + value);
+    setDeliveryType(value);
   };
 
   const onStartDateChange = (date) => {
@@ -150,7 +154,16 @@ function VibrantMealPlanner() {
 
   useEffect(() => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`);
+    return () => {
+      document.getElementsByTagName("head")[0].removeChild(script);
+    }
   }, []);
+
+  useEffect(() => {
+    console.log(address, delivery, addressSelected, "---->>>>>>");
+  }, [address])
+
+
   return (
     <section className="planner-container">
       <Stepper
@@ -196,27 +209,38 @@ function VibrantMealPlanner() {
           />
         )}
         {activeStep === 3 && (
-          <div className="px-3 text-center">
-            <ProductPlanner
-              productTitle={display_name}
-              productCategory={category}
-              imageUrl={defaultimg_url}
-              productDescription={description}
-              mealPlans={mealPlans}
-              serviceType={deliveryType}
-              onSessionChange={onSessionChange}
-              onStartDateChange={onStartDateChange}
-              onMealPlanSelection={onMealPlanSelection}
-              onDeliveryChange={onDeliveryTypeChange}
-            />
-            <Button
-              variant="primary" className="mt-2 mx-auto addCart-btn"
-              onClick={onAddToCart}
-              disabled={!selectedDuration || selectedSessions.length === 0}
-            >
-              {ADD_TO_CART}
-            </Button>
-          </div>
+          (deliveryType === PICKUP || addressSelected === true) ?
+            <div className="px-3 text-center">
+              <ProductPlanner
+                productTitle={display_name}
+                productCategory={category}
+                imageUrl={defaultimg_url}
+                productDescription={description}
+                mealPlans={mealPlans}
+                deliveryType={deliveryType}
+                onSessionChange={onSessionChange}
+                onStartDateChange={onStartDateChange}
+                onMealPlanSelection={onMealPlanSelection}
+                onDeliveryChange={onDeliveryTypeChange}
+                setAddressSelected={setAddressSelected}
+              />
+              <Button
+                variant="primary" className="mt-2 mx-auto addCart-btn"
+                onClick={onAddToCart}
+                disabled={!selectedDuration || selectedSessions.length === 0}
+              >
+                {ADD_TO_CART}
+              </Button>
+            </div>
+            :
+            <>
+              <AddressComponent
+                setAddress={setAddress}
+                setDelivery={setDelivery}
+                onDeliveryTypeChange={onDeliveryTypeChange}
+                setAddressSelected={setAddressSelected}
+              />
+            </>
         )}
       </div>
     </section>
