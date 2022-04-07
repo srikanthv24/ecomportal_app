@@ -48,12 +48,28 @@ export const MEAL_PLAN_STEPS = {
   CHOOSE_YOUR_GOAL: "Choose your Goal",
   MY_PROFILE: "My Profile",
   SCHEDULE: "Schedule",
-  CUSTOM_DIET : "I need Custom Diet"
+  CUSTOM_DIET: "I need Custom Diet",
 };
 
 export const DISCLAIMER_DATA = {
-  CONTACT_NUMBER:  '8096091111',
-  PRIMARY_TEXT : "Give us an Opportunity to understand your requirements and serve you better",
+  CONTACT_NUMBER: "8096091111",
+  SECONDARY_TEXT: "",
+  PRIMARY_TEXT:
+    "Give us an Opportunity to understand your requirements and serve you better",
+};
 
+export const PICKUP = "Pickup";
+export const DELIVERY = "Delivery";
+export const ADD_TO_CART = "Add To Cart";
+export const DAYS_PLAN = "Days Plan";
+export const CUSTOM_PLAN = "Custom Plan";
+export const SERVINGS = "Servings";
+export const  NEXT = "Next";
+
+export const PERSONAL_INFO = {
+  HEIGHT_FEET : "Height-Feet",
+  HEIGHT_INCHES :"Height-Inches",
+  WEIGHT: "Weight",
+  AGE: "Age",
 }
 

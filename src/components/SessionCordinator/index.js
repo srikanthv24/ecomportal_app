@@ -5,12 +5,14 @@ import { SESSION_TYPES } from "../../utils/constants";
 const getSessionCheckBoxes = (sessionCodes, onChange) => {
   return sessionCodes.map((sessionCode) => {
     return (
+      <div className="mealPlannerCheck">
       <Form.Check
         type="checkbox"
         name={sessionCode}
         label={SESSION_TYPES[sessionCode]}
         onChange={onChange}
       />
+      </div>
     );
   });
 };

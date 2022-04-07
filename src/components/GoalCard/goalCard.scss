@@ -1,0 +1,37 @@
+.goal-card {
+    cursor: pointer;
+    padding: 10px;
+    width: calc(50% - 20px);
+    // margin-right: 10px;
+    margin-bottom: 20px;
+    border-color: rgba(54, 41, 24, .25) !important;
+    // padding: 0px;
+    background: transparent;
+    border-radius: 20px !important;
+    
+}
+
+.goal-card:last-child {
+    margin-bottom: 20px;
+}
+
+.goal-card .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom:0px;
+}
+
+.goal-card .card-body svg {
+    width: 40px;
+    height: auto;
+}
+
+.goal-card.bg-success .card-body svg {
+    color: white;
+}
+
+.goal-title {
+    font-size: 14px !important;
+}

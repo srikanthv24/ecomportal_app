@@ -1,18 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Spinner } from "react-bootstrap";
 import { Landing } from "../scenes/Consumer";
 import AppBar from "../components/AppBar/app-bar";
 import Categories from "../scenes/Categories";
 import ProductsRoutes from "../scenes/Products";
 import Cart from "../scenes/Cart";
 import LemmeTry from "../scenes/lemmetry";
-import { useSelector } from "react-redux";
 import CartSummary from "../scenes/Cart/cart-summary";
 import Orders from "../scenes/Orders";
-import { Spinner } from "react-bootstrap";
 import {Profile} from '../scenes/Profile';
-import { MealBooking } from "../scenes/MealBooking";
 import LegalContent from "../components/LegalContent";
 import PrivacyPolicyContent from "../components/PrivacyPolicyContent";
 import VibrantMealPlanner from "../scenes/VibrantMealPlanner";
@@ -51,11 +50,10 @@ function Routes() {
           <Route path="/categories" component={Categories} />
           <Route path="/subscription" component={LemmeTry} />
           <Route path="/profile" component={Profile} />
-          <Route path="/mealsubscription" component={VibrantMealPlanner}/>
+          <Route path="/vibrant-meal-planner" component={VibrantMealPlanner}/>
           <Route path="/legalcontent" component={LegalContent}/>
           <Route path="/privacypolicy" component={PrivacyPolicyContent}/>
           <Route path="/disclaimer" component={Disclaimer}/>
-          {/* <Route path="/subscription" component={MealBooking}/> */}
           {userDetails.sub && (
             <>
               <Route path="/cart-summary" component={CartSummary} />

@@ -1,0 +1,72 @@
+.product-planner{
+    padding: 0px 0px;
+    .product-display{
+        background: #ffffff;
+        padding: 20px;
+        margin-bottom: 12px;
+    .prdTitle{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 30px;  
+        color: #000000;
+        text-align: left;   
+    }
+    .prdCategory{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 20px;        
+        color: rgba(53, 40, 23, 0.5);   
+        text-align: left;     
+    }
+    .prdDesp{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;         
+        color:#424141;   
+        text-align: left;     
+    }
+    img{
+        max-height: 200px;
+        width:100%;
+    }
+    }
+    .mealPlannerCheck{  
+        padding:0px 0px;              
+        margin-bottom: 5px;
+        .form-check{
+            padding: 15px calc(20px + 1.5rem);
+            background-color: #ffffff;
+            border:1px solid #d3d3d3;
+            border-radius: 10px;
+        }
+    }
+    .mealPlan-date{
+        margin-bottom: 5px;
+        .rmdp-container{
+            width: 100%;
+        input.rmdp-input {
+            width: 100%;
+            height: auto;
+            min-height: 32px;
+            padding: 15px 12px;
+            border: 1px solid #d3d3d3;            
+            border-radius: 10px;
+        }
+    }
+    }
+    .mealplan-address-block{
+        background-color: #cccccc;
+        padding: 15px;
+    }
+    
+}
+.addCart-btn{
+    width: calc(100% - 0px);
+    margin: 20px auto;
+}

@@ -1,5 +1,5 @@
 import { GET_SUBSCRIPTION } from "../graphql/getSubscriptionQuery";
-import { api_urls, DUMMY_URL, Common_API_URL1 } from "../../utils";
+import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
 
 export const getSubscriptionDetails = async (cart_id, cartitem_id, sub_id) => {

@@ -1,18 +1,25 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
-import MealCard from '../MealCard/MealCard';
+import MealCard from "../MealCard/MealCard";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
-import './meallist.scss';
+import "./meallist.scss";
 
-
-const MealList = ({ handleNextStep, selectedMeal, onMealClick,loading, list, handleCustomDiet}) => {
-  const handleClick = (mealId) => {
-    onMealClick(mealId);
+const MealList = ({
+  handleNextStep,
+  selectedMealId,
+  onMealClick,
+  loading,
+  list,
+  handleCustomDiet,
+}) => {
+  
+  const handleClick = (selectedMeal) => {
+    onMealClick(selectedMeal);
     handleNextStep();
   };
 
   return (
-    <section style={{ background: "rgb(249, 243, 223)" }}>
+    <section>
       <p className="fs-4 fw-bold mb-3 text-center page-title">
         {MEAL_PLAN_STEPS.CHOOSE_YOUR_MEAL}
       </p>
@@ -23,17 +30,16 @@ const MealList = ({ handleNextStep, selectedMeal, onMealClick,loading, list, han
           list.map((meal) => (
             <MealCard
               key={meal.id}
-              isSelected={selectedMeal === meal.id}
-              onClick={() => handleClick(meal.id)}
+              isSelected={selectedMealId === meal.id}
+              onClick={() => handleClick(meal)}
               name={meal.display_name}
-              MealSrc={meal.defaultimg_url}
+              mealImgUrl={meal.defaultimg_url}
             />
           ))}
       </div>
-      <div
-        className="custom-diet-btn my-3"
-        onClick={handleCustomDiet}
-      >{MEAL_PLAN_STEPS.CUSTOM_DIET}</div>
+      <div className="custom-diet-btn my-3" onClick={handleCustomDiet}>
+        {MEAL_PLAN_STEPS.CUSTOM_DIET}
+      </div>
     </section>
   );
 };
