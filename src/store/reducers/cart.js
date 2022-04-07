@@ -39,6 +39,9 @@ export const Cart = (state = initialState, action) => {
     //     cartItemsLoading: false,
     //   };
 
+    case types.CREATE_CART_INPUT:
+      return { ...state, cartLoading: true };
+
     case types.UPDATE_CART_ITEM:
       return { ...state, cartItemsLoading: true };
 

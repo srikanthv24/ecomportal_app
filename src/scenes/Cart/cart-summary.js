@@ -22,16 +22,16 @@ const CartSummary = () => {
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
-  const { cartDetails, cartLoading, cartUpdateLoading, cartCreated } =
+  const { cartDetails, cartLoading, cartUpdateLoading, cartCreated, cartItemsLoading } =
     useSelector((state) => state.Cart);
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (userDetails.sub) {
       dispatch(getAddresses({ customerId: userDetails.sub }));
       dispatch(getCart({ customer_id: userDetails.sub }));
     }
-  }, [cartCreated]);
+  }, [cartCreated]);*/
 
   useEffect(() => {
     let temp = [];
@@ -66,8 +66,7 @@ const CartSummary = () => {
       setItems(temp);
     }
   }, [cartDetails?.items]);
-
-  return (
+  return ( !cartLoading)? (
     <div>
       <ModalComponent
         show={AlertReducer.showAlert}
@@ -172,6 +171,8 @@ const CartSummary = () => {
         </section>
       </div>
     </div>
+  ) : (
+    <Spinner animation="border" role="status" />
   );
 
   function loadScript(src) {

@@ -28,3 +28,10 @@ export const getPostalCodes = () => {
     type: types.GET_POSTALCODES
   };
 };
+
+export const calculateDeliveryCharge = (data) => {
+  return {
+    type: types.DELIVERY_CHARGE,
+    payload: data
+  }
+}

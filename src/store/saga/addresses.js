@@ -121,11 +121,29 @@ function* getPostalCodes(action) {
   }
 }
 
+function* calculateDeliveryCharge(action) {
+  try {
+    const data = yield call(Adresses.calculateDeliveryCharge, action.payload);
+    if (data) {
+      yield put({
+        type: types.DELIVERY_CHARGE_SUCCESS,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: types.DELIVERY_CHARGE_FAILURE,
+      payload: error,
+    });
+  }
+}
+
 export function* addressesSaga() {
   yield all([
     yield takeLatest(types.ADDRESS_LIST, getAddresses),
     yield takeLatest(types.CREATE_ADDRESS, postAddress),
     yield takeLatest(types.GET_POSTALCODES, getPostalCodes),
     yield takeLatest(types.DELETE_ADDRESS, deleteAddress),
+    yield takeLatest(types.DELIVERY_CHARGE, calculateDeliveryCharge),
   ]);
 }

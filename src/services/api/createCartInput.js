@@ -12,6 +12,7 @@ export const createCartInput = async ({ payload }) => {
     customerId,
     productId,
     selectedSessions,
+    address
   } = payload;
   const { age, gender, heightFeet, heightInch, weight } = profileDetails;
   const cartData = {
@@ -30,7 +31,7 @@ export const createCartInput = async ({ payload }) => {
       qty: 1,
       subscription: selectedSessions.map((session) => {
         return {
-          address: {},
+          address: address,
           addon_items: [],
           isDelivery: deliveryType === "Delivery",
           meal_type: session,

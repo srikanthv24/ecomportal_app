@@ -6,11 +6,11 @@ export const getMealPlanDetails = (
   meal_prices,
   durationVariant,
   deliveryCharge = 0,
-  addonPrice = 0,
-  totalTaxes = 0
+  discount = 0,
+  totalTaxes = 0,
+  addonPrice = 0
 ) => {
   if (selectedSessions.length === 0) return [];
-
   const mealPlans = [
     ...durationVariant.items,
     { duration: 30, canChangeDuration: true },
@@ -19,7 +19,7 @@ export const getMealPlanDetails = (
     const pricePerDay = selectedSessions
       .map((session) => {
         const { [MEAL_PRICE_TYPES[session]]: mealPrice } = meal_prices;
-        return mealPrice + addonPrice + deliveryCharge + totalTaxes;
+        return mealPrice + addonPrice + deliveryCharge;
       })
       .reduce((a, b) => a + b, 0);
 
@@ -28,6 +28,8 @@ export const getMealPlanDetails = (
       servings: selectedSessions.length * duration,
       duration,
       canChangeDuration: canChangeDuration,
+      totalTaxes,
+      discount,
     };
   });
   return mealPlans;
@@ -38,6 +40,5 @@ export const getOrderDates = (duration, startDate) => {
   for (let i = 0; i < duration; i++) {
     orderDates.push(moment(startDate).add(i, "days").format("YYYY-MM-DD"));
   }
-  console.log("orderDates: " + JSON.stringify(orderDates));
   return orderDates;
 };
