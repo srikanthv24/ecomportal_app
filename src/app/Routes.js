@@ -16,6 +16,7 @@ import LegalContent from "../components/LegalContent";
 import PrivacyPolicyContent from "../components/PrivacyPolicyContent";
 import VibrantMealPlanner from "../scenes/VibrantMealPlanner";
 import Disclaimer from "../components/Disclaimer/Disclaimer";
+import AddressComponent from "../scenes/VibrantMealPlanner/AddressComponent";
 
 function Routes() {
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -54,6 +55,7 @@ function Routes() {
           <Route path="/legalcontent" component={LegalContent}/>
           <Route path="/privacypolicy" component={PrivacyPolicyContent}/>
           <Route path="/disclaimer" component={Disclaimer}/>
+          <Route path="/add-address" component={AddressComponent} />
           {userDetails.sub && (
             <>
               <Route path="/cart-summary" component={CartSummary} />

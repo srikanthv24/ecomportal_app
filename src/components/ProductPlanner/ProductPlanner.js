@@ -19,10 +19,16 @@ const ProductPlanner = React.memo(
     onMealPlanSelection,
     onDeliveryChange,
     deliveryType,
+    setAddressSelected
   }) => {
     const [startDate, setStartDate] = useState(getTomorrowDate);
-    const onServiceChange = () => {
-      onDeliveryChange();
+    // const [deliveryType, setDeliveryType] = useState(PICKUP);
+    const onServiceChange = (e) => {
+      const { value } = e.target;
+      onDeliveryChange(value);
+      if (value === PICKUP) {
+        setAddressSelected(false);
+      }
     };
     const onDateChange = (date) => {
       const selectedDate = date.format("YYYY-MM-DD");
@@ -51,21 +57,26 @@ const ProductPlanner = React.memo(
         </div>
         
         <div className="mealplan-address-block">
-          <input
-            type="radio"
-            id="pick-up"
-            value={PICKUP}
-            checked
-            onChange={onServiceChange}
-          />
-          <label for="pick-up">{PICKUP}</label>
-          <input
-            type="radio"
-            id="delivery"
-            value={DELIVERY}
-            onChange={onDeliveryChange}
-          />
-          <label for="delivery">{DELIVERY}</label>
+          <div className="form-check form-check-inline">
+            <input className="form-check-input" 
+              type="radio" 
+              name="order-type" 
+              id={PICKUP} 
+              defaultChecked={deliveryType === PICKUP ? true : false}
+              onChange={onServiceChange}
+              value={PICKUP} />
+            <label className="form-check-label" htmlFor={PICKUP}>Pickup</label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input className="form-check-input" 
+              type="radio" 
+              name="order-type" 
+              id={DELIVERY}
+              defaultChecked={deliveryType === DELIVERY ? true : false}
+              onChange={onServiceChange}
+              value={DELIVERY} />
+            <label className="form-check-label" htmlFor={DELIVERY}>Delivery</label>
+          </div>
         </div>
         <div className="meal-plan-wrapper">
           {mealPlans.map((plan) => {
