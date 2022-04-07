@@ -1,12 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Step, StepLabel, Stepper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
 import { getMealPlans } from "../../store/actions/mealPlans";
 import { useHistory } from "react-router-dom";
 import MealList from "../../components/MealList/MealList";
+import AddressComponent from "./AddressComponent";
 import "./styles.scss";
 import { Button } from "react-bootstrap";
+
+let autoComplete;
+const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
+const loadScript = (url) => {
+  let script = document.createElement("script");
+  script.type = "text/javascript";
+
+  if (script.readyState) {
+    script.onreadystatechange = function() {
+      if (script.readyState === "loaded" || script.readyState === "complete") {
+        script.onreadystatechange = null;
+      }
+    };
+  } else {
+    script.onload = () => null;
+  }
+
+  script.src = url;
+  document.getElementsByTagName("head")[0].appendChild(script);
+};
 
 function getSteps() {
   return [
@@ -23,6 +44,7 @@ function VibrantMealPlanner() {
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
   const [meal, setMeal] = useState("");
+  const autoCompleteRef = useRef(null);
 
   const { mealPlansList: mealList, loading: mealLoading } = useSelector(
     (state) => state.mealPlans
@@ -38,6 +60,10 @@ function VibrantMealPlanner() {
 
   useEffect(() => {
     dispatch(getMealPlans());
+  }, []);
+
+  useEffect(() => {
+    loadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`);
   }, []);
 
   return (
@@ -67,7 +93,9 @@ function VibrantMealPlanner() {
         )}
         {activeStep === 1 && <h1>Step 2</h1>}
         {activeStep === 2 && <h1>Step 3</h1>}
-        {activeStep === 3 && <h1>Step 4</h1>}
+        {activeStep === 3 && (
+          <AddressComponent />
+        )}
       </div>
       <div className="stepper-btn-container">
         <Button
