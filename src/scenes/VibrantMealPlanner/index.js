@@ -147,10 +147,6 @@ function VibrantMealPlanner() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-  
-  useEffect(() => {
-    dispatch(getMealPlans());
-  }, []);
 
   useEffect(() => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`);
