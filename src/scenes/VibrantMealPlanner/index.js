@@ -133,6 +133,7 @@ function VibrantMealPlanner() {
           customerId,
           productId,
           selectedSessions,
+          address
         })
       );
       history.push("/cart-summary");
