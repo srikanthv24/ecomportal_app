@@ -151,7 +151,7 @@ function VibrantMealPlanner() {
             onMealClick={onMealProductClick}
             handleNextStep={handleNext}
             selectedMealId={meal}
-            handleCustomDiet={history.push("/disclaimer?name=subscription")}
+            handleCustomDiet={()=>history.push("/disclaimer?name=subscription")}
           />
         )}
         {activeStep === 1 && (

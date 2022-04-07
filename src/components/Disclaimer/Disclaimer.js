@@ -3,6 +3,7 @@ import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { DISCLAIMER_DATA } from "../../utils/constants";
 import "./disclaimer.scss";
 import useQuery from "../../hooks/useQuery";
+import { Link } from "react-router-dom";
 
 const Disclaimer = () => {
   const query = useQuery();
@@ -39,9 +40,11 @@ const Disclaimer = () => {
           </div>
         </div>
         <div className="dis-back-btn">
+        <Link to="/vibrant-meal-planner">
           <p>Back</p>
+        </Link>
         </div>
-      </div>
+        </div>
     </>
   );
 };
