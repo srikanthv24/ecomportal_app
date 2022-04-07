@@ -64,3 +64,12 @@ export const ADD_TO_CART = "Add To Cart";
 export const DAYS_PLAN = "Days Plan";
 export const CUSTOM_PLAN = "Custom Plan";
 export const SERVINGS = "Servings";
+export const  NEXT = "Next";
+
+export const PERSONAL_INFO = {
+  HEIGHT_FEET : "Height-Feet",
+  HEIGHT_INCHES :"Height-Inches",
+  WEIGHT: "Weight",
+  AGE: "Age",
+}
+

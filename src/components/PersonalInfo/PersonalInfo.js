@@ -3,6 +3,7 @@ import "./personalInfo.scss";
 import { MdMale, MdFemale } from "react-icons/md";
 import { Button, Card } from "react-bootstrap";
 import { GrAdd, GrSubtract } from "react-icons/gr";
+import { NEXT, PERSONAL_INFO } from "../../utils/constants";
 
 const PersonalInfo = ({
   handleBack,
@@ -108,7 +109,7 @@ const PersonalInfo = ({
         <Card.Body className="py-3 px-0 d-flex justify-content-between">
            <div className="pinfo-box">
               <div className="text-muted">
-              <label>Height-Feet</label>
+              <label>{PERSONAL_INFO.HEIGHT_FEET}</label>
               </div>
               <div className="pinfo-box-item">
               <button
@@ -131,7 +132,7 @@ const PersonalInfo = ({
 
             <div className="pinfo-box">
               <div className="text-muted">
-              <label>Height-Inches</label>
+              <label>{PERSONAL_INFO.HEIGHT_INCHES}</label>
               </div>
               <div className="pinfo-box-item">
               <button
@@ -157,7 +158,7 @@ const PersonalInfo = ({
         <Card.Body className="py-3 px-0 d-flex justify-content-between">
            <div className="pinfo-box">
               <div className="text-muted">
-              <label>Weight</label>
+              <label>{PERSONAL_INFO.WEIGHT}</label>
               </div>
               <div className="pinfo-box-item">
               <button
@@ -180,7 +181,7 @@ const PersonalInfo = ({
 
             <div className="pinfo-box">
               <div className="text-muted">
-              <label>Age</label>
+              <label>{PERSONAL_INFO.AGE}</label>
               </div>
               <div className="pinfo-box-item">
               <button
@@ -204,7 +205,7 @@ const PersonalInfo = ({
       </div>
       <div className="stepper-btn-container">
         <Button className="w-100 m-1 stepper-btn" onClick={onSubmit}>
-          Next
+          {NEXT}
         </Button>
       </div>
     </section>
