@@ -1,9 +1,9 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import defaultMealImg from '../../assets/meal.jpeg';
-import './mealcard.scss';
+import defaultMealImg from "../../assets/meal.jpeg";
+import "./mealcard.scss";
 
-const MealCard = ({ name, onClick, isSelected, mealImgUrl }) => (
+const MealCard = React.memo(({ name, onClick, isSelected, mealImgUrl }) => (
   <Card
     onClick={() => onClick()}
     className={`meal-card${isSelected ? " bg-success" : ""}`}
@@ -14,13 +14,11 @@ const MealCard = ({ name, onClick, isSelected, mealImgUrl }) => (
       </div>
     </Card.Body>
     <Card.Body className="pt-1 text-center px-1" style={{ minHeight: 40 }}>
-      <Card.Text
-        className="h6 mb-0 pb-0 col-12 text-truncate text-center mealcard-title"
-      >
+      <Card.Text className="h6 mb-0 pb-0 col-12 text-truncate text-center mealcard-title">
         {name}
       </Card.Text>
     </Card.Body>
   </Card>
-);
+));
 
 export default MealCard;

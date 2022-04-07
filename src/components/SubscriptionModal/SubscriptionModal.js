@@ -13,7 +13,6 @@ import {
   getSubscriptionConfirmationText,
 } from "../../utils/subscriptionUtils";
 
-
 const SubscriptionModal = React.memo(
   ({
     serviceType,
@@ -55,12 +54,12 @@ const SubscriptionModal = React.memo(
       }
     };
     const getFromDate = () => {
-      if (serviceType === SERVICE_TYPE.PAUSE_TOMORROW) {
+      const tomorrowDate = moment().add(1, "days").format("YYYY-MM-DD");
+      if (serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) {
+        return moment(tomorrowDate).isAfter(minDate) ? tomorrowDate : minDate;
+      } else if (serviceType === SERVICE_TYPE.PAUSE_TOMORROW) {
         return moment().add(1, "days").format("YYYY-MM-DD");
-      } else if (
-        serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ||
-        serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN
-      ) {
+      } else if (serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN) {
         return fromDate;
       }
     };
@@ -78,8 +77,7 @@ const SubscriptionModal = React.memo(
                   <div className="subscription-description">
                     {getSubscriptionConfirmationText(serviceType, productName)}
                   </div>
-                  {(serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
-                    serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) && (
+                  {serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN && (
                     <div className="order-form-control">
                       <span className="date-info">From Date:</span>
                       <DatePicker
@@ -130,9 +128,7 @@ const SubscriptionModal = React.memo(
                   />
                 </>
               ) : (
-                <>
-                  
-                </>
+                <></>
               )}
             </section>
           </Modal.Body>

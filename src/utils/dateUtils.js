@@ -24,3 +24,8 @@ export const getMaxDate = (subscriptions) => {
 export const getDateInTextFormat = (date) => {
   return moment(new Date(date)).format("MMMM Do, YYYY");
 };
+
+export const getTomorrowDate = () => {
+  console.log("get date has called");
+  return moment().add(1, "days").format("YYYY-MM-DD");
+};
