@@ -41,13 +41,16 @@ const ProductPlanner = React.memo(
           onSessionChange={onSessionChange}
           sessionCodes={["B", "L", "D"]}
         />
+        <div className="mealPlan-date">
         <DatePicker
           name="start-date"
           className="order-form-control-input"
           value={startDate}
           onChange={onDateChange}
         />
-        <div>
+        </div>
+        
+        <div className="mealplan-address-block">
           <input
             type="radio"
             id="pick-up"

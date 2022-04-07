@@ -173,7 +173,7 @@ function VibrantMealPlanner() {
           />
         )}
         {activeStep === 3 && (
-          <>
+          <div className="px-3 text-center">
             <ProductPlanner
               productTitle={display_name}
               productCategory={category}
@@ -187,13 +187,13 @@ function VibrantMealPlanner() {
               onDeliveryChange={onDeliveryTypeChange}
             />
             <Button
-              variant="primary"
+              variant="primary" className="mt-2 mx-auto addCart-btn"
               onClick={onAddToCart}
               disabled={!selectedDuration || selectedSessions.length === 0}
             >
               {ADD_TO_CART}
             </Button>
-          </>
+          </div>
         )}
       </div>
       <div className="stepper-btn-container">
