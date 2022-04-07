@@ -3,15 +3,12 @@ import {
 	Form,
 	FloatingLabel
 } from "react-bootstrap";
+import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { calculateDeliveryCharge, getPostalCodes } from "../../store/actions/addresses";
 
 let autoComplete;
-const storeLatLong = [17.4158012,78.387678];
-const maxFreeDeliveryDistance = 8;
-const costPerKm = 12;
 let addressLat = "", addressLong = "";
-
 const AddressComponent = () => {
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
@@ -24,11 +21,14 @@ const AddressComponent = () => {
     landmark: "",
     city: "",
     state: "",
-    postalcode: 0,
-    tag: "",
-    delivery_cost: 0,
-    discount_on_delivery: 0
+    postalcode: 0
   });
+  const [deliveryCost, setDeliveryCost] = useState({
+    delivery_charge: 0,
+    discount: 0,
+    distance: 0
+  });
+  const [showPincodeError, setShowPincodeError] = useState(false);
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
 
@@ -100,11 +100,30 @@ const AddressComponent = () => {
 
   useEffect(() => {
     dispatch(getPostalCodes());
-  }, [])
+  }, []);
 
   useEffect(() => {
-    console.log(deliveryCharge, "------>>>>>>");
+    if(deliveryCharge) {
+      setDeliveryCost(deliveryCharge);
+    }
   },[deliveryCharge])
+
+  useEffect(() => {
+    if(postalCodes?.listPostalCodes?.items?.length > 0 && newAddress.postalcode.length === 6) {
+      Object.keys(newAddress).map(function(key, i) {
+        if (key === "postalcode") {
+          const filter = postalCodes.listPostalCodes.items.find(
+            (pincode) => parseInt(newAddress.postalcode) === pincode.postalcode
+          );
+          if(filter) {
+            setShowPincodeError(false);
+          } else {
+            setShowPincodeError(true);
+          }
+        }
+      });
+    }
+  }, [newAddress])
 
   return(
     <>
@@ -123,118 +142,150 @@ const AddressComponent = () => {
             value={query}
           />
         </FloatingLabel>
-        <FloatingLabel
-          label="House No./Door No."
-          className="mt-3 mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.aline1}
-            type="text"
-            placeholder="houseNo"
-            name="aline1"
-            onChange={handleHouseAreaChange}
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          label="Address"
-          className="mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.aline2}
-            type="text"
-            placeholder="address"
-            name="aline2"
-            readOnly
-            
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          label="Street Name"
-          className="mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.community}
-            type="text"
-            placeholder="street"
-            name="community"
-            readOnly
-            
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          label="Area"
-          className="mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.area}
-            type="text"
-            placeholder="area"
-            name="area"
-            readOnly
-            
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          label="Landmark"
-          className="mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.landmark}
-            type="text"
-            placeholder="landmark"
-            name="landmark"
-            onChange={handleHouseAreaChange}
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          label="Postal Code"
-          className="mt-3 mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.postalcode}
-            type="text"
-            placeholder="Pincode"
-            name="postalcode"
-            readOnly
-            
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          //controlId="floatingInput"
-          label="City"
-          className="mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.city}
-            type="text"
-            placeholder="city"
-            name="city"
-            readOnly
-            
-          />
-        </FloatingLabel>
-        <FloatingLabel
-          //controlId="floatingInput"
-          label="State"
-          className="mb-2"
-        >
-          <Form.Control
-            className="bg-transparent border-dark"
-            value={newAddress.state}
-            type="text"
-            placeholder="state"
-            name="state"
-            readOnly
-            
-          />
-        </FloatingLabel>
+        {
+          showPincodeError ?
+           <>
+            <div className="card text-dark text-center bg-transparent border-0">
+              Unfortunately our services are not available in
+              your area, please give a call to arrange
+              alternate delivery options
+            </div>
+            <div class="card mx-auto my-3 p-0 bg-transparent border-0">
+              <div class="card-body d-flex align-items-center p-0 justify-content-around contact-info">
+                <div>
+                  <FaWhatsapp
+                    className="me-2"
+                    style={{ width: "30px", height: "auto" }}
+                  />
+                  +91 8096091111
+                </div>
+                {/* <div className="vr mx-3 divider" /> */}
+                <div className="contact-phone">
+                  <FaPhoneAlt
+                    className="me-2"
+                    style={{ width: "20px", height: "auto" }}
+                  />
+                  +91 8096091111
+                </div>
+              </div>
+            </div>
+           </>
+           :
+           <>
+            <FloatingLabel
+              label="House No./Door No."
+              className="mt-3 mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.aline1}
+                type="text"
+                placeholder="houseNo"
+                name="aline1"
+                onChange={handleHouseAreaChange}
+              />
+            </FloatingLabel>
+            <FloatingLabel
+              label="Address"
+              className="mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.aline2}
+                type="text"
+                placeholder="address"
+                name="aline2"
+                readOnly
+                
+              />
+            </FloatingLabel>
+            <FloatingLabel
+              label="Street Name"
+              className="mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.community}
+                type="text"
+                placeholder="street"
+                name="community"
+                readOnly
+                
+              />
+            </FloatingLabel>
+            <FloatingLabel
+              label="Area"
+              className="mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.area}
+                type="text"
+                placeholder="area"
+                name="area"
+                readOnly
+                
+              />
+            </FloatingLabel>
+            <FloatingLabel
+              label="Landmark"
+              className="mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.landmark}
+                type="text"
+                placeholder="landmark"
+                name="landmark"
+                onChange={handleHouseAreaChange}
+              />
+            </FloatingLabel>
+            <FloatingLabel
+              label="Postal Code"
+              className="mt-3 mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.postalcode}
+                type="text"
+                placeholder="Pincode"
+                name="postalcode"
+                readOnly
+                
+              />
+            </FloatingLabel>
+            <FloatingLabel
+              //controlId="floatingInput"
+              label="City"
+              className="mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.city}
+                type="text"
+                placeholder="city"
+                name="city"
+                readOnly
+                
+              />
+            </FloatingLabel>
+            <FloatingLabel
+              //controlId="floatingInput"
+              label="State"
+              className="mb-2"
+            >
+              <Form.Control
+                className="bg-transparent border-dark"
+                value={newAddress.state}
+                type="text"
+                placeholder="state"
+                name="state"
+                readOnly
+                
+              />
+            </FloatingLabel>
+           </>
+        }
       </div>
       
     </>

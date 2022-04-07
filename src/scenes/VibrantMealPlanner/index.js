@@ -5,11 +5,9 @@ import { MEAL_PLAN_STEPS } from "../../utils/constants";
 import { getMealPlans } from "../../store/actions/mealPlans";
 import { useHistory } from "react-router-dom";
 import MealList from "../../components/MealList/MealList";
-import AddressComponent from "./AddressComponent";
 import "./styles.scss";
 import { Button } from "react-bootstrap";
 
-let autoComplete;
 const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
 const loadScript = (url) => {
   let script = document.createElement("script");
@@ -44,7 +42,6 @@ function VibrantMealPlanner() {
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
   const [meal, setMeal] = useState("");
-  const autoCompleteRef = useRef(null);
 
   const { mealPlansList: mealList, loading: mealLoading } = useSelector(
     (state) => state.mealPlans
@@ -93,9 +90,7 @@ function VibrantMealPlanner() {
         )}
         {activeStep === 1 && <h1>Step 2</h1>}
         {activeStep === 2 && <h1>Step 3</h1>}
-        {activeStep === 3 && (
-          <AddressComponent />
-        )}
+        {activeStep === 3 && <h1>Step 4</h1>}
       </div>
       <div className="stepper-btn-container">
         <Button
