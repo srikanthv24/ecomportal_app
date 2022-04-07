@@ -52,11 +52,8 @@ export const MEAL_PLAN_STEPS = {
 };
 
 export const DISCLAIMER_DATA = {
-  CONTACT_NUMBER:  '8096091111',
-  PRIMARY_TEXT : "Give us an Opportunity to understand your requirements and serve you better",
-  SECONDARY_TEXT : "" 
-}
   CONTACT_NUMBER: "8096091111",
+  SECONDARY_TEXT: "",
   PRIMARY_TEXT:
     "Give us an Opportunity to understand your requirements and serve you better",
 };
