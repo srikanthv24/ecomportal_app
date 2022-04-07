@@ -6,6 +6,7 @@ const initialState = {
   addressList: [],
   postalCodes: [],
   deleteAddress: {},
+  deliveryCharge: {}
 };
 
 export const Addresses = (state = initialState, action) => {
@@ -75,6 +76,28 @@ export const Addresses = (state = initialState, action) => {
        postalCodes: [],
        error: true
      }
+
+    //Delivery charge
+    case types.DELIVERY_CHARGE: 
+      return {
+        ...state, 
+        loading: true
+      }
+
+    case types.DELIVERY_CHARGE_SUCCESS: 
+      return {
+        ...state, 
+        loading: false,
+        deliveryCharge: action.payload
+      }
+ 
+    case types.DELIVERY_CHARGE_FAILURE: 
+      return {
+        ...state, 
+        loading: false,
+        deliveryCharge: {},
+        error: true
+      }
 
     default:
       return state;

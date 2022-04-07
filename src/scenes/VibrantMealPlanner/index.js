@@ -14,6 +14,25 @@ import { FaWeight, FaLeaf, FaRegGrinHearts } from "react-icons/fa";
 import { showLogin } from "../../store/actions";
 import "./styles.scss";
 
+const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
+const loadScript = (url) => {
+  let script = document.createElement("script");
+  script.type = "text/javascript";
+
+  if (script.readyState) {
+    script.onreadystatechange = function() {
+      if (script.readyState === "loaded" || script.readyState === "complete") {
+        script.onreadystatechange = null;
+      }
+    };
+  } else {
+    script.onload = () => null;
+  }
+
+  script.src = url;
+  document.getElementsByTagName("head")[0].appendChild(script);
+};
+
 function getSteps() {
   return [
     MEAL_PLAN_STEPS.CHOOSE_YOUR_MEAL,
@@ -128,7 +147,14 @@ function VibrantMealPlanner() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  
+  useEffect(() => {
+    dispatch(getMealPlans());
+  }, []);
 
+  useEffect(() => {
+    loadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`);
+  }, []);
   return (
     <section className="planner-container">
       <Stepper

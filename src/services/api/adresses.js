@@ -129,4 +129,20 @@ export class Adresses {
         return data;
       });
   };
+
+  static calculateDeliveryCharge = async (data) => {
+    const urlParams = new URLSearchParams(Object.entries(data));
+    return fetch(`${api_urls.delivery_calculatio_API_URL}?${urlParams}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+        return data;
+    });
+  };
 }
