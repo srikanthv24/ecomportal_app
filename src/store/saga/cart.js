@@ -143,7 +143,7 @@ function* getCartSummary(params) {
 function* callCreateCartInputApi(payload) {
   const { customer_id } = yield call(createCartInput, payload);
   if (customer_id) {
-    //yield call(getCartItemsCount, customer_id);
+    yield call(GetCart, { payload: { customer_id: customer_id } });
   }
 }
 

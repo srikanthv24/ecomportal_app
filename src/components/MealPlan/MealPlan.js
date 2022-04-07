@@ -11,6 +11,8 @@ const MealPlan = React.memo(
     pricePerDay,
     canChangeDuration,
     onMealClick,
+    totalTaxes,
+    discount,
     onDurationChange,
   }) => {
     const [customDuration, setCustomDuration] = useState(
@@ -23,6 +25,7 @@ const MealPlan = React.memo(
         setCustomDuration(customDuration);
       }
     };
+    console.log("discount in meal plan: " + JSON.stringify(discount));
     return (
       <div
         className="meal-card"
@@ -59,7 +62,11 @@ const MealPlan = React.memo(
         )}
         <span>
           <BiRupee />
-          {`${pricePerDay * (canChangeDuration ? customDuration : duration)}/-`}
+          {`${
+            pricePerDay * (canChangeDuration ? customDuration : duration) +
+            totalTaxes -
+            discount
+          }/-`}
         </span>
       </div>
     );

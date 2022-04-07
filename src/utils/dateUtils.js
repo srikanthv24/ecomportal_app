@@ -26,6 +26,5 @@ export const getDateInTextFormat = (date) => {
 };
 
 export const getTomorrowDate = () => {
-  console.log("get date has called");
   return moment().add(1, "days").format("YYYY-MM-DD");
 };
