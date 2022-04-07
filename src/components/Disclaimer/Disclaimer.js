@@ -2,13 +2,21 @@ import React from "react";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { DISCLAIMER_DATA } from "../../utils/constants";
 import "./disclaimer.scss";
+import useQuery from "../../hooks/useQuery";
+import { Link } from "react-router-dom";
 
 const Disclaimer = () => {
+  const query = useQuery();
+
   return (
     <>
       <div className="disclaimer">
         <div className="card text-dark text-center bg-transparent border-0">
-          {DISCLAIMER_DATA.PRIMARY_TEXT}
+          {query.get("name") === "subscription" ? (
+            <h3>{DISCLAIMER_DATA.PRIMARY_TEXT}</h3>
+          ) : (
+            <h3>{DISCLAIMER_DATA.SECONDARY_TEXT}</h3>
+          )}
         </div>
         <div className="card text-dark text-center bg-transparent border-0">
           Please call us
@@ -20,7 +28,7 @@ const Disclaimer = () => {
                 className="me-2"
                 style={{ width: "30px", height: "auto" }}
               />
-              {`+91 ${DISCLAIMER_DATA.CONTACT_NUMBER}`} 
+              {`+91 ${DISCLAIMER_DATA.CONTACT_NUMBER}`}
             </div>
             <div className="contact-phone">
               <FaPhoneAlt
@@ -31,7 +39,12 @@ const Disclaimer = () => {
             </div>
           </div>
         </div>
-      </div>
+        <div className="dis-back-btn">
+        <Link to="/vibrant-meal-planner">
+          <p>Back</p>
+        </Link>
+        </div>
+        </div>
     </>
   );
 };

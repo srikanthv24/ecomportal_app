@@ -53,6 +53,7 @@ export const MEAL_PLAN_STEPS = {
 
 export const DISCLAIMER_DATA = {
   CONTACT_NUMBER: "8096091111",
+  SECONDARY_TEXT: "",
   PRIMARY_TEXT:
     "Give us an Opportunity to understand your requirements and serve you better",
 };
@@ -63,3 +64,12 @@ export const ADD_TO_CART = "Add To Cart";
 export const DAYS_PLAN = "Days Plan";
 export const CUSTOM_PLAN = "Custom Plan";
 export const SERVINGS = "Servings";
+export const  NEXT = "Next";
+
+export const PERSONAL_INFO = {
+  HEIGHT_FEET : "Height-Feet",
+  HEIGHT_INCHES :"Height-Inches",
+  WEIGHT: "Weight",
+  AGE: "Age",
+}
+

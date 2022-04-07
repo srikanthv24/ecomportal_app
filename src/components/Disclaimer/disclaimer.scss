@@ -1,3 +1,22 @@
 .disclaimer {
   padding: 80px 10px 10px 10px;
 }
+
+
+.dis-back-btn{
+  position: absolute;
+  left:0;
+  bottom: 0;
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.dis-back-btn p{
+  background-color: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 20px;
+}

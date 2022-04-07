@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./personalInfo.scss";
 import { MdMale, MdFemale } from "react-icons/md";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { GrAdd, GrSubtract } from "react-icons/gr";
+import { NEXT, PERSONAL_INFO } from "../../utils/constants";
 
 const PersonalInfo = ({
   handleBack,
@@ -21,7 +22,7 @@ const PersonalInfo = ({
   const [weight, setWeight] = useState(defaultWeight);
   const [age, setAge] = useState(defaultAge);
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     onProfileDetailsSubmit({
       gender: gender,
       heightFeet: heightFeet,
@@ -58,10 +59,10 @@ const PersonalInfo = ({
 
   return (
     <section
-      className="text-center"
+      className="text-center w-100p mx-auto"
     >
-      <div>
-        <Card.Body className="py-3 px-0 d-flex justify-content-center">
+      <div className="py-4">
+        <Card.Body className="py-3 px-0 d-flex justify-content-between">
           <label class="gender-card justify-content-center">
             <input
               name="gender"
@@ -78,11 +79,7 @@ const PersonalInfo = ({
               }}
             >
               <span class="plan-cost">
-                {" "}
                 <MdMale
-                  onClick={() => {
-                    setGender("Male");
-                  }}
                 />
               </span>
             </span>
@@ -103,18 +100,21 @@ const PersonalInfo = ({
               }}
             >
               <span class="plan-cost">
-                {" "}
                 <MdFemale />
               </span>
             </span>
           </label>
         </Card.Body>
-        <Card.Body className="py-3 px-0 d-flex">
-          <div className="btn-group btn-group-sm" role="group">
-            <label>Height-Feet</label>
-            <button
+
+        <Card.Body className="py-3 px-0 d-flex justify-content-between">
+           <div className="pinfo-box">
+              <div className="text-muted">
+              <label>{PERSONAL_INFO.HEIGHT_FEET}</label>
+              </div>
+              <div className="pinfo-box-item">
+              <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleDecrement("heightFeet")}
             >
               <GrSubtract />
@@ -122,17 +122,22 @@ const PersonalInfo = ({
             <input type="number" min="1" max="9" value={heightFeet} readOnly />
             <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleIncrement("heightFeet")}
             >
               <GrAdd />
             </button>
-          </div>
-          <div className="btn-group btn-group-sm" role="group">
-            <label>Height-Inches</label>
-            <button
+              </div>
+            </div>
+
+            <div className="pinfo-box">
+              <div className="text-muted">
+              <label>{PERSONAL_INFO.HEIGHT_INCHES}</label>
+              </div>
+              <div className="pinfo-box-item">
+              <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleDecrement("heightInch")}
             >
               <GrSubtract />
@@ -140,19 +145,25 @@ const PersonalInfo = ({
             <input type="number" min="1" max="9" step="1" value={heightInch} />
             <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleIncrement("heightInch")}
             >
               <GrAdd />
             </button>
-          </div>
+              </div>
+            </div>
+        
         </Card.Body>
-        <Card.Body className="py-3 px-0 d-flex">
-          <div className="btn-group btn-group-sm" role="group">
-            <label>Weight</label>
-            <button
+
+        <Card.Body className="py-3 px-0 d-flex justify-content-between">
+           <div className="pinfo-box">
+              <div className="text-muted">
+              <label>{PERSONAL_INFO.WEIGHT}</label>
+              </div>
+              <div className="pinfo-box-item">
+              <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleDecrement("weight")}
             >
               <GrSubtract />
@@ -160,17 +171,22 @@ const PersonalInfo = ({
             <input type="number" min="1" max="9" step="1" value={weight} />
             <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleIncrement("weight")}
             >
               <GrAdd />
             </button>
-          </div>
-          <div className="btn-group btn-group-sm" role="group">
-            <label>Age</label>
-            <button
+              </div>
+            </div>
+
+            <div className="pinfo-box">
+              <div className="text-muted">
+              <label>{PERSONAL_INFO.AGE}</label>
+              </div>
+              <div className="pinfo-box-item">
+              <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleDecrement("age")}
             >
               <GrSubtract />
@@ -178,13 +194,19 @@ const PersonalInfo = ({
             <input type="number" value={age} min="1" max="100" />
             <button
               type="button"
-              className="btn btn-outline-primary"
+              className="pinfo-box-item-btn"
               onClick={() => handleIncrement("age")}
             >
               <GrAdd />
             </button>
-          </div>
+              </div>
+            </div>        
         </Card.Body>
+      </div>
+      <div className="stepper-btn-container">
+        <Button className="w-100 m-1 stepper-btn" onClick={onSubmit}>
+          {NEXT}
+        </Button>
       </div>
     </section>
   );

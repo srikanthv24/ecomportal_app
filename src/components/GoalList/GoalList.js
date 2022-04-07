@@ -30,7 +30,7 @@ const GoalList = ({ handleBack, handleNextStep, selectedGoalValue, onGoalClick, 
          <GoalCard
             name={"I have Other Goal"}
             icon={<FaRegGrinHearts />}
-            onClick={() => history.push("/disclaimer")}
+            onClick={() => history.push("/disclaimer?name=subscription")}
           />
       </div>
     </section>
