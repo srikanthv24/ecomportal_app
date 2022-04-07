@@ -275,6 +275,8 @@ export const getCart = `query ($customer_id: ID!){
         category
         item_id
         sub_total
+        delivery_charge
+        discount_amount
         qty
         tax_amount
         subscription {
@@ -304,6 +306,7 @@ export const getCart = `query ($customer_id: ID!){
     total_tax
     total_deliverycharge
     total_discount
+    items_value
   }
 }`;
 

@@ -7,7 +7,7 @@ const ProductDisplay = React.memo(
       <div className="product-display" onClick={onClick}>
         <div className="prdTitle">{title}</div>
         <div className="prdCategory">{category}</div>
-        <img url={imageUrl}></img>
+        <img src={imageUrl} alt="product-img"></img>
         <div className="prdDesp">{description}</div>
       </div>
     );

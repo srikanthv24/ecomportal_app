@@ -65,6 +65,7 @@ export const DAYS_PLAN = "Days Plan";
 export const CUSTOM_PLAN = "Custom Plan";
 export const SERVINGS = "Servings";
 export const  NEXT = "Next";
+export const DELIVER_TO = "DELIVER TO";
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET : "Height-Feet",
@@ -73,3 +74,14 @@ export const PERSONAL_INFO = {
   AGE: "Age",
 }
 
+export const CART = {
+  NO_ITEMS_IN_CART : "No Items added to cart",
+  EXPLORE_PRODUCTS : "Explore products",
+  CART_TITLE: "Shopping Cart",
+  ORDER_SUMMARY : "ORDER SUMMARY",
+  TAXES: "Taxes",
+  DISCOUNT : "Discount",
+  DELIVERY_CHARGES : "Delivery Charges",
+  GRAND_TOTAL : "Total",
+  COUPON_DISCOUNT : "Coupon Discount",
+}

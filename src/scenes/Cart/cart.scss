@@ -1,0 +1,23 @@
+.buy-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10;
+  box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+  background: #f2cbbd;
+}
+
+.custom-primary-btn {
+  background-color: rgba(54, 41, 24, 1) !important;
+  color: #ffffff;
+  border-color: transparent !important;
+}
+
+.phantom {
+  display: block;
+  padding: 20px;
+  height: 100px;
+  width: 100%;
+}
