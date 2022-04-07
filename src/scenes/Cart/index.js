@@ -84,8 +84,6 @@ const CartSummary = () => {
     }
   };
 
-  console.log("cartDetails", cartDetails);
-
   return (
     <>
     <ModalComponent
@@ -110,6 +108,16 @@ const CartSummary = () => {
       />
     <div className="p-21 bg-1 cart-summary-wrapper">
       <p className="h3 page-title">{CART.CART_TITLE}</p>
+      <div className="d-flex align-items-center w-100p">
+          {!cartLoading &&
+            !cartUpdateLoading &&
+            cartDetails &&
+            cartDetails.items?.length > 0 && (
+              <p className="cart-list-product-detailes-despname mb-0">
+               {`Total ${cartDetails?.items?.length || 0} items in the cart`}
+              </p>
+            )}
+        </div>
       {cartLoading || cartUpdateLoading ? (
         <div className="fullscreen-loader">
           <Spinner animation="border" role="status" />
@@ -133,7 +141,7 @@ const CartSummary = () => {
 
             const address = product?.item?.subscription?.map((item) =>
               item.isDelivery
-                ? `${item.address.tag}: ${item.address.aline1}, ${item.address.aline2}, ${item.address.landmark}, ${item.address.city} ${item.address.postalcode}`
+                ? `#${item.address.aline1}, ${item.address.aline2}, ${item.address.landmark}, ${item.address.city} ${item.address.postalcode}`
                 : "Pickup"
             );
             const selectedSessions = product?.item?.subscription?.map(
@@ -176,7 +184,6 @@ const CartSummary = () => {
               <div className="confirm-button-container">
                 <Button
                   className="w-100 custom-primary-btn "
-                  style={{ boxShadow: "1px 2px 3px #ededed", padding: 5 }}
                   onClick={handleContinue}
                 >
                   Confirm and Pay

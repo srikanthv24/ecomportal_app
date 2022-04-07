@@ -53,6 +53,7 @@ const CartItem = ({
             </p>
           </div>
           <div>
+            <span className="px-2">Qty</span>
             <QtyButtonGroup
               productIndex={productIndex}
               itemId={itemId}
@@ -64,7 +65,7 @@ const CartItem = ({
           </div>
         </Card.Body>
         <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
-          {isMealItem && (
+          {isMealItem ? (
             <>
               <div>
                 <p
@@ -109,7 +110,7 @@ const CartItem = ({
                 </p>
               </div>
             </>
-          )}
+          ) : <div></div>}
 
           <div>
             <Button
