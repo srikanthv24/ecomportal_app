@@ -21,7 +21,7 @@ const loadScript = (url) => {
   script.type = "text/javascript";
 
   if (script.readyState) {
-    script.onreadystatechange = function() {
+    script.onreadystatechange = function () {
       if (script.readyState === "loaded" || script.readyState === "complete") {
         script.onreadystatechange = null;
       }
@@ -108,11 +108,19 @@ function VibrantMealPlanner() {
 
   const onSessionChange = (sessions) => {
     setSelectedSessions(sessions);
-    setMealPlans(getMealPlanDetails(sessions, meal_prices, variants[0]));
+    const { delivery_charge, discount } = delivery;
+    setMealPlans(
+      getMealPlanDetails(
+        sessions,
+        meal_prices,
+        variants[0],
+        delivery_charge,
+        discount
+      )
+    );
   };
 
   const onDeliveryTypeChange = (value) => {
-    console.log("on delivery type change: " + value);
     setDeliveryType(value);
   };
 
@@ -133,7 +141,7 @@ function VibrantMealPlanner() {
           customerId,
           productId,
           selectedSessions,
-          address
+          address,
         })
       );
       history.push("/cart-summary");
@@ -154,16 +162,17 @@ function VibrantMealPlanner() {
   };
 
   useEffect(() => {
-    loadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`);
+    loadScript(
+      `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`
+    );
     return () => {
       document.getElementsByTagName("head")[0].removeChild(script);
-    }
+    };
   }, []);
 
   useEffect(() => {
     console.log(address, delivery, addressSelected, "---->>>>>>");
-  }, [address])
-
+  }, [address]);
 
   return (
     <section className="planner-container">
@@ -187,7 +196,9 @@ function VibrantMealPlanner() {
             onMealClick={onMealProductClick}
             handleNextStep={handleNext}
             selectedMealId={meal}
-            handleCustomDiet={()=>history.push("/disclaimer?name=subscription")}
+            handleCustomDiet={() =>
+              history.push("/disclaimer?name=subscription")
+            }
           />
         )}
         {activeStep === 1 && (
@@ -209,8 +220,8 @@ function VibrantMealPlanner() {
             handleNextStep={handleNext}
           />
         )}
-        {activeStep === 3 && (
-          (deliveryType === PICKUP || addressSelected === true) ?
+        {activeStep === 3 &&
+          (deliveryType === PICKUP || addressSelected === true ? (
             <div className="px-3 text-center">
               <ProductPlanner
                 productTitle={display_name}
@@ -226,14 +237,15 @@ function VibrantMealPlanner() {
                 setAddressSelected={setAddressSelected}
               />
               <Button
-                variant="primary" className="mt-2 mx-auto addCart-btn"
+                variant="primary"
+                className="mt-2 mx-auto addCart-btn"
                 onClick={onAddToCart}
                 disabled={!selectedDuration || selectedSessions.length === 0}
               >
                 {ADD_TO_CART}
               </Button>
             </div>
-            :
+          ) : (
             <>
               <AddressComponent
                 setAddress={setAddress}
@@ -242,7 +254,7 @@ function VibrantMealPlanner() {
                 setAddressSelected={setAddressSelected}
               />
             </>
-        )}
+          ))}
       </div>
     </section>
   );
