@@ -110,21 +110,10 @@ function VibrantMealPlanner() {
             defaultHeightInch={profileDetails.heightInch}
             defaultWeight={profileDetails.weight}
             defaultAge={profileDetails.weight}
+            handleNextStep={handleNext}
           />
         )}
         {activeStep === 3 && <h1>Step 4</h1>}
-      </div>
-      <div className="stepper-btn-container">
-        <Button
-          className="w-50 m-1 stepper-btn"
-          onClick={handleBack}
-          disabled={activeStep === 0 ? true : false}
-        >
-          Back
-        </Button>
-        <Button className="w-50 m-1 stepper-btn" onClick={handleNext}>
-          Next
-        </Button>
       </div>
     </section>
   );

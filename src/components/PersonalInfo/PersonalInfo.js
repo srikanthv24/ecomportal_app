@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./personalInfo.scss";
 import { MdMale, MdFemale } from "react-icons/md";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 
 const PersonalInfo = ({
@@ -21,7 +21,7 @@ const PersonalInfo = ({
   const [weight, setWeight] = useState(defaultWeight);
   const [age, setAge] = useState(defaultAge);
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     onProfileDetailsSubmit({
       gender: gender,
       heightFeet: heightFeet,
@@ -201,7 +201,11 @@ const PersonalInfo = ({
               </div>
             </div>        
         </Card.Body>
-
+      </div>
+      <div className="stepper-btn-container">
+        <Button className="w-100 m-1 stepper-btn" onClick={onSubmit}>
+          Next
+        </Button>
       </div>
     </section>
   );
