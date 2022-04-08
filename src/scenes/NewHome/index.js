@@ -88,7 +88,7 @@ function Home() {
       {/* Green Bg Section */}
       <div className="homepage-green-bg-section">
         <img src={HalfLeafHeader} alt="seeds" className="halfleafImage hidden md:inline-block absolute right-[7rem] z-0" />
-        <img src={GreenLeafBig} alt="seeds" className="pos3" />
+        {/* <img src={GreenLeafBig} alt="seeds" className="pos3" /> */}
         <div className="home-green-bg-content py-24 relative mx-auto z-0">
           <p className="row1-text mx-auto relative">
             {/* <span className="vlprimary-font vlitalic atText">at</span>
@@ -142,12 +142,9 @@ function Home() {
           </div>
         </div>
         <div className="d-block text-center">
-        <a href="#" class="my-2 leading-8 bg-dark-green-800 py-1 px-7 tracking-wide rounded-full inline-block">
-          <Link to="/vibrant-meal-planner" className="viewall-txt mb-0" onClick={onGettingStarted}>
-            <Button
-              className="w-100 bg-dark-green-800">
-              <GiMeal size="30" /> Get Started
-            </Button>
+        <a href="#" className="gs-btn my-2 leading-8 bg-dark-green-800 tracking-wide rounded-full inline-block">
+          <Link to="/vibrant-meal-planner" className="mb-0 px-7" onClick={onGettingStarted}>
+          <GiMeal size="30" /> Get Started
           </Link>
         </a>
       </div>

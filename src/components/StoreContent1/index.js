@@ -95,20 +95,7 @@ const StoreContent1 = () => {
           })}
         </OwlCarousel>
       ) : null}
-      {/* <OwlCarousel  dots="false" dotsEach="false" dotData="false"  className="owl-theme" loop margin={10} nav>
-              <div>
-                <img src={chocoimg} alt="img" />               
-              </div>
-              <div>
-                <img src={chocoimg} alt="img" />               
-              </div>
-              <div>
-                <img src={chocoimg} alt="img" />               
-              </div>
-              <div>
-                <img src={chocoimg} alt="img" />               
-              </div>
-          </OwlCarousel>   */}
+      
     </div>
   );
 };

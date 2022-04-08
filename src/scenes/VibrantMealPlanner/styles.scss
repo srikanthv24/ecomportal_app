@@ -1,5 +1,13 @@
 .planner-container {
+  min-height: 100vh;
   padding-top: 70px;
+  background-color: #f7f2df;
+  .stepperComponent {
+    background-color: #f7f2df;
+    .MuiStepIcon-root.MuiStepIcon-active,.MuiStepIcon-root.MuiStepIcon-completed {
+      color: #614731 !important;
+  }
+  }
 }
 
 .prd-image-thumbnile-none {
@@ -7,9 +15,9 @@
 }
 
 // stepperComponent
-.stepperComponent{
-    // background-color: #cccccc !important;
+.stepperComponent {
+  // background-color: #cccccc !important;
 }
-.stepperComponent .MuiStepLabel-labelContainer{
-    display: none !important;
+.stepperComponent .MuiStepLabel-labelContainer {
+  display: none !important;
 }

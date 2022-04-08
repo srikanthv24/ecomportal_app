@@ -2,12 +2,11 @@
 .meal-card {
     cursor: pointer;
     width: calc(50% - 10px);
-    margin-right: 20px;
-    margin-bottom: 20px;
-    margin-bottom: 30px;
-    border-color: "transparent";
+    margin-right: 15px;
+    margin-bottom: 15px;
+    border-color: transparent !important;
     padding: 0px;
-    background: "transparent";
+    background: transparent !important;
   }
   
   .meal-card .card-body {
