@@ -115,7 +115,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   useEffect(() => {
     if(!_.isEmpty(deliveryCharge)) {
       setDeliveryCost(deliveryCharge);
-      setDisableAddressSelect(!disableAddressSelect);
+      setDisableAddressSelect(false);
     }
   },[deliveryCharge])
 
