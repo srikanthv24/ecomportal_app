@@ -4,6 +4,7 @@ import { MEAL_PLAN_STEPS } from "../../utils/constants";
 import GoalCard from "../GoalCard/GoalCard";
 import "./goalList.scss";
 import { FaRegGrinHearts } from "react-icons/fa";
+import Goal from "../../assets/mealplanner/goal.png";
 
 const GoalList = ({ handleBack, handleNextStep, selectedGoalValue, onGoalClick, goals }) => {
   const history = useHistory();
@@ -29,7 +30,7 @@ const GoalList = ({ handleBack, handleNextStep, selectedGoalValue, onGoalClick, 
         ))}
          <GoalCard
             name={"I have Other Goal"}
-            icon={<FaRegGrinHearts />}
+            icon={Goal}
             onClick={() => history.push("/disclaimer?name=subscription")}
           />
       </div>

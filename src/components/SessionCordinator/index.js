@@ -5,7 +5,7 @@ import { SESSION_TYPES } from "../../utils/constants";
 const getSessionCheckBoxes = (sessionCodes, onChange, selectedSessions) => {
   return sessionCodes.map((sessionCode) => {
     return (
-      <div className="mealPlannerCheck">
+      <div className="mealPlannerCheck vl-checkbox-custom">
         <Form.Check
           type="checkbox"
           checked={selectedSessions.includes(sessionCode)}

@@ -33,41 +33,51 @@ const MealPlan = React.memo(
           onMealClick(canChangeDuration ? customDuration : duration)
         }
       >
-        <div>
-          <span>
-            {!canChangeDuration ? `${duration} ${DAYS_PLAN}` : CUSTOM_PLAN}
-          </span>
-          {!canChangeDuration && (
-            <span>
-              {deliveryType === "Pickup" ? (
-                <i class="fa-solid fa-truck"></i>
-              ) : (
-                <i class="fa-solid fa-location-check"></i>
+        <div className="w-100p plan-meal-card-sec">
+          <div className="d-flex d-flex justify-content-between">
+            <div className="items">
+              <span className="daysinfo">
+                {!canChangeDuration ? `${duration} ${DAYS_PLAN}` : CUSTOM_PLAN}
+              </span>
+              <span className="daysinfo">
+                {!canChangeDuration ? (
+                  <span>{`${servings} ${SERVINGS}`}</span>
+                ) : (
+                  <>
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      value={customDuration}
+                      onChange={onCustomDurationChange}
+                    />
+                    dAYS
+                  </>
+                )}
+              </span>
+            </div>
+            <div className="items">
+              {!canChangeDuration && (
+                <span>
+                  {deliveryType === "Pickup" ? (
+                    <i class="fa-solid fa-truck"></i>
+                  ) : (
+                    <i class="fa-solid fa-location-check"></i>
+                  )}
+                </span>
               )}
+            </div>
+          </div>
+         
+          <div className="d-flex d-flex justify-content-end">
+            <span className="amountInfo">
+              <BiRupee />
+              {`${pricePerDay * (canChangeDuration ? customDuration : duration) +
+                totalTaxes -
+                discount
+                }/-`}
             </span>
-          )}
+          </div>
         </div>
-        {!canChangeDuration ? (
-          <span>{`${servings} ${SERVINGS}`}</span>
-        ) : (
-          <>
-            <Form.Control
-              type="text"
-              size="sm"
-              value={customDuration}
-              onChange={onCustomDurationChange}
-            />
-            dAYS
-          </>
-        )}
-        <span>
-          <BiRupee />
-          {`${
-            pricePerDay * (canChangeDuration ? customDuration : duration) +
-            totalTaxes -
-            discount
-          }/-`}
-        </span>
       </div>
     );
   }
