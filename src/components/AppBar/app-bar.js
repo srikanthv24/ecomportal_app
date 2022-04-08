@@ -96,8 +96,8 @@ export default function AppBar() {
         expand="lg"
         // bg="light"
         variant="light"
-        sticky="top"
-        style={{ background: "transparent", position: "fixed", width: "100%" }}
+        sticky="top" className="vl-navbar-header"
+        style={{ position: "fixed", width: "100%" }}
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>
@@ -133,7 +133,7 @@ export default function AppBar() {
               </Link>
             </Navbar.Brand>
           </div>
-          <Nav style={{ paddingRight: "2rem" }}>
+          <Nav className="vl-navbar">
             <Container fluid className="px-0">
               <Row>
                 <Col className="d-lg-block1 search-section1 d-none">

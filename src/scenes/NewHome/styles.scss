@@ -308,3 +308,17 @@
     background-color: #225043 !important;
     border-color: #225043 !important;
 }
+.gs-btn{
+    text-decoration: none;
+    padding: 0 !important;
+    a{
+        font-family: "Roboto Regular", serif;
+        font-weight: 500;
+        line-height: 20px;
+        color: #ffffff !important;
+        text-decoration: none !important;
+        display: block;
+        width: 100%;
+        padding:10px 40px;
+    }
+}
