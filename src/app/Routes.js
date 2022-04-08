@@ -7,9 +7,9 @@ import { Landing } from "../scenes/Consumer";
 import AppBar from "../components/AppBar/app-bar";
 import Categories from "../scenes/Categories";
 import ProductsRoutes from "../scenes/Products";
-import Cart from "../scenes/Cart";
+// import Cart from "../scenes/Cart";
 import LemmeTry from "../scenes/lemmetry";
-import CartSummary from "../scenes/Cart/cart-summary";
+import CartSummary from "../scenes/Cart";
 import Orders from "../scenes/Orders";
 import {Profile} from '../scenes/Profile';
 import LegalContent from "../components/LegalContent";
@@ -59,7 +59,7 @@ function Routes() {
           {userDetails.sub && (
             <>
               <Route path="/cart-summary" component={CartSummary} />
-              <Route path="/cart" component={Cart} />
+              {/* <Route path="/cart" component={Cart} /> */}
               <Route path="/orders" component={Orders} />{" "}
               <Route path="/profile" component={Profile} />
             </>

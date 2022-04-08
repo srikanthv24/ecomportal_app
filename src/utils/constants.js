@@ -64,13 +64,31 @@ export const ADD_TO_CART = "Add To Cart";
 export const DAYS_PLAN = "Days Plan";
 export const CUSTOM_PLAN = "Custom Plan";
 export const SERVINGS = "Servings";
-export const  NEXT = "Next";
+export const NEXT = "Next";
+export const DELIVER_TO = "DELIVER TO";
 export const COMPLETED = "Completed";
+export const DELETE = "delete";
 
 export const PERSONAL_INFO = {
-  HEIGHT_FEET : "Height-Feet",
-  HEIGHT_INCHES :"Height-Inches",
+  HEIGHT_FEET: "Height-Feet",
+  HEIGHT_INCHES: "Height-Inches",
   WEIGHT: "Weight",
   AGE: "Age",
-}
+};
 
+export const CART = {
+  NO_ITEMS_IN_CART: "No Items added to cart",
+  EXPLORE_PRODUCTS: "Explore products",
+  CART_TITLE: "Shopping Cart",
+  ORDER_SUMMARY: "ORDER SUMMARY",
+  TAXES: "Taxes",
+  DISCOUNT: "Discount",
+  DELIVERY_CHARGES: "Delivery Charges",
+  GRAND_TOTAL: "Total",
+  COUPON_DISCOUNT: "Coupon Discount",
+  GO_TO_ORDERS: "Go to Orders",
+  TOTAL: "Total",
+  ITEMS_IN_CART: "items in the cart",
+  DURATION : "Duration",
+  CONFIRM_AND_PAY: "Confirm and Pay",
+};
