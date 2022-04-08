@@ -1,3 +1,83 @@
 .delete {
     text-decoration: line-through;
 }
+
+.cart-prd-details-sec{
+    width: calc(100% - 130px);
+}
+.crt-price-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding:0px .5rem;
+}
+.crt-price-info span:first-child{
+    font-weight: 400;
+}
+.crt-price-info span:last-child{
+    font-weight: 700;
+}
+
+.crt-prd-img-container {
+    background-color: #4b49551a;
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+    width: 120px;
+  }
+  .crt-prd-img-container img {
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    width: 100%;
+  }
+
+  .crt-prd-duration {
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #f05922;
+    padding: 3px 9px;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .crt-prd-session {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .crt-prd-session-deliver {
+    font-weight: 500;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #696969;
+  }
+
+  .crt-prd-address-title {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .crt-prd-title {
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }

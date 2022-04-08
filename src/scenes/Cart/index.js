@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import ModalComponent from "../../components/Modal/Modal";
 import { getCart, hideAlert, updateCartQty } from "../../store/actions";
 import CartItem from "../../components/CartItem/CartItem";
-import { CART } from "../../utils/constants";
+import { CART, PICKUP } from "../../utils/constants";
 import OrderCheckList from "./order-checklist";
 import { deleteCartItem } from "../../store/actions/cart-item";
 import EmptyCart from "../../components/EmptyCart/EmptyCart";
@@ -84,9 +84,15 @@ const CartSummary = () => {
     }
   };
 
+  const onGoToOrdersClick = () => {
+    dispatch(hideAlert());
+    dispatch(getCart({ customer_id: customerId }));
+    history.push("/orders");
+  };
+
   return (
     <>
-    <ModalComponent
+      <ModalComponent
         show={showAlert}
         type={variant}
         Body={alertMessage.body}
@@ -94,112 +100,99 @@ const CartSummary = () => {
         handleClose={() => dispatch(hideAlert())}
         footer={
           <div>
-            <Button
-              onClick={() => {
-                dispatch(hideAlert());
-                dispatch(getCart({ customer_id: customerId }));
-                history.push("/orders");
-              }}
-            >
-              Go to Orders
-            </Button>
+            <Button onClick={onGoToOrdersClick}>{CART.GO_TO_ORDERS}</Button>
           </div>
         }
       />
-    <div className="p-21 bg-1 cart-summary-wrapper">
-      <p className="h3 page-title">{CART.CART_TITLE}</p>
-      <div className="d-flex align-items-center w-100p">
+      <div className="p-21 bg-1 cart-summary-wrapper">
+        <p className="h3 page-title">{CART.CART_TITLE}</p>
+        <div className="d-flex align-items-center w-100p">
           {!cartLoading &&
             !cartUpdateLoading &&
             cartDetails &&
             cartDetails.items?.length > 0 && (
               <p className="cart-list-product-detailes-despname mb-0">
-               {`Total ${cartDetails?.items?.length || 0} items in the cart`}
+                {`${CART.TOTAL} ${cartDetails?.items?.length || 0} ${
+                  CART.ITEMS_IN_CART
+                }`}
               </p>
             )}
         </div>
-      {cartLoading || cartUpdateLoading ? (
-        <div className="fullscreen-loader">
-          <Spinner animation="border" role="status" />
-        </div>
-      ) : (
-        <>
-          {cartDetails?.items?.map((product, index) => {
-            const isMealItem =
-              product?.item?.subscription?.length > 0 ? true : false;
-            const deliveryStatus =
-              product?.item?.subscription &&
-              product?.item?.subscription[0]?.isDelivery;
+        {cartLoading || cartUpdateLoading ? (
+          <div className="fullscreen-loader">
+            <Spinner animation="border" role="status" />
+          </div>
+        ) : (
+          <>
+            {cartDetails?.items?.map((product, index) => {
+              const isMealItem =
+                product?.item?.subscription?.length > 0 ? true : false;
+              const deliveryStatus =
+                product?.item?.subscription &&
+                product?.item?.subscription[0]?.isDelivery;
 
-            const planDuration = product?.item?.variants?.map((item) => {
-              if (item.display_name === "Duration") {
-                return item.items[0].display_name;
-              } else {
-                return 0;
-              }
-            });
+              const planDuration = product?.item?.variants?.map((item) =>
+                item.display_name === CART.DURATION
+                  ? item.items[0].display_name
+                  : 0
+              );
+              let address = "";
+              const selectedSessions = [];
+              product?.item?.subscription?.map((item, itemIndex) => {
+                selectedSessions.push(item.meal_type);
+                if (itemIndex === 0) {
+                  address = item.isDelivery
+                    ? `#${item.address.aline1}, ${item.address.aline2}, ${item.address.landmark}, ${item.address.city} ${item.address.postalcode}`
+                    : PICKUP;
+                }
+              });
 
-            const address = product?.item?.subscription?.map((item) =>
-              item.isDelivery
-                ? `#${item.address.aline1}, ${item.address.aline2}, ${item.address.landmark}, ${item.address.city} ${item.address.postalcode}`
-                : "Pickup"
-            );
-            const selectedSessions = product?.item?.subscription?.map(
-              (item) => item.meal_type
-            );
-
-            return (
-              <CartItem
-                key={product.ciid}
-                isMealItem={isMealItem}
-                imgUrl={product.item.defaultimg_url}
-                productName={product.item.item_name}
-                quantity={product.item.qty}
-                productIndex={index}
-                duration={planDuration}
-                isDelivery={deliveryStatus}
-                address={address}
-                itemPrice={product?.item?.sub_total}
-                itemTax={product?.item?.tax_amount}
-                itemDeliveryCharge={product?.item?.delivery_charge}
-                itemDiscount={product?.item?.discount_amount}
-                itemGrandTotal={product?.item?.sub_total}
-                selectedSessions={selectedSessions}
-                loading={cartLoading}
-                onQtyIncrement={onCartItemIncrement}
-                onQtyDecrement={onCartItemDecrement}
-                onDelete={onDeleteCartItem}
-              />
-            );
-          })}
-          {cartDetails && cartDetails?.items?.length > 0 && (
-            <>
-              <OrderCheckList
-                subTotal={cartDetails?.items_value}
-                taxes={cartDetails?.total_tax}
-                deliveryCharges={cartDetails?.total_deliverycharge}
-                discount={cartDetails?.total_discount}
-                grandTotal={cartDetails?.grand_total}
-              />
-              <div className="confirm-button-container">
-                <Button
-                  className="w-100 custom-primary-btn "
-                  onClick={handleContinue}
-                >
-                  Confirm and Pay
-                </Button>
-              </div>
-            </>
-          )}
-        </>
-      )}
-      {cartDetails &&
-      !cartLoading &&
-      !cartUpdateLoading &&
-      cartDetails?.items?.length === 0 ? (
-        <EmptyCart />
-      ) : null}
-    </div>
+              return (
+                <CartItem
+                  key={product.ciid}
+                  product={product.item}
+                  isMealItem={isMealItem}
+                  productIndex={index}
+                  duration={planDuration}
+                  isDelivery={deliveryStatus}
+                  address={address}
+                  itemGrandTotal={product?.grand_total}
+                  selectedSessions={selectedSessions}
+                  loading={cartLoading}
+                  onQtyIncrement={onCartItemIncrement}
+                  onQtyDecrement={onCartItemDecrement}
+                  onDelete={onDeleteCartItem}
+                />
+              );
+            })}
+            {cartDetails?.items?.length > 0 && (
+              <>
+                <OrderCheckList
+                  subTotal={cartDetails?.items_value}
+                  taxes={cartDetails?.total_tax}
+                  deliveryCharges={cartDetails?.total_deliverycharge}
+                  discount={cartDetails?.total_discount}
+                  grandTotal={cartDetails?.grand_total}
+                />
+                <div className="confirm-button-container">
+                  <Button
+                    className="w-100 custom-primary-btn "
+                    onClick={handleContinue}
+                  >
+                    {CART.CONFIRM_AND_PAY}
+                  </Button>
+                </div>
+              </>
+            )}
+          </>
+        )}
+        {cartDetails &&
+        !cartLoading &&
+        !cartUpdateLoading &&
+        cartDetails?.items?.length === 0 ? (
+          <EmptyCart />
+        ) : null}
+      </div>
     </>
   );
 
@@ -230,7 +223,9 @@ const CartSummary = () => {
     const req = {
       type: "createorder",
       items: items,
-      amount: Number(parseInt(parseFloat(cartDetails?.grand_total).toFixed(2)) * 100),
+      amount: Number(
+        parseInt(parseFloat(cartDetails?.grand_total).toFixed(2)) * 100
+      ),
       currency: "INR",
       receipt: "Receipt #20",
       id: cartDetails?.items[0].id,
@@ -258,7 +253,6 @@ const CartSummary = () => {
       order_id: order_id,
       upi_link: true,
       handler: async function (response) {
-        // console.log("response", response);
         dispatch(getCart({ customer_id: customerId }));
         dispatch(
           showAlert({

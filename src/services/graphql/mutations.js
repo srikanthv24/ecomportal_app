@@ -275,6 +275,7 @@ export const getCart = `query ($customer_id: ID!){
         category
         item_id
         sub_total
+        base_price
         delivery_charge
         discount_amount
         qty
