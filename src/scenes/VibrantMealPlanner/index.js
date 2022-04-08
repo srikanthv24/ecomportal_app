@@ -15,6 +15,9 @@ import { FaWeight, FaLeaf, FaRegGrinHearts } from "react-icons/fa";
 import { showLogin } from "../../store/actions";
 import { clearDeliveryCharges } from "../../store/actions/addresses";
 import "./styles.scss";
+import DetoxMyBody from "../../assets/mealplanner/Detox.png";
+import CustomDiet from "../../assets/mealplanner/CustomDiet.png";
+import Weight from "../../assets/mealplanner/Weight.png";
 
 const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
 let script = document.createElement("script");
@@ -48,17 +51,17 @@ const goals = [
   {
     name: "Manage My Weight",
     value: "MANAGEMYWEIGHT",
-    icon: <FaWeight />,
+    icon: Weight
   },
   {
     name: "Detox My Body",
     value: "DETOXMYBODY",
-    icon: <FaLeaf />,
+    icon: DetoxMyBody
   },
   {
     name: "Have Delicious Healthy Food",
     value: "HEALTHYFOOD",
-    icon: <FaRegGrinHearts />,
+    icon: CustomDiet
   },
 ];
 
@@ -228,7 +231,7 @@ function VibrantMealPlanner() {
         )}
         {activeStep === 3 &&
           (deliveryType === PICKUP || addressSelected === true ? (
-            <div className="px-3 text-center">
+            <div className="px-0 text-center" style={{background:"#f5e0bc", paddingBottom:'20px'}}>
               <ProductPlanner
                 productTitle={display_name}
                 productCategory={category}
@@ -244,8 +247,7 @@ function VibrantMealPlanner() {
                 setAddressSelected={setAddressSelected}
               />
               <Button
-                variant="primary"
-                className="mt-2 mx-auto addCart-btn"
+                className="mt-2 mx-auto vladdCart-btn"
                 onClick={onAddToCart}
                 disabled={!selectedDuration || selectedSessions.length === 0}
               >

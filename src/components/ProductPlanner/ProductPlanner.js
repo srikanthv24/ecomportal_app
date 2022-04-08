@@ -98,6 +98,7 @@ const ProductPlanner = React.memo(
           </div>
         </div>
         <div className="meal-plan-wrapper">
+          <h4 className="title-info">Plan your Meal</h4>
           {selectedSessions.length > 0 &&
             mealPlans.map((plan) => {
               return (
