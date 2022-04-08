@@ -1,0 +1,310 @@
+.homepage-container {
+    background-color: rgb(242, 203, 189);
+    min-height: 500px;
+    margin-top: -80px;
+    position: relative;
+}
+.homepage-banner-img {
+    // background:rgb(242, 203, 189) url("../../assets/home/home-header-banner-mobile.png") no-repeat;
+    background-size: cover;
+    padding: 5rem 0px 0rem;
+    .homepagebanner-text-body {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: absolute;
+        // top: calc(50% - 200px);
+        img {
+            max-width: 100%;
+            // max-height: 400px;
+        }
+        h2 {
+            font-family: "PlayfairDisplay Bold";
+            font-style: normal;
+            font-weight: 700;
+            color: #ffffff;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .for-mblview {
+        display: none;
+    }
+    .for-webview {
+        display: block;
+    }
+    .homepagebanner-text-body {
+        flex-direction: row;
+        top: 10rem;
+        img {
+            max-height: 400px;
+        }
+        h2 {
+            font-size: 100px;
+            line-height: 100px;
+        }
+    }
+}
+@media (min-width: 768px) {
+    .homepage-green-bg-section .home-green-bg-content .row1-text,
+    .row2-text .leftText,
+    .row2-text .leftText {
+        font-size: 80px;
+    }
+    .almond-green-circle-container,
+    .sesame-and-pumpkin-seed-circle-container {
+        height: 238.91px;
+        width: 239.22px;
+    }
+    .row2-text {
+        margin-top: 3rem;
+        display: inline-flex;
+        align-items: flex-start;
+        .leftText {
+            font-size: 80px;
+            margin-right: -2rem;
+            z-index: 1;
+        }
+        .RightText {
+            font-size: 80px;
+            margin-left: -2.5rem;
+            z-index: 0;
+        }
+        .middleImg {
+            position: relative;
+            z-index: 0;
+        }
+    }
+    .row3-text {
+        width: 100%;
+        display: inline-flex;
+        align-items: center !important;
+        justify-content: center;
+        flex-direction: row !important;
+        .textItem {
+            width: 100%;
+            text-align: center;
+            display: flex;
+        }
+        .textItem:last-child{
+            margin-left: 2rem;
+        }
+    }
+}
+@media (max-width: 767px) {
+    .for-mblview {
+        display: block;
+    }
+    .for-webview {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .homepagebanner-text-body {
+        top: calc(50% - 150px);
+        padding: 0px 20px;
+        img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        h2 {
+            font-size: 64px;
+            line-height: 4rem;
+        }
+    }
+    .atText {
+        margin-right: 1rem;
+    }
+    .weBeliveTxt {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 615px) {
+    .homepagebanner-text-body {
+        flex-direction: column;
+        top: 10rem;
+        padding: 0px 20px;
+        img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        h2 {
+            font-size: 44px;
+            line-height: 3.125rem;
+            margin-bottom: 1rem;
+        }
+    }
+    .row1-text,
+    .row2-text .leftText,
+    .row2-text .RightText {
+        font-size: 48px;
+    }
+    .vlw-36 {
+        width: 9rem;
+    }
+
+    .row2-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px 0rem;
+        margin-top: 0rem;
+        .leftText {
+            font-size: 48px;
+            margin-right: -2rem;
+            z-index: 1;
+            width: calc(100% - 100px);
+            text-align: right;
+        }
+        .RightText {
+            font-size: 48px;
+            margin-left: 0;
+            z-index: 0;
+            line-height: 1rem;
+            width: calc(100% - 100px);
+            text-align: right;
+        }
+        .middleImg {
+            position: absolute;
+            right: 0;
+            z-index: 0;
+            .almond-green-circle-container {
+                height: 145.77px;
+                width: 145.77px;
+            }
+        }
+    }
+    .row3-text {
+        width: 100%;
+        margin-top: 1rem;
+        .seedsImg {
+            position: absolute;
+            right: 0px;
+            top: 1rem;
+            width: 2rem !important;
+        }
+        .text-80 {
+            font-size: 48px !important;
+        }
+    }
+    .row4-text {
+        width: 100%;
+        margin-top: 2rem;
+        flex-direction: row-reverse !important;
+        .textItem:first-child {
+            margin-left: -4rem;
+            z-index: 1;
+        }
+        .seedsImg {
+            position: absolute;
+            right: 0px;
+        }
+        .text-80 {
+            font-size: 48px !important;
+        }
+    }
+    .sesame-and-pumpkin-seed-circle-container {
+        height: 145.77px;
+        width: 145.77px;
+    }
+}
+.homepage-green-bg-section {
+    background-color: rgba(66, 119, 77, 1);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 2rem;
+    overflow: hidden;
+    .halfleafImage {
+        display: inline-block;
+        position: absolute;
+        right: 7rem;
+    }
+    .home-green-bg-content {
+        padding-bottom: 6rem;
+        padding-top: 6rem;
+        .row1-text {
+            width: auto;
+            color: rgba(245, 224, 188, 1);
+            font-family: "PlayfairDisplay Regular";
+            font-style: inherit;
+            line-height: 4rem;
+        }
+
+        .row3-text {
+            display: inline-flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            .seedsImg {
+                width: 7rem;
+            }
+            .textItem {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        .row4-text {
+            display: inline-flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: row;
+            .textItem {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .almond-green-circle-container,
+        .sesame-and-pumpkin-seed-circle-container {
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+                max-width: 100%;
+            }
+        }
+        .almond-green-circle-container {
+            background-image: url("../../assets/home/almond-green-bg.svg");
+        }
+        .sesame-and-pumpkin-seed-circle-container {
+            background-image: url("../../assets/home/sesame-green-bg.svg");
+        }
+    }
+}
+
+// Custom Styles
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+.relative {
+    position: relative;
+}
+.text-koromiko {
+    color: rgba(253, 197, 107, 1);
+}
+
+.vlprimary-font {
+    font-family: "PlayfairDisplay Regular", serif;
+}
+.vlitalic {
+    font-style: italic;
+}
+.text-80 {
+    font-size: 80px;
+}
+.vlh-4 {
+    line-height: 4rem;
+}
+.bg-dark-green-800 {
+    background-color: #225043 !important;
+    border-color: #225043 !important;
+}

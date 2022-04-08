@@ -1,0 +1,141 @@
+.stores-title-txt {
+    font-family: "PlayfairDisplay Regular", sans-serif;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #894c5b;
+    margin-bottom: 0px;
+}
+.stores-desp-txt {
+    color: rgba(53, 40, 23, 1);
+    font-family: "Roboto Regular", serif !important;
+    font-size: 20px;
+    line-height: 1.75rem;
+    text-align: center;
+    padding-top: 2rem;
+    max-width: 660px;
+    margin: 0 auto;
+}
+.explore-btn {
+    font-family: "Roboto Medium", serif;
+    color: #352817;
+    font-size: 14px;
+    font-weight: 500;
+    background: #ffffff;
+    display: inline-block;
+    margin: 2.5rem auto;
+    padding: 15px 25px;
+    border-radius: 9999px;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+.explore-btn:hover {
+    color: rgba(53, 40, 23, 1);
+}
+
+// Products
+.prdfor-image-hover {
+    width: 100%;
+    min-height: 350px;
+    padding: 2rem 0.5rem 2rem;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    .prd-imageblock {
+        max-width: 100%;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.25rem;
+        padding: 0.5rem;
+        img {
+            width: auto !important;
+            max-width: 100%;
+            max-height: 100%;
+            display: inline-block;
+            margin: 0 auto;
+            vertical-align: middle;
+        }
+    }
+    .prd-info-block {
+        text-align: center;
+        color: rgba(53, 40, 23, 1);
+        font-size: 25px;
+        letter-spacing: -0.025em;
+        line-height: 2.5rem;
+        font-weight: 700;
+        padding-top: 0.5rem;
+    }
+}
+.prdfor-image-hover:hover {
+    width: 100%;
+    cursor: pointer;
+    background: rgba(209, 235, 232, 1);
+    border-radius: 200px 200px 60px 60px;
+    padding: 2rem 1rem 2rem;
+    .prd-imageblock {
+        max-height: 300px;
+        max-width: 320px;
+        background: rgba(209, 235, 232, 1) url("../../assets/home/prd-hover.jpg") no-repeat;
+        background-position: center center;
+        background-size: cover;
+        border-radius: 51% 49% 45% 55%/54% 64% 36% 46%;
+        overflow: hidden;
+        img {
+            z-index: -1;
+            border-radius: 100px;
+        }
+    }
+}
+
+.owl-theme.home-page-product-owl .owl-item:nth-child(4) .prdfor-image-hover:hover,
+.owl-theme.home-page-product-owl .owl-item:nth-child(4) .prdfor-image-hover:hover,
+.owl-theme.home-page-product-owl .owl-item:nth-child(4n + 4) .prdfor-image-hover:hover {
+    border-radius: 60px 200px 60px 60px;
+}
+.owl-theme.home-page-product-owl .owl-nav {
+    margin-top: 0px;
+}
+
+.owl-carousel.home-page-product-owl .owl-nav button.owl-prev,
+.owl-carousel.home-page-product-owl .owl-nav button.owl-next {
+    width: 50px;
+    height: 50px;
+    border: 3px solid white;
+    border-radius: 50%;
+    background: none;
+    color: white;
+    padding: 0 !important;
+    font: inherit;
+}
+.owl-carousel.home-page-product-owl .owl-nav button.owl-prev > span,
+.owl-carousel.home-page-product-owl .owl-nav button.owl-next > span {
+    font-size: 3rem;
+    line-height: 100%;
+    position: relative;
+    top: -8px;
+}
+.owl-carousel.home-page-product-owl .owl-nav button.owl-prev:hover,
+.owl-carousel.home-page-product-owl .owl-nav button.owl-next:hover {
+    background-color: #f2cbbd;
+    cursor: pointer;
+}
+// Products
+
+@media (min-width: 768px) {
+    .stores-title-txt {
+        font-size: 136px;
+        line-height: 9.8rem;
+        padding-top: 9rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .stores-title-txt {
+        font-size: 60px;
+        line-height: 7rem;
+        padding-top: 4rem;
+    }
+}

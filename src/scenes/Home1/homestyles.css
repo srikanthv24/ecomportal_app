@@ -134,9 +134,9 @@
 .owl-theme.how-it-works .owl-nav{
     margin-top: 0px;
 }
-.owl-theme.home-page-product-owl .owl-nav{
+/* .owl-theme.home-page-product-owl .owl-nav{
     margin-top: -10px;
-}
+} */
 .owl-carousel.how-it-works .owl-nav button.owl-prev, .owl-carousel.how-it-works .owl-nav button.owl-next {
     width: 40px;
     height: 40px;

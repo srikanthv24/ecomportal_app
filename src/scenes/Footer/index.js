@@ -20,14 +20,15 @@ import InsagramIcon from "../../assets/footer/instagram.svg";
 import YoutubeIcon from "../../assets/footer/youtube.svg";
 import CopyrightIcon from "../../assets/footer/copyright.svg";
 import FooterLogoIcon from "../../assets/footer/footer-logo-mobile.svg";
-import "./styles.css";
+// import "./styles.css";
+import "./styles.scss";
 
 function Footer() {
   let history = useHistory();
   return (
     <>
       <div className="footer-background relative footer-background w-full bottom-0 px-4">
-        <div className="md:flex md:pt-20 justify-center relative z-5 pt-8">
+        <div className="md:flex md:pt-20 justify-center relative z-5 pt-8 signup-footer-sec">
           <p className="text-20 leading-8 text-chocolate-800 font-bold">
             Join the Vibrant tribe.<br />Sign up for special offers.
           </p>
@@ -80,7 +81,7 @@ function Footer() {
                 </ul>
               </li>
 
-              <li className="w-full md:w-auto pt-3 md:pt-0">
+              <li className="md:pt-0">
                 <p className="text-20 text-chocolate-800 font-bold leading-8">Other</p>
                 <ul className="flex-row flex justify-between flex-wrap md:block text-chocolate-900 text-16 font-normal leading-5">
                   <li className="py-1 w-full md:w-full" onClick={() => {                   
