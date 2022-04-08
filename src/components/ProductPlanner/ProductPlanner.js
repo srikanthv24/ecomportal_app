@@ -19,8 +19,12 @@ const ProductPlanner = React.memo(
     onMealPlanSelection,
     onDeliveryChange,
     deliveryType,
-    setAddressSelected
+    selectedSessions,
+    setAddressSelected,
   }) => {
+    console.log(
+      "selectedSessions in product planner: " + JSON.stringify(selectedSessions)
+    );
     const [startDate, setStartDate] = useState(getTomorrowDate);
     // const [deliveryType, setDeliveryType] = useState(PICKUP);
     const onServiceChange = (e) => {
@@ -45,49 +49,59 @@ const ProductPlanner = React.memo(
         />
         <SessionCordinator
           onSessionChange={onSessionChange}
+          selectedSessions={selectedSessions}
           sessionCodes={["B", "L", "D"]}
         />
         <div className="mealPlan-date">
-        <DatePicker
-          name="start-date"
-          className="order-form-control-input"
-          value={startDate}
-          onChange={onDateChange}
-        />
+          <DatePicker
+            name="start-date"
+            className="order-form-control-input"
+            value={startDate}
+            onChange={onDateChange}
+          />
         </div>
-        
+
         <div className="mealplan-address-block">
           <div className="form-check form-check-inline">
-            <input className="form-check-input" 
-              type="radio" 
-              name="order-type" 
-              id={PICKUP} 
+            <input
+              className="form-check-input"
+              type="radio"
+              name="order-type"
+              id={PICKUP}
               defaultChecked={deliveryType === PICKUP ? true : false}
               onChange={onServiceChange}
-              value={PICKUP} />
-            <label className="form-check-label" htmlFor={PICKUP}>Pickup</label>
+              value={PICKUP}
+            />
+            <label className="form-check-label" htmlFor={PICKUP}>
+              Pickup
+            </label>
           </div>
           <div className="form-check form-check-inline">
-            <input className="form-check-input" 
-              type="radio" 
-              name="order-type" 
+            <input
+              className="form-check-input"
+              type="radio"
+              name="order-type"
               id={DELIVERY}
               defaultChecked={deliveryType === DELIVERY ? true : false}
               onChange={onServiceChange}
-              value={DELIVERY} />
-            <label className="form-check-label" htmlFor={DELIVERY}>Delivery</label>
+              value={DELIVERY}
+            />
+            <label className="form-check-label" htmlFor={DELIVERY}>
+              Delivery
+            </label>
           </div>
         </div>
         <div className="meal-plan-wrapper">
-          {mealPlans.map((plan) => {
-            return (
-              <MealPlan
-                {...plan}
-                onMealClick={onMealPlanSelection}
-                deliveryType={deliveryType}
-              />
-            );
-          })}
+          {selectedSessions.length > 0 &&
+            mealPlans.map((plan) => {
+              return (
+                <MealPlan
+                  {...plan}
+                  onMealClick={onMealPlanSelection}
+                  deliveryType={deliveryType}
+                />
+              );
+            })}
         </div>
       </div>
     );

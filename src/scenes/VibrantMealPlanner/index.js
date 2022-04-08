@@ -108,6 +108,10 @@ function VibrantMealPlanner() {
 
   const onSessionChange = (sessions) => {
     setSelectedSessions(sessions);
+    refreshMealPlans(sessions);
+  };
+
+  const refreshMealPlans = (sessions = selectedSessions) => {
     const { delivery_charge, discount } = delivery;
     setMealPlans(
       getMealPlanDetails(
@@ -153,14 +157,6 @@ function VibrantMealPlanner() {
       onAddToCart();
   }, [customerId]);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
   useEffect(() => {
     loadScript(
       `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`
@@ -171,8 +167,16 @@ function VibrantMealPlanner() {
   }, []);
 
   useEffect(() => {
-    console.log(address, delivery, addressSelected, "---->>>>>>");
-  }, [address]);
+    delivery?.delivery_charge && refreshMealPlans();
+  }, [delivery]);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
   return (
     <section className="planner-container">
@@ -230,6 +234,7 @@ function VibrantMealPlanner() {
                 productDescription={description}
                 mealPlans={mealPlans}
                 deliveryType={deliveryType}
+                selectedSessions={selectedSessions}
                 onSessionChange={onSessionChange}
                 onStartDateChange={onStartDateChange}
                 onMealPlanSelection={onMealPlanSelection}

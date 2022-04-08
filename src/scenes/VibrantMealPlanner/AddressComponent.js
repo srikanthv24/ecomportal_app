@@ -5,6 +5,7 @@ import {
 } from "react-bootstrap";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import _ from "underscore";
 import { PICKUP } from "../../utils/constants";
 import { calculateDeliveryCharge, getPostalCodes } from "../../store/actions/addresses";
 
@@ -14,6 +15,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
+  const loading = useSelector((state) => state.Addresses.loading);
   const [newAddress, setNewAddress] = useState({
     aline1: "",
     aline2: "",
@@ -35,6 +37,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   const [showPincodeError, setShowPincodeError] = useState(false);
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
+  const [disableAddressSelect, setDisableAddressSelect] = useState(true);
 
   useEffect(() => {
     handleScriptLoad(autoCompleteRef);
@@ -110,8 +113,9 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   }, []);
 
   useEffect(() => {
-    if(deliveryCharge) {
+    if(!_.isEmpty(deliveryCharge)) {
       setDeliveryCost(deliveryCharge);
+      setDisableAddressSelect(!disableAddressSelect);
     }
   },[deliveryCharge])
 
@@ -305,7 +309,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
               </FloatingLabel>
               <div className="d-flex mx-auto btn-group">
                 <button type="button" className="btn btn-secondary" onClick={handleGoBack}>Go Back</button>
-                <button type="button" className="btn btn-primary" disabled={!!deliveryCost.distance===0} onClick={handleAddAddress}>Add Address</button>
+                <button type="button" className="btn btn-primary" disabled={disableAddressSelect} onClick={handleAddAddress}>Add Address</button>
               </div>
             </>
         }
