@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import MealCard from "../MealCard/MealCard";
 import { MEAL_PLAN_STEPS } from "../../utils/constants";
 import "./meallist.scss";
+import { getMealPlans } from "../../store/actions/mealPlans";
+import { useDispatch } from "react-redux";
 
 const MealList = ({
   handleNextStep,
@@ -12,6 +14,11 @@ const MealList = ({
   list,
   handleCustomDiet,
 }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMealPlans())
+  }, [])
+  
   
   const handleClick = (selectedMeal) => {
     onMealClick(selectedMeal);

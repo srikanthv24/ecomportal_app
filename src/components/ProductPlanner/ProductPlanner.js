@@ -6,6 +6,8 @@ import { PICKUP, DELIVERY } from "../../utils/constants";
 import _ from "underscore";
 import { getTomorrowDate } from "../../utils/dateUtils";
 import DatePicker from "react-multi-date-picker";
+import InputIcon from "react-multi-date-picker/components/input_icon"
+import moment from "moment";
 
 const ProductPlanner = React.memo(
   ({
@@ -54,10 +56,14 @@ const ProductPlanner = React.memo(
         />
         <div className="mealPlan-date">
           <DatePicker
+            // placeholder="Select Start Date"
             name="start-date"
             className="order-form-control-input"
             value={startDate}
             onChange={onDateChange}
+            render={<InputIcon/>}
+            editable={false}
+            minDate={moment().format("YYYY-MM-DD")}
           />
         </div>
 

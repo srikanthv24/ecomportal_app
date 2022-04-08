@@ -60,7 +60,7 @@ function Home() {
     }
   }
   const onGettingStarted = () => {
-    dispatch(getMealPlans())
+    // dispatch(getMealPlans())
   }
   return (
     <>
