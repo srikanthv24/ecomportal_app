@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import _ from "underscore";
 import ModalComponent from "../../components/Modal/Modal";
 import { getCart, hideAlert, updateCartQty } from "../../store/actions";
 import CartItem from "../../components/CartItem/CartItem";
@@ -186,12 +187,13 @@ const CartSummary = () => {
             )}
           </>
         )}
-        {cartDetails &&
-        !cartLoading &&
-        !cartUpdateLoading &&
-        cartDetails?.items?.length === 0 ? (
+        {
+          (_.isEmpty(cartDetails) || _.isEmpty(cartDetails.items)) && !cartLoading && !cartUpdateLoading 
+          ?
           <EmptyCart />
-        ) : null}
+          :
+          <></>
+        }
       </div>
     </>
   );
