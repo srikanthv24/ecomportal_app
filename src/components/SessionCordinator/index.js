@@ -2,24 +2,25 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { SESSION_TYPES } from "../../utils/constants";
 
-const getSessionCheckBoxes = (sessionCodes, onChange) => {
+const getSessionCheckBoxes = (sessionCodes, onChange, selectedSessions) => {
   return sessionCodes.map((sessionCode) => {
     return (
       <div className="mealPlannerCheck">
-      <Form.Check
-        type="checkbox"
-        name={sessionCode}
-        label={SESSION_TYPES[sessionCode]}
-        onChange={onChange}
-      />
+        <Form.Check
+          type="checkbox"
+          checked={selectedSessions.includes(sessionCode)}
+          name={sessionCode}
+          label={SESSION_TYPES[sessionCode]}
+          onChange={onChange}
+        />
       </div>
     );
   });
 };
 
 const SessionCordinator = React.memo(
-  ({ withDate, sessionCodes, onSessionChange }) => {
-    const [sessions, setSessions] = useState([]);
+  ({ withDate, sessionCodes, onSessionChange, selectedSessions }) => {
+    const [sessions, setSessions] = useState(selectedSessions);
     const onChange = (e) => {
       const selectedCode = e.target.name;
       const updatedSessionCodes = sessions.includes(selectedCode)
@@ -29,7 +30,11 @@ const SessionCordinator = React.memo(
       onSessionChange(updatedSessionCodes);
     };
     return (
-      <>{withDate ? null : getSessionCheckBoxes(sessionCodes, onChange)}</>
+      <>
+        {withDate
+          ? null
+          : getSessionCheckBoxes(sessionCodes, onChange, selectedSessions)}
+      </>
     );
   }
 );
