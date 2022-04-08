@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
-import "./style.css";
+import { Card, Button, Accordion } from "react-bootstrap";
+// import "./style.css";
 import AlmondBannanabar from "../../assets/home/almond-banana-bar.png";
 import LandingCarousel from "../carousel";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import OwlCarousel from "react-owl-carousel";
 import chocoimg from "../../assets/home/StoreChoc.png";
 import test from "../../assets/default_thumbnail.png";
 import { useHistory } from "react-router-dom";
+import "./styles.scss";
 
 const StoreContent1 = () => {
   const products = useSelector((state) => state.products);
@@ -51,7 +52,11 @@ const StoreContent1 = () => {
           background: "transparent",
         }}
       >
-        <h2 className="py-0 text-center hiw-title-txt">Products</h2>
+        <h4 className="text-center stores-title-txt">Products</h4>
+        <p className="stores-desp-txt">This a physical store currently only located in <b>Hyderabad</b>. Please enter your pincode to check for delivery.</p>
+        <a href="#" className="explore-btn">
+          explore snacks
+        </a>
 
       </Card>
       {categories.categories.length > 1 ? (
@@ -68,8 +73,8 @@ const StoreContent1 = () => {
               <div className="prd-detail-info-item" key={index} onClick={() =>
                 history.push(`/products?category=${item.display_name}`)
               }>
-                <div className="for-image-hover">
-                  <div className="prd-img-block">
+                <div className="prdfor-image-hover">
+                  <div className="prd-imageblock">
                     <img
                       className="for-image"
                       src={

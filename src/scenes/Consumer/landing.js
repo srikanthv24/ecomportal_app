@@ -12,8 +12,11 @@ import { Link } from "react-router-dom";
 import CategoryList from "../Categories/category-list";
 import HomeContent from "../Home/index";
 import HomeContent1 from "../Home1/index";
+import NewHomeContent from "../NewHome/index";
 import FooterContent from "../Footer/index";
 import StoreContent1 from "../../components/StoreContent1";
+import FAQContent from "../FAQ/index";
+import Testimonials from "../Testimonials/index"
 // import LegalContent from "../../components/LegalContent";
 import GridContentSection from "../Gridcontent/index";
 import ViewContentSection from "../Viewcontent/index";
@@ -38,13 +41,22 @@ const Landing = () => {
   console.log("categories-TEMP", categories);
   return (
     <section>
-      <HomeContent1 />
+      <NewHomeContent />
       <Container fluid className="content-body px-0" style={{ background: "#F2CBBD", paddingBottom: '2rem' }}>
-        <section className="page-content1 py-3 bg-1">
-          <Container style={{ background: "#F2CBBD" }}>
+        {/* <section className="page-content1 py-3 bg-1"> */}
+          <Container fluid style={{ background: "#F2CBBD", marginTop: '0rem' }}>
+            <FAQContent />
+          </Container>
+
+          <Container fluid style={{ background: "#ffffff", marginTop: '0rem' }}>
+            <Testimonials />
+          </Container>
+
+          <Container fluid style={{ background: "#F2CBBD", marginTop: '0rem' }}>
             <StoreContent1 />
           </Container>
-        </section>
+         
+        {/* </section> */}
       </Container>
       <FooterContent />
     </section>
