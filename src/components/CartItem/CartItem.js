@@ -56,6 +56,7 @@ const CartItem = ({
               <span>Delivery: </span>
               <span>{displayCurrency(itemDeliveryCharge) || 0.0}</span>
             </p>
+            <p className="m-0 px-2  prd-price-duration">{`(X ${duration})`}</p>
             <p className="m-0 crt-price-info">
               <span>Discount: </span>
               <span>{displayCurrency(itemDiscount) || 0.0}</span>
