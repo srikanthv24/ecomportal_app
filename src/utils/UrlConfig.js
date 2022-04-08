@@ -1,4 +1,4 @@
-const server = "production";
+const server = "dev";
 
 export let api_urls = {};
 
@@ -22,7 +22,7 @@ if (server === "production") {
     Razorpay_API_URL: "https://checkout.razorpay.com/v1/checkout.js",
     Product_REL_API_KEY: "da2-xclkxhpjbbbxfcyw2vtp3zc64e",
     Postal_API_KEY: "da2-bi33lqfzljfdjdfszwr5gmx3nm",
-    delivery_calculatio_API_URL: "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/deliverycalculation",
+    delivery_calculatio_API_URL: "https://c3vy4pkb7g.execute-api.ap-south-1.amazonaws.com/prod/deliverycalculation",
   };
 } else {
   api_urls = {
@@ -44,6 +44,7 @@ if (server === "production") {
     Razorpay_API_URL: "https://checkout.razorpay.com/v1/checkout.js",
     Product_REL_API_KEY: "da2-orjjngnz3ffc3jjnn75bfm4roi",
     Postal_API_KEY: "da2-j7yxgxymtrarzavgivfwda4h5u",
+    delivery_calculatio_API_URL: "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/deliverycalculation",
   };
 }
 
