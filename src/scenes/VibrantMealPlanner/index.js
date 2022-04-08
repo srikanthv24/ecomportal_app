@@ -13,6 +13,7 @@ import AddressComponent from "./AddressComponent";
 import { getMealPlanDetails, getOrderDates } from "./vibrantMealPlanner.utils";
 import { FaWeight, FaLeaf, FaRegGrinHearts } from "react-icons/fa";
 import { showLogin } from "../../store/actions";
+import { clearDeliveryCharges } from "../../store/actions/addresses";
 import "./styles.scss";
 
 const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
@@ -148,6 +149,7 @@ function VibrantMealPlanner() {
           address,
         })
       );
+      dispatch(clearDeliveryCharges());
       history.push("/cart-summary");
     }
   };

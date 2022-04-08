@@ -98,6 +98,13 @@ export const Addresses = (state = initialState, action) => {
         deliveryCharge: {},
         error: true
       }
+    
+    case types.DELIVERY_CHARGE_CLEAR: 
+      return {
+        ...state, 
+        loading: false,
+        deliveryCharge: {}
+      }
 
     default:
       return state;

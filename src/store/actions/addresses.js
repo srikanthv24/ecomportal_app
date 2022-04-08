@@ -35,3 +35,9 @@ export const calculateDeliveryCharge = (data) => {
     payload: data
   }
 }
+
+export const clearDeliveryCharges = () => {
+  return {
+    type: types.DELIVERY_CHARGE_CLEAR
+  }
+}
