@@ -30,6 +30,7 @@ import { handleLoginLink, showLogin } from "../../store/actions";
 import arrowRightIcon from "./../../assets/arrow-right.png";
 import MenuIcon from "./../../assets/home/search-normal.svg";
 import CustomSpinner from "../CustomSpinner";
+import { getCart } from "../../store/actions";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -77,7 +78,16 @@ export default function AppBar() {
   const handleLoginModal = () => {
     dispatch(handleLoginLink());
     dispatch(showLogin());
-  }
+  };
+
+  const onCartButtonClick = () => {
+    const customerId = userDetails.sub;
+
+    if (customerId) {
+      dispatch(getCart({ customer_id: customerId }));
+    }
+    history.push("/cart-summary");
+  };
 
   return (
     <>
@@ -91,7 +101,14 @@ export default function AppBar() {
       >
         <Container fluid className="flex-nowrap custom-nav">
           <div>
-            <div style={{ position: "absolute", right: "1rem", top: "1rem", cursor: "pointer" }}>
+            <div
+              style={{
+                position: "absolute",
+                right: "1rem",
+                top: "1rem",
+                cursor: "pointer",
+              }}
+            >
               {/* <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
               onClick={() => setMenu(true)}
@@ -170,7 +187,7 @@ export default function AppBar() {
                       </div>
                     </Nav.Link>
                     {Cart?.cartLoading ? (
-                      <Nav.Link onClick={() => history.push("/cart-summary")}>
+                      <Nav.Link onClick={onCartButtonClick}>
                         <h6 className="text-black nav-menu-cart">
                           <AiOutlineShoppingCart size={24} />
                           <Badge pill>
@@ -183,7 +200,7 @@ export default function AppBar() {
                         </h6>
                       </Nav.Link>
                     ) : (
-                      <Nav.Link onClick={() => history.push("/cart-summary")}>
+                      <Nav.Link onClick={onCartButtonClick}>
                         <h6 className="text-black nav-menu-cart">
                           <AiOutlineShoppingCart size={24} />
                           <Badge pill>
@@ -196,16 +213,16 @@ export default function AppBar() {
                   </Col>
                 ) : (
                   <>
-                  <div className="d-flex">
-                  <Nav.Link onClick={handleLoginModal}>
-                    <p
-                      className="text-black nav-menu-cart"
-                      style={{ paddingRight: "1rem" }}
-                    >
-                      Login / SignUp
-                    </p>
-                  </Nav.Link>                 
-                  </div>
+                    <div className="d-flex">
+                      <Nav.Link onClick={handleLoginModal}>
+                        <p
+                          className="text-black nav-menu-cart"
+                          style={{ paddingRight: "1rem" }}
+                        >
+                          Login / SignUp
+                        </p>
+                      </Nav.Link>
+                    </div>
                   </>
                 )}
               </Row>
@@ -221,7 +238,11 @@ export default function AppBar() {
         className="sideMenuWrapper"
       >
         <Offcanvas.Body
-          style={{ padding: "0px", position: "relative", background: "#F7F2DF" }}
+          style={{
+            padding: "0px",
+            position: "relative",
+            background: "#F7F2DF",
+          }}
         >
           <Offcanvas.Header
             closeButton
@@ -267,9 +288,7 @@ export default function AppBar() {
                 history.push("/");
               }}
             >
-              <div
-                className="d-flex align-items-center justify-content-center menu-item"
-              >
+              <div className="d-flex align-items-center justify-content-center menu-item">
                 Home
               </div>
             </ListGroup.Item>
