@@ -5,6 +5,8 @@ import { Button, Card } from "react-bootstrap";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { NEXT, PERSONAL_INFO } from "../../utils/constants";
 import handleValidations from "../../utils/handleValidations";
+import MaleIcon from "../../assets/home/male.svg";
+import FemaleIcon from "../../assets/home/female.svg";
 let timer;
 let touchduration = 800; 
 let count = 1;
@@ -183,9 +185,9 @@ const PersonalInfo = ({
 
   return (
     <section className="text-center w-100p mx-auto">
-      <div className="py-4">
-        <Card.Body className="py-3 px-0 d-flex justify-content-between">
-          <label class="gender-card justify-content-center">
+      <div className="personal-info-step">
+        <Card.Body className="pb-3 px-0 d-flex justify-content-between">
+          <label class="gender-card justify-content-center relative">
             <input
               name="gender"
               class="radio"
@@ -200,12 +202,16 @@ const PersonalInfo = ({
                 setGender("Male");
               }}
             >
-              <span class="plan-cost">
-                <MdMale />
+              <span class="plan-cost1">
+                {/* <MdMale /> */}
+                <img src={MaleIcon} alt="Icon" height="60" />
               </span>
             </span>
+            <div className="pl-lable-info">
+              <label>Male</label>
+            </div>
           </label>
-          <label class="gender-card justify-content-center">
+          <label class="gender-card justify-content-center relative">
             <input
               name="gender"
               class="radio"
@@ -220,18 +226,19 @@ const PersonalInfo = ({
                 setGender("Female");
               }}
             >
-              <span class="plan-cost">
-                <MdFemale />
+              <span class="plan-cost1">
+                {/* <MdFemale /> */}
+                <img src={FemaleIcon} alt="Icon" height="60" />
               </span>
             </span>
+            <div className="pl-lable-info">
+              <label>Female</label>
+            </div>
           </label>
         </Card.Body>
 
-        <Card.Body className="py-3 px-0 d-flex justify-content-between">
-          <div className="pinfo-box">
-            <div className="text-muted">
-              <label>{PERSONAL_INFO.HEIGHT_FEET}</label>
-            </div>
+        <Card.Body className="pb-3 px-0 d-flex justify-content-between">
+          <div className="pinfo-box relative">           
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -248,7 +255,7 @@ const PersonalInfo = ({
                 readOnly
                 style={{ display: "none" }}
               />
-              <div style={{ width: "100%", height: "100%", fontSize: "50px" }}>
+              <div className="pl-info-value">
                 {heightFeet}
               </div>
               <button
@@ -259,13 +266,13 @@ const PersonalInfo = ({
                 <GrAdd />
               </button>
             </div>
-            <p>{error.heightFeetErrorMsg}</p>
+            <div className="pl-lable-info">
+              <label>{PERSONAL_INFO.HEIGHT_FEET}</label>
+            </div>
+            <p className="pinfo-errorTxt">{error.heightFeetErrorMsg}</p>
           </div>
 
-          <div className="pinfo-box">
-            <div className="text-muted">
-              <label>{PERSONAL_INFO.HEIGHT_INCHES}</label>
-            </div>
+          <div className="pinfo-box relative">           
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -282,7 +289,7 @@ const PersonalInfo = ({
                 value={heightInch}
                 style={{ display: "none" }}
               />
-              <div style={{ width: "100%", height: "100%", fontSize: "50px" }}>
+              <div className="pl-info-value">
                 {heightInch}
               </div>
               <button
@@ -293,15 +300,15 @@ const PersonalInfo = ({
                 <GrAdd />
               </button>
             </div>
-            <p>{error.heightInchErrorMsg}</p>
+            <div className="pl-lable-info">
+              <label>{PERSONAL_INFO.HEIGHT_INCHES}</label>
+            </div>
+            <p className="pinfo-errorTxt">{error.heightInchErrorMsg}</p>
           </div>
         </Card.Body>
 
-        <Card.Body className="py-3 px-0 d-flex justify-content-between">
-          <div className="pinfo-box">
-            <div className="text-muted">
-              <label>{PERSONAL_INFO.WEIGHT}</label>
-            </div>
+        <Card.Body className="pb-3 px-0 d-flex justify-content-between">
+          <div className="pinfo-box relative">            
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -319,7 +326,7 @@ const PersonalInfo = ({
                 value={weight}
                 style={{ display: "none" }}
               />
-              <div style={{ width: "100%", height: "100%", fontSize: "50px" }}>
+              <div className="pl-info-value">
                 {weight}
               </div>
               <button
@@ -331,13 +338,13 @@ const PersonalInfo = ({
                 <GrAdd />
               </button>
             </div>
-            <p>{error.weigthErrorMsg}</p>
+            <div className="pl-lable-info">
+              <label>{PERSONAL_INFO.WEIGHT}</label>
+            </div>
+            <p className="pinfo-errorTxt">{error.weigthErrorMsg}</p>
           </div>
 
-          <div className="pinfo-box">
-            <div className="text-muted">
-              <label>{PERSONAL_INFO.AGE}</label>
-            </div>
+          <div className="pinfo-box relative">           
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -354,7 +361,7 @@ const PersonalInfo = ({
                 max="100"
                 style={{ display: "none" }}
               />
-              <div style={{ width: "100%", height: "100%", fontSize: "50px" }}>
+              <div className="pl-info-value">
                 {age}
               </div>
               <button
@@ -366,13 +373,16 @@ const PersonalInfo = ({
                 <GrAdd />
               </button>
             </div>
-            <p>{error.ageErrorMsg}</p>
+            <div className="pl-lable-info">
+              <label>{PERSONAL_INFO.AGE}</label>
+            </div>
+            <p className="pinfo-errorTxt">{error.ageErrorMsg}</p>
           </div>
         </Card.Body>
       </div>
       <div className="stepper-btn-container">
         <Button
-          className="w-100 m-1 stepper-btn"
+          className="w-100 stepper-btn"
           onClick={onSubmit}
           disabled={
             error.ageError ||

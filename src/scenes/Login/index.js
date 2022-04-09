@@ -98,7 +98,7 @@ const Login = (props) => {
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
                 className={errors.phone && 'is-invalid'}
-                type="text"
+                type="number"
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>
@@ -137,7 +137,7 @@ const Login = (props) => {
             </Button>
 
             <p className="text-muted text-center">
-              New to Vibrant Living? <a style={{color: "#614731"}} href="#" onClick={handleSignUpClick}>Sign Up</a>
+              New to Vibrant Living? <a className="hyper-link-txt" href="#" onClick={handleSignUpClick}>Sign Up</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">

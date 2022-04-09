@@ -36,6 +36,7 @@ import AlmondGreenBG from "../../assets/home/almond-green-bg.svg";
 import HabaneroSpicedAlmonds from "../../assets/home/habanero-spiced-almonds.png";
 import SesamePumpkinSeedChikki from "../../assets/home/sesame&pumpkin-seed-chikki.png";
 import { getMealPlans } from "../../store/actions/mealPlans";
+import MealBowlImage from "../../assets/home/MealBowl.jpg";
 
 
 import "./styles.scss";
@@ -83,6 +84,7 @@ function Home() {
           <h2 className="">Eat Deliciously <br />healthy <br />everyday!!</h2>
           <img src={HomepageBannerContentWeb} alt="image" className="for-mblview mx-auto" />
           <img src={HomepageBannerContentWeb} alt="image" className="for-webview" />
+          {/* <img src={MealBowlImage} alt="image" /> */}
         </div>
       </div>
       {/* Green Bg Section */}
