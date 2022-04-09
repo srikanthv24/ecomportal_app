@@ -83,7 +83,7 @@ const ProductPlanner = React.memo(
               Pickup
             </label>
           </div>
-          <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
+          <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p relative">
             <input
               className="form-check-input"
               type="radio"
@@ -96,6 +96,7 @@ const ProductPlanner = React.memo(
             <label className="form-check-label" htmlFor={DELIVERY}>
               Delivery
             </label>
+            <div className="deliveryArrow"></div>
           </div>
           </div>
         </div>

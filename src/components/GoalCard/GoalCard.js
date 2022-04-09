@@ -11,7 +11,7 @@ const GoalCard = React.memo(({ name, icon, onClick, isSelected }) => (
     <Card.Body className="p-2">
       {/* <div className="d-flex justify-content-center py-3">{icon}</div> */}
       <div className="d-flex justify-content-center">        
-        <img src={icon} alt="image" />
+        <img src={icon} alt="image" height="50" />
       </div>
       <Card.Title
         className={`text-center m-0 py-2 goal-title${
