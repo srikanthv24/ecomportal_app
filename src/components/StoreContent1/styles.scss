@@ -126,7 +126,7 @@
 
 @media (min-width: 768px) {
     .stores-title-txt {
-        font-size: 136px;
+        font-size: 64px;
         line-height: 9.8rem;
         padding-top: 9rem;
     }
@@ -134,8 +134,9 @@
 
 @media (max-width: 640px) {
     .stores-title-txt {
-        font-size: 60px;
-        line-height: 7rem;
-        padding-top: 4rem;
+        font-size: 30px;
+        font-weight: 500;
+        // line-height: 4rem;
+        padding-top: 2rem;
     }
 }
