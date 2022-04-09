@@ -24,6 +24,7 @@
             font-style: normal;
             font-weight: 700;
             color: #ffffff;
+            text-align: center;
         }
     }
 }
@@ -140,7 +141,7 @@
     .row1-text,
     .row2-text .leftText,
     .row2-text .RightText {
-        font-size: 48px;
+        font-size: 40px !important;
     }
     .vlw-36 {
         width: 9rem;
@@ -187,7 +188,7 @@
             width: 2rem !important;
         }
         .text-80 {
-            font-size: 48px !important;
+            font-size: 40px !important;
         }
     }
     .row4-text {
@@ -203,7 +204,7 @@
             right: 0px;
         }
         .text-80 {
-            font-size: 48px !important;
+            font-size: 40px !important;
         }
     }
     .sesame-and-pumpkin-seed-circle-container {
@@ -311,6 +312,9 @@
 .gs-btn{
     text-decoration: none;
     padding: 0 !important;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
     a{
         font-family: "Roboto Regular", serif;
         font-weight: 500;
@@ -320,5 +324,16 @@
         display: block;
         width: 100%;
         padding:10px 40px;
+    }
+}
+.mealbowlImage{
+    width: 300px;
+    max-height: 300px;
+    background: #cccccc;
+    padding: 3rem;
+    border-radius: 20% 20% 20% 10%;
+    overflow: hidden;
+    img{
+        width: 100%;
     }
 }
