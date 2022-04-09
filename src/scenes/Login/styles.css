@@ -72,3 +72,10 @@
   background-color: #614731 !important;
   border-color: #614731 !important;
 }
+.hyper-link-txt{
+  font-family: 'Roboto Medium',sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color:#614731 !important;
+  text-decoration: none !important;
+}

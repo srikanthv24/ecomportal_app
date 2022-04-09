@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { CUSTOM_PLAN, DAYS_PLAN, SERVINGS } from "../../utils/constants";
 import { BiRupee } from "react-icons/bi";
+import TruckImage from "../../assets/home/truck.png";
+import PickupImage from "../../assets/home/Pickup.png";
 
 const MealPlan = React.memo(
   ({
@@ -56,15 +58,18 @@ const MealPlan = React.memo(
               </span>
             </div>
             <div className="items">
-              {!canChangeDuration && (
+              {/* {!canChangeDuration && ( */}
                 <span>
                   {deliveryType === "Pickup" ? (
-                    <i class="fa-solid fa-truck"></i>
+                    // <i class="fa-solid fa-truck"></i>
+                    <img src={PickupImage} alt="image" height="24" />
                   ) : (
-                    <i class="fa-solid fa-location-check"></i>
+                    // <i class="fa-solid fa-location-check"></i>
+                    <img src={TruckImage} alt="image" height="24" />
+                    
                   )}
                 </span>
-              )}
+              {/* )} */}
             </div>
           </div>
          
