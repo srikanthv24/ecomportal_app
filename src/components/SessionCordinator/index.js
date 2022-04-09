@@ -8,7 +8,7 @@ const getSessionCheckBoxes = (sessionCodes, onChange, selectedSessions) => {
       <div className="mealPlannerCheck vl-checkbox-custom">
         <Form.Check
           type="checkbox"
-          checked={selectedSessions.includes(sessionCode)}
+          checked={selectedSessions?.includes(sessionCode)}
           name={sessionCode}
           label={SESSION_TYPES[sessionCode]}
           onChange={onChange}
@@ -20,11 +20,13 @@ const getSessionCheckBoxes = (sessionCodes, onChange, selectedSessions) => {
 
 const SessionCordinator = React.memo(
   ({ withDate, sessionCodes, onSessionChange, selectedSessions }) => {
-    const [sessions, setSessions] = useState(selectedSessions);
+    const [sessions, setSessions] = useState(
+      selectedSessions ? selectedSessions : []
+    );
     const onChange = (e) => {
       const selectedCode = e.target.name;
-      const updatedSessionCodes = sessions.includes(selectedCode)
-        ? sessions.filter((code) => code !== selectedCode)
+      const updatedSessionCodes = sessions?.includes(selectedCode)
+        ? sessions?.filter((code) => code !== selectedCode)
         : [...sessions, selectedCode];
       setSessions(updatedSessionCodes);
       onSessionChange(updatedSessionCodes);
