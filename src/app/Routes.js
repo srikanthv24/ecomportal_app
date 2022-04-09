@@ -17,6 +17,7 @@ import PrivacyPolicyContent from "../components/PrivacyPolicyContent";
 import VibrantMealPlanner from "../scenes/VibrantMealPlanner";
 import Disclaimer from "../components/Disclaimer/Disclaimer";
 import AddressComponent from "../scenes/VibrantMealPlanner/AddressComponent";
+import UpdateOrder from "../scenes/UpdateOrder";
 
 function Routes() {
   const userDetails = useSelector((state) => state.auth.userDetails);
@@ -61,6 +62,7 @@ function Routes() {
               <Route path="/cart-summary" component={CartSummary} />
               {/* <Route path="/cart" component={Cart} /> */}
               <Route path="/orders" component={Orders} />{" "}
+              <Route path="/order/:cid/:ciid/:sid" component={UpdateOrder} />
               <Route path="/profile" component={Profile} />
             </>
           )}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import { Badge, Card, Col, Row } from "react-bootstrap";
 import DefaultImage from "./../../assets/default_thumbnail.png";
@@ -45,12 +46,16 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                   <h4 className="subs-id mb-0"># {order.id}</h4>
                   <div className="more-info">
                     <>
+                      <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`}>
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </Link>
                       {moment(moment()).isAfter(order.finish_date) ? (
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
                         <>
-                          <i class="fa-solid fa-bars"></i>
+                          <i className="fa-solid fa-bars"></i>
                           <div className="more-dp-info">
+                          
                             <MenuList
                               list={[
                                 SERVICE_TYPE.PAUSE_TOMORROW,

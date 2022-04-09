@@ -5,3 +5,4 @@ export * from './customer'
 export * from './mealPlans';
 export * from './addresses';
 export * from './balance';
+export * from './subscriptions';

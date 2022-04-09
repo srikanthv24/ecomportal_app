@@ -10,6 +10,7 @@ import {
   sessionExpireReducer,
   schedule,
   subscriptionReducer,
+  Subscriptions
 } from "./reducers";
 import { AlertReducer } from "./reducers/alert";
 import { Login } from "./reducers/login";
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   sessionExpire: sessionExpireReducer,
   schedule: schedule,
   subscription: subscriptionReducer,
+  subscriptions: Subscriptions
 });
 
 export default rootReducer;
