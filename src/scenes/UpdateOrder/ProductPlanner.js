@@ -5,98 +5,142 @@ import SessionCordinator from "./SessionCoordinators";
 import ProductDisplay from "../../components/ProductPlanner/ProductDisplay";
 import { PICKUP, DELIVERY } from "../../utils/constants";
 import _ from "underscore";
+import moment from "moment";
 // import { getTomorrowDate } from "../../utils/dateUtils";
 // import DatePicker from "react-multi-date-picker";
 // import InputIcon from "react-multi-date-picker/components/input_icon"
 // import moment from "moment";
 
 const ProductPlanner = ({
-    productTitle,
-    productCategory,
-    imageUrl,
-    productDescription,
-    inputs,
-    setInputs
-  }) => {
-    const today = new Date()
-    const tomorrow = new Date()
+  productTitle,
+  productCategory,
+  imageUrl,
+  productDescription,
+  inputs,
+  setInputs,
+}) => {
+  const today = new Date();
+  const tomorrow = new Date();
 
-    tomorrow.setDate(tomorrow.getDate() + 1)
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const [values, setValues] = useState([inputs.orderDate]);
+  // const [values, setValues] = useState([inputs.orderDate]);
+  const [completedDates, setCompletedDates] = useState([]);
+  const [remainingDates, setRemainingDates] = useState([]);
+  const [OrderDatesError, setOrderDatesError] = useState("");
+  const [planDuration, setPlanDuration] = useState(0);
 
-    // useEffect(() => {
-    //   setValues(inputs.orderDate);
-    // }, [inputs])
+  useEffect(() => {
+    console.log("inputs", inputs);
 
-    useEffect(() => {
-      console.log(new Date(values[0]));
-    }, [values])
+    inputs?.variants?.map((item) =>
+      item.display_name === "Duration"
+        ? setPlanDuration(item?.items[0]?.display_name.replace(/[^\d]/g, ""))
+        : setPlanDuration(0)
+    );
 
-    return (
-      <div className="product-planner">
-        <ProductDisplay
-          title={productTitle}
-          category={productCategory}
-          imageUrl={imageUrl}
-          description={productDescription}
-        />
-        <SessionCordinator
-          sessions={inputs.selectedSessions}
-          sessionCodes={["B", "L", "D"]}
-        />
-        <Calendar
-          value={values}
-          format="YYYY-MM-DD"
-          multiple
-          numberOfMonths={2}
-          minDate={new Date()}
-          style={{ width: "100%" }}
-          onChange={setValues}
-        />
-        <div className="mealPlan-date">
-          
+    if (inputs?.orderDate && inputs?.orderDate?.length > 0) {
+      let sessionOrderDates = inputs.orderDate[0];
+      const completedDates = sessionOrderDates.filter(
+        (date) => moment(date, "YYYY-MM-DD") < moment(new Date(), "YYYY-MM-DD")
+      );
+      setCompletedDates(completedDates);
+
+      const remainingDates = sessionOrderDates.filter(
+        (date) => moment(date, "YYYY-MM-DD") > moment(new Date(), "YYYY-MM-DD")
+      );
+      setRemainingDates(remainingDates);
+    }
+  }, [inputs]);
+
+  const mapCalendarDates = (date) => {
+    let props = {};
+    props.style = {};
+    if (completedDates.length > 0) {
+      if (completedDates.includes(date.format("YYYY-MM-DD"))) {
+        props.disabled = true;
+        props.style.backgroundColor = "#f05922";
+      }
+    }
+    return props;
+  }
+
+  const handleCalendarChange = (dateObj) => {
+    let temp = [];
+    if (completedDates?.length + dateObj?.length > planDuration) {
+      setOrderDatesError("maximum days limit exceeded!!!");
+      temp = temp.concat(remainingDates);
+      return null;
+    } else {
+      setOrderDatesError("");
+      dateObj.forEach((date) => {
+        temp.push(date.format("YYYY-MM-DD"));
+      });
+    }
+  }
+
+  return (
+    <div className="product-planner">
+      <ProductDisplay
+        title={productTitle}
+        category={productCategory}
+        imageUrl={imageUrl}
+        description={productDescription}
+      />
+      <SessionCordinator
+        sessions={inputs.selectedSessions}
+        sessionCodes={["B", "L", "D"]}
+      />
+      <p>{OrderDatesError}</p>
+      <Calendar
+        format="YYYY-MM-DD"
+        multiple
+        numberOfMonths={2}
+        minDate={new Date()}
+        style={{ width: "100%" }}
+        value={remainingDates}
+        onChange={(dateObj) => handleCalendarChange(dateObj)}
+        mapDays={({date}) => mapCalendarDates(date)}
+      />
+      <div className="mealPlan-date"></div>
+
+      <div className="mealplan-address-block">
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="order-type"
+            id={PICKUP}
+            checked={inputs.deliveryType === PICKUP ? true : false}
+            value={PICKUP}
+            disabled
+          />
+          <label className="form-check-label" htmlFor={PICKUP}>
+            Pickup
+          </label>
         </div>
-
-        <div className="mealplan-address-block">
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="order-type"
-              id={PICKUP}
-              checked={inputs.deliveryType === PICKUP ? true : false}
-              value={PICKUP}
-              disabled
-            />
-            <label className="form-check-label" htmlFor={PICKUP}>
-              Pickup
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="order-type"
-              id={DELIVERY}
-              checked={inputs.deliveryType === DELIVERY ? true : false}
-              value={DELIVERY}
-              disabled
-            />
-            <label className="form-check-label" htmlFor={DELIVERY}>
-              Delivery
-            </label>
-          </div>
-        </div>
-        <div className="meal-plan-wrapper">
-          {
-            inputs?.variants[0]?.items.map((variant) => (
-              <MealPlanner variant={variant} type={inputs?.deliveryType} />
-            ))
-          }
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="order-type"
+            id={DELIVERY}
+            checked={inputs.deliveryType === DELIVERY ? true : false}
+            value={DELIVERY}
+            disabled
+          />
+          <label className="form-check-label" htmlFor={DELIVERY}>
+            Delivery
+          </label>
         </div>
       </div>
-    );
-  }
+      <div className="meal-plan-wrapper">
+        {inputs?.variants[0]?.items.map((variant) => (
+          <MealPlanner variant={variant} type={inputs?.deliveryType} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default ProductPlanner;
