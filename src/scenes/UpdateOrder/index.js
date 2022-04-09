@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Button, Spinner } from "react-bootstrap";
 import _ from "underscore";
 import { getSubscriptionDetails, updateSubscriptionDetails } from "../../store/actions";
@@ -10,20 +10,28 @@ import "./styles.scss";
 
 const UpdateOrder = () => {
   const {cid, ciid, sid} = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
   const subscription = useSelector((state) => state.subscriptions.subscription);
   const loading = useSelector((state) => state.subscriptions.loading);
-  const customerId = useSelector((state) => state?.auth?.userDetails?.sub);
+  const {sub: customerId, name, phone_number} = useSelector((state) => state?.auth?.userDetails);
   const [inputs, setInputs] = useState({
     profileDetails: {},
     deliveryType: "",
     orderDate: [],
     variants: [],
     customerId: "",
+    name: "",
+    phone_number: "",
     productId: "",
+    product_name: "",
+    subscription_id: sid,
+    id: cid,
+    ciid: ciid,
     selectedSessions: [],
     address: {},
   });
+  const [newDates, setNewDates] = useState([]);
 
   const [item, setItem] = useState({
     name: "",
@@ -31,6 +39,7 @@ const UpdateOrder = () => {
     image: "",
     description: ""
   });
+  const [disable, setDisable] = useState(false);
 
   useEffect(() => {
     dispatch(getSubscriptionDetails({cid, ciid, sid}));
@@ -47,7 +56,7 @@ const UpdateOrder = () => {
   }, []);
 
   useEffect(() => {
-    customerId !== "" && setInputs((inputs) => ({...inputs, customerId: customerId})); 
+    customerId !== "" && setInputs((inputs) => ({...inputs, customerId, name, phone_number})); 
   }, [customerId]);
 
   useEffect(() => {
@@ -76,8 +85,11 @@ const UpdateOrder = () => {
     }
   }, [subscription]);
 
-  const onUpdateCart = () => {
-    console.log(inputs);
+  const onUpdateCart = async () => {
+    let updatedObject = { ...inputs };
+    updatedObject.orderDate = newDates;
+    await dispatch(updateSubscriptionDetails(updatedObject));
+    history.push('/orders');
   }
 
   return(
@@ -97,11 +109,14 @@ const UpdateOrder = () => {
               productDescription={item.description}
               inputs={inputs}
               setInputs={setInputs}
+              setDisable={setDisable}
+              setNewDates={setNewDates}
             />
             <Button
               variant="primary"
               className="mt-2 mx-auto addCart-btn"
               onClick={onUpdateCart}
+              disabled={disable}
             >
               {UPDATE_ORDER}
             </Button>

@@ -18,6 +18,8 @@ const ProductPlanner = ({
   productDescription,
   inputs,
   setInputs,
+  setDisable,
+  setNewDates
 }) => {
   const today = new Date();
   const tomorrow = new Date();
@@ -29,10 +31,9 @@ const ProductPlanner = ({
   const [remainingDates, setRemainingDates] = useState([]);
   const [OrderDatesError, setOrderDatesError] = useState("");
   const [planDuration, setPlanDuration] = useState(0);
+  
 
   useEffect(() => {
-    console.log("inputs", inputs);
-
     inputs?.variants?.map((item) =>
       item.display_name === "Duration"
         ? setPlanDuration(item?.items[0]?.display_name.replace(/[^\d]/g, ""))
@@ -41,7 +42,7 @@ const ProductPlanner = ({
 
     if (inputs?.orderDate && inputs?.orderDate?.length > 0) {
       let sessionOrderDates = inputs.orderDate[0];
-      const completedDates = sessionOrderDates.filter(
+      const completedDates = sessionOrderDates?.filter(
         (date) => moment(date, "YYYY-MM-DD") < moment(new Date(), "YYYY-MM-DD")
       );
       setCompletedDates(completedDates);
@@ -66,18 +67,29 @@ const ProductPlanner = ({
   }
 
   const handleCalendarChange = (dateObj) => {
-    let temp = [];
+    let temp = [...remainingDates];
     if (completedDates?.length + dateObj?.length > planDuration) {
-      setOrderDatesError("maximum days limit exceeded!!!");
-      temp = temp.concat(remainingDates);
-      return null;
+      
     } else {
-      setOrderDatesError("");
+      let abc = [];
       dateObj.forEach((date) => {
-        temp.push(date.format("YYYY-MM-DD"));
+        abc.push(date.format("YYYY-MM-DD"));
       });
+      temp = abc;
     }
+    setRemainingDates(temp);
   }
+
+  useEffect(() => {
+    if (remainingDates.length + completedDates.length === parseInt(planDuration)) {
+      setDisable(false);
+      const newDates = [...completedDates, ...remainingDates];
+      setNewDates(newDates);
+    } else {
+      setDisable(true);
+    }
+  },[remainingDates])
+
 
   return (
     <div className="product-planner">

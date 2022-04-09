@@ -36,28 +36,32 @@ export const updateSubscriptionDetails = async (params) => {
   const {
     profileDetails,
     deliveryType,
-    orderDates,
+    orderDate,
     variants,
     customerId,
+    name,
+    phone_number,
+    subscription_id,
+    id,
+    ciid,
     productId,
+    product_name,
     selectedSessions,
     address
   } = params;
   const { age, gender, heightFeet, heightInch, weight } = profileDetails;
   const cartData = {
     customer_id: customerId,
-    personalinfo: {
-      age: age,
-      gender: gender,
-      heightft: {
-        feet: heightFeet,
-        inch: heightInch,
-      },
-      weightkg: weight,
-    },
+    customer_name: name,
+    customer_mobile: phone_number,
+    subscription_id,
+    id,
+    ciid,
     item: {
       item_id: productId,
+      item_name: product_name,
       qty: 1,
+      is_mealplan: true,
       subscription: selectedSessions.map((session) => {
         return {
           address: address,
@@ -65,7 +69,7 @@ export const updateSubscriptionDetails = async (params) => {
           isDelivery: deliveryType === "Delivery",
           meal_type: session,
           notes: "",
-          order_dates: orderDates,
+          order_dates: orderDate,
         };
       }),
       variants: variants,
