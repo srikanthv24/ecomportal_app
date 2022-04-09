@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import _ from "underscore";
 import ModalComponent from "../../components/Modal/Modal";
-import { getCart, hideAlert, updateCartQty } from "../../store/actions";
+import { getCart, hideAlert, showAlert, updateCartQty } from "../../store/actions";
 import CartItem from "../../components/CartItem/CartItem";
 import { CART, PICKUP } from "../../utils/constants";
 import OrderCheckList from "./order-checklist";
@@ -22,7 +22,7 @@ const CartSummary = () => {
   } = useSelector((state) => state.auth.userDetails);
   const { cartDetails, cartLoading, cartUpdateLoading, cartCreated } =
     useSelector((state) => state.Cart);
-  const { showAlert, variant, alertMessage } = useSelector(
+  const { showAlert : alert, variant, alertMessage } = useSelector(
     (state) => state.AlertReducer
   );
   const [items, setItems] = useState([]);
@@ -94,7 +94,7 @@ const CartSummary = () => {
   return (
     <>
       <ModalComponent
-        show={showAlert}
+        show={alert}
         type={variant}
         Body={alertMessage.body}
         Title={alertMessage.title}

@@ -68,6 +68,7 @@ export const NEXT = "Next";
 export const DELIVER_TO = "DELIVER TO";
 export const COMPLETED = "Completed";
 export const DELETE = "delete";
+export const UPDATE_ORDER = "Update Order";
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET: "Height-Feet",

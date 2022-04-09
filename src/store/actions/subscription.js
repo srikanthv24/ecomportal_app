@@ -6,3 +6,17 @@ export const setSubscriptionDetails = (payload) => {
     payload,
   };
 };
+
+export const getSubscriptionDetails = (payload) => {
+  return {
+    type: types.SUBSCRIPTION_DETAILS,
+    payload,
+  };
+};
+
+export const updateSubscriptionDetails = (payload) => {
+  return {
+    type: types.UPDATE_SUBSCRIPTION,
+    payload,
+  };
+};
