@@ -68,7 +68,8 @@ const ProductPlanner = React.memo(
         </div>
 
         <div className="mealplan-address-block">
-          <div className="form-check form-check-inline">
+          <div className="w-100p meal-transport vlradio-toolbar">
+          <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
             <input
               className="form-check-input"
               type="radio"
@@ -82,7 +83,7 @@ const ProductPlanner = React.memo(
               Pickup
             </label>
           </div>
-          <div className="form-check form-check-inline">
+          <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
             <input
               className="form-check-input"
               type="radio"
@@ -96,17 +97,19 @@ const ProductPlanner = React.memo(
               Delivery
             </label>
           </div>
+          </div>
         </div>
         <div className="meal-plan-wrapper">
-          <h4 className="title-info">Plan your Meal</h4>
+        <h4 className="title-info">Plan your Meal</h4>         
           {selectedSessions.length > 0 &&
             mealPlans.map((plan) => {
-              return (
+              return (                              
                 <MealPlan
                   {...plan}
                   onMealClick={onMealPlanSelection}
                   deliveryType={deliveryType}
                 />
+               
               );
             })}
         </div>

@@ -1,8 +1,7 @@
 .goal-card {
     cursor: pointer;
     padding: 10px;
-    width: calc(50% - 20px);
-    // margin-right: 10px;
+    width: 100%;
     margin-bottom: 20px;
     // border-color: #614731 !important;
     background: #F5E0BC !important;
@@ -33,4 +32,17 @@
 
 .goal-title {
     font-size: 14px !important;
+}
+@media screen and (max-width: 615px) {
+    .goal-card {
+        max-width: 150px;
+        height: 150px;
+    }
+}
+
+@media screen and (min-width: 616px) {
+    .goal-card {
+        max-width: 160px;
+        height: 160px;
+    }
 }

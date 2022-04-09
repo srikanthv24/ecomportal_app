@@ -78,6 +78,11 @@
     }
 }
 
+@media screen and (min-width: 615px) {
+    .profile-menu {
+        margin-right: 30px;
+    }
+}
 @media (min-width: 992px) {
     .search-section {
         min-width: 400px

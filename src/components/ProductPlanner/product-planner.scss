@@ -88,13 +88,61 @@
                 border-radius: 10px;
             }
             svg {
-                right: 20px;
+                right: 16px !important;
+                width: 30px !important;
+                height: 30px !important;
             }
         }
     }
     .mealplan-address-block {
-        background-color: #cccccc;
-        padding: 15px;
+        padding: 15px 20px;
+        .meal-transport {
+            background-color: #0079c1;
+        }
+
+        .vlradio-toolbar {
+            border-radius: 4px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .vlradio-toolbar input[type="radio"] {
+            opacity: 0;
+            position: fixed;
+            width: 0;
+        }
+
+        .vlradio-toolbar label {
+            width: 100%;
+            min-height: 52px;
+            font-family: "Roboto Medium", sans-serif, Arial;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+        .vlradio-toolbar input[type="radio"] + label {
+            background-color: #ffffff;
+            border-color: #ffffff;
+            color: #424141;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vlradio-toolbar input[type="radio"]:checked + label {
+            color: #ffffff;
+            background-color: #614731;
+            border-color: #614731;
+        }
+
+        .vlradio-toolbar input[type="radio"]:focus + label {
+            /* border: 2px solid #f05922; */
+            outline: none;
+        }
+
+        .vlradio-toolbar label:hover {
+            background-color: #dfd;
+        }
     }
 }
 .addCart-btn {
@@ -183,11 +231,34 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .daysinfo{
+        .daysinfo {
             display: block;
-            white-space: nowrap;
+            white-space: nowrap;            
         }
-        .amountInfo{
+        .plan-title-txt{
+            color: #614731;
+            font-family: "Roboto Medium", sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .servings-info-txt{
+            color: #614731;
+            font-family: "Roboto REgular", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .custom-plan-input-sec{
+            color: #614731;
+            font-family: "Roboto Regular", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            input{
+
+            }
+        }
+        .amountInfo {
             color: #614731;
             font-family: "Roboto Bold", sans-serif;
             font-size: 16px;
@@ -198,7 +269,7 @@
 .meal-plan-wrapper > div {
     width: 50%;
 }
-.vladdCart-btn{
+.vladdCart-btn {
     display: flex;
     margin: 0 auto;
     width: 100%;
@@ -210,6 +281,6 @@
     align-items: center;
     background-color: #614731 !important;
     border-color: #614731 !important;
-    color: #F7F2DF !important;
+    color: #f7f2df !important;
     border-radius: 20px;
 }
