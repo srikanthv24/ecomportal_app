@@ -10,7 +10,7 @@ function FAQ() {
         <>
             <section className="vlfaq-wrapper py-5">
                 <h4 className="faq-titletxt">Frequently asked questions</h4>
-                <Accordion defaultActiveKey="0" flush>
+                <Accordion eventKey="0">
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Menu & Cuisine</Accordion.Header>
                         <Accordion.Body>

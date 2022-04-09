@@ -45,7 +45,7 @@ const MealPlan = React.memo(
                 ) : (
                   <div className="custom-plan-input-sec">
                     <Form.Control
-                      type="text"
+                      type="number"
                       size="sm"
                       value={customDuration}
                       onChange={onCustomDurationChange} style={{width:'60px',marginRight:'10px'}}
