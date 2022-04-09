@@ -23,7 +23,6 @@ const SessionCordinator = React.memo(
     const [sessions, setSessions] = useState(
       selectedSessions ? selectedSessions : []
     );
-    console.log("sessions: " + JSON.stringify(sessions));
     const onChange = (e) => {
       const selectedCode = e.target.name;
       const updatedSessionCodes = sessions?.includes(selectedCode)
