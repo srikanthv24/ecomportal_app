@@ -150,7 +150,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
 
   return(
     <>
-      <div className="mt-3">
+      <div className="mt-3 vl-address-form">
         <FloatingLabel
           style={{ padding: "0" }}
           label="Please enter your address"
@@ -307,9 +307,9 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
                   
                 />
               </FloatingLabel>
-              <div className="d-flex mx-auto btn-group">
-                <button type="button" className="btn btn-secondary" onClick={handleGoBack}>Go Back</button>
-                <button type="button" className="btn btn-primary" disabled={disableAddressSelect} onClick={handleAddAddress}>Add Address</button>
+              <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
+                <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleGoBack}>Go Back</button>
+                <button type="button" className="btn w-50p vl-go-next-btn" disabled={disableAddressSelect} onClick={handleAddAddress}>Add Address</button>
               </div>
             </>
         }

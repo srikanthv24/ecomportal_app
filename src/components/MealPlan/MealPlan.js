@@ -36,22 +36,22 @@ const MealPlan = React.memo(
         <div className="w-100p plan-meal-card-sec">
           <div className="d-flex d-flex justify-content-between">
             <div className="items">
-              <span className="daysinfo">
+              <span className="daysinfo text-left plan-title-txt">
                 {!canChangeDuration ? `${duration} ${DAYS_PLAN}` : CUSTOM_PLAN}
               </span>
-              <span className="daysinfo">
+              <span className="daysinfo d-flex servings-info-txt">
                 {!canChangeDuration ? (
                   <span>{`${servings} ${SERVINGS}`}</span>
                 ) : (
-                  <>
+                  <div className="custom-plan-input-sec">
                     <Form.Control
                       type="text"
                       size="sm"
                       value={customDuration}
-                      onChange={onCustomDurationChange}
+                      onChange={onCustomDurationChange} style={{width:'60px',marginRight:'10px'}}
                     />
-                    dAYS
-                  </>
+                    Days
+                  </div>
                 )}
               </span>
             </div>

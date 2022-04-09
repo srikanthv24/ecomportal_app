@@ -21,3 +21,33 @@
 .stepperComponent .MuiStepLabel-labelContainer {
   display: none !important;
 }
+.vl-address-form{
+  padding:0px 20px 20px;
+  input{
+    border-color:#614731 !important;
+  }
+}
+.vl-action-btn{
+  // background-color: #cccccc;
+  .vl-go-back-btn,.vl-go-next-btn{    
+    width: 100%;
+    max-width: 300px;
+    height: 50px;    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;    
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .vl-go-back-btn{   
+    background-color: #e4e4e4;
+    color: #424141;
+    border-radius: 20px;
+  }
+  .vl-go-next-btn{   
+    background-color: #614731;
+    color: #F7F2DF;
+    border-radius: 20px;
+  }
+}

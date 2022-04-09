@@ -119,6 +119,13 @@
 .cart-summary-wrapper {
   min-height: 100vh;
   padding: 100px 15px 0px;
+  background: #F7F2DF !important;
+  .bg-1{
+    background: #F7F2DF !important;
+  }
+  .card{
+    border-color:#614731 !important
+  }
 }
 .cart-items-block {
   /* max-height: calc(100vh - 350px); */
