@@ -4,10 +4,10 @@ export class handleValidations {
     newAge = type === "increment" ? age + 1 : age -1;
     let msg = "",
       error = false;
-    if (newAge >= 65) {
+    if (newAge >= 95) {
       error = true;
       msg = "Please enter a valid age";
-    } else if (newAge <= 55) {
+    } else if (newAge <= 15) {
       error = true;
       msg = "Please enter a valid age";
     }
@@ -22,10 +22,10 @@ export class handleValidations {
     newWeigth = type === "increment" ? weigth + 1 : weigth -1;
     let msg = "",
       error = false;
-    if (newWeigth >= 65) {
+    if (newWeigth >= 100) {
       error = true;
       msg = "Enter valid weigth";
-    } else if (newWeigth <= 55) {
+    } else if (newWeigth <= 40) {
       error = true;
       msg = "Enter valid weigth";
     }
