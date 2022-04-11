@@ -21,3 +21,12 @@
 .stepperComponent .MuiStepLabel-labelContainer {
   display: none !important;
 }
+
+.calendar-container{
+  overflow: scroll;
+  padding: 0px 20px;
+}
+
+.selected-duration {
+  padding: 0px 20px;
+}
