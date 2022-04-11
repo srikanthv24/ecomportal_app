@@ -148,7 +148,7 @@ function VibrantDirectMealPlanner() {
   return (
     <section className="planner-container">
       {(deliveryType === PICKUP || addressSelected === true ? (
-        <div className="px-3 text-center">
+        <div className="text-center pb-3">
           <ProductPlanner
             productTitle={display_name}
             productCategory={category}
@@ -163,9 +163,8 @@ function VibrantDirectMealPlanner() {
             onDeliveryChange={onDeliveryTypeChange}
             setAddressSelected={setAddressSelected}
           />
-          <Button
-            variant="primary"
-            className="mt-2 mx-auto addCart-btn"
+          <Button            
+            className="mt-2 mx-auto vl-custom-btn" style={{maxWidth:"calc(100% - 40px)"}}
             onClick={onAddToCart}
             disabled={!selectedDuration || selectedSessions.length === 0}
           >

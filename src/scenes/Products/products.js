@@ -65,7 +65,7 @@ const Products = () => {
     <>
       <Container
         fluid
-        style={{ background: "#F2CBBD", minHeight: "calc(100vh - 0px)" }}
+        style={{ minHeight: "calc(100vh - 0px)" }}
       >
         <Row style={{ overflow: "auto" }}>
           <div style={{ ...phantom }} />

@@ -30,7 +30,7 @@ function Routes() {
   }, []);
 
   return (
-    <section style={{ height:'100vh',background:'#F7F2DF'}}>
+    <section style={{ minHeight:'100vh',background:'#F7F2DF'}}>
       <AppBar />
       {AppLoading ? (
         <div
