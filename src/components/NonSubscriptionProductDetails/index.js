@@ -20,12 +20,16 @@ const NonSubscriptionProductDisplay = ({
 
   return (
     <>
+    <section className="planner-container">
+    <div className="product-planner">
       <ProductDisplay
         title={productTitle}
         category={productCategory}
         imageUrl={imageUrl}
         description={productDescription}
       />
+      </div>
+      </section>
       <ProductAddToCartButtons
         handleCartItem={handleCartItem}
         cartLoading={cartLoading}
