@@ -3,34 +3,66 @@ import "./personalInfo.scss";
 import { MdMale, MdFemale } from "react-icons/md";
 import { Button, Card } from "react-bootstrap";
 import { GrAdd, GrSubtract } from "react-icons/gr";
-import { NEXT, PERSONAL_INFO } from "../../utils/constants";
-import handleValidations, {
+import {
+  NEXT,
+  PERSONAL_INFO,
+  INCREMENT,
+  DECREMENT,
+  MALE,
+  FEMALE,
+} from "../../utils/constants";
+import {
   validateAndSetFeet,
   validateAndSetInches,
   validateAndSetWeight,
+  validateWeightOnLongPress,
+  validateAndSetAge,
 } from "../../utils/handleValidations";
 import MaleIcon from "../../assets/home/male.svg";
 import FemaleIcon from "../../assets/home/female.svg";
+
 let timer;
 let touchduration = 800;
-let count = 1;
+const {
+  DEFAULT_MEN_FEET,
+  DEFAULT_MEN_INCHES,
+  DEFAULT_WOMEN_FEET,
+  DEFAULT_WOMEN_INCHES,
+  DEFAULT_MEN_WEIGHT,
+  DEFAULT_WOMEN_WEIGHT,
+  DEFAULT_AGE,
+} = PERSONAL_INFO;
+
 const PersonalInfo = ({
   handleBack,
   handleNextStep,
   defaultGender,
-  defaultHeightFeet,
-  defaultHeightInch,
-  defaultWeight,
-  defaultAge,
   onProfileDetailsSubmit,
 }) => {
   const [gender, setGender] = useState(defaultGender);
-  let [heightFeet, setHeightFeet] = useState(defaultHeightFeet);
-  const [heightInch, setHeightInch] = useState(defaultHeightInch);
-  const [weight, setWeight] = useState(defaultWeight);
-  const [age, setAge] = useState(defaultAge);
+  const [heightFeet, setHeightFeet] = useState(
+    defaultGender === MALE ? DEFAULT_MEN_FEET : DEFAULT_WOMEN_FEET
+  );
+  const [heightInch, setHeightInch] = useState(
+    defaultGender === MALE ? DEFAULT_MEN_INCHES : DEFAULT_WOMEN_INCHES
+  );
+  const [weight, setWeight] = useState(
+    defaultGender === MALE ? DEFAULT_MEN_WEIGHT : DEFAULT_WOMEN_WEIGHT
+  );
+  const [age, setAge] = useState(DEFAULT_AGE);
+  const [hasUserChangedAnyValue, setHasUserChangedAnyValue] = useState(false);
 
   const isTouch = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
+
+  const onGenderChange = (e) => {
+    if (!hasUserChangedAnyValue) {
+      setHeightFeet(gender === MALE ? DEFAULT_MEN_FEET : DEFAULT_WOMEN_FEET);
+      setHeightInch(
+        gender === MALE ? DEFAULT_MEN_INCHES : DEFAULT_WOMEN_INCHES
+      );
+      setWeight(gender === MALE ? DEFAULT_MEN_WEIGHT : DEFAULT_WOMEN_WEIGHT);
+    }
+  };
 
   const onSubmit = () => {
     onProfileDetailsSubmit({
@@ -43,86 +75,29 @@ const PersonalInfo = ({
     handleNextStep();
   };
 
-  const [error, setError] = useState({
-    ageErrorMsg: "",
-    ageError: false,
-    weigthErrorMsg: "",
-    weightError: false,
-    heigthFeetErrorMsg: "",
-    heigthFeetError: false,
-    heigthInchErrorMsg: "",
-    heigthInchError: false,
-  });
-
-  const ageValidator = (type, longPress = false) => {
-    if (type === "increment") {
-      longPress ? setAge((age) => age + 10) : setAge((age) => age + 1);
-    } else {
-      longPress ? setAge((age) => age - 10) : setAge((age) => age - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (age >= 120) {
-      setAge(120);
-      const msg = "Please enter a valid age";
-      setError((err) => ({ ...err, ageError: true, ageErrorMsg: msg }));
-    } else if (age <= 5) {
-      setAge(5);
-      const msg = "Please enter a valid age";
-      setError((err) => ({ ...err, ageError: true, ageErrorMsg: msg }));
-    } else {
-      setError((err) => ({ ...err, ageError: false, ageErrorMsg: "" }));
-    }
-  }, [age]);
-
-  const weigthValidator = (type, longPress = false) => {
-    if (type === "increment") {
-      longPress
-        ? setWeight((weight) => weight + 10)
-        : setWeight((weight) => weight + 1);
-    } else {
-      longPress
-        ? setWeight((weight) => weight - 10)
-        : setWeight((weight) => weight - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (weight >= 200) {
-      setWeight(200);
-      const msg = "Please enter a valid weight";
-      setError((err) => ({ ...err, weightError: true, weigthErrorMsg: msg }));
-    } else if (weight <= 5) {
-      setWeight(5);
-      const msg = "Please enter a valid weight";
-      setError((err) => ({ ...err, weightError: true, weigthErrorMsg: msg }));
-    } else {
-      setError((err) => ({ ...err, weightError: false, weigthErrorMsg: "" }));
-    }
-  }, [weight]);
-
   const handleIncrement = (key) => {
+    setHasUserChangedAnyValue(true);
     if (key === "heightFeet") {
-      validateAndSetFeet(heightFeet, "increment", setHeightFeet);
+      validateAndSetFeet(heightFeet, INCREMENT, setHeightFeet);
     } else if (key === "heightInch") {
-      validateAndSetInches(heightInch, "increment", setHeightInch);
+      validateAndSetInches(heightInch, INCREMENT, setHeightInch);
     } else if (key === "weight") {
-      validateAndSetWeight("increment", false, weight, setWeight);
+      validateAndSetWeight(INCREMENT, weight, setWeight);
     } else if (key === "age") {
-      ageValidator("increment");
+      validateAndSetAge(INCREMENT, false, setAge);
     }
   };
 
   const handleDecrement = (key) => {
+    setHasUserChangedAnyValue(true);
     if (key === "heightFeet") {
-      validateAndSetFeet(heightFeet, "decrement", setHeightFeet);
+      validateAndSetFeet(heightFeet, DECREMENT, setHeightFeet);
     } else if (key === "heightInch") {
-      validateAndSetInches(heightInch, "decrement", setHeightInch);
+      validateAndSetInches(heightInch, DECREMENT, setHeightInch);
     } else if (key === "weight") {
-      validateAndSetWeight("decrement", false, weight, setWeight);
+      validateAndSetWeight(DECREMENT, weight, setWeight);
     } else if (key === "age") {
-      ageValidator("decrement");
+      validateAndSetAge(DECREMENT, false, setAge);
     }
   };
 
@@ -131,23 +106,20 @@ const PersonalInfo = ({
     timer = null;
     if (key === "age") {
       timer = setInterval(() => {
-        ageValidator(type, true);
+        validateAndSetAge(type, true, setAge);
       }, touchduration);
     }
     if (key === "weight") {
       timer = setInterval(() => {
-        weigthValidator(type, true);
+        validateWeightOnLongPress(type, setWeight);
       }, touchduration);
     }
-    // timer = setInterval(updateAge, touchduration);
   };
 
   const upEvent = () => {
     clearInterval(timer);
     timer = null;
   };
-
-  useEffect(() => {}, [error]);
 
   return (
     <section className="text-center w-100p mx-auto">
@@ -157,15 +129,16 @@ const PersonalInfo = ({
             <input
               name="gender"
               class="radio"
-              value="Male"
+              value={MALE}
               type="radio"
               readOnly
-              defaultChecked={gender === "Male" ? true : false}
+              defaultChecked={gender === MALE ? true : false}
+              onChange={onGenderChange}
             />
             <span
               class="plan-details"
               onClick={() => {
-                setGender("Male");
+                setGender(MALE);
               }}
             >
               <span class="plan-cost1">
@@ -182,14 +155,15 @@ const PersonalInfo = ({
               name="gender"
               class="radio"
               type="radio"
-              value="Female"
+              value={FEMALE}
               readOnly
-              defaultChecked={gender === "Female" ? true : false}
+              defaultChecked={gender === FEMALE ? true : false}
+              onChange={onGenderChange}
             />
             <span
               class="plan-details"
               onClick={() => {
-                setGender("Female");
+                setGender(FEMALE);
               }}
             >
               <span class="plan-cost1">
@@ -233,7 +207,6 @@ const PersonalInfo = ({
             <div className="pl-lable-info">
               <label>{PERSONAL_INFO.HEIGHT_FEET}</label>
             </div>
-            <p className="pinfo-errorTxt">{error.heightFeetErrorMsg}</p>
           </div>
 
           <div className="pinfo-box relative mb-3">
@@ -265,7 +238,6 @@ const PersonalInfo = ({
             <div className="pl-lable-info">
               <label>{PERSONAL_INFO.HEIGHT_INCHES}</label>
             </div>
-            <p className="pinfo-errorTxt">{error.heightInchErrorMsg}</p>
           </div>
         </Card.Body>
 
@@ -276,7 +248,7 @@ const PersonalInfo = ({
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleDecrement("weight")}
-                onTouchStart={() => downEvent("weight", "decrement")}
+                onTouchStart={() => downEvent("weight", DECREMENT)}
                 onTouchEnd={upEvent}
               >
                 <GrSubtract />
@@ -294,7 +266,7 @@ const PersonalInfo = ({
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleIncrement("weight")}
-                onTouchStart={() => downEvent("weight", "increment")}
+                onTouchStart={() => downEvent("weight", INCREMENT)}
                 onTouchEnd={upEvent}
               >
                 <GrAdd />
@@ -303,7 +275,6 @@ const PersonalInfo = ({
             <div className="pl-lable-info">
               <label>{PERSONAL_INFO.WEIGHT}</label>
             </div>
-            <p className="pinfo-errorTxt">{error.weigthErrorMsg}</p>
           </div>
 
           <div className="pinfo-box relative mb-3">
@@ -312,7 +283,7 @@ const PersonalInfo = ({
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleDecrement("age")}
-                onTouchStart={() => downEvent("age", "decrement")}
+                onTouchStart={() => downEvent("age", DECREMENT)}
                 onTouchEnd={upEvent}
               >
                 <GrSubtract />
@@ -329,7 +300,7 @@ const PersonalInfo = ({
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleIncrement("age")}
-                onTouchStart={() => downEvent("age", "increment")}
+                onTouchStart={() => downEvent("age", INCREMENT)}
                 onTouchEnd={upEvent}
               >
                 <GrAdd />
@@ -338,7 +309,6 @@ const PersonalInfo = ({
             <div className="pl-lable-info">
               <label>{PERSONAL_INFO.AGE}</label>
             </div>
-            <p className="pinfo-errorTxt">{error.ageErrorMsg}</p>
           </div>
         </Card.Body>
       </div>
@@ -353,14 +323,6 @@ const PersonalInfo = ({
         <button
           type="button"
           className="btn w-50p vl-go-next-btn"
-          disabled={
-            error.ageError ||
-            error.weightError ||
-            error.heigthFeetError ||
-            error.heigthInchError
-              ? true
-              : false
-          }
           onClick={onSubmit}
         >
           {NEXT}
