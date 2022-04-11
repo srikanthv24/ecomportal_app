@@ -7,7 +7,7 @@ const NonSubscriptionProductDisplay = ({
   handleCartItem,
   cartLoading,
   cartUpdateLoading,
-  ExistingProduct,
+  existingProduct,
   onDecrement,
   onIncrement,
 }) => {
@@ -30,7 +30,7 @@ const NonSubscriptionProductDisplay = ({
         handleCartItem={handleCartItem}
         cartLoading={cartLoading}
         cartUpdateLoading={cartUpdateLoading}
-        ExistingProduct={ExistingProduct}
+        existingProduct={existingProduct}
         onDecrement={onDecrement}
         onIncrement={onIncrement}
       />

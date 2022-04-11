@@ -12,7 +12,7 @@ import {
 import { deleteCartItem } from "../../store/actions/cart-item";
 import VibrantDirectMealPlanner from "../VibrantDirectMealPlanner";
 
-const ProductRoute = () => {
+const DirectProductDisplayWrapper = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { cartDetails, cartLoading, cartUpdateLoading } = useSelector(
@@ -92,6 +92,7 @@ const ProductRoute = () => {
   useEffect(() => {
     cartDetails?.items &&
       cartDetails?.items?.map((item, index) => {
+        debugger;
         // eslint-disable-next-line no-unused-expressions
         item.item && item?.item?.item_id === productDetails.id
           ? setExistingProduct({
@@ -119,7 +120,7 @@ const ProductRoute = () => {
           handleCartItem={handleCartItem}
           cartLoading={cartLoading}
           cartUpdateLoading={cartUpdateLoading}
-          ExistingProduct={existingProduct}
+          existingProduct={existingProduct}
           onDecrement={onDecrement}
           onIncrement={onIncrement}
         />
@@ -128,4 +129,4 @@ const ProductRoute = () => {
   );
 };
 
-export default ProductRoute;
+export default DirectProductDisplayWrapper;

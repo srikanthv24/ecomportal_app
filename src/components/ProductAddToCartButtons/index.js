@@ -9,13 +9,13 @@ const ProductAddToCartButtons = ({
   handleCartItem,
   cartLoading,
   cartUpdateLoading,
-  ExistingProduct,
+  existingProduct,
   onDecrement,
   onIncrement,
 }) => {
   return (
     <>
-      {ExistingProduct?.item?.qty ? (
+      {existingProduct?.item?.qty ? (
         <InputGroup className="w-100p single-prd-add-cart-btn">
           <Button
             className="qty-btn"
@@ -28,7 +28,7 @@ const ProductAddToCartButtons = ({
           <FormControl
             className="qty-input"
             disabled={true}
-            value={ExistingProduct?.item?.qty || 0}
+            value={existingProduct?.item?.qty || 0}
           />
           <Button
             variant="outline-secondary"
