@@ -34,14 +34,14 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
             <Card
               border="default"
               key={order.id}
-              className=""
+              className="mb-3"
               style={{
                 border: "none",
                 boxShadow: "none",
                 background: "transparent",
               }}
             >
-              <div className="orders-info-3 w-100p mb-3">
+              <div className="orders-info-3 w-100p">
                 <div className="w-100p d-flex justify-content-between align-items-center">
                   <h4 className="subs-id mb-0"># {order.id}</h4>
                   <div className="more-info">
@@ -50,12 +50,11 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
                         <>
-                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`}>
+                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
                             <i className="fa-solid fa-pen-to-square"></i>
                           </Link> &nbsp; &nbsp;
-                          <i className="fa-solid fa-bars"></i>
-                          <div className="more-dp-info">
-                          
+                          <label className="more-icon"><i className="fa-solid fa-bars"></i></label>
+                          <div className="more-dp-info">                          
                             <MenuList
                               list={[
                                 SERVICE_TYPE.PAUSE_TOMORROW,
@@ -436,8 +435,8 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
         <small className="text-mut`ed value-txt px-2">No Orders</small>
       )}
       <button
-        className="vl-custom-btn"
-        style={{width:'calc(100% - 40px)', position: "absolute", bottom: "0px", left: "20" }}
+        className="w-100 vl-custom-btn"
+        style={{ position: "absolute", bottom: "0px", left: "20px", maxWidth:'calc(100% - 40px)' }}
         onClick={() => history.push("/")}
       >
         Go To Home

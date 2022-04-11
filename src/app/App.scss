@@ -263,7 +263,7 @@
 }
 .product-card-item:hover {
   cursor: pointer;
-  background-color: rgba(209, 235, 232, 1) !important;
+  background-color:rgb(245, 224, 188) !important;
 }
 .prd-name-txt {
   font-size: 20px;
@@ -381,7 +381,7 @@
 }
 /* profile-info-block */
 .rmdp-wrapper.rmdp-shadow {
-  margin: 10px auto;
+  margin: 0px auto;
 }
 
 .fullscreen-loader {
@@ -688,18 +688,18 @@ input[type="checkbox"].acc-checkbox:checked:after {
     font-size: 1.5em;
   }
 }
-.more-info img:hover {
+.more-info img:hover,.more-info .more-icon:hover {
   cursor: pointer;
 }
 .more-info img:hover + .more-dp-info,
-.more-info:hover .more-dp-info {
+.more-info .more-icon:hover + .more-dp-info,.more-dp-info:hover {
   display: block;
 }
 .more-dp-info {
   display: none;
   position: absolute;
   right: 0;
-  top: 100%;
+  top: 24px;
   background: #ffffff;
   padding: 0px;
   border-radius: 6px;
@@ -708,13 +708,19 @@ input[type="checkbox"].acc-checkbox:checked:after {
 .more-dp-info ul {
   margin-bottom: 0px;
   background-color: #ffffff;
+  border:1px solid rgba(0, 0, 0, 0.45);
+  border-radius: 6px;
 }
 .more-dp-info ul li {
   margin-bottom: 2px;
 }
 
-.more-dp-info ul li:last-child {
+.more-dp-info ul li:first-child{
+  border-radius: 0px 0px 6px 6px;
+}
+.more-dp-info ul li:last-child{
   margin-bottom: 0px;
+  border-radius: 6px 6px 0px 0px;
 }
 
 .more-dp-info ul li a {
@@ -722,7 +728,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   font-size: 14px;
   font-weight: 500;
   color: rgba(53, 40, 23, 1);
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Medium", sans-serif;
   white-space: nowrap;
   padding: 5px 15px;
   display: block;
@@ -730,6 +736,13 @@ input[type="checkbox"].acc-checkbox:checked:after {
 }
 .more-dp-info ul li a:hover {
   background: #f7f2df;
+}
+.sub-edit-btn{
+  color: #718049;
+  font-size: 14px;
+}
+.sub-edit-btn:hover{
+  color: #614731;
 }
 .prd-item {
   color: rgba(53, 40, 23, 1);
@@ -947,4 +960,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
 }
 .vl-text-primary{
   color:#614731 !important;
+}
+.subs-modal-content .vl-checkbox-custom{
+  padding: 0px !important;
 }

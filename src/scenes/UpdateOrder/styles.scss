@@ -21,3 +21,19 @@
 .stepperComponent .MuiStepLabel-labelContainer {
   display: none !important;
 }
+.updateOrder-sec{
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow: hidden;
+  .vl-checkbox-custom{
+    padding: 0px !important;
+  }
+  .rmdp-wrapper.rmdp-shadow {
+    width: 100%;
+    overflow: auto;
+  }
+  .mealplan-address-block{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+}

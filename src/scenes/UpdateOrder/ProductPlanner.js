@@ -114,7 +114,8 @@ const ProductPlanner = ({
       <div className="mealPlan-date"></div>
 
       <div className="mealplan-address-block">
-        <div className="form-check form-check-inline">
+        <div className="w-100p meal-transport vlradio-toolbar">
+        <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
           <input
             className="form-check-input"
             type="radio"
@@ -128,7 +129,7 @@ const ProductPlanner = ({
             Pickup
           </label>
         </div>
-        <div className="form-check form-check-inline">
+        <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p relative">
           <input
             className="form-check-input"
             type="radio"
@@ -141,6 +142,7 @@ const ProductPlanner = ({
           <label className="form-check-label" htmlFor={DELIVERY}>
             Delivery
           </label>
+        </div>
         </div>
       </div>
       <div className="meal-plan-wrapper">
