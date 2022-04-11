@@ -7,6 +7,7 @@
         text-align: center;
         color: #894C5B;
         margin: 0rem auto 1.5rem;
+        user-select: none;
     }
     .accordion {
         max-width: 600px;
@@ -35,6 +36,7 @@
             text-align: left;
             color: #424141;
             background: #ffffff !important;
+            user-select: none;
         }
         .accordion-button:not(.collapsed) {
             // color: #352817 !important;

@@ -25,6 +25,7 @@
             font-weight: 700;
             color: #ffffff;
             text-align: center;
+            user-select: none;
         }
     }
 }
@@ -211,6 +212,14 @@
         height: 145.77px;
         width: 145.77px;
     }
+    .choosemy-meal-btn{
+        width: 100%;
+        position: fixed;
+        left: 0px;
+        bottom:0px;
+        // background-color:rgba(255,255,255,0.45);
+        z-index: 9999;
+    }
 }
 .homepage-green-bg-section {
     background-color: rgba(66, 119, 77, 1);
@@ -228,6 +237,7 @@
     .home-green-bg-content {
         padding-bottom: 6rem;
         padding-top: 6rem;
+        user-select: none;
         .row1-text {
             width: auto;
             color: rgba(245, 224, 188, 1);
@@ -316,7 +326,7 @@
     max-width: 300px;
     margin: 0 auto;
     a{
-        font-family: "Roboto Regular", serif;
+        font-family: "Roboto Medium", serif;
         font-weight: 500;
         line-height: 20px;
         color: #ffffff !important;
@@ -324,16 +334,5 @@
         display: block;
         width: 100%;
         padding:10px 40px;
-    }
-}
-.mealbowlImage{
-    width: 300px;
-    max-height: 300px;
-    background: #cccccc;
-    padding: 3rem;
-    border-radius: 20% 20% 20% 10%;
-    overflow: hidden;
-    img{
-        width: 100%;
     }
 }
