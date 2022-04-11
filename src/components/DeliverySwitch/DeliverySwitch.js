@@ -1,7 +1,11 @@
 import React from "react";
 import { DELIVERY, PICKUP } from "../../utils/constants";
 
-const DeliverySwitch = ({ deliveryType, onServiceChange }) => {
+const DeliverySwitch = ({
+  deliveryType,
+  onServiceChange,
+  disabled = false,
+}) => {
   return (
     <div className="mealplan-address-block">
       <div className="w-100p meal-transport vlradio-toolbar">
@@ -14,6 +18,7 @@ const DeliverySwitch = ({ deliveryType, onServiceChange }) => {
             defaultChecked={deliveryType === PICKUP ? true : false}
             onChange={onServiceChange}
             value={PICKUP}
+            disabled={disabled}
           />
           <label className="form-check-label" htmlFor={PICKUP}>
             {PICKUP}
@@ -28,6 +33,7 @@ const DeliverySwitch = ({ deliveryType, onServiceChange }) => {
             defaultChecked={deliveryType === DELIVERY ? true : false}
             onChange={onServiceChange}
             value={DELIVERY}
+            disabled={disabled}
           />
           <label className="form-check-label" htmlFor={DELIVERY}>
             {DELIVERY}
