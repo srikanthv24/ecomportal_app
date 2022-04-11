@@ -11,6 +11,7 @@ import {
   SESSION_CODES,
 } from "../../utils/constants";
 import { displayCurrency } from "../../helpers/displayCurrency";
+import TructIcon from "../../assets/home/truck.png";
 
 const CartItem = ({
   isMealItem,
@@ -37,32 +38,32 @@ const CartItem = ({
     discount_amount: itemDiscount,
   } = product;
   return (
-    <div className="w-100p p-2">
-      <Card className="my-1 bg-1">
+    <div className="w-100p mb-3">
+      <Card className="vl-bg-1">
         <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
           <div className="crt-prd-img-container">
             <img src={imgUrl} alt="img" />
           </div>
           <div className="cart-prd-details-sec">
             <p className="m-0 crt-price-info">
-              <span>Price:</span>
+              <span>Price</span>
               <span>{displayCurrency(itemPrice) || 0.0}</span>
             </p>
             <p className="m-0 crt-price-info">
-              <span>GST: </span>
+              <span>GST </span>
               <span>{displayCurrency(itemTax) || 0.0}</span>
             </p>
             <p className="m-0 crt-price-info">
-              <span>Delivery: </span>
+              <span>Delivery </span>
               <span>{displayCurrency(itemDeliveryCharge) || 0.0}</span>
             </p>
             <p className="m-0 px-2  prd-price-duration">{`(X ${duration})`}</p>
             <p className="m-0 crt-price-info">
-              <span>Discount: </span>
+              <span>Discount </span>
               <span>{displayCurrency(itemDiscount) || 0.0}</span>
             </p>
             <p className="m-0 crt-price-info">
-              <span>Total: </span>
+              <span>Total </span>
               <span>{displayCurrency(itemGrandTotal) || 0.0}</span>
             </p>
           </div>
@@ -78,7 +79,7 @@ const CartItem = ({
               </p>
             ) : null}
           </div>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center cart-qty-sec">
             <span className="px-2">Qty</span>
             <QtyButtonGroup
               productIndex={productIndex}
@@ -142,8 +143,7 @@ const CartItem = ({
 
           <div>
             <Button
-              className="delete-button"
-              variant="outline-danger"
+              className="cart-del-button"
               size="sm"
               onClick={() => onDelete(productIndex)}
             >
@@ -152,11 +152,12 @@ const CartItem = ({
           </div>
         </Card.Body>
         {isMealItem && isDelivery && (
-          <Card.Footer className="cart-summary-footer">
+          <Card.Footer className="cart-summary-footer relative">
             <p className="crt-prd-address-title m-0">
-              {DELIVER_TO}
+              {/* {DELIVER_TO} */}
+              <img src={TructIcon} alt="truc image" height="30" className="truckIcon" />
             </p>
-            <p>{address}</p>
+            <p className="crt-prd-address-title m-0">{address}</p>
           </Card.Footer>
         )}
       </Card>

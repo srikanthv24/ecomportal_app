@@ -17,10 +17,10 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
   return (
     <section
-      className="bg-1"
+      className="vl-bg-1"
       style={{
         minHeight: "calc(100vh - 0px)",
-        padding: "70px 5px 60px",
+        padding: "70px 20px 60px",
         position: "relative",
       }}
     >
@@ -34,14 +34,14 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
             <Card
               border="default"
               key={order.id}
-              className="m-2"
+              className=""
               style={{
                 border: "none",
                 boxShadow: "none",
                 background: "transparent",
               }}
             >
-              <div className="orders-info-3 w-100p">
+              <div className="orders-info-3 w-100p mb-3">
                 <div className="w-100p d-flex justify-content-between align-items-center">
                   <h4 className="subs-id mb-0"># {order.id}</h4>
                   <div className="more-info">
@@ -436,8 +436,8 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
         <small className="text-mut`ed value-txt px-2">No Orders</small>
       )}
       <button
-        className="w-100 bg-chocolate-900 btn btn-primary"
-        style={{ position: "absolute", bottom: "0px", left: "0" }}
+        className="vl-custom-btn"
+        style={{width:'calc(100% - 40px)', position: "absolute", bottom: "0px", left: "20" }}
         onClick={() => history.push("/")}
       >
         Go To Home

@@ -151,18 +151,13 @@ const CartSummary = () => {
             !cartLoading &&
             !cartUpdateLoading &&
             cartDetails.items?.length === 0 && (
-              <div className="flex-column text-center">
-                <div className="h5 d-flex justify-content-center align-items-center">
-                  No Items added to cart
+              <div className="flex-column text-center disclaimerWrapper">
+                <div className="h5 d-flex justify-content-center align-items-center disclaimer-info">
+                  <h3>No Items added to cart</h3>
                 </div>
                 <Button
                   onClick={() => history.push("/")}
-                  variant="primary"
-                  style={{
-                    backgroundColor: "rgba(53,40,23,1)",
-                    borderColor: "rgba(53,40,23,1)",
-                  }}
-                  size="sm"
+                  className="dis-back-btn"                
                 >
                   Explore products
                 </Button>

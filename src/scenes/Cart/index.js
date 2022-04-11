@@ -105,7 +105,7 @@ const CartSummary = () => {
           </div>
         }
       />
-      <div className="p-21 bg-1 cart-summary-wrapper">
+      <div className="cart-summary-wrapper">
         <p className="h3 page-title">{CART.CART_TITLE}</p>
         <div className="d-flex align-items-center w-100p">
           {!cartLoading &&
@@ -177,7 +177,7 @@ const CartSummary = () => {
                 />
                 <div className="confirm-button-container">
                   <Button
-                    className="w-100 custom-primary-btn "
+                    className="vl-custom-btn abcd"
                     onClick={handleContinue}
                   >
                     {CART.CONFIRM_AND_PAY}
