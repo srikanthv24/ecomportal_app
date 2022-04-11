@@ -115,7 +115,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   useEffect(() => {
     if(!_.isEmpty(deliveryCharge)) {
       setDeliveryCost(deliveryCharge);
-      setDisableAddressSelect(false);
+      showPincodeError ? setDisableAddressSelect(true) : setDisableAddressSelect(false);
     }
   },[deliveryCharge])
 
@@ -307,12 +307,13 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
                   
                 />
               </FloatingLabel>
-              <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
-                <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleGoBack}>Go Back</button>
-                <button type="button" className="btn w-50p vl-go-next-btn" disabled={disableAddressSelect} onClick={handleAddAddress}>Add Address</button>
-              </div>
+              
             </>
         }
+        <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
+          <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleGoBack}>Go Back</button>
+          <button type="button" className="btn w-50p vl-go-next-btn" disabled={disableAddressSelect} onClick={handleAddAddress}>Add Address</button>
+        </div>
       </div>
       
     </>

@@ -216,6 +216,7 @@ function VibrantMealPlanner() {
             handleNextStep={handleNext}
             onGoalClick={setGoal}
             selectedGoal={goal}
+            handleBack={handleBack}
           />
         )}
         {activeStep === 2 && (
@@ -227,6 +228,7 @@ function VibrantMealPlanner() {
             defaultWeight={profileDetails.weight}
             defaultAge={profileDetails.weight}
             handleNextStep={handleNext}
+            handleBack={handleBack}
           />
         )}
         {activeStep === 3 &&
@@ -246,13 +248,14 @@ function VibrantMealPlanner() {
                 onDeliveryChange={onDeliveryTypeChange}
                 setAddressSelected={setAddressSelected}
               />
-              <Button
-                className="mt-2 mx-auto vladdCart-btn"
-                onClick={onAddToCart}
-                disabled={!selectedDuration || selectedSessions.length === 0}
-              >
-                {ADD_TO_CART}
-              </Button>
+              <div className="d-flex btn-group vl-action-btn m-3">
+                <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button>
+                <button type="button" className="btn w-50p vl-go-next-btn" 
+                  disabled={!selectedDuration || selectedSessions.length === 0} 
+                  onClick={onAddToCart} >
+                    {ADD_TO_CART}
+                </button>
+              </div>
             </div>
           ) : (
             <>

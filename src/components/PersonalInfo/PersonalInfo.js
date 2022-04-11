@@ -380,10 +380,9 @@ const PersonalInfo = ({
           </div>
         </Card.Body>
       </div>
-      <div className="stepper-btn-container">
-        <Button
-          className="w-100 stepper-btn"
-          onClick={onSubmit}
+      <div className="d-flex btn-group vl-action-btn m-3">
+        <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button>
+        <button type="button" className="btn w-50p vl-go-next-btn" 
           disabled={
             error.ageError ||
             error.weightError ||
@@ -392,9 +391,9 @@ const PersonalInfo = ({
               ? true
               : false
           }
-        >
-          {NEXT}
-        </Button>
+          onClick={onSubmit} >
+            {NEXT}
+        </button>
       </div>
     </section>
   );
