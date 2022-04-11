@@ -247,7 +247,7 @@ function VibrantMealPlanner() {
                 setAddressSelected={setAddressSelected}
               />
               <Button
-                className="mt-2 mx-auto vladdCart-btn"
+                className="mx-auto vladdCart-btn"
                 onClick={onAddToCart}
                 disabled={!selectedDuration || selectedSessions.length === 0}
               >
