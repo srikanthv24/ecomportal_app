@@ -11,12 +11,17 @@
   align-items: center;
   margin-bottom: 0.5rem;
   padding: 0px 0.5rem;
+  font-size: 14px !important;
 }
 .crt-price-info span:first-child {
+  font-family: "Roboto Regular", sans-serif;
   font-weight: 400;
+  color: #000 !important;
+  opacity: 0.75 !important;
 }
 .crt-price-info span:last-child {
-  font-weight: 700;
+  font-family: "Roboto Medium", sans-serif;
+  font-weight: 500;
 }
 
 .crt-prd-img-container {
@@ -33,22 +38,25 @@
   -o-object-position: center;
   object-position: center;
   width: 100%;
+  border-radius: 4px;
 }
 
 .crt-prd-duration {
   text-transform: capitalize;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 10px;
   overflow: hidden;
   white-space: nowrap;
-  background-color: #f05922;
+  background-color: #614731;
   padding: 3px 9px;
-  color: #fff;
+  color: #f7f2df;
   border-radius: 5px;
+  display: inline-block;
 }
 
 .crt-prd-session {
   text-transform: uppercase;
+  font-family: 'Roboto Medium',sans-serif;
   font-weight: 500;
   font-size: 12px;
   overflow: hidden;
@@ -65,26 +73,34 @@
 }
 
 .crt-prd-address-title {
-  text-transform: uppercase;
-  font-weight: 500;
+  padding-right: 30px;
+  .truckIcon{
+    position: absolute;
+    top:4px;
+    right:6px;
+  }
+  text-transform: capitalize;
+  font-family: 'Roboto Regular',sans-serif;
+  font-weight: 400;
   font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #424141;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
 }
 
 .crt-prd-title {
   text-transform: capitalize;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
 }
 
 .btn-outline-primary {
-  color: #f05922 !important;
-  border-color: #f05922 !important;
+  color: #614731 !important;
+  border-color: #614731 !important;
 }
 
 .prd-price-duration {
@@ -93,4 +109,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
+}
+.cart-qty-sec{
+  font-family: 'Roboto Regular',sans-serif;
+}
+.cart-del-button{
+  color: #F36B24 !important;
+  border-color: #F36B24 !important;
+  background-color: transparent !important;
 }

@@ -94,7 +94,7 @@ const UpdateOrder = () => {
 
   return(
     <section className="planner-container">
-      <div className="px-3 text-center">
+      <div className="px-3 text-center pb-3">
         {
           loading ?
           <div className="fullscreen-loader">
@@ -113,8 +113,7 @@ const UpdateOrder = () => {
               setNewDates={setNewDates}
             />
             <Button
-              variant="primary"
-              className="mt-2 mx-auto addCart-btn"
+             className="mt-3 mx-auto vl-custom-btn"
               onClick={onUpdateCart}
               disabled={disable}
             >

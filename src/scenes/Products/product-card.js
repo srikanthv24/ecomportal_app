@@ -144,7 +144,7 @@ const ProductCard = ({ product, pindex }) => {
           </Card.Text>
         )}
       </Card.Body>
-      {!product?.is_mealplan && (
+      {/* {!product?.is_mealplan && (
         <div className="text-center mt-2">
           {ExistingProduct?.item?.qty ? (
             <InputGroup className="mb-3">
@@ -200,7 +200,7 @@ const ProductCard = ({ product, pindex }) => {
             </Button>
           )}
         </div>
-      )}
+      )} */}
     </Card>
   );
 };

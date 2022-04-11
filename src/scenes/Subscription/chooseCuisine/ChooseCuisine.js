@@ -14,7 +14,7 @@ const CuisineCard = ({ name, onClick, isSelected, CuisineSrc }) => (
      background: "transparent",
    }}
    onClick={() => onClick()}
-className={`cuisine-card${isSelected ? " bg-success" : ""}`}
+className={`cuisine-card${isSelected ? " vl-bg-success" : ""}`}
   
  >
    <Card.Body

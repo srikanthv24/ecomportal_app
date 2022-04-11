@@ -92,7 +92,6 @@ const DirectProductDisplayWrapper = () => {
   useEffect(() => {
     cartDetails?.items &&
       cartDetails?.items?.map((item, index) => {
-        debugger;
         // eslint-disable-next-line no-unused-expressions
         item.item && item?.item?.item_id === productDetails.id
           ? setExistingProduct({
