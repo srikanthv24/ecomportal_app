@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Calendar } from "react-multi-date-picker";
 import MealPlanner from "./MealPlanner";
-import SessionCordinator from "./SessionCoordinators";
+import SessionCordinator from "../../components/SessionCordinator";
 import ProductDisplay from "../../components/ProductPlanner/ProductDisplay";
 import { PICKUP, DELIVERY } from "../../utils/constants";
 import _ from "underscore";
 import moment from "moment";
-// import { getTomorrowDate } from "../../utils/dateUtils";
-// import DatePicker from "react-multi-date-picker";
-// import InputIcon from "react-multi-date-picker/components/input_icon"
-// import moment from "moment";
 
 const ProductPlanner = ({
   productTitle,
@@ -100,8 +96,9 @@ const ProductPlanner = ({
         description={productDescription}
       />
       <SessionCordinator
-        sessions={inputs.selectedSessions}
+        selectedSessions={inputs.selectedSessions}
         sessionCodes={["B", "L", "D"]}
+        disabled={true}
       />
       <p>{OrderDatesError}</p>
       <Calendar

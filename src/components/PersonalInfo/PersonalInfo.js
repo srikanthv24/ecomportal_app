@@ -4,11 +4,15 @@ import { MdMale, MdFemale } from "react-icons/md";
 import { Button, Card } from "react-bootstrap";
 import { GrAdd, GrSubtract } from "react-icons/gr";
 import { NEXT, PERSONAL_INFO } from "../../utils/constants";
-import handleValidations from "../../utils/handleValidations";
+import handleValidations, {
+  validateAndSetFeet,
+  validateAndSetInches,
+  validateAndSetWeight,
+} from "../../utils/handleValidations";
 import MaleIcon from "../../assets/home/male.svg";
 import FemaleIcon from "../../assets/home/female.svg";
 let timer;
-let touchduration = 800; 
+let touchduration = 800;
 let count = 1;
 const PersonalInfo = ({
   handleBack,
@@ -26,7 +30,7 @@ const PersonalInfo = ({
   const [weight, setWeight] = useState(defaultWeight);
   const [age, setAge] = useState(defaultAge);
 
-  const isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+  const isTouch = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
 
   const onSubmit = () => {
     onProfileDetailsSubmit({
@@ -59,7 +63,7 @@ const PersonalInfo = ({
   };
 
   useEffect(() => {
-    if(age >= 120) {
+    if (age >= 120) {
       setAge(120);
       const msg = "Please enter a valid age";
       setError((err) => ({ ...err, ageError: true, ageErrorMsg: msg }));
@@ -70,18 +74,22 @@ const PersonalInfo = ({
     } else {
       setError((err) => ({ ...err, ageError: false, ageErrorMsg: "" }));
     }
-  }, [age])
+  }, [age]);
 
   const weigthValidator = (type, longPress = false) => {
     if (type === "increment") {
-      longPress ? setWeight((weight) => weight + 10) : setWeight((weight) => weight + 1);
+      longPress
+        ? setWeight((weight) => weight + 10)
+        : setWeight((weight) => weight + 1);
     } else {
-      longPress ? setWeight((weight) => weight - 10) : setWeight((weight) => weight - 1);
+      longPress
+        ? setWeight((weight) => weight - 10)
+        : setWeight((weight) => weight - 1);
     }
   };
 
   useEffect(() => {
-    if(weight >= 200) {
+    if (weight >= 200) {
       setWeight(200);
       const msg = "Please enter a valid weight";
       setError((err) => ({ ...err, weightError: true, weigthErrorMsg: msg }));
@@ -92,61 +100,15 @@ const PersonalInfo = ({
     } else {
       setError((err) => ({ ...err, weightError: false, weigthErrorMsg: "" }));
     }
-  }, [weight])
-
-  const heigthFeetValidator = (heightFeet, type) => {
-    const { error, msg } = handleValidations.heightFeetValidation(
-      heightFeet,
-      type
-    );
-    if (error) {
-      setError((err) => ({
-        ...err,
-        heigthFeetError: true,
-        heightFeetErrorMsg: msg,
-      }));
-    } else {
-      type === "increment"
-        ? setHeightFeet((prevHeigthFeet) => prevHeigthFeet + 1)
-        : setHeightFeet((prevHeigthFeet) => prevHeigthFeet - 1);
-      setError((err) => ({
-        ...err,
-        heigthFeetError: false,
-        heightFeetErrorMsg: "",
-      }));
-    }
-  };
-
-  const heigthInchValidator = (heightInch, type) => {
-    const { error, msg } = handleValidations.heightInchValidation(
-      heightInch,
-      type
-    );
-    if (error) {
-      setError((err) => ({
-        ...err,
-        heigthInchError: true,
-        heightInchErrorMsg: msg,
-      }));
-    } else {
-      type === "increment"
-        ? setHeightInch((prevHeigthInch) => prevHeigthInch + 1)
-        : setHeightInch((prevHeigthInch) => prevHeigthInch - 1);
-      setError((err) => ({
-        ...err,
-        heigthInchError: false,
-        heightInchErrorMsg: "",
-      }));
-    }
-  };
+  }, [weight]);
 
   const handleIncrement = (key) => {
     if (key === "heightFeet") {
-      heigthFeetValidator(heightFeet, "increment");
+      validateAndSetFeet(heightFeet, "increment", setHeightFeet);
     } else if (key === "heightInch") {
-      heigthInchValidator(heightInch, "increment");
+      validateAndSetInches(heightInch, "increment", setHeightInch);
     } else if (key === "weight") {
-      weigthValidator("increment");
+      validateAndSetWeight("increment", false, weight, setWeight);
     } else if (key === "age") {
       ageValidator("increment");
     }
@@ -154,32 +116,36 @@ const PersonalInfo = ({
 
   const handleDecrement = (key) => {
     if (key === "heightFeet") {
-      heigthFeetValidator(heightFeet, "decrement");
+      validateAndSetFeet(heightFeet, "decrement", setHeightFeet);
     } else if (key === "heightInch") {
-      heigthInchValidator(heightInch, "decrement");
+      validateAndSetInches(heightInch, "decrement", setHeightInch);
     } else if (key === "weight") {
-      weigthValidator("decrement");
+      validateAndSetWeight("decrement", false, weight, setWeight);
     } else if (key === "age") {
       ageValidator("decrement");
     }
   };
-  
+
   const downEvent = (key, type) => {
     clearInterval(timer);
     timer = null;
     if (key === "age") {
-      timer = setInterval(() => {ageValidator(type, true)}, touchduration);
+      timer = setInterval(() => {
+        ageValidator(type, true);
+      }, touchduration);
     }
     if (key === "weight") {
-      timer = setInterval(() => {weigthValidator(type, true)}, touchduration);
+      timer = setInterval(() => {
+        weigthValidator(type, true);
+      }, touchduration);
     }
     // timer = setInterval(updateAge, touchduration);
-  }
+  };
 
   const upEvent = () => {
     clearInterval(timer);
     timer = null;
-  }
+  };
 
   useEffect(() => {}, [error]);
 
@@ -238,7 +204,7 @@ const PersonalInfo = ({
         </Card.Body>
 
         <Card.Body className="px-0 d-flex justify-content-between">
-          <div className="pinfo-box relative mb-3">           
+          <div className="pinfo-box relative mb-3">
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -255,9 +221,7 @@ const PersonalInfo = ({
                 readOnly
                 style={{ display: "none" }}
               />
-              <div className="pl-info-value">
-                {heightFeet}
-              </div>
+              <div className="pl-info-value">{heightFeet}</div>
               <button
                 type="button"
                 className="pinfo-box-item-btn"
@@ -272,7 +236,7 @@ const PersonalInfo = ({
             <p className="pinfo-errorTxt">{error.heightFeetErrorMsg}</p>
           </div>
 
-          <div className="pinfo-box relative mb-3">           
+          <div className="pinfo-box relative mb-3">
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -289,9 +253,7 @@ const PersonalInfo = ({
                 value={heightInch}
                 style={{ display: "none" }}
               />
-              <div className="pl-info-value">
-                {heightInch}
-              </div>
+              <div className="pl-info-value">{heightInch}</div>
               <button
                 type="button"
                 className="pinfo-box-item-btn"
@@ -308,13 +270,14 @@ const PersonalInfo = ({
         </Card.Body>
 
         <Card.Body className="px-0 d-flex justify-content-between">
-          <div className="pinfo-box relative mb-3">            
+          <div className="pinfo-box relative mb-3">
             <div className="pinfo-box-item">
               <button
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleDecrement("weight")}
-                onTouchStart={() => downEvent("weight", "decrement")} onTouchEnd={upEvent}
+                onTouchStart={() => downEvent("weight", "decrement")}
+                onTouchEnd={upEvent}
               >
                 <GrSubtract />
               </button>
@@ -326,14 +289,13 @@ const PersonalInfo = ({
                 value={weight}
                 style={{ display: "none" }}
               />
-              <div className="pl-info-value">
-                {weight}
-              </div>
+              <div className="pl-info-value">{weight}</div>
               <button
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleIncrement("weight")}
-                onTouchStart={() => downEvent("weight", "increment")} onTouchEnd={upEvent} 
+                onTouchStart={() => downEvent("weight", "increment")}
+                onTouchEnd={upEvent}
               >
                 <GrAdd />
               </button>
@@ -344,13 +306,14 @@ const PersonalInfo = ({
             <p className="pinfo-errorTxt">{error.weigthErrorMsg}</p>
           </div>
 
-          <div className="pinfo-box relative mb-3">           
+          <div className="pinfo-box relative mb-3">
             <div className="pinfo-box-item">
               <button
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleDecrement("age")}
-                onTouchStart={() => downEvent("age", "decrement")} onTouchEnd={upEvent} 
+                onTouchStart={() => downEvent("age", "decrement")}
+                onTouchEnd={upEvent}
               >
                 <GrSubtract />
               </button>
@@ -361,14 +324,13 @@ const PersonalInfo = ({
                 max="100"
                 style={{ display: "none" }}
               />
-              <div className="pl-info-value">
-                {age}
-              </div>
+              <div className="pl-info-value">{age}</div>
               <button
                 type="button"
                 className="pinfo-box-item-btn"
                 onClick={() => handleIncrement("age")}
-                onTouchStart={() => downEvent("age", "increment")} onTouchEnd={upEvent} 
+                onTouchStart={() => downEvent("age", "increment")}
+                onTouchEnd={upEvent}
               >
                 <GrAdd />
               </button>
@@ -381,8 +343,16 @@ const PersonalInfo = ({
         </Card.Body>
       </div>
       <div className="d-flex btn-group vl-action-btn m-3">
-        <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button>
-        <button type="button" className="btn w-50p vl-go-next-btn" 
+        <button
+          type="button"
+          className="btn w-50p vl-go-back-btn"
+          onClick={handleBack}
+        >
+          Go Back
+        </button>
+        <button
+          type="button"
+          className="btn w-50p vl-go-next-btn"
           disabled={
             error.ageError ||
             error.weightError ||
@@ -391,8 +361,9 @@ const PersonalInfo = ({
               ? true
               : false
           }
-          onClick={onSubmit} >
-            {NEXT}
+          onClick={onSubmit}
+        >
+          {NEXT}
         </button>
       </div>
     </section>
