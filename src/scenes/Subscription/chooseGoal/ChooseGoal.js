@@ -24,10 +24,10 @@ const Goals = [
 ];
 
 const GoalCard = ({ name, icon, onClick, isSelected }) => (
-    <Card onClick={() => onClick()} className={`goal-card${isSelected? ' bg-success' : ''}`}>
+    <Card onClick={() => onClick()} className={`goal-card${isSelected? ' vlbg-success' : ''}`}>
         <Card.Body>
             {icon}
-            <Card.Title className={`text-center m-0 py-2${isSelected? ' text-white' : ''}`}>
+            <Card.Title className={`text-center m-0 py-2${isSelected? ' vl-text-primary' : ''}`}>
                 {name}
             </Card.Title>
         </Card.Body>

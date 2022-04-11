@@ -6,7 +6,7 @@ import "./mealcard.scss";
 const MealCard = React.memo(({ name, onClick, isSelected, mealImgUrl }) => (
   <Card
     onClick={() => onClick()}
-    className={`meal-card${isSelected ? " bg-success" : ""}`}
+    className={`meal-card${isSelected ? " vl-bg-success" : ""}`}
   >
     <Card.Body variant="top" className="p-2">
       <div className="prd-image-thumbnile">
