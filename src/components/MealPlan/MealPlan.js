@@ -4,6 +4,7 @@ import { CUSTOM_PLAN, DAYS_PLAN, SERVINGS } from "../../utils/constants";
 import { BiRupee } from "react-icons/bi";
 import TruckImage from "../../assets/home/truck.png";
 import PickupImage from "../../assets/home/Pickup.png";
+import "./meal-plan.scss";
 
 const MealPlan = React.memo(
   ({
@@ -16,6 +17,7 @@ const MealPlan = React.memo(
     totalTaxes,
     discount,
     onDurationChange,
+    isActive,
   }) => {
     const [customDuration, setCustomDuration] = useState(
       canChangeDuration ? duration : 0
@@ -30,7 +32,7 @@ const MealPlan = React.memo(
     console.log("discount in meal plan: " + JSON.stringify(discount));
     return (
       <div
-        className="meal-card"
+        className={`meal-card ${isActive ? "meal-card-active" : ""}`}
         onClick={() =>
           onMealClick(canChangeDuration ? customDuration : duration)
         }
@@ -50,7 +52,8 @@ const MealPlan = React.memo(
                       type="number"
                       size="sm"
                       value={customDuration}
-                      onChange={onCustomDurationChange} style={{width:'60px',marginRight:'10px'}}
+                      onChange={onCustomDurationChange}
+                      style={{ width: "60px", marginRight: "10px" }}
                     />
                     Days
                   </div>
@@ -59,27 +62,27 @@ const MealPlan = React.memo(
             </div>
             <div className="items">
               {/* {!canChangeDuration && ( */}
-                <span>
-                  {deliveryType === "Pickup" ? (
-                    // <i class="fa-solid fa-truck"></i>
-                    <img src={PickupImage} alt="image" height="24" />
-                  ) : (
-                    // <i class="fa-solid fa-location-check"></i>
-                    <img src={TruckImage} alt="image" height="24" />
-                    
-                  )}
-                </span>
+              <span>
+                {deliveryType === "Pickup" ? (
+                  // <i class="fa-solid fa-truck"></i>
+                  <img src={PickupImage} alt="image" height="24" />
+                ) : (
+                  // <i class="fa-solid fa-location-check"></i>
+                  <img src={TruckImage} alt="image" height="24" />
+                )}
+              </span>
               {/* )} */}
             </div>
           </div>
-         
+
           <div className="d-flex d-flex justify-content-end">
             <span className="amountInfo">
               <BiRupee />
-              {`${pricePerDay * (canChangeDuration ? customDuration : duration) +
+              {`${
+                pricePerDay * (canChangeDuration ? customDuration : duration) +
                 totalTaxes -
                 discount
-                }/-`}
+              }/-`}
             </span>
           </div>
         </div>

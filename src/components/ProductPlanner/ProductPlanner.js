@@ -24,11 +24,9 @@ const ProductPlanner = React.memo(
     selectedSessions,
     setAddressSelected,
   }) => {
-    console.log(
-      "selectedSessions in product planner: " + JSON.stringify(selectedSessions)
-    );
     const [startDate, setStartDate] = useState(getTomorrowDate);
     // const [deliveryType, setDeliveryType] = useState(PICKUP);
+    const [mealSelectedIndex, setMealSelectedIndex] = useState();
     const onServiceChange = (e) => {
       const { value } = e.target;
       onDeliveryChange(value);
@@ -40,6 +38,10 @@ const ProductPlanner = React.memo(
       const selectedDate = date.format("YYYY-MM-DD");
       setStartDate(selectedDate);
       onStartDateChange(selectedDate);
+    };
+    const onMealClick = (duration, index) => {
+      setMealSelectedIndex(index);
+      onMealPlanSelection(duration);
     };
     return (
       <div className="product-planner">
@@ -104,12 +106,13 @@ const ProductPlanner = React.memo(
           {selectedSessions.length > 0 && (
             <>
               <h4 className="title-info">{PLAN_YOUR_MEAL}</h4>
-              {mealPlans.map((plan) => {
+              {mealPlans.map((plan, index) => {
                 return (
                   <MealPlan
                     {...plan}
-                    onMealClick={onMealPlanSelection}
+                    onMealClick={(duration) => onMealClick(duration, index)}
                     deliveryType={deliveryType}
+                    isActive={mealSelectedIndex === index}
                   />
                 );
               })}
