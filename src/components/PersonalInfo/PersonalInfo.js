@@ -186,8 +186,8 @@ const PersonalInfo = ({
   return (
     <section className="text-center w-100p mx-auto">
       <div className="personal-info-step">
-        <Card.Body className="pb-3 px-0 d-flex justify-content-between">
-          <label class="gender-card justify-content-center relative">
+        <Card.Body className="px-0 d-flex justify-content-between">
+          <label class="gender-card justify-content-center relative mb-3">
             <input
               name="gender"
               class="radio"
@@ -211,7 +211,7 @@ const PersonalInfo = ({
               <label>Male</label>
             </div>
           </label>
-          <label class="gender-card justify-content-center relative">
+          <label class="gender-card justify-content-center relative mb-3">
             <input
               name="gender"
               class="radio"
@@ -237,8 +237,8 @@ const PersonalInfo = ({
           </label>
         </Card.Body>
 
-        <Card.Body className="pb-3 px-0 d-flex justify-content-between">
-          <div className="pinfo-box relative">           
+        <Card.Body className="px-0 d-flex justify-content-between">
+          <div className="pinfo-box relative mb-3">           
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -272,7 +272,7 @@ const PersonalInfo = ({
             <p className="pinfo-errorTxt">{error.heightFeetErrorMsg}</p>
           </div>
 
-          <div className="pinfo-box relative">           
+          <div className="pinfo-box relative mb-3">           
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -307,8 +307,8 @@ const PersonalInfo = ({
           </div>
         </Card.Body>
 
-        <Card.Body className="pb-3 px-0 d-flex justify-content-between">
-          <div className="pinfo-box relative">            
+        <Card.Body className="px-0 d-flex justify-content-between">
+          <div className="pinfo-box relative mb-3">            
             <div className="pinfo-box-item">
               <button
                 type="button"
@@ -344,7 +344,7 @@ const PersonalInfo = ({
             <p className="pinfo-errorTxt">{error.weigthErrorMsg}</p>
           </div>
 
-          <div className="pinfo-box relative">           
+          <div className="pinfo-box relative mb-3">           
             <div className="pinfo-box-item">
               <button
                 type="button"
