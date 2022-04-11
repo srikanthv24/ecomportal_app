@@ -132,7 +132,7 @@
     display: flex;
     justify-content: space-between;
     .pinfo-box-item-btn:hover {
-      background: #FDC56B;
+      // background: #FDC56B;
     }
     .pinfo-box-item-btn {
       width: 100%;
@@ -258,7 +258,7 @@
 .gender-card,
 .pinfo-box {
   max-width: 150px;
-  height: 150px;
+  height: 120px;
   padding: 0px 0px;
   display: flex;
   align-items: center;

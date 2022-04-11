@@ -4,6 +4,7 @@ import { BiRupee } from "react-icons/bi";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCustomerBalance } from '../../store/actions';
 import UserProfileIcon from "../../assets/user-profile.png";
+import UserProfileWhiteIcon from "../../assets/user-profile-white.png";
 
 export const Profile = () => {
     const dispatch = useDispatch();
@@ -24,14 +25,14 @@ export const Profile = () => {
     return (
         <Container fluid className="px-0">
             <Container fluid>
-            <Row className="bg-1">
+            <Row className="vl-bg-1">
                 <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "250px" }}>
                     {/* <img src="https://ui-avatars.com/api/?name=Ania+Bista&background=A1A1A1&color=FFFFFF&rounded=true"
                         width="150"
                         style={{ borderRadius: "200px" }}
                     /> */}
                     <div className="profile-icon-bg">
-                    <img src={UserProfileIcon} width="100" />
+                    <img src={UserProfileWhiteIcon} width="100" />
                     </div>
                 </Col>
             </Row>
@@ -50,7 +51,7 @@ export const Profile = () => {
             }
             {userDetails?.phone_number && (
                 <>
-                    <Row>
+                    <Row className="mt-2">
                         <Col className='value-txt'>Mobile</Col>
                     </Row>
                     <Row>
@@ -61,7 +62,7 @@ export const Profile = () => {
             }
             {/* {balanceState && balanceState?.getCustomerBalance && ( */}
             <>
-                <Row>
+            <Row className="mt-2">
                     <Col className='value-txt'>Wallet balance</Col>
                 </Row>
                 <Row>
