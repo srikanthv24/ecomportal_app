@@ -269,6 +269,12 @@
             line-height: 18px;
         }
     }
+    .meal-card.active-card{
+        background: #916d4f !important;
+        .plan-title-txt,.servings-info-txt,.amountInfo{
+            color: #ffffff !important;
+        }
+    }
 }
 .meal-plan-wrapper > div {
     width: 50%;
