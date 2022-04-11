@@ -1,4 +1,4 @@
-import { PERSONAL_INFO } from "../../utils/constants";
+import { PERSONAL_INFO } from "./constants";
 
 const {
   MIN_INCHES,
