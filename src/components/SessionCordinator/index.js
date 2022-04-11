@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { SESSION_TYPES } from "../../utils/constants";
 
-const getSessionCheckBoxes = (sessionCodes, onChange, selectedSessions) => {
-  return sessionCodes.map((sessionCode) => {
+const getSessionCheckBoxes = (
+  sessionCodes,
+  onChange,
+  selectedSessions,
+  disabled
+) => {
+  return sessionCodes.map((sessionCode, index) => {
     return (
       <div className="mealPlannerCheck vl-checkbox-custom">
         <Form.Check
@@ -11,7 +16,9 @@ const getSessionCheckBoxes = (sessionCodes, onChange, selectedSessions) => {
           checked={selectedSessions?.includes(sessionCode)}
           name={sessionCode}
           label={SESSION_TYPES[sessionCode]}
-          onChange={onChange}
+          onClick={onChange}
+          id={`session_checkbox_${index}`}
+          disabled={disabled}
         />
       </div>
     );
@@ -19,7 +26,13 @@ const getSessionCheckBoxes = (sessionCodes, onChange, selectedSessions) => {
 };
 
 const SessionCordinator = React.memo(
-  ({ withDate, sessionCodes, onSessionChange, selectedSessions }) => {
+  ({
+    withDate,
+    sessionCodes,
+    onSessionChange,
+    selectedSessions,
+    disabled = false,
+  }) => {
     const [sessions, setSessions] = useState(
       selectedSessions ? selectedSessions : []
     );
@@ -35,7 +48,12 @@ const SessionCordinator = React.memo(
       <>
         {withDate
           ? null
-          : getSessionCheckBoxes(sessionCodes, onChange, selectedSessions)}
+          : getSessionCheckBoxes(
+              sessionCodes,
+              onChange,
+              selectedSessions,
+              disabled
+            )}
       </>
     );
   }

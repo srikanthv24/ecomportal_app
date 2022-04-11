@@ -69,12 +69,25 @@ export const DELIVER_TO = "DELIVER TO";
 export const COMPLETED = "Completed";
 export const DELETE = "delete";
 export const UPDATE_ORDER = "Update Order";
+export const PLAN_YOUR_MEAL = "Plan your Meal";
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET: "Height-Feet",
   HEIGHT_INCHES: "Height-Inches",
   WEIGHT: "Weight",
   AGE: "Age",
+  MIN_INCHES: 0,
+  MAX_INCHES: 11,
+  MIN_FEET: 4,
+  MAX_FEET: 7,
+  DEFAULT_MEN_FEET: 5,
+  DEFAULT_MEN_INCHES: 8,
+  DEFAULT_WOMEN_FEET: 5,
+  DEFAULT_WOMEN_INCHES: 3,
+  MIN_WEIGHT: 20,
+  MAX_WEIGHT: 200,
+  DEFAULT_MEN_WEIGHT: 65,
+  DEFAULT_WOMEN_WEIGHT: 55,
 };
 
 export const CART = {
@@ -90,6 +103,6 @@ export const CART = {
   GO_TO_ORDERS: "Go to Orders",
   TOTAL: "Total",
   ITEMS_IN_CART: "items in the cart",
-  DURATION : "Duration",
+  DURATION: "Duration",
   CONFIRM_AND_PAY: "Confirm and Pay",
 };
