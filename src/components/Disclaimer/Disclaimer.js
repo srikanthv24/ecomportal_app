@@ -1,6 +1,6 @@
 import React from "react";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
-import { DISCLAIMER_DATA } from "../../utils/constants";
+import { DISCLAIMER_DATA, WHATSAPP_LINK } from "../../utils/constants";
 import "./disclaimer.scss";
 import useQuery from "../../hooks/useQuery";
 import { Link } from "react-router-dom";
@@ -24,6 +24,7 @@ const Disclaimer = () => {
           </div>
           <div className="card mx-auto my-3 p-0 bg-transparent border-0">
             <div className="card-body d-flex align-items-center p-0 justify-content-around contact-info">
+            <a href={WHATSAPP_LINK}>
               <div className="d-flex align-items-center whatsup-phone">
                 <FaWhatsapp
                   className="me-2"
@@ -31,6 +32,7 @@ const Disclaimer = () => {
                 />
                 {`+91 ${DISCLAIMER_DATA.CONTACT_NUMBER}`}
               </div>
+            </a>
               <div className="d-flex align-items-center contact-phone">
                 <FaPhoneAlt
                   className="me-2"
