@@ -186,8 +186,9 @@ const PersonalInfo = ({
             <div className="pinfo-box-item">
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn ${heightFeet === PERSONAL_INFO.MIN_FEET ? "disabled-state" : ""}`}
                 onClick={() => handleDecrement("heightFeet")}
+                disabled={heightFeet === PERSONAL_INFO.MIN_FEET ? true : false }
               >
                 <GrSubtract />
               </button>
@@ -202,8 +203,9 @@ const PersonalInfo = ({
               <div className="pl-info-value">{heightFeet}</div>
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn ${heightFeet === PERSONAL_INFO.MAX_FEET ? "disabled-state" : ""}`}
                 onClick={() => handleIncrement("heightFeet")}
+                disabled={heightFeet === PERSONAL_INFO.MAX_FEET ? true : false }
               >
                 <GrAdd />
               </button>
@@ -217,8 +219,9 @@ const PersonalInfo = ({
             <div className="pinfo-box-item">
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn ${heightInch === PERSONAL_INFO.MIN_INCHES ? "disabled-state" : ""}`}
                 onClick={() => handleDecrement("heightInch")}
+                disabled={heightInch === PERSONAL_INFO.MIN_INCHES ? true : false }
               >
                 <GrSubtract />
               </button>
@@ -233,8 +236,9 @@ const PersonalInfo = ({
               <div className="pl-info-value">{heightInch}</div>
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn ${heightInch === PERSONAL_INFO.MAX_INCHES ? "disabled-state" : ""}`}
                 onClick={() => handleIncrement("heightInch")}
+                disabled={heightInch === PERSONAL_INFO.MAX_INCHES ? true : false }
               >
                 <GrAdd />
               </button>
@@ -250,10 +254,11 @@ const PersonalInfo = ({
             <div className="pinfo-box-item">
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn ${weight === PERSONAL_INFO.MIN_WEIGHT ? "disabled-state" : ""}`}
                 onClick={() => handleDecrement("weight")}
                 onTouchStart={() => downEvent("weight", DECREMENT)}
                 onTouchEnd={upEvent}
+                disabled={weight === PERSONAL_INFO.MIN_WEIGHT ? true : false }
               >
                 <GrSubtract />
               </button>
@@ -268,10 +273,11 @@ const PersonalInfo = ({
               <div className="pl-info-value">{weight}</div>
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn  ${weight === PERSONAL_INFO.MAX_WEIGHT ? "disabled-state" : ""}`}
                 onClick={() => handleIncrement("weight")}
                 onTouchStart={() => downEvent("weight", INCREMENT)}
                 onTouchEnd={upEvent}
+                disabled={weight === PERSONAL_INFO.MAX_WEIGHT ? true : false }
               >
                 <GrAdd />
               </button>
@@ -285,10 +291,11 @@ const PersonalInfo = ({
             <div className="pinfo-box-item">
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn  ${age === PERSONAL_INFO.MIN_AGE ? "disabled-state" : ""}`}
                 onClick={() => handleDecrement("age")}
                 onTouchStart={() => downEvent("age", DECREMENT)}
                 onTouchEnd={upEvent}
+                disabled={age === PERSONAL_INFO.MIN_AGE ? true : false }
               >
                 <GrSubtract />
               </button>
@@ -302,10 +309,11 @@ const PersonalInfo = ({
               <div className="pl-info-value">{age}</div>
               <button
                 type="button"
-                className="pinfo-box-item-btn"
+                className={`pinfo-box-item-btn  ${age === PERSONAL_INFO.MAX_AGE ? "disabled-state" : ""}`}
                 onClick={() => handleIncrement("age")}
                 onTouchStart={() => downEvent("age", INCREMENT)}
                 onTouchEnd={upEvent}
+                disabled={age === PERSONAL_INFO.MAX_AGE ? true : false }
               >
                 <GrAdd />
               </button>
