@@ -11,7 +11,7 @@ import { calculateDeliveryCharge, getPostalCodes } from "../../store/actions/add
 
 let autoComplete;
 let addressLat = "", addressLong = "";
-const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAddressSelected}) => {
+const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAddressSelected, prevAddress={}}) => {
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
@@ -34,16 +34,17 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
     discount: 0,
     distance: 0
   });
+  const [pincode, setPincode] = useState("");
+  const [showAddressInput, setShowAddressInput] = useState(false);
   const [showPincodeError, setShowPincodeError] = useState(false);
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
   const [disableAddressSelect, setDisableAddressSelect] = useState(true);
 
   useEffect(() => {
-    handleScriptLoad(autoCompleteRef);
-    autoComplete.addListener("place_changed", () =>
-      handlePlaceSelect()
-    );
+    if (!_.isEmpty(prevAddress) && !_.isEmpty(prevAddress.postalcode)) {
+      setNewAddress(prevAddress);
+    }
   }, []);
 
   const handleScriptLoad = (autoCompleteRef) => {
@@ -79,16 +80,10 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
     const aline2 = parseGoogleAddress(matches, "route");
     const community = parseGoogleAddress(matches, "sublocality_level_1");
     const area = parseGoogleAddress(matches, "sublocality_level_2") + ", " + parseGoogleAddress(matches, "sublocality_level_3");
-    const postalCode = parseGoogleAddress(matches, "postal_code");
-    const city = parseGoogleAddress(matches, "administrative_area_level_2");
-    const state = parseGoogleAddress(matches, "administrative_area_level_1");
     setNewAddress((address) => ({ ...address, 
       "aline2" : aline2,
       "community" : community,
-      "area" : area,
-      "postalcode" : postalCode,
-      "city" : city,
-      "state" : state }));
+      "area" : area }));
     const query = addressObject.formatted_address;
     setQuery(query);
     addressLat = addressObject.geometry.location.lat();
@@ -108,6 +103,28 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
     setNewAddress((address) => ({ ...address, [name] : value}));
   }
 
+  const handlePincodeChange = (e) => {
+    const { value } = e.target;
+    setPincode(value);
+  }
+
+  useEffect(() => {
+    if (pincode.length === 6) {
+      const filter = postalCodes.listPostalCodes.items.find(
+        (code) => parseInt(pincode) === code.postalcode
+      );
+      if(filter) {
+        setShowPincodeError(false);
+        setShowAddressInput(true);
+        setNewAddress((address) => ({ ...address, postalcode : filter.postalcode, city: filter.city, state: filter.state}));
+        
+      } else {
+        setShowPincodeError(true);
+        setDisableAddressSelect(true);
+      }
+    }
+  }, [pincode])
+
   useEffect(() => {
     dispatch(getPostalCodes());
   }, []);
@@ -120,20 +137,22 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   },[deliveryCharge])
 
   useEffect(() => {
-    if(postalCodes?.listPostalCodes?.items?.length > 0 && newAddress.city.length > 0) {
-      Object.keys(newAddress).map(function(key, i) {
-        if (key === "postalcode") {
-          const filter = postalCodes.listPostalCodes.items.find(
-            (pincode) => parseInt(newAddress.postalcode) === pincode.postalcode
-          );
-          if(filter) {
-            setShowPincodeError(false);
-          } else {
-            setShowPincodeError(true);
-          }
-        }
-      });
+    if (_.isEmpty(newAddress.aline2) ||
+        _.isEmpty(newAddress.postalcode) ||
+        _.isEmpty(newAddress.city) ||
+        _.isEmpty(newAddress.state)
+      ) {
+      setDeliveryCost(0);
+      setDisableAddressSelect(true);
     }
+    handleScriptLoad(autoCompleteRef);
+    autoComplete.addListener("place_changed", () =>
+      handlePlaceSelect()
+    );
+  },[newAddress])
+
+  useEffect(() => {
+    
   }, [newAddress]);
 
   const handleGoBack = (e) => {
@@ -153,16 +172,15 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
       <div className="mt-3 vl-address-form">
         <FloatingLabel
           style={{ padding: "0" }}
-          label="Please enter your address"
+          label="Enter your 6 digit pin code to validate our service availability"
           className="mb-2"
           size="sm"
         >
           <Form.Control
             className="bg-transparent border border-dark"
-            ref={autoCompleteRef}
-            onChange={event => setQuery(event.target.value)}
-            placeholder="Enter your address"
-            value={query}
+            onChange={handlePincodeChange}
+            placeholder="Enter your pincode"
+            value={pincode}
           />
         </FloatingLabel>
         {
@@ -195,119 +213,138 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
             </>
             :
             <>
-              <FloatingLabel
-                label="House No./Door No."
-                className="mt-3 mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.aline1}
-                  type="text"
-                  placeholder="houseNo"
-                  name="aline1"
-                  onChange={handleHouseAreaChange}
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                label="Address"
-                className="mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.aline2}
-                  type="text"
-                  placeholder="address"
-                  name="aline2"
-                  readOnly
+              {
+                showAddressInput ?
+                <>
+                  <FloatingLabel
+                    style={{ padding: "0" }}
+                    label="Please enter your address"
+                    className="mb-2"
+                    size="sm"
+                  >
+                    <Form.Control
+                      className="bg-transparent border border-dark"
+                      ref={autoCompleteRef}
+                      onChange={event => setQuery(event.target.value)}
+                      placeholder="Enter your address"
+                      value={query}
+                      type="text"
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="House No./Door No."
+                    className="mt-3 mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.aline1}
+                      type="text"
+                      placeholder="houseNo"
+                      name="aline1"
+                      onChange={handleHouseAreaChange}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="Address"
+                    className="mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.aline2}
+                      type="text"
+                      placeholder="address"
+                      name="aline2"
+                      onChange={handleHouseAreaChange}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="Street Name"
+                    className="mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.community}
+                      type="text"
+                      placeholder="street"
+                      name="community"
+                      onChange={handleHouseAreaChange}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="Area"
+                    className="mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.area}
+                      type="text"
+                      placeholder="area"
+                      name="area"
+                      onChange={handleHouseAreaChange}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="Landmark"
+                    className="mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.landmark}
+                      type="text"
+                      placeholder="landmark"
+                      name="landmark"
+                      onChange={handleHouseAreaChange}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="Postal Code"
+                    className="mt-3 mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.postalcode}
+                      type="text"
+                      placeholder="Pincode"
+                      name="postalcode"
+                      disabled
+                      
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    //controlId="floatingInput"
+                    label="City"
+                    className="mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.city}
+                      type="text"
+                      placeholder="city"
+                      name="city"
+                      readOnly
+                      
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    //controlId="floatingInput"
+                    label="State"
+                    className="mb-2"
+                  >
+                    <Form.Control
+                      className="bg-transparent border-dark"
+                      value={newAddress.state}
+                      type="text"
+                      placeholder="state"
+                      name="state"
+                      readOnly
+                      
+                    />
+                  </FloatingLabel>
                   
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                label="Street Name"
-                className="mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.community}
-                  type="text"
-                  placeholder="street"
-                  name="community"
-                  readOnly
-                  
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                label="Area"
-                className="mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.area}
-                  type="text"
-                  placeholder="area"
-                  name="area"
-                  readOnly
-                  
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                label="Landmark"
-                className="mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.landmark}
-                  type="text"
-                  placeholder="landmark"
-                  name="landmark"
-                  onChange={handleHouseAreaChange}
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                label="Postal Code"
-                className="mt-3 mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.postalcode}
-                  type="text"
-                  placeholder="Pincode"
-                  name="postalcode"
-                  readOnly
-                  
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                //controlId="floatingInput"
-                label="City"
-                className="mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.city}
-                  type="text"
-                  placeholder="city"
-                  name="city"
-                  readOnly
-                  
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                //controlId="floatingInput"
-                label="State"
-                className="mb-2"
-              >
-                <Form.Control
-                  className="bg-transparent border-dark"
-                  value={newAddress.state}
-                  type="text"
-                  placeholder="state"
-                  name="state"
-                  readOnly
-                  
-                />
-              </FloatingLabel>
-              
+                </>
+                :
+                <></>
+              }
             </>
         }
         <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">

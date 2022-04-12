@@ -100,6 +100,41 @@
             // background-color: #0079c1;
         }
 
+        .btn-delivery {
+            background-color: #ffffff;
+            border-color: #ffffff;
+            color: #424141;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0px .5rem .5rem 0px;
+            line-height: 2.0;
+            font-family: "Roboto Medium", sans-serif, Arial;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .btn-pickup {
+            background-color: #ffffff;
+            border-color: #ffffff;
+            color: #424141;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: .5rem 0 0 .5rem;
+            line-height: 2.0;
+            font-family: "Roboto Medium", sans-serif, Arial;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .checked {
+            color: #ffffff;
+            background-color: #614731;
+            border-color: #614731;
+        }
+
+
         .vlradio-toolbar {
             border-radius: 10px;
             overflow: hidden;
@@ -300,6 +335,5 @@
     background: url("../../assets/arrow-right.png") no-repeat center center;
     background-size: 16px auto;
     position: absolute;
-    top: 12px;
     right: 12px;
 }

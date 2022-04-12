@@ -257,6 +257,7 @@ function VibrantMealPlanner() {
             <>
               <AddressComponent
                 setAddress={setAddress}
+                prevAddress={address}
                 setDelivery={setDelivery}
                 onDeliveryTypeChange={onDeliveryTypeChange}
                 setAddressSelected={setAddressSelected}
