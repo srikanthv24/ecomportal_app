@@ -27,12 +27,9 @@ const ProductPlanner = React.memo(
     const [startDate, setStartDate] = useState(getTomorrowDate);
     // const [deliveryType, setDeliveryType] = useState(PICKUP);
     const [mealSelectedIndex, setMealSelectedIndex] = useState();
-    const onServiceChange = (e) => {
-      const { value } = e.target;
+    const onServiceChange = (value) => {
       onDeliveryChange(value);
-      if (value === PICKUP) {
-        setAddressSelected(false);
-      }
+      setAddressSelected(false);
     };
     const onDateChange = (date) => {
       const selectedDate = date.format("YYYY-MM-DD");
@@ -70,36 +67,18 @@ const ProductPlanner = React.memo(
         </div>
 
         <div className="mealplan-address-block">
-          <div className="w-100p meal-transport vlradio-toolbar">
-            <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="order-type"
-                id={PICKUP}
-                defaultChecked={deliveryType === PICKUP ? true : false}
-                onChange={onServiceChange}
-                value={PICKUP}
-              />
-              <label className="form-check-label" htmlFor={PICKUP}>
-                Pickup
-              </label>
-            </div>
-            <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p relative">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="order-type"
-                id={DELIVERY}
-                defaultChecked={deliveryType === DELIVERY ? true : false}
-                onChange={onServiceChange}
-                value={DELIVERY}
-              />
-              <label className="form-check-label" htmlFor={DELIVERY}>
-                Delivery
-              </label>
-              <div className="deliveryArrow"></div>
-            </div>
+          <div className="d-flex btn-group vl-action-btn">
+            <button type="button" 
+              className={`btn btn-pickup ${deliveryType === PICKUP ? "checked w-50p" : "w-50p"}`} 
+              onClick={() => {onServiceChange(PICKUP)}}>
+                {PICKUP}
+            </button>
+            <button type="button" 
+              className={`btn btn-delivery ${deliveryType === DELIVERY ? "checked w-50p" : "w-50p"}`} 
+              onClick={() => {onServiceChange(DELIVERY)}}>
+                {DELIVERY}
+                <div className="deliveryArrow"></div>
+            </button>
           </div>
         </div>
         <div className="meal-plan-wrapper">
