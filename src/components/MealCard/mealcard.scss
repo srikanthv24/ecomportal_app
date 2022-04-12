@@ -6,7 +6,8 @@
     margin-bottom: 15px;
     border-color: transparent;
     padding: 0px;
-    background: transparent;
+    background: transparent !important;
+    border-radius: 15px !important;
   }
   
   .meal-card .card-body {
