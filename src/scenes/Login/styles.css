@@ -7,7 +7,7 @@
     min-height: 450px;
 }
 .customform .form-floating>.form-control{
-    padding: .5rem .75rem;
+    /* padding: .5rem .75rem; */
     font-size: 16px;
   }
   .customform .input-group .form-control {
