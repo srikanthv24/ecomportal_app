@@ -2,8 +2,8 @@
 .meal-card {
     cursor: pointer;
     width: calc(50% - 10px);
-    margin-right: 15px;
-    margin-bottom: 15px;
+    margin-right:0px;
+    margin-bottom: 20px;
     border-color: transparent;
     padding: 0px;
     background: transparent !important;
@@ -17,14 +17,14 @@
     padding: 0.5rem !important;
   }
   
-  .meal-card:nth-child(2n) {
-    margin-right: 0;
-  }
+  // .meal-card:nth-child(2n) {
+  //   margin-right: 0;
+  // }
   
-  .meal-card:nth-last-child(1),
-  .meal-card:nth-last-child(2) {
-    margin-bottom: 0;
-  }
+  // .meal-card:nth-last-child(1),
+  // .meal-card:nth-last-child(2) {
+  //   margin-bottom: 0;
+  // }
 
 
 .mealcard-title {

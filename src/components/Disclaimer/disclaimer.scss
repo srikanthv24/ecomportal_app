@@ -2,8 +2,8 @@
   padding: 0px 10px 0px 10px;
   height: calc(100vh - 0px);
   // padding-top: 70px;
-  // background-color: #f7f2df;
-  background-color:rgb(245, 224, 188);
+  background-color: #f7f2df;
+  // background-color:rgb(245, 224, 188);
   display: flex;
   align-items: center;
 }
@@ -52,7 +52,7 @@
     display: flex;
     background-color: #614731 !important;
     color: #f7f2df !important;
-    border-color: #614731 !important;
+    border:1px solid #614731 !important;
     border-radius: 20px;
     margin-bottom: 0px;
     text-decoration: none;
