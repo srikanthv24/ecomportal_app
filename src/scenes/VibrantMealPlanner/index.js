@@ -139,10 +139,10 @@ function VibrantMealPlanner() {
   };
 
   const onAddToCart = (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     if (!customerId || customerId === "") {
       dispatch(showLogin());
-    } else {
+    } else if(selectedDuration !== ""){
       dispatch(
         createCartInput({
           profileDetails,
@@ -156,13 +156,15 @@ function VibrantMealPlanner() {
         })
       );
       dispatch(clearDeliveryCharges());
+      setSelectedDuration("");
       history.push("/cart-summary");
     }
   };
 
   useEffect(() => {
-    if (selectedDuration && selectedSessions.length > 0 && customerId !== "")
+    if (selectedDuration && selectedSessions.length > 0 && customerId !== ""){
       onAddToCart();
+    }
   }, [customerId]);
 
   useEffect(() => {
@@ -266,7 +268,7 @@ function VibrantMealPlanner() {
                 {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}
                 <button type="button" className="btn w-100p vl-go-next-btn" 
                   disabled={!selectedDuration || selectedSessions.length === 0}
-                  onClick={onAddToCart} >
+                  onClick={(e) => onAddToCart(e)} >
                     {ADD_TO_CART}
                 </button>
               </div>

@@ -6,8 +6,9 @@ import {
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
-import { PICKUP } from "../../utils/constants";
+import { PICKUP, WHATSAPP_LINK } from "../../utils/constants";
 import { calculateDeliveryCharge, getPostalCodes } from "../../store/actions/addresses";
+
 
 let autoComplete;
 let addressLat = "", addressLong = "";
@@ -122,6 +123,9 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
         setShowPincodeError(true);
         setDisableAddressSelect(true);
       }
+    } else {
+      setShowPincodeError(false);
+      setShowAddressInput(false);
     }
   }, [pincode])
 
@@ -167,9 +171,12 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   return(
     <>
       <div className="mt-3 vl-address-form">
+        {
+          !showAddressInput && <small>Enter your pin code to validate our service availability</small>
+        }
         <FloatingLabel
           style={{ padding: "0" }}
-          label="Enter your 6 digit pin code to validate our service availability"
+          label="Pin code(6 digit)"
           className="mb-2"
           size="sm"
         >
@@ -178,6 +185,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
             onChange={handlePincodeChange}
             placeholder="Enter your pincode"
             value={pincode}
+            maxLength="6"
           />
         </FloatingLabel>
         {
@@ -190,6 +198,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
               </div>
               <div className="card mx-auto my-3 p-0 bg-transparent border-0">
                 <div className="card-body d-flex align-items-center p-0 justify-content-around contact-info">
+                <a href={WHATSAPP_LINK}>
                   <div>
                     <FaWhatsapp
                       className="me-2"
@@ -197,6 +206,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
                     />
                     +91 8096091111
                   </div>
+                </a>
                   {/* <div className="vr mx-3 divider" /> */}
                   <div className="contact-phone">
                     <FaPhoneAlt
