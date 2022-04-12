@@ -68,10 +68,11 @@
   .stepper-back-btn{
     border: none;
     position: absolute;
-    top:18px;
+    top:16px;
     left: 20px;
     color: #614731;
     font-size: 24px;   
+    background:transparent !important;
   }
   .stepper-back-btn:disabled {
     opacity: .45;
