@@ -150,6 +150,17 @@ function Home() {
           </Link>
         </a>
       </div>
+      {/* <div className="d-block text-center choosemy-meal-btn2">
+        <a href="#" className="gs-btn my-2 inline-block">
+          <Link to="/vibrant-meal-planner" className="mb-0 px-4" onClick={onGettingStarted}>
+          <div className="d-flex align-items-center justify-content-between">
+            <span className="px-1"><GiMeal size="30" /></span>
+            <span>Get Started</span>
+          </div>
+           
+          </Link>
+        </a>
+      </div> */}
       </div>
       
       {/* Green Bg Section */}
