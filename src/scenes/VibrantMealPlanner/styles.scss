@@ -31,7 +31,7 @@
   // background-color: #cccccc;
   .vl-go-back-btn,.vl-go-next-btn{    
     width: 100%;
-    max-width: 300px;
+    // max-width: 300px;
     height: 50px;    
     display: flex;
     flex-wrap: wrap;
@@ -56,4 +56,22 @@
   .vl-go-next-btn:hover{
     color: #F7F2DF !important;
   }
+}
+
+.btn-check:focus+.btn, .btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0 !important;
+}
+.vl-stepper-sec{
+  position: relative;
+  background-color:rgb(245, 224, 188) !important;
+  .stepper-back-btn{
+    border: none;
+    position: absolute;
+    top:18px;
+    left: 20px;
+    color: #614731 !important;
+    font-size: 24px;
+  }
+  
 }
