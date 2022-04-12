@@ -122,8 +122,8 @@ const SubscriptionModal = React.memo(
                     }
                     primaryButtonText={
                       isPauseSubscriptionService(serviceType)
-                        ? "PAUSE"
-                        : "RESUME"
+                        ? "Pause"
+                        : "Resume"
                     }
                   />
                 </>

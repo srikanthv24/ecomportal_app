@@ -100,8 +100,13 @@ const ProductPlanner = ({
         sessionCodes={["B", "L", "D"]}
         disabled={true}
       />
+      <div className="meal-plan-wrapper px-0">
+        {inputs?.variants[0]?.items.map((variant) => (
+          <MealPlanner variant={variant} type={inputs?.deliveryType} />
+        ))}
+      </div>
       <div className="d-flex justify-content-start">
-        <small className="font-weight-bold justify-content-start text-muted selected-duration">{`selected ${
+        <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">{`selected ${
           completedDates?.length + remainingDates?.length
         }/${planDuration} days`}</small>
       </div>
@@ -116,6 +121,7 @@ const ProductPlanner = ({
           mapDays={({ date }) => mapCalendarDates(date)}
         />
       </div>
+
       <div className="mealPlan-date"></div>
       {/* <DeliverySwitch deliveryType={inputs.deliveryType} disabled={true} /> */}
       <div className="mealplan-address-block">
@@ -150,11 +156,7 @@ const ProductPlanner = ({
       </div>
       </div>
       </div>
-      <div className="meal-plan-wrapper">
-        {inputs?.variants[0]?.items.map((variant) => (
-          <MealPlanner variant={variant} type={inputs?.deliveryType} />
-        ))}
-      </div>
+      
     </div>
   );
 };

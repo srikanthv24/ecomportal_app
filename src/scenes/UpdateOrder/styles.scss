@@ -1,7 +1,7 @@
 .planner-container {
   min-height: 100vh;
   padding-top: 70px;
-  background-color:rgb(245, 224, 188);
+  // background-color:rgb(245, 224, 188);
   .stepperComponent {
     background-color: #f7f2df;
     padding: 24px 40px !important;
@@ -42,7 +42,7 @@
 
 .calendar-container{
   overflow: scroll;
-  padding: 0px 20px;
+  padding: 0px 0px;
 }
 
 .selected-duration {
@@ -51,5 +51,15 @@
 .planner-container{
   .page-title{
     margin-top: 1rem !important;
+  }
+}
+.update-planner-card{
+  .mear-type-card{
+    span{
+    font-family: 'Roboto Medium', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin: .5rem;
+    }
   }
 }

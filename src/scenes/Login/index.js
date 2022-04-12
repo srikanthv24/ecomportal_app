@@ -85,14 +85,14 @@ const Login = (props) => {
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <p class="h3 mb-3 text-center" style={{
+          <p className="h3 mb-3 text-center" style={{
               fontFamily: "Roboto",
               fontWeight: "700",
             }}>Login</p>
           {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
           </div> */}
-          <p class="fw-bold">Sign in with your mobile number and password</p>
+          <p className="fw-bold">Sign in with your mobile number and password</p>
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>

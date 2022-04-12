@@ -116,11 +116,11 @@ function Home() {
             <div className="textItem">
               <img src={SeedsWeb} alt="seeds" className="for-webview mx-auto seedsImg" />
               <img src={SeedsMobile} alt="seeds" className="for-mblview seedsImg" />
-              <span class="vlprimary-font text-koromiko text-80">Made fresh </span>
+              <span className="vlprimary-font text-koromiko text-80">Made fresh </span>
               {/* <span class="vlprimary-font vlitalic text-chocolate-300 text-80"> &amp; </span> */}
             </div>
             <div className="textItem">
-              <span class="vlprimary-font text-koromiko text-80 vlh-4"> everyday</span>
+              <span className="vlprimary-font text-koromiko text-80 vlh-4"> everyday</span>
             </div>
           </div>
 
@@ -128,8 +128,8 @@ function Home() {
             <div className="textItem">
               <div className="d-flex align-items-start">
                 <div>
-                  <span class="vlprimary-font text-koromiko text-80">Delivered to  </span>
-                  <span class="vlprimary-font text-koromiko text-80 vlh-4">your doorstep</span>
+                  <span className="vlprimary-font text-koromiko text-80">Delivered to  </span>
+                  <span className="vlprimary-font text-koromiko text-80 vlh-4">your doorstep</span>
                 </div>
                 <div>
                   {/* <span class="vlprimary-font vlitalic text-chocolate-300 text-80"> &amp; </span> */}
@@ -144,7 +144,7 @@ function Home() {
           </div>
         </div>
         <div className="d-block text-center choosemy-meal-btn">
-        <a href="#" className="gs-btn my-2 leading-8 bg-dark-green-800 tracking-wide rounded-full inline-block">
+        <a href="#" className="gs-btn my-2 leading-8 tracking-wide inline-block">
           <Link to="/vibrant-meal-planner" className="mb-0 px-7" onClick={onGettingStarted}>
           <GiMeal size="30" /> Get Started
           </Link>

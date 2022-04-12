@@ -700,7 +700,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   position: absolute;
   right: 0;
   top: 24px;
-  background: rgb(245, 224, 188);
+  background:#F7F2DF;
   padding: 0px;
   border-radius: 6px;
   z-index: 1;
@@ -735,7 +735,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   text-decoration: none;
 }
 .more-dp-info ul li a:hover {
-  background: #f7f2df;
+  background:rgb(245, 224, 188);
 }
 .sub-edit-btn{
   color: #718049;
@@ -948,7 +948,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   justify-content: center;
   align-items: center;
   background-color: #614731 !important;
-  border-color: #614731 !important;
+  border:1px solid #614731 !important;
   border-radius: 20px !important;
   padding: 0 20px;
   margin: 0 auto;

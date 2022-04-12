@@ -1,12 +1,16 @@
 import React from "react";
+import TruckImage from "../../assets/home/truck.png";
 
 const MealPlanner = ({variant, type}) => {
 
   return(
-    <div class="meal-card">
-      <div>
+    <div className="meal-card1 update-planner-card">
+      <div className="mear-type-card d-flex align-items-center text-left justify-content-start">
         <span>{variant.display_name}</span>
-        <span><i class="fa-solid fa-location-check"></i></span>
+        <span>
+          {/* <i className="fa-solid fa-location-check"></i> */}
+          <img src={TruckImage} alt="image" height="24" />
+        </span>
       </div>
       {/* <span>7 Servings</span>
       <span>
