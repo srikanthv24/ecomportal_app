@@ -6,6 +6,7 @@ import ProductDisplay from "../../components/ProductPlanner/ProductDisplay";
 import _ from "underscore";
 import moment from "moment";
 import DeliverySwitch from "../../components/DeliverySwitch/DeliverySwitch";
+import {PICKUP, DELIVERY} from '../../utils/constants';
 
 const ProductPlanner = ({
   productTitle,
@@ -116,7 +117,39 @@ const ProductPlanner = ({
         />
       </div>
       <div className="mealPlan-date"></div>
-      <DeliverySwitch deliveryType={inputs.deliveryType} disabled={true} />
+      {/* <DeliverySwitch deliveryType={inputs.deliveryType} disabled={true} /> */}
+      <div className="mealplan-address-block">
+      <div className="w-100p meal-transport vlradio-toolbar">
+      <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
+        <input
+          className="form-check-input"
+          type="radio"
+          name="order-type"
+          id={PICKUP}
+          checked={inputs.deliveryType === PICKUP ? true : false}
+          value={PICKUP}
+          disabled
+        />
+        <label className="form-check-label" htmlFor={PICKUP}>
+          Pickup
+        </label>
+      </div>
+      <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p relative">
+        <input
+          className="form-check-input"
+          type="radio"
+          name="order-type"
+          id={DELIVERY}
+          checked={inputs.deliveryType === DELIVERY ? true : false}
+          value={DELIVERY}
+          disabled
+        />
+        <label className="form-check-label" htmlFor={DELIVERY}>
+          Delivery
+        </label>
+      </div>
+      </div>
+      </div>
       <div className="meal-plan-wrapper">
         {inputs?.variants[0]?.items.map((variant) => (
           <MealPlanner variant={variant} type={inputs?.deliveryType} />
