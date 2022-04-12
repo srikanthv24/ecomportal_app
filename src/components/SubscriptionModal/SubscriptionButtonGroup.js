@@ -20,7 +20,7 @@ const SubscriptionButtonGroup = React.memo(
       </Button>
       {!hideCancelButton && (
         <Button className="vl-btn-secondary" onClick={onCancel}>
-          CANCEL
+          Cancel
         </Button>
       )}
     </section>

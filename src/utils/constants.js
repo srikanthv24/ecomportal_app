@@ -100,7 +100,7 @@ export const PERSONAL_INFO = {
 
 export const CART = {
   NO_ITEMS_IN_CART: "No Items added to cart",
-  EXPLORE_PRODUCTS: "Explore products",
+  EXPLORE_PRODUCTS: "Go to Products",
   CART_TITLE: "Shopping Cart",
   ORDER_SUMMARY: "ORDER SUMMARY",
   TAXES: "Taxes",

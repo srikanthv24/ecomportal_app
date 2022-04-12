@@ -71,14 +71,14 @@ const Register = (props) => {
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <p class="h3 my-3 text-center" style={{
+          <p className="h3 my-3 text-center" style={{
               fontFamily: "Roboto",
               fontWeight: "700",
             }}>Signup</p>
           {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
           </div> */}
-          <p class="fw-bold">Sign up with your mobile number, name and password</p>
+          <p className="fw-bold">Sign up with your mobile number, name and password</p>
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>

@@ -201,10 +201,10 @@ const ProfileDetails = ({
       <div className="footer-button-wrap bio-card px-0">
         <Button onClick={() => handleBack()} className="vl-btn-secondary-1">
           <FaChevronLeft />
-          BACK
+          Back
         </Button>
         <Button onClick={handleSubmit(onSubmit)} className="vl-btn-primary">
-          NEXT
+          Next
           <FaChevronRight />
         </Button>
       </div>

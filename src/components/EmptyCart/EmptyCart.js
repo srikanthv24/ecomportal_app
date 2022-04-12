@@ -7,13 +7,12 @@ const EmptyCart = () => {
     const history = useHistory();
     return (
         <div className="flex-column text-center">
-        <div className="h5 d-flex justify-content-center align-items-center">
+        <div className="h5 d-flex justify-content-center align-items-center py-5">
             {CART.NO_ITEMS_IN_CART}
         </div>
-        <Button
+        <Button className="vl-custom-btn"
           onClick={() => history.push("/")}
-          variant="primary"
-          size="sm"
+         
         >
           {CART.EXPLORE_PRODUCTS}
         </Button>

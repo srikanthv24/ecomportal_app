@@ -42,7 +42,7 @@ const Landing = () => {
   return (
     <section>
       <NewHomeContent />
-      <Container fluid className="content-body px-0" style={{ background: "#F2CBBD", paddingBottom: '2rem' }}>
+      <Container fluid className="content-body px-0" style={{paddingBottom: '2rem' }}>
         {/* <section className="page-content1 py-3 bg-1"> */}
           <Container fluid style={{ background: "#F2CBBD", marginTop: '0rem' }}>
             <FAQContent />

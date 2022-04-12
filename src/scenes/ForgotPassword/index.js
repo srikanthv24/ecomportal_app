@@ -67,14 +67,14 @@ const ForgotPassword = (props) => {
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12}>
-          <p class="h3 mb-3 text-center" style={{
+          <p className="h3 mb-3 text-center" style={{
               fontFamily: "Roboto",
               fontWeight: "700",
             }}>Forgot Password</p>
           {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
           </div> */}
-          <p class="fw-bold">Reset your password with your registered phone number</p>
+          <p className="fw-bold">Reset your password with your registered phone number</p>
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>
