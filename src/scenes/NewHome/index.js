@@ -144,7 +144,7 @@ function Home() {
           </div>
         </div>
         <div className="d-block text-center choosemy-meal-btn">
-        <a href="#" className="gs-btn my-2 leading-8 bg-dark-green-800 tracking-wide inline-block">
+        <a href="#" className="gs-btn my-2 leading-8 tracking-wide inline-block">
           <Link to="/vibrant-meal-planner" className="mb-0 px-7" onClick={onGettingStarted}>
           <GiMeal size="30" /> Get Started
           </Link>

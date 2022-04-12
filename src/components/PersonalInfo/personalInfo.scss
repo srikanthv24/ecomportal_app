@@ -309,5 +309,13 @@
 }
 
 .pinfo-box-item-btn.disabled-state {
-  background-color: rgba(0, 0, 0, 0.05) !important;
+  // background-color: rgba(0, 0, 0, 0.05) !important;
+  background:#f5e0bc;
+  pointer-events: none;
+  svg{
+    
+    path{
+      stroke: #f5e0bc !important;
+    }
+  }
 }

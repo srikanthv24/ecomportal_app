@@ -81,7 +81,7 @@ const ForgotPassword = (props) => {
               <Form.Control
                 className={errors.phone && 'is-invalid'}
                 disabled={showOtp}
-                type="text"
+                type="number"
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>

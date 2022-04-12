@@ -91,7 +91,10 @@ const UpdateOrder = () => {
     await dispatch(updateSubscriptionDetails(updatedObject));
     history.push('/orders');
   }
-
+  const handleGoBack = (e) => {
+    e.preventDefault();
+    history.push('/orders');
+  }
   return(
     <section className="planner-container">
       <div className="text-center pb-3 updateOrder-sec">
@@ -112,13 +115,27 @@ const UpdateOrder = () => {
               setDisable={setDisable}
               setNewDates={setNewDates}
             />
+            {/* <div className="d-flex mx-auto btn-group mt-2 vl-action-btn">
             <Button
-             className="mt-3 mx-auto vl-custom-btn"
+             className="btn w-50p vl-go-back-btn"
+              onClick={onUpdateCart}
+              disabled={disable}
+            >
+              Go Back
+            </Button>
+            <Button
+             className="btn w-50p vl-go-next-btn"
               onClick={onUpdateCart}
               disabled={disable}
             >
               {UPDATE_ORDER}
             </Button>
+            </div> */}
+            <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
+          <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleGoBack}>Go Back</button>
+          <button type="button" className="btn w-50p vl-go-next-btn" disabled={disable} onClick={onUpdateCart}>{UPDATE_ORDER}</button>
+        </div>
+            
           </>
         }
       </div>
