@@ -12,6 +12,7 @@ import {
 } from "../../utils/constants";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import TructIcon from "../../assets/home/truck.png";
+import { gstPercent } from "./cartItemUtility";
 
 const CartItem = ({
   isMealItem,
@@ -36,6 +37,7 @@ const CartItem = ({
     tax_amount: itemTax,
     delivery_charge: itemDeliveryCharge,
     discount_amount: itemDiscount,
+    tax_methods: taxPercent
   } = product;
   return (
     <div className="w-100p mb-3">
@@ -50,7 +52,7 @@ const CartItem = ({
               <span>{displayCurrency(itemPrice) || 0.0}</span>
             </p>
             <p className="m-0 crt-price-info">
-              <span>GST </span>
+              <span>GST <small>{`(${gstPercent(taxPercent)})` || ""}</small></span>
               <span>{displayCurrency(itemTax) || 0.0}</span>
             </p>
             <p className="m-0 crt-price-info">
@@ -155,7 +157,7 @@ const CartItem = ({
           <Card.Footer className="cart-summary-footer relative">
             <p className="crt-prd-address-title m-0">
               {/* {DELIVER_TO} */}
-              <img src={TructIcon} alt="truc image" height="30" className="truckIcon" />
+              <img src={TructIcon} alt="truck" height="30" className="truckIcon" />
             </p>
             <p className="crt-prd-address-title m-0">{address}</p>
           </Card.Footer>
