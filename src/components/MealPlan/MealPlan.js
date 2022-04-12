@@ -52,6 +52,7 @@ const MealPlan = React.memo(
                     <Form.Control
                       type="number"
                       size="sm"
+                      min="1"
                       value={customDuration}
                       onChange={onCustomDurationChange}
                       style={{ width: "60px", marginRight: "10px" }}
