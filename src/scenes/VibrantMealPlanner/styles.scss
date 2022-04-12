@@ -70,8 +70,12 @@
     position: absolute;
     top:18px;
     left: 20px;
-    color: #614731 !important;
-    font-size: 24px;
+    color: #614731;
+    font-size: 24px;   
+  }
+  .stepper-back-btn:disabled {
+    opacity: .45;
+    // background-color: #cccccc;
   }
   
 }
