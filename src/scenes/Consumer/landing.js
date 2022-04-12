@@ -48,7 +48,7 @@ const Landing = () => {
             <FAQContent />
           </Container>
 
-          <Container fluid style={{ background: "#ffffff", marginTop: '0rem' }}>
+          <Container fluid style={{ background: "#ffffff", marginTop: '0rem', padding:'0px' }}>
             <Testimonials />
           </Container>
 

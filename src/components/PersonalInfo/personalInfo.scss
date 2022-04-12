@@ -89,6 +89,7 @@
   background: #614731 !important;
   label {
     color: #f7f2df !important;
+    user-select: none;
   }
 }
 .radio ~ .plan-details {
