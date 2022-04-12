@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Step, StepLabel, Stepper } from "@material-ui/core";
+import { Step, StepButton, StepLabel, Stepper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { MEAL_PLAN_STEPS, PICKUP, ADD_TO_CART, MALE, FEMALE } from "../../utils/constants";
 import { createCartInput } from "../../store/actions/cart";
@@ -18,6 +18,7 @@ import "./styles.scss";
 import DetoxMyBody from "../../assets/mealplanner/Detox.png";
 import CustomDiet from "../../assets/mealplanner/CustomDiet.png";
 import Weight from "../../assets/mealplanner/Weight.png";
+import {FaChevronLeft} from 'react-icons/fa';
 
 const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
 let script = document.createElement("script");
@@ -106,6 +107,7 @@ function VibrantMealPlanner() {
 
   const onMealProductClick = (meal) => {
     setSelectedMeal(meal);
+    setMeal(meal?.id)
   };
 
   const onMealPlanSelection = (duration) => setSelectedDuration(duration);
@@ -183,20 +185,35 @@ function VibrantMealPlanner() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
   return (
     <section className="planner-container">
+      <div className="vl-stepper-sec">
       <Stepper
         activeStep={activeStep}
         alternativeLabel
         className="stepperComponent"
       >
-        {steps.map((label) => (
+        {steps.map((label, index) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+             <StepButton onClick={handleStep(index)}>
+              {label}
+            </StepButton>
           </Step>
         ))}
       </Stepper>
-
+      <button
+          type="button"
+          className="stepper-back-btn"         
+          onClick={handleBack}
+          disabled={activeStep === 0 ? true : false}
+        >
+         <FaChevronLeft />
+        </button>
+      </div>
       <div>
         {activeStep === 0 && (
           <MealList
@@ -245,8 +262,8 @@ function VibrantMealPlanner() {
                 setAddressSelected={setAddressSelected}
               />
               <div className="d-flex btn-group vl-action-btn m-3">
-                <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button>
-                <button type="button" className="btn w-50p vl-go-next-btn" 
+                {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}
+                <button type="button" className="btn w-100p vl-go-next-btn" 
                   disabled={!selectedDuration || selectedSessions.length === 0} 
                   onClick={onAddToCart} >
                     {ADD_TO_CART}

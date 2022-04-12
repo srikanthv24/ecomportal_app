@@ -317,16 +317,16 @@ const PersonalInfo = ({
         </Card.Body>
       </div>
       <div className="d-flex btn-group vl-action-btn m-3">
-        <button
+        {/* <button
           type="button"
           className="btn w-50p vl-go-back-btn"
           onClick={handleBack}
         >
           Go Back
-        </button>
+        </button> */}
         <button
           type="button"
-          className="btn w-50p vl-go-next-btn"
+          className="btn w-100p vl-go-next-btn"
           onClick={onSubmit}
         >
           {NEXT}

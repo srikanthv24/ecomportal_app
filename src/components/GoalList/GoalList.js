@@ -15,6 +15,7 @@ const GoalList = ({ handleBack, handleNextStep, selectedGoal, onGoalClick, goals
   const handleClick = (e, goal) => {
     e.preventDefault();
     onGoalClick(goal);
+    handleNextStep();
   };
 
   useEffect(() => {
@@ -49,16 +50,17 @@ const GoalList = ({ handleBack, handleNextStep, selectedGoal, onGoalClick, goals
             <GoalCard
               name={"I have Other Goal"}
               icon={Goal}
-              onClick={(e) => {handleClick(e, "custom")}}
+              // onClick={(e) => {handleClick(e, "custom")}}
+              onClick={() => setShowDisclaimer(true)}
             />
           </div>
           <div className="d-flex btn-group vl-action-btn m-3">
-            <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button>
-            <button type="button" className="btn w-50p vl-go-next-btn" 
+            {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}
+            {/* <button type="button" className="btn w-50p vl-go-next-btn" 
               disabled={!isSelected}
               onClick={handleNextStep} >
                 {NEXT}
-            </button>
+            </button> */}
           </div>
         </>
       }

@@ -52,9 +52,9 @@ const Landing = () => {
             <Testimonials />
           </Container>
 
-          <Container fluid style={{ background: "#F2CBBD", marginTop: '0rem' }}>
+          {/* <Container fluid style={{ background: "#F2CBBD", marginTop: '0rem' }}>
             <StoreContent1 />
-          </Container>
+          </Container> */}
          
         {/* </section> */}
       </Container>
