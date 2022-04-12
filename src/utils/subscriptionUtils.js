@@ -21,6 +21,6 @@ export const getSubscriptionConfirmationText = (serviceType, mealType) => {
   } else if (serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) {
     return `Your are pausing ${mealType} indefinetly`;
   } else if (serviceType === SERVICE_TYPE.RESUME_INDEFINITE) {
-    return `Your are resuming ${mealType} indefinetly from`;
+    return `Your are resuming ${mealType} indefinetly`;
   }
 };

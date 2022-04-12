@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Step, StepLabel, Stepper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { MEAL_PLAN_STEPS, PICKUP, ADD_TO_CART } from "../../utils/constants";
+import { MEAL_PLAN_STEPS, PICKUP, ADD_TO_CART, MALE, FEMALE } from "../../utils/constants";
 import { createCartInput } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -73,7 +73,7 @@ function VibrantMealPlanner() {
   const [meal, setMeal] = useState("");
   const [goal, setGoal] = useState("");
   const [profileDetails, setProfileDetails] = useState({
-    gender: "Male",
+    gender: FEMALE,
     heightFeet: 5,
     heightInch: 6,
     weight: 60,
@@ -223,10 +223,6 @@ function VibrantMealPlanner() {
           <PersonalInfo
             onProfileDetailsSubmit={setProfileDetails}
             defaultGender={profileDetails.gender}
-            defaultHeightFeet={profileDetails.heightFeet}
-            defaultHeightInch={profileDetails.heightInch}
-            defaultWeight={profileDetails.weight}
-            defaultAge={profileDetails.weight}
             handleNextStep={handleNext}
             handleBack={handleBack}
           />

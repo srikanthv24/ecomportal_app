@@ -1,4 +1,4 @@
-import { PERSONAL_INFO } from "./constants";
+import { PERSONAL_INFO, INCREMENT, DECREMENT } from "./constants";
 
 const {
   MIN_INCHES,
@@ -11,117 +11,58 @@ const {
   DEFAULT_WOMEN_INCHES,
   MIN_WEIGHT,
   MAX_WEIGHT,
+  MAX_AGE,
+  MIN_AGE,
   DEFAULT_MEN_WEIGHT,
   DEFAULT_WOMEN_WEIGHT,
 } = PERSONAL_INFO;
 
-export class handleValidations {
-  static ageValidation(age, type) {
-    let newAge = 0;
-    newAge = type === "increment" ? age + 1 : age - 1;
-    let msg = "",
-      error = false;
-    if (newAge >= 95) {
-      error = true;
-      msg = "Please enter a valid age";
-    } else if (newAge <= 15) {
-      error = true;
-      msg = "Please enter a valid age";
-    }
-    return {
-      error,
-      msg,
-    };
-  }
-
-  static weigthValidation(weigth, type) {
-    let newWeigth = 0;
-    newWeigth = type === "increment" ? weigth + 1 : weigth - 1;
-    let msg = "",
-      error = false;
-    if (newWeigth >= 100) {
-      error = true;
-      msg = "Enter valid weigth";
-    } else if (newWeigth <= 40) {
-      error = true;
-      msg = "Enter valid weigth";
-    }
-    return {
-      error,
-      msg,
-    };
-  }
-
-  static heightFeetValidation(heightFeet, type) {
-    let newHeightFeet = 0;
-    newHeightFeet = type === "increment" ? heightFeet + 1 : heightFeet - 1;
-    let msg = "",
-      error = false;
-    if (newHeightFeet >= 12) {
-      error = true;
-      msg = "Enter valid height";
-    } else if (newHeightFeet <= 1) {
-      error = true;
-      msg = "Enter valid height";
-    }
-    return {
-      error,
-      msg,
-    };
-  }
-
-  static heightInchValidation(heightInch, type) {
-    let newHeightInch = 0;
-    newHeightInch = type === "increment" ? heightInch + 1 : heightInch - 1;
-    let msg = "",
-      error = false;
-    if (newHeightInch >= 11) {
-      error = true;
-      msg = "Enter valid height";
-    } else if (newHeightInch <= 0) {
-      error = true;
-      msg = "Enter valid height";
-    }
-    return {
-      error,
-      msg,
-    };
-  }
-}
-export default handleValidations;
-
 export const validateAndSetFeet = (heightFeet, type, setHeightFeet) => {
   if (
-    (type === "increment" && heightFeet + 1 > MAX_FEET) ||
-    (type === "decrement" && heightFeet - 1 < MIN_FEET)
+    (type === INCREMENT && heightFeet + 1 > MAX_FEET) ||
+    (type === DECREMENT && heightFeet - 1 < MIN_FEET)
   )
     return;
-  type === "increment"
+  type === INCREMENT
     ? setHeightFeet((prevHeigthFeet) => prevHeigthFeet + 1)
     : setHeightFeet((prevHeigthFeet) => prevHeigthFeet - 1);
 };
 
 export const validateAndSetInches = (heightInch, type, setHeightInch) => {
   if (
-    (type === "increment" && heightInch + 1 > MAX_INCHES) ||
-    (type === "decrement" && heightInch - 1 < MIN_INCHES)
+    (type === INCREMENT && heightInch + 1 > MAX_INCHES) ||
+    (type === DECREMENT && heightInch - 1 < MIN_INCHES)
   )
     return;
-  type === "increment"
+  type === INCREMENT
     ? setHeightInch((prevHeigthInch) => prevHeigthInch + 1)
     : setHeightInch((prevHeigthInch) => prevHeigthInch - 1);
 };
 
-export const validateAndSetWeight = (type, longPress = false, weight, setWeight) => {
+export const validateAndSetWeight = (type, weight, setWeight) => {
   if (
-    (type === "increment" && weight + 1 > MAX_WEIGHT) ||
-    (type === "increment" && weight + 10 > MAX_WEIGHT && longPress) ||
-    (type === "decrement" && weight - 1 < MIN_WEIGHT) ||
-    (type === "decrement" && weight - 10 < MIN_WEIGHT && longPress)
+    (type === INCREMENT && weight + 1 > MAX_WEIGHT) ||
+    (type === DECREMENT && weight - 1 < MIN_WEIGHT)
   )
     return;
-  const incrementValue = longPress ? 10 : 1;
-  type === "increment"
-    ? setWeight((weight) => weight + incrementValue)
-    : setWeight((weight) => weight - incrementValue);
+  type === INCREMENT
+    ? setWeight((weight) => weight + 1)
+    : setWeight((weight) => weight - 1);
+};
+
+export const validateWeightOnLongPress = (type, setWeight) => {
+  type === INCREMENT
+    ? setWeight((weight) =>
+        weight + 10 <= MAX_WEIGHT ? weight + 10 : MAX_WEIGHT
+      )
+    : setWeight((weight) =>
+        weight - 10 >= MIN_WEIGHT ? weight - 10 : MIN_WEIGHT
+      );
+};
+
+export const validateAndSetAge = (type, isLongPress, setAge) => {
+  const count = isLongPress ? 10 : 1;
+  type === INCREMENT
+    ? setAge((age) => (age + count <= MAX_AGE ? age + count : MAX_AGE))
+    : setAge((age) => (age - count >= MIN_AGE ? age - count : MIN_AGE));
 };

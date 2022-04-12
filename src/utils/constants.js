@@ -70,6 +70,10 @@ export const COMPLETED = "Completed";
 export const DELETE = "delete";
 export const UPDATE_ORDER = "Update Order";
 export const PLAN_YOUR_MEAL = "Plan your Meal";
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const MALE = "Male";
+export const FEMALE = "Female";
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET: "Height-Feet",
@@ -88,6 +92,9 @@ export const PERSONAL_INFO = {
   MAX_WEIGHT: 200,
   DEFAULT_MEN_WEIGHT: 65,
   DEFAULT_WOMEN_WEIGHT: 55,
+  MAX_AGE: 140,
+  MIN_AGE: 1,
+  DEFAULT_AGE: 30,
 };
 
 export const CART = {

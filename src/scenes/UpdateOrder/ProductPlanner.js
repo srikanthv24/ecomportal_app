@@ -3,9 +3,9 @@ import { Calendar } from "react-multi-date-picker";
 import MealPlanner from "./MealPlanner";
 import SessionCordinator from "../../components/SessionCordinator";
 import ProductDisplay from "../../components/ProductPlanner/ProductDisplay";
-import { PICKUP, DELIVERY } from "../../utils/constants";
 import _ from "underscore";
 import moment from "moment";
+import DeliverySwitch from "../../components/DeliverySwitch/DeliverySwitch";
 
 const ProductPlanner = ({
   productTitle,
@@ -15,19 +15,16 @@ const ProductPlanner = ({
   inputs,
   setInputs,
   setDisable,
-  setNewDates
+  setNewDates,
 }) => {
   const today = new Date();
   const tomorrow = new Date();
 
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  // const [values, setValues] = useState([inputs.orderDate]);
   const [completedDates, setCompletedDates] = useState([]);
   const [remainingDates, setRemainingDates] = useState([]);
-  const [OrderDatesError, setOrderDatesError] = useState("");
   const [planDuration, setPlanDuration] = useState(0);
-  
 
   useEffect(() => {
     inputs?.variants?.map((item) =>
@@ -60,12 +57,11 @@ const ProductPlanner = ({
       }
     }
     return props;
-  }
+  };
 
   const handleCalendarChange = (dateObj) => {
     let temp = [...remainingDates];
     if (completedDates?.length + dateObj?.length > planDuration) {
-      
     } else {
       let abc = [];
       dateObj.forEach((date) => {
@@ -77,7 +73,10 @@ const ProductPlanner = ({
   }
 
   useEffect(() => {
-    if (remainingDates.length + completedDates.length === parseInt(planDuration)) {
+    if (
+      remainingDates.length + completedDates.length ===
+      parseInt(planDuration)
+    ) {
       setDisable(false);
       const newDates = [...completedDates, ...remainingDates];
       setNewDates(newDates);
@@ -86,7 +85,7 @@ const ProductPlanner = ({
     }
   },[remainingDates])
 
-
+  
   return (
     <div className="product-planner">
       <ProductDisplay
@@ -100,51 +99,24 @@ const ProductPlanner = ({
         sessionCodes={["B", "L", "D"]}
         disabled={true}
       />
-      <p>{OrderDatesError}</p>
-      <Calendar
-        format="YYYY-MM-DD"
-        multiple
-        numberOfMonths={2}
-        minDate={new Date()}
-        style={{ width: "100%" }}
-        value={remainingDates}
-        onChange={(dateObj) => handleCalendarChange(dateObj)}
-        mapDays={({date}) => mapCalendarDates(date)}
-      />
-      <div className="mealPlan-date"></div>
-
-      <div className="mealplan-address-block">
-        <div className="w-100p meal-transport vlradio-toolbar">
-        <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="order-type"
-            id={PICKUP}
-            checked={inputs.deliveryType === PICKUP ? true : false}
-            value={PICKUP}
-            disabled
-          />
-          <label className="form-check-label" htmlFor={PICKUP}>
-            Pickup
-          </label>
-        </div>
-        <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p relative">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="order-type"
-            id={DELIVERY}
-            checked={inputs.deliveryType === DELIVERY ? true : false}
-            value={DELIVERY}
-            disabled
-          />
-          <label className="form-check-label" htmlFor={DELIVERY}>
-            Delivery
-          </label>
-        </div>
-        </div>
+      <div className="d-flex justify-content-start">
+        <small className="font-weight-bold justify-content-start text-muted selected-duration">{`selected ${
+          completedDates?.length + remainingDates?.length
+        }/${planDuration} days`}</small>
       </div>
+      <div className="calendar-container">
+        <Calendar
+          format="YYYY-MM-DD"
+          multiple
+          numberOfMonths={2}
+          minDate={new Date()}
+          value={remainingDates}
+          onChange={(dateObj) => handleCalendarChange(dateObj)}
+          mapDays={({ date }) => mapCalendarDates(date)}
+        />
+      </div>
+      <div className="mealPlan-date"></div>
+      <DeliverySwitch deliveryType={inputs.deliveryType} disabled={true} />
       <div className="meal-plan-wrapper">
         {inputs?.variants[0]?.items.map((variant) => (
           <MealPlanner variant={variant} type={inputs?.deliveryType} />
