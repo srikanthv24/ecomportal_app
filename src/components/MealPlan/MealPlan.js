@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { CUSTOM_PLAN, DAYS_PLAN, SERVINGS } from "../../utils/constants";
 import { BiRupee } from "react-icons/bi";
@@ -30,6 +30,11 @@ const MealPlan = React.memo(
         setCustomDuration(inputDuration);
       }
     };
+
+    useEffect(() => {
+      onMealClick(canChangeDuration ? customDuration : duration);
+    },[customDuration])
+    
     console.log("discount in meal plan: " + JSON.stringify(discount));
     return (
       <div

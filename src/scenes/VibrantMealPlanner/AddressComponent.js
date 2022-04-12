@@ -137,13 +137,13 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
   },[deliveryCharge])
 
   useEffect(() => {
-    if (_.isEmpty(newAddress.aline2) ||
-        _.isEmpty(newAddress.postalcode) ||
-        _.isEmpty(newAddress.city) ||
-        _.isEmpty(newAddress.state)
-      ) {
-      setDeliveryCost(0);
+    if (newAddress.aline2 === "" ||
+        newAddress.postalcode === "" ||
+        newAddress.city === "" ||
+        newAddress.state === "" ) {
       setDisableAddressSelect(true);
+    } else {
+      setDisableAddressSelect(false);
     }
     handleScriptLoad(autoCompleteRef);
     autoComplete.addListener("place_changed", () =>
@@ -151,9 +151,6 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
     );
   },[newAddress])
 
-  useEffect(() => {
-    
-  }, [newAddress]);
 
   const handleGoBack = (e) => {
     e.preventDefault();
