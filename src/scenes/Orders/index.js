@@ -63,8 +63,10 @@ const Orders = () => {
       displayErrorModal(error.message);
     } else {
       dispatch(setSubscriptionDetails(subscriptionDetails));
-      if (eventKey === SERVICE_TYPE.EDIT_SUBSCRIPTION)
-        history.push(`/products/${subscriptionDetails?.item?.item_id}`);
+      if (eventKey === SERVICE_TYPE.EDIT_SUBSCRIPTION) {
+        const link = `/order/${subscriptionDetails.id}/${subscriptionDetails.ciid}/${subscriptionDetails.subscription_id}`
+        history.push(link);
+      }
       setSelectedSubscriptionDetails(subscriptionDetails);
       setShowSubscriptionModal(true);
     }
