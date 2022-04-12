@@ -20,13 +20,14 @@ const MealPlan = React.memo(
     isActive,
   }) => {
     const [customDuration, setCustomDuration] = useState(
-      canChangeDuration ? duration : 0
+      canChangeDuration ? duration : 1
     );
     const onCustomDurationChange = (e) => {
-      const numberRegix = /^[0-9\b]+$/;
-      const customDuration = e.target.value;
-      if (customDuration === "" || numberRegix.test(customDuration)) {
-        setCustomDuration(customDuration);
+      const numberRegix = /\b([1-9]|[1-9][0-9]|100)\b/;
+      const inputDuration = e.target.value;
+
+      if (inputDuration === "" || numberRegix.test(inputDuration)) {
+        setCustomDuration(inputDuration);
       }
     };
     console.log("discount in meal plan: " + JSON.stringify(discount));

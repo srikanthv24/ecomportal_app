@@ -138,7 +138,8 @@ function VibrantMealPlanner() {
     setSelectedStartDate(date);
   };
 
-  const onAddToCart = () => {
+  const onAddToCart = (e) => {
+    e.preventDefault();
     if (!customerId || customerId === "") {
       dispatch(showLogin());
     } else {
@@ -264,7 +265,7 @@ function VibrantMealPlanner() {
               <div className="d-flex btn-group vl-action-btn m-3">
                 {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}
                 <button type="button" className="btn w-100p vl-go-next-btn" 
-                  disabled={!selectedDuration || selectedSessions.length === 0} 
+                  disabled={!selectedDuration || selectedSessions.length === 0}
                   onClick={onAddToCart} >
                     {ADD_TO_CART}
                 </button>
