@@ -76,7 +76,7 @@ const CartSummary = () => {
         handleClose={() => dispatch(hideAlert())}
         footer={
           <div>
-            <Button
+            <Button className="vl-custom-btn"
               onClick={() => {
                 dispatch(hideAlert());
                 dispatch(getCart({ customer_id: userDetails.sub }));
@@ -156,10 +156,10 @@ const CartSummary = () => {
                   <h3>No Items added to cart</h3>
                 </div>
                 <div className="dis-back-btn">
-                <Button
+                <Button className="vl-custom-btn"
                   onClick={() => history.push("/")}                                  
                 >
-                  Explore products
+                  Go to products
                 </Button>
                 </div>
               </div>

@@ -807,8 +807,8 @@ const ProductPlanner = ({
                                 your area, please give a call to arrange
                                 alternate delivery options
                               </div>
-                              <div class="card mx-auto my-3 p-0 bg-transparent border-0">
-                                <div class="card-body d-flex align-items-center p-0 justify-content-around contact-info">
+                              <div className="card mx-auto my-3 p-0 bg-transparent border-0">
+                                <div className="card-body d-flex align-items-center p-0 justify-content-around contact-info">
                                   <div>
                                     <FaWhatsapp
                                       className="me-2"

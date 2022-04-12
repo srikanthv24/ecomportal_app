@@ -3,10 +3,10 @@ import React from "react";
 const MealPlanner = ({variant, type}) => {
 
   return(
-    <div class="meal-card">
+    <div className="meal-card">
       <div>
         <span>{variant.display_name}</span>
-        <span><i class="fa-solid fa-location-check"></i></span>
+        <span><i className="fa-solid fa-location-check"></i></span>
       </div>
       {/* <span>7 Servings</span>
       <span>

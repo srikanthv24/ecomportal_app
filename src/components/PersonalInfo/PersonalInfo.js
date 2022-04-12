@@ -129,10 +129,10 @@ const PersonalInfo = ({
       </p>
       <div className="personal-info-step">
         <Card.Body className="px-0 d-flex justify-content-between">
-          <label class="gender-card justify-content-center relative my-3">
+          <label className="gender-card justify-content-center relative my-3">
             <input
               name="gender"
-              class="radio"
+              className="radio"
               value={MALE}
               type="radio"
               readOnly
@@ -140,12 +140,12 @@ const PersonalInfo = ({
               onChange={onGenderChange}
             />
             <span
-              class="plan-details"
+              className="plan-details"
               onClick={() => {
                 setGender(MALE);
               }}
             >
-              <span class="plan-cost1">
+              <span className="plan-cost1">
                 {/* <MdMale /> */}
                 <img src={MaleIcon} alt="Icon" height="60" />
               </span>
@@ -154,10 +154,10 @@ const PersonalInfo = ({
               <label>Male</label>
             </div>
           </label>
-          <label class="gender-card justify-content-center relative my-3">
+          <label className="gender-card justify-content-center relative my-3">
             <input
               name="gender"
-              class="radio"
+              className="radio"
               type="radio"
               value={FEMALE}
               readOnly
@@ -165,12 +165,12 @@ const PersonalInfo = ({
               onChange={onGenderChange}
             />
             <span
-              class="plan-details"
+              className="plan-details"
               onClick={() => {
                 setGender(FEMALE);
               }}
             >
-              <span class="plan-cost1">
+              <span className="plan-cost1">
                 {/* <MdFemale /> */}
                 <img src={FemaleIcon} alt="Icon" height="60" />
               </span>
