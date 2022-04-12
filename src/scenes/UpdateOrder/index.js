@@ -94,7 +94,7 @@ const UpdateOrder = () => {
 
   return(
     <section className="planner-container">
-      <div className="px-3 text-center pb-3">
+      <div className="text-center pb-3 updateOrder-sec">
         {
           loading ?
           <div className="fullscreen-loader">

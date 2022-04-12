@@ -32,7 +32,7 @@ const VibrantPlannerDisclaimer = ({handleBackClick}) => {
             </div>
           </div>
           <div className="dis-back-btn">
-          <button type="button" className="btn w-50p btn-secondary" onClick={handleBackClick}>Go Back</button>
+          <button type="button" onClick={handleBackClick}>Go Back</button>
           </div>
         </section>
 

@@ -1,17 +1,17 @@
 .order-modal-content {
-  background: #ffffff;
+  background: rgb(245, 224, 188);
   padding: 15px;
   border-radius: 6px;
 }
 
 .order-modal-content h4 {
-  font-family: "Roboto";
-  font-weight: 300;
+  font-family: "Roboto Medium",sans-serif;
+  font-weight: 500;
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.01em;
-  padding-bottom: 10px;
-  margin-bottom: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 15px;
 }
 .order-modal-content .form-check-label {
   font-family: "Roboto";
@@ -58,8 +58,8 @@
 }
 .vl-btn-primary {
   color: #fff;
-  background-color: #f05922 !important;
-  border-color: #f05922 !important;
+  background-color: #614731 !important;
+  border-color: #614731 !important;
 }
 .vl-btn-secondary {
   color: #212121 !important;
@@ -79,4 +79,7 @@
 
 .subscription-description {
   margin-bottom: 5px;
+  font-family: 'Roboto Regular',sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }

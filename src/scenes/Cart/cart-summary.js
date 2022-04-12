@@ -155,12 +155,13 @@ const CartSummary = () => {
                 <div className="h5 d-flex justify-content-center align-items-center disclaimer-info">
                   <h3>No Items added to cart</h3>
                 </div>
+                <div className="dis-back-btn">
                 <Button
-                  onClick={() => history.push("/")}
-                  className="dis-back-btn"                
+                  onClick={() => history.push("/")}                                  
                 >
                   Explore products
                 </Button>
+                </div>
               </div>
             )}
         </section>

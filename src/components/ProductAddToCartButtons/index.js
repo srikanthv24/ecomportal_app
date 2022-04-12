@@ -41,10 +41,10 @@ const ProductAddToCartButtons = ({
         </InputGroup>
       ) : (
         <Button
-          className="w-100p custom-primary-btn single-prd-add-cart-btn"
-          onClick={handleCartItem}
+          className="w-100p single-prd-add-cart-btn vl-custom-btn"
+          onClick={handleCartItem} style={{maxWidth:'calc(100% - 40px)', left:'20px'}}
         >
-          <AiOutlineShoppingCart />
+          <AiOutlineShoppingCart style={{marginRight:'12px'}} />
           {cartLoading || cartUpdateLoading ? (
             <Spinner animation="border" role="status" />
           ) : (

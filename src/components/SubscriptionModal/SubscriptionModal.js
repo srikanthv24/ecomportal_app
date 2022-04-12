@@ -68,7 +68,7 @@ const SubscriptionModal = React.memo(
         <section className="order-modal-content">
           <SubscriptionTitle text={SERVICE_LABELS[serviceType]} />
           <Modal.Body>
-            <section className="modal-body-content">
+            <section className="modal-body-content product-planner subs-modal-content">
               {serviceType === SERVICE_TYPE.PAUSE_TOMORROW ||
               serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN ||
               serviceType === SERVICE_TYPE.PAUSE_INDEFINITE ||
