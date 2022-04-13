@@ -41,6 +41,7 @@ const PersonalInfo = ({
   onProfileDetailsSubmit,
 }) => {
   const [gender, setGender] = useState(defaultGender);
+  const [genderSelected, setGenderSelected] = useState(false);
   const [heightFeet, setHeightFeet] = useState(
     defaultGender === MALE ? DEFAULT_MEN_FEET : DEFAULT_WOMEN_FEET
   );
@@ -56,6 +57,8 @@ const PersonalInfo = ({
   const isTouch = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
 
   const onGenderChange = (e) => {
+    setGender(e.target.value);
+    setGenderSelected(true);
     if (!hasUserChangedAnyValue) {
       setHeightFeet(gender === MALE ? DEFAULT_MEN_FEET : DEFAULT_WOMEN_FEET);
       setHeightInch(
@@ -336,6 +339,7 @@ const PersonalInfo = ({
           type="button"
           className="btn w-100p vl-go-next-btn"
           onClick={onSubmit}
+          disabled={!genderSelected}
         >
           {NEXT}
         </button>
