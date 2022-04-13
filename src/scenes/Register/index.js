@@ -70,16 +70,13 @@ const Register = (props) => {
   return (
     <div className="container login-container">
       <Row>
-        <Col xs={12} sm={12} lg={12}>
-          <p className="h3 my-3 text-center" style={{
-              fontFamily: "Roboto",
-              fontWeight: "700",
-            }}>Signup</p>
+        <Col xs={12} sm={12} lg={12} className="px-0">
+          <p className="vl-modal-title-txt">Signup</p>
           {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
-          </div> */}
-          <p className="fw-bold">Sign up with your mobile number, name and password</p>
+          </div> */}          
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
+          <p className="vl-modal-sub-desp-txt">Sign up with your mobile number, name and password</p>
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
@@ -92,7 +89,7 @@ const Register = (props) => {
             <FloatingLabel
               controlId="name"
               label="Name"
-              className="mb-3"
+              className="mb-3 vl-input-element"
             >
               <Form.Control
                 placeholder="Name"
@@ -107,7 +104,7 @@ const Register = (props) => {
             <FloatingLabel
               controlId="password"
               label="Password"
-              className="mb-3"
+              className="mb-3 vl-input-element"
             >
               <Form.Control
                 placeholder="password"
@@ -123,15 +120,15 @@ const Register = (props) => {
               <p className="text-danger input-error-txt" style={{ textAlign: "left" }}>Your password should be minimum 8 characters and 1 small letter, 1 capital letter, 1 number and 1 special character atleast</p>
             }
             <Button
-              className="w-100 mt-2 mb-3 btn btn-lg modal-footer-btn"
+              className="mt-2 mb-3 vl-login-submit-btn"
                type="submit"
               size="lg"
             >
               SignUp
             </Button>
 
-            <p className="text-muted text-center">
-              Already an account with Vibrant Living? <a style={{whiteSpace:"nowrap"}} className="hyper-link-txt" href="#" onClick={handleLogInClick}>Sign In</a>
+            <p className="text-center vl-modal-footer-btn">
+              Already an account with Vibrant Living? <a style={{whiteSpace:"nowrap"}} className="vl-hyper-link-txt" href="#" onClick={handleLogInClick}>Sign In</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">

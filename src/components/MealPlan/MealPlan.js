@@ -23,7 +23,7 @@ const MealPlan = React.memo(
       canChangeDuration ? duration : 1
     );
     const onCustomDurationChange = (e) => {
-      const numberRegix = /\b([1-9]|[1-9][0-9]|100)\b/;
+      const numberRegix = /^([1-9]|[1-5][0-9]|60|all)$/;
       const inputDuration = e.target.value;
 
       if (inputDuration === "" || numberRegix.test(inputDuration)) {
@@ -57,7 +57,7 @@ const MealPlan = React.memo(
                     <Form.Control
                       type="number"
                       size="sm"
-                      min="1"
+                      min="1" max="60"
                       value={customDuration}
                       onChange={onCustomDurationChange}
                       style={{ width: "60px", marginRight: "10px" }}

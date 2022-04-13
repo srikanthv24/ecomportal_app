@@ -44,18 +44,18 @@ export const MEAL_PRICE_TYPES = {
 };
 
 export const MEAL_PLAN_STEPS = {
-  CHOOSE_YOUR_MEAL: "Choose your Meal",
+  CHOOSE_YOUR_MEAL: "Choose your cuisine",
   CHOOSE_YOUR_GOAL: "Choose your Goal",
   MY_PROFILE: "My Profile",
   SCHEDULE: "Schedule",
-  CUSTOM_DIET: "I need Custom Diet",
+  CUSTOM_DIET: "I need a custom diet",
 };
 
 export const DISCLAIMER_DATA = {
   CONTACT_NUMBER: "8096091111",
   SECONDARY_TEXT: "",
   PRIMARY_TEXT:
-    "Give us an Opportunity to understand your requirements and serve you better",
+    "to help us understand your needs.",
 };
 
 export const PICKUP = "Pickup";
@@ -82,9 +82,9 @@ export const PERSONAL_INFO = {
   WEIGHT: "Weight",
   AGE: "Age",
   MIN_INCHES: 0,
-  MAX_INCHES: 11,
+  MAX_INCHES: 8,
   MIN_FEET: 4,
-  MAX_FEET: 7,
+  MAX_FEET: 6,
   DEFAULT_MEN_FEET: 5,
   DEFAULT_MEN_INCHES: 8,
   DEFAULT_WOMEN_FEET: 5,

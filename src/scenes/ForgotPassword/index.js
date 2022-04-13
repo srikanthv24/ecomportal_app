@@ -66,16 +66,13 @@ const ForgotPassword = (props) => {
   return (
     <div className="container login-container">
       <Row>
-        <Col xs={12} sm={12} lg={12}>
-          <p className="h3 mb-3 text-center" style={{
-              fontFamily: "Roboto",
-              fontWeight: "700",
-            }}>Forgot Password</p>
+        <Col xs={12} sm={12} lg={12} className="px-0">
+          <p className="vl-modal-title-txt">Forgot Password</p>
           {/* <div className="text-center mt-4">
             <Image src={VLogo} height="40" />
           </div> */}
-          <p className="fw-bold">Reset your password with your registered phone number</p>
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
+          <p className="vl-modal-sub-desp-txt">Reset your password with your registered phone number</p>          
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
@@ -92,7 +89,7 @@ const ForgotPassword = (props) => {
                   <FloatingLabel
                     controlId="otp"
                     label="OTP"
-                    className="mb-3"
+                    className="mb-3 vl-input-element"
                   >
                     <Form.Control
                       placeholder="otp"
@@ -145,15 +142,15 @@ const ForgotPassword = (props) => {
             }
             
             <Button
-              className="w-100 mt-2 mb-3 btn btn-lg modal-footer-btn"             
+              className="mt-2 mb-3 vl-login-submit-btn"             
               type="submit"
               size="lg"
             >
               { !showOtp ? 'Request OTP' : 'Reset Password' }
             </Button>
 
-            <p className="text-muted text-center">
-              Don't want to reset? <a  style={{color: "#614731"}}  href="#" onClick={handleLogInClick}>Sign In</a>
+            <p className="vl-modal-footer-btn text-center">
+              Don't want to reset? <a className="vl-hyper-link-txt" href="#" onClick={handleLogInClick}>Sign In</a>
             </p>
             {error && (
               <Alert variant="danger" className="mt-3">
