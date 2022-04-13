@@ -1,8 +1,9 @@
 import moment from "moment";
+import { INDIAN_DATE_FORMAT, ISO_FORMAT } from "./constants";
 
-export const getMinDateAsToday = () => moment().format("YYYY-MM-DD");
+export const getMinDateAsToday = () => moment().format(ISO_FORMAT);
 
-export const getCustomMinDate = () => moment().format("YYYY-MM-DD");
+export const getCustomMinDate = () => moment().format(ISO_FORMAT);
 
 export const getMinDate = (subscriptions) => {
   const startDatesofSessions = subscriptions?.map(
@@ -22,9 +23,21 @@ export const getMaxDate = (subscriptions) => {
 };
 
 export const getDateInTextFormat = (date) => {
-  return moment(new Date(date)).format("MMMM Do, YYYY");
+  return moment(date).format("MMMM Do, YYYY");
+};
+
+export const getDateInIndianFormat = (date) => {
+  return moment(date).format(INDIAN_DATE_FORMAT);
+};
+
+export const getDateInISOformat = (date) => {
+  return moment(date, INDIAN_DATE_FORMAT).format(ISO_FORMAT);
 };
 
 export const getTomorrowDate = () => {
-  return moment().add(1, "days").format("YYYY-MM-DD");
+  return moment().add(1, "days").format(ISO_FORMAT);
 };
+
+export const getTodayDate = () => {
+  return moment().format(ISO_FORMAT);
+}

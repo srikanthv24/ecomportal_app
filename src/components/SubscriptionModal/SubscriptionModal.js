@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import SessionCordinator from "../SessionCordinator";
 import DatePicker from "react-multi-date-picker";
 import { Modal } from "react-bootstrap";
-import { SERVICE_TYPE, SERVICE_LABELS } from "../../utils/constants";
+import {
+  SERVICE_TYPE,
+  SERVICE_LABELS,
+  INDIAN_DATE_FORMAT,
+  ISO_FORMAT,
+} from "../../utils/constants";
 import SubscriptionButtonGroup from "./SubscriptionButtonGroup";
 import SubscriptionTitle from "./SubscriptionTitle";
 import moment from "moment";
@@ -12,6 +17,11 @@ import {
   isPauseSubscriptionService,
   getSubscriptionConfirmationText,
 } from "../../utils/subscriptionUtils";
+import {
+  getDateInIndianFormat,
+  getDateInISOformat,
+  getTomorrowDate,
+} from "../../utils/dateUtils";
 
 const SubscriptionModal = React.memo(
   ({
@@ -25,9 +35,14 @@ const SubscriptionModal = React.memo(
     sessionCodes,
     productName,
   }) => {
-    const [selectedSessionCodes, setSelectedSessionCodes] = useState(sessionCodes);
-    const [fromDate, setFromDate] = useState(minDate);
-    const [toDate, setToDate] = useState(minDate);
+    const [selectedSessionCodes, setSelectedSessionCodes] =
+      useState(sessionCodes);
+    const [fromDateInIndianFormat, setFromDate] = useState(
+      getDateInIndianFormat(minDate)
+    );
+    const [toDateInIndianFormat, setToDate] = useState(
+      getDateInIndianFormat(minDate)
+    );
     const [comments, setComments] = useState("");
     const setDatesAndSubmit = () => {
       if (selectedSessionCodes.length === 0) return;
@@ -48,23 +63,22 @@ const SubscriptionModal = React.memo(
       if (serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) {
         return maxDate;
       } else if (serviceType === SERVICE_TYPE.PAUSE_TOMORROW) {
-        return moment().add(1, "days").format("YYYY-MM-DD");
+        return getTomorrowDate();
       } else if (serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN) {
-        return toDate;
+        return getDateInISOformat(toDateInIndianFormat);
       }
     };
     const getFromDate = () => {
-      const tomorrowDate = moment().add(1, "days").format("YYYY-MM-DD");
+      const tomorrowDate = getTomorrowDate();
       if (serviceType === SERVICE_TYPE.PAUSE_INDEFINITE) {
         return moment(tomorrowDate).isAfter(minDate) ? tomorrowDate : minDate;
       } else if (serviceType === SERVICE_TYPE.PAUSE_TOMORROW) {
-        return moment().add(1, "days").format("YYYY-MM-DD");
+        return tomorrowDate;
       } else if (serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN) {
-        return fromDate;
+        return getDateInISOformat(fromDateInIndianFormat);
       }
     };
 
-    
     return (
       <Modal show={show} centered>
         <section className="order-modal-content">
@@ -87,9 +101,10 @@ const SubscriptionModal = React.memo(
                         className="order-form-control-input"
                         minDate={minDate}
                         maxDate={maxDate}
-                        value={fromDate}
+                        value={fromDateInIndianFormat}
+                        format={INDIAN_DATE_FORMAT}
                         onChange={(date) =>
-                          setFromDate(date.format("YYYY-MM-DD"))
+                          setFromDate(date.format(INDIAN_DATE_FORMAT))
                         }
                       />
                     </div>
@@ -102,9 +117,10 @@ const SubscriptionModal = React.memo(
                         className="order-form-control-input"
                         minDate={minDate}
                         maxDate={maxDate}
-                        value={toDate}
+                        value={toDateInIndianFormat}
+                        format={INDIAN_DATE_FORMAT}
                         onChange={(date) =>
-                          setToDate(date.format("YYYY-MM-DD"))
+                          setToDate(date.format(INDIAN_DATE_FORMAT))
                         }
                       />
                     </div>
