@@ -231,7 +231,7 @@ const PersonalInfo = ({
               <input
                 type="number"
                 min="1"
-                max="8"
+                max="11"
                 step="1"
                 value={heightInch}
                 style={{ display: "none" }}

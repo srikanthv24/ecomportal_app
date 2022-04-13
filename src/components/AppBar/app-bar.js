@@ -90,6 +90,11 @@ export default function AppBar() {
     history.push("/cart-summary");
   };
 
+  
+  const onProfileClick = () => {   
+    history.push("/profile");
+  };
+
   return (
     <>
       <Navbar
@@ -202,8 +207,9 @@ export default function AppBar() {
                         </h6>
                       </Nav.Link>
                     ) : (
+                      <>
                       <Nav.Link onClick={onCartButtonClick}>
-                        <h6 className="text-black nav-menu-cart">
+                        <h6 className="text-black nav-menu-cart abcd">
                           <AiOutlineShoppingCart size={24} />
                           <Badge pill>
                             {Cart?.cartDetails?.items?.length &&
@@ -211,6 +217,15 @@ export default function AppBar() {
                           </Badge>
                         </h6>
                       </Nav.Link>
+                      <div className="vl-profile-icon" onClick={onProfileClick}>
+                      <img
+                        alt=""
+                        src={SmileFaceIcon}
+                        height="25"
+                        className="d-inline-block align-top"                       
+                      />
+                      </div>
+                      </>
                     )}
                   </Col>
                 ) : (

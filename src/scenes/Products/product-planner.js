@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { updateScheduleErrorStatus } from "../../store/actions";
+import { DISCLAIMER_DATA, WHATSAPP_LINK } from "../../utils/constants";
 
 import {
   Accordion,
@@ -687,9 +688,8 @@ const ProductPlanner = ({
                         }}
                       >
                         {VariantValue?.Duration?.duration
-                          ? `selected ${
-                              subscription[index].order_dates.length
-                            } /
+                          ? `selected ${subscription[index].order_dates.length
+                          } /
                       										 ${" "}${VariantValue?.Duration?.duration || 0} days.`
                           : null}
                       </span>
@@ -711,8 +711,8 @@ const ProductPlanner = ({
                                 moment(subscription[index].order_dates[0])
                                   .add(
                                     VariantValue?.Duration?.grace +
-                                      VariantValue?.Duration?.duration -
-                                      1 || 0,
+                                    VariantValue?.Duration?.duration -
+                                    1 || 0,
                                     "days"
                                   )
                                   .calendar()
@@ -802,7 +802,35 @@ const ProductPlanner = ({
                             (pincode) => parseInt(pincodes[index]) === pincode
                           ) ? (
                             <>
-                              <div className="card text-dark text-center bg-transparent border-0">
+                              <section className="disclaimerWrapper">
+                                <div className="card text-dark text-center bg-transparent border-0 disclaimer-info">
+                                  <h3> Unfortunately our services are not available in
+                                    your area, please give a call to arrange
+                                    alternate delivery options
+                                  </h3>
+                                </div>
+                                <div className="d-flex align-items-center justify-content-center message-contact-number-info my-3">
+                                  <a href={WHATSAPP_LINK} className="whatsup-info">
+                                    <span className="d-flex align-items-center">
+                                      <FaWhatsapp
+                                        className=""
+                                        style={{ width: "35px", height: "auto" }}
+                                      />
+                                    </span>
+                                  </a>
+                                  <a href={`tel:${DISCLAIMER_DATA.CONTACT_NUMBER}`} className="contact-info">
+                                    <span>
+                                      <FaPhoneAlt
+                                        className=""
+                                        style={{ width: "30px", height: "auto" }}
+                                      />
+                                    </span>
+                                  </a>
+                                </div>
+
+
+                              </section>
+                              {/* <div className="card text-dark text-center bg-transparent border-0">
                                 Unfortunately our services are not available in
                                 your area, please give a call to arrange
                                 alternate delivery options
@@ -816,7 +844,7 @@ const ProductPlanner = ({
                                     />
                                     +91 8096091111
                                   </div>
-                                  {/* <div className="vr mx-3 divider" /> */}
+                                  
                                   <div className="contact-phone">
                                     <FaPhoneAlt
                                       className="me-2"
@@ -825,7 +853,7 @@ const ProductPlanner = ({
                                     +91 8096091111
                                   </div>
                                 </div>
-                              </div>
+                              </div> */}
                             </>
                           ) : (
                             <>
