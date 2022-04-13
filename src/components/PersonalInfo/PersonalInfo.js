@@ -56,6 +56,12 @@ const PersonalInfo = ({
 
   const isTouch = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
 
+  useEffect(() => {
+    if (defaultGender && defaultGender.length > 0) {
+      setGenderSelected(true);
+    }
+  },[defaultGender])
+
   const onGenderChange = (e) => {
     setGender(e.target.value);
     setGenderSelected(true);
@@ -327,7 +333,7 @@ const PersonalInfo = ({
           </div>
         </Card.Body>
       </div>
-      <div className="d-flex btn-group vl-action-btn m-3">
+      <div className="d-flex btn-group vl-action-btn">
         {/* <button
           type="button"
           className="btn w-50p vl-go-back-btn"

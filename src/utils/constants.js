@@ -81,7 +81,7 @@ export const PERSONAL_INFO = {
   WEIGHT: "Weight",
   AGE: "Age",
   MIN_INCHES: 0,
-  MAX_INCHES: 8,
+  MAX_INCHES: 11,
   MIN_FEET: 4,
   MAX_FEET: 6,
   DEFAULT_MEN_FEET: 5,
