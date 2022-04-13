@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SessionCordinator from "../SessionCordinator";
 import DatePicker from "react-multi-date-picker";
 import { Modal } from "react-bootstrap";
@@ -63,6 +63,15 @@ const SubscriptionModal = React.memo(
         return fromDate;
       }
     };
+
+    useEffect(() => {
+      if(sessionCodes && sessionCodes.length > 0) {
+        setSelectedSessionCodes(sessionCodes);
+      } else {
+        setSelectedSessionCodes([]);
+      }
+    }, [sessionCodes]);
+    
     return (
       <Modal show={show} centered>
         <section className="order-modal-content">
@@ -110,6 +119,8 @@ const SubscriptionModal = React.memo(
                   <SessionCordinator
                     sessionCodes={sessionCodes}
                     onSessionChange={onSessionChange}
+                    disabled={true}
+                    selectedSessions={sessionCodes}
                   />
                   <SubscriptionComments
                     onCommentsChange={(e) => setComments(e.target.value)}
