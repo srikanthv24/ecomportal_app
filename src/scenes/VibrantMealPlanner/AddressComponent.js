@@ -303,7 +303,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
                       onChange={handleHouseAreaChange}
                     />
                   </FloatingLabel>
-                  <FloatingLabel
+                  {/* <FloatingLabel
                     label="Postal Code"
                     className="mt-3 mb-2"
                   >
@@ -316,7 +316,7 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
                       disabled
                       
                     />
-                  </FloatingLabel>
+                  </FloatingLabel> */}
                   <FloatingLabel
                     //controlId="floatingInput"
                     label="City"
