@@ -264,7 +264,7 @@ function VibrantMealPlanner() {
                 onDeliveryChange={onDeliveryTypeChange}
                 setAddressSelected={setAddressSelected}
               />
-              <div className="d-flex btn-group vl-action-btn m-3">
+              <div className="d-flex btn-group vl-action-btn">
                 {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}
                 <button type="button" className="btn w-100p vl-go-next-btn" 
                   disabled={!selectedDuration || selectedSessions.length === 0}

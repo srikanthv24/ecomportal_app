@@ -32,7 +32,7 @@
   // background-color: #cccccc;
   .vl-go-back-btn,.vl-go-next-btn{    
     width: 100%;
-    // max-width: 300px;
+    max-width:calc(100% - 40px);
     height: 50px;    
     display: flex;
     flex-wrap: wrap;
@@ -48,13 +48,13 @@
     // background-color: #e4e4e4;
     background: transparent !important;
     color: #424141;
-    border-radius: 10px;
+    border-radius: 20px;
     border:1px solid #614731;
   }
   .vl-go-next-btn{   
     background-color: #614731;
     color: #F7F2DF;
-    border-radius: 10px;
+    border-radius: 20px;
     border:1px solid #614731 !important;
   }
   .vl-go-next-btn:hover{
