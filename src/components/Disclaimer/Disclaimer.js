@@ -28,7 +28,7 @@ const Disclaimer = () => {
           </div> */}
           <div className="card mx-auto my-3 p-0 bg-transparent border-0">
             <div className="card-body d-flex align-items-center p-0 justify-content-around">
-              <div className="d-flex align-items-center message-contact-number-info">
+              <div className="d-flex align-items-center message-contact-number-info my-3">
                 <a href={WHATSAPP_LINK} className="whatsup-info">
                   <span className="d-flex align-items-center">
                     <FaWhatsapp

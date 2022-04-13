@@ -6,9 +6,8 @@ import {
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
-import { PICKUP, WHATSAPP_LINK } from "../../utils/constants";
+import { DISCLAIMER_DATA,PICKUP, WHATSAPP_LINK } from "../../utils/constants";
 import { calculateDeliveryCharge, getPostalCodes } from "../../store/actions/addresses";
-
 
 let autoComplete;
 let addressLat = "", addressLong = "";
@@ -191,32 +190,32 @@ const AddressComponent = ({setAddress, setDelivery, onDeliveryTypeChange, setAdd
         {
           showPincodeError ?
             <>
+            <section className="disclaimerWrapper">
               <div className="card text-dark text-center bg-transparent border-0">
-                Unfortunately our services are not available in
-                your area, please give a call to arrange
-                alternate delivery options
-              </div>
-              <div className="card mx-auto my-3 p-0 bg-transparent border-0">
-                <div className="card-body d-flex align-items-center p-0 justify-content-around contact-info">
-                <a href={WHATSAPP_LINK}>
-                  <div>
+              <h4>{DISCLAIMER_DATA.PRIMARY_TEXT}
+                &nbsp;<strong>{DISCLAIMER_DATA.CONTACT_NUMBER}</strong>&nbsp;
+                {DISCLAIMER_DATA.SECONDARY_TEXT}
+              </h4>
+              </div>            
+              <div className="d-flex align-items-center justify-content-center message-contact-number-info my-3">
+                <a href={WHATSAPP_LINK} className="whatsup-info">
+                  <span className="d-flex align-items-center">
                     <FaWhatsapp
-                      className="me-2"
-                      style={{ width: "30px", height: "auto" }}
-                    />
-                    +91 8096091111
-                  </div>
+                      className=""
+                      style={{ width: "35px", height: "auto" }}
+                    />                    
+                  </span>
                 </a>
-                  {/* <div className="vr mx-3 divider" /> */}
-                  <div className="contact-phone">
-                    <FaPhoneAlt
-                      className="me-2"
-                      style={{ width: "20px", height: "auto" }}
-                    />
-                    +91 8096091111
-                  </div>
-                </div>
+                <a href={`tel:${DISCLAIMER_DATA.CONTACT_NUMBER}`} className="contact-info">
+                  <span>
+                  <FaPhoneAlt
+                    className=""
+                    style={{ width: "30px", height: "auto" }}
+                  />                 
+                  </span>
+                </a>
               </div>
+              </section>
             </>
             :
             <>

@@ -13,14 +13,13 @@ const VibrantPlannerDisclaimer = ({ handleBackClick }) => {
             {DISCLAIMER_DATA.SECONDARY_TEXT}
           </h3>
         </div>
-        <div className="d-flex align-items-center message-contact-number-info">
+        <div className="d-flex align-items-center justify-content-center message-contact-number-info my-3">
           <a href={WHATSAPP_LINK} className="whatsup-info">
             <span className="d-flex align-items-center">
               <FaWhatsapp
                 className=""
                 style={{ width: "35px", height: "auto" }}
-              />
-              {/* {`+91 ${DISCLAIMER_DATA.CONTACT_NUMBER}`} */}
+              />              
             </span>
           </a>
           <a href={`tel:${DISCLAIMER_DATA.CONTACT_NUMBER}`} className="contact-info">
@@ -28,8 +27,7 @@ const VibrantPlannerDisclaimer = ({ handleBackClick }) => {
               <FaPhoneAlt
                 className=""
                 style={{ width: "30px", height: "auto" }}
-              />
-              {/* {`+91 ${DISCLAIMER_DATA.CONTACT_NUMBER}`} */}
+              />             
             </span>
           </a>
         </div>

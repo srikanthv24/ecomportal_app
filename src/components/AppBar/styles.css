@@ -179,3 +179,10 @@
 .cursor-pointer{
     cursor: pointer;
 }
+.vl-profile-icon{
+    position: relative;
+    right: -10px;
+    top: 8px;
+    margin: 0px 6px;
+    cursor: pointer;
+}
