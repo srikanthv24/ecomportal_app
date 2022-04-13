@@ -1,18 +1,18 @@
 .login-container{
-    /* max-width: 600px !important;
+    max-width: 600px !important;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-height: 450px; */
+    min-height: 450px;
 }
 .customform .form-floating>.form-control{
     /* padding: .5rem .75rem; */
-    /* font-size: 16px; */
+    font-size: 16px;
   }
   .customform .input-group .form-control {
-    /* padding: 0.75rem .75rem; */
-    /* font-size: 16px; */
+    padding: 0.75rem .75rem;
+    font-size: 16px;
   }
   /* .form-floating>.form-control{
     height: calc(3rem + 2px) !important;
@@ -68,9 +68,9 @@
     outline: 0;
 }
 .customform .input-group-text{
-  /* color: #ffffff !important;
+  color: #ffffff !important;
   background-color: #614731 !important;
-  border-color: #614731 !important; */
+  border-color: #614731 !important;
 }
 .hyper-link-txt{
   font-family: 'Roboto Medium',sans-serif;

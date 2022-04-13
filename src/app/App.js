@@ -62,15 +62,14 @@ function App() {
         // message={errors[0]?.message}
       />
       <Modal show={loginModal} centered size="xl">
-        <Button
-          variant="light"
-          style={{ position: "absolute", top: 0, right: 0 }}
+        <Button         
+          style={{ position: "absolute", top: 0, right: 0, background:'#f5f5f5', border:'none' }}
           onClick={() => dispatch(hideLogin())}
         >
           <GrClose />
         </Button>
 
-        <Container style={{ background: "#F7F2DF", minHeight: 600, width: "100%" }}>
+        <Container style={{ background: "#FFFFFF", minHeight: 400, width: "100%", padding:'0px' }}>
           <LoginModal />
         </Container>
       </Modal>

@@ -31,6 +31,7 @@ import arrowRightIcon from "./../../assets/arrow-right.png";
 import MenuIcon from "./../../assets/home/search-normal.svg";
 import CustomSpinner from "../CustomSpinner";
 import { getCart } from "../../store/actions";
+import SmileFaceIcon from "./../../assets/home/smile.svg";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -113,6 +114,7 @@ export default function AppBar() {
               aria-controls="responsive-navbar-nav"
               onClick={() => setMenu(true)}
             /> */}
+
               <img
                 alt=""
                 src={MenuIcon}
@@ -213,15 +215,22 @@ export default function AppBar() {
                   </Col>
                 ) : (
                   <>
-                    <div className="d-flex">
-                      <Nav.Link onClick={handleLoginModal}>
+                    <div className="d-flex pt-2 cursor-pointer">
+                      {/* <Nav.Link onClick={handleLoginModal}>
                         <p
                           className="text-black nav-menu-cart"
                           style={{ paddingRight: "1rem" }}
                         >
                           Login / SignUp
                         </p>
-                      </Nav.Link>
+                      </Nav.Link> */}
+                      <img
+                        alt=""
+                        src={SmileFaceIcon}
+                        height="25"
+                        className="d-inline-block align-top"
+                        onClick={handleLoginModal}
+                      />
                     </div>
                   </>
                 )}

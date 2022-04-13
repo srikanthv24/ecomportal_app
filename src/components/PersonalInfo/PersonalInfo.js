@@ -195,7 +195,7 @@ const PersonalInfo = ({
               <input
                 type="number"
                 min="1"
-                max="9"
+                max="6"
                 value={heightFeet}
                 readOnly
                 style={{ display: "none" }}
@@ -228,7 +228,7 @@ const PersonalInfo = ({
               <input
                 type="number"
                 min="1"
-                max="9"
+                max="8"
                 step="1"
                 value={heightInch}
                 style={{ display: "none" }}

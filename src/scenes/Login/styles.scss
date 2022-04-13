@@ -1,0 +1,88 @@
+.vl-login-popup-container {
+    max-width: 100%;    
+    min-height: 450px;
+}
+.vl-modal-title-txt{
+    background-color: #f5f5f5;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size:1rem;
+    font-family: 'Roboto Bold',sans-serif;
+    font-weight: 700;
+    line-height: 1.75rem;
+}
+.vl-modal-sub-desp-txt{
+    color: #484955;
+    font-size: 10px;
+    font-family: 'Roboto Bold',sans-serif;
+    font-weight: 700;
+    letter-spacing: .2em;
+    margin-bottom: 0.5em;
+    opacity: .5;
+    padding-top: 0!important;
+    text-transform: uppercase;
+}
+.customform{
+    margin-top: 0!important;
+    padding: 16px 16px 70px;
+    position: relative;
+    .input-group{
+        // border:1px solid rgb(196, 196, 196);
+        min-height: 58px;
+    }
+    .form-control{
+        border-radius: 0px !important;
+        border:1px solid rgb(196, 196, 196);
+    }
+}
+.customform .input-group-text,.customform .form-control{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #eee;
+    color: #484955 !important;
+    font-size: 14px !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    border-radius: 0px;
+  }
+  .vl-input-element{
+      .form-control{
+        border:1px solid rgb(196, 196, 196);
+      }
+  }
+  .vl-login-submit-btn{
+    align-items: center !important;
+    background-color: #ebebeb !important;
+    color: #4b4955 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    font-size: 12px !important;
+    font-family: 'Roboto Bold',sans-serif;
+    font-weight: 800 !important;
+    height: 3rem !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    width: 80% !important;
+    border-color:transparent !important;
+  }
+  .vl-hyper-link-txt{
+    color: rgba(59,130,246,1);
+    font-size: 12px;
+    opacity: .75;
+    padding: 0.7rem 0.5rem;
+    text-decoration: underline;
+  }
+  .vl-modal-footer-btn {
+    background: #f5f5f5;
+    bottom: 0;
+    font-size: 14px;
+    left: 0;
+    opacity: .75;
+    padding: 0.7rem 0.5rem;
+    position: absolute;
+    right: 0;
+    // text-decoration: underline;
+    margin-bottom: 0px;
+}

@@ -74,7 +74,7 @@ function VibrantMealPlanner() {
   const [meal, setMeal] = useState("");
   const [goal, setGoal] = useState("");
   const [profileDetails, setProfileDetails] = useState({
-    gender: FEMALE,
+    gender: "",
     heightFeet: 5,
     heightInch: 6,
     weight: 60,
