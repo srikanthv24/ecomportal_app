@@ -25,7 +25,7 @@ const SubscriptionModal = React.memo(
     sessionCodes,
     productName,
   }) => {
-    const [selectedSessionCodes, setSelectedSessionCodes] = useState([]);
+    const [selectedSessionCodes, setSelectedSessionCodes] = useState(sessionCodes);
     const [fromDate, setFromDate] = useState(minDate);
     const [toDate, setToDate] = useState(minDate);
     const [comments, setComments] = useState("");
@@ -64,13 +64,6 @@ const SubscriptionModal = React.memo(
       }
     };
 
-    useEffect(() => {
-      if(sessionCodes && sessionCodes.length > 0) {
-        setSelectedSessionCodes(sessionCodes);
-      } else {
-        setSelectedSessionCodes([]);
-      }
-    }, [sessionCodes]);
     
     return (
       <Modal show={show} centered>
