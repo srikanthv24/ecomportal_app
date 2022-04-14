@@ -1,20 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { Button, Spinner } from "react-bootstrap";
 import _ from "underscore";
-import { getSubscriptionDetails, updateSubscriptionDetails } from "../../store/actions";
-import { UPDATE_ORDER , PICKUP, DELIVERY} from "../../utils/constants";
-import ProductPlanner from "./ProductPlanner";
+import {
+  getSubscriptionDetails,
+  updateSubscriptionDetails,
+} from "../../store/actions";
+import { UPDATE_ORDER, PICKUP, DELIVERY } from "../../utils/constants";
+import EditSubscription from "./EditSubscription";
 import "./styles.scss";
+import { getDataForUpdateCartApi } from "./updateOrder.utils";
 
 const UpdateOrder = () => {
-  const {cid, ciid, sid} = useParams();
+  const { cid, ciid, sid } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const subscription = useSelector((state) => state.subscriptions.subscription);
+  const SubscriptionData = subscription?.item?.subscription;
   const loading = useSelector((state) => state.subscriptions.loading);
-  const {sub: customerId, name, phone_number} = useSelector((state) => state?.auth?.userDetails);
+  const userDetails = useSelector((state) => state?.auth?.userDetails);
+  const deliveryAddress = useSelector((state) => state?.auth?.Address);
   const [inputs, setInputs] = useState({
     profileDetails: {},
     deliveryType: "",
@@ -31,81 +37,79 @@ const UpdateOrder = () => {
     selectedSessions: [],
     address: {},
   });
-  const [newDates, setNewDates] = useState([]);
 
   const [item, setItem] = useState({
     name: "",
     category: "",
     image: "",
-    description: ""
+    description: "",
   });
   const [disable, setDisable] = useState(false);
 
+  const orderDates = SubscriptionData?.map((sessionData) => {
+    return sessionData.order_dates;
+  });
+  /*** As of now duration would be same for all sessions ****/
+  const mealDisplayName =
+    subscription?.item?.variants[0]?.items[0].display_name;
+  const duration = mealDisplayName?.replace(/[^\d]/g, "");
+  const deliveryType = SubscriptionData?.isDelivery ? DELIVERY : PICKUP;
+  const selectedSessions = SubscriptionData?.map((sessionData) => {
+    return sessionData.meal_type;
+  });
+
+  const [newDates, setNewDates] = useState([]);
+
   useEffect(() => {
-    dispatch(getSubscriptionDetails({cid, ciid, sid}));
+    dispatch(getSubscriptionDetails({ cid, ciid, sid }));
     setInputs((inputs) => ({
-      ...inputs, 
+      ...inputs,
       profileDetails: {
         gender: "",
         heightFeet: null,
         heightInch: null,
         weight: null,
         age: null,
-      }
+      },
     }));
   }, []);
-
-  useEffect(() => {
-    customerId !== "" && setInputs((inputs) => ({...inputs, customerId, name, phone_number})); 
-  }, [customerId]);
-
-  useEffect(() => {
-    if(!_.isEmpty(subscription)) {
-      let selectedSessions = [];
-      const orderDates = subscription.item.subscription.map((sub) => {
-        const newDate = sub.order_dates.map((dt) => dt.date);
-        selectedSessions.push(sub.meal_type);
-        return newDate;
-      })
-      setInputs((inputs) => ({
-        ...inputs, 
-        deliveryType: subscription.item.subscription[0].isDelivery ? DELIVERY : PICKUP,
-        orderDate: orderDates,
-        variants: subscription.item.variants,
-        productId: subscription.item.item_id,
-        selectedSessions: selectedSessions,
-        address: subscription.item.subscription[0].isDelivery ? subscription.item.subscription[0].address : {}
-      }));
-      setItem((item) => ({
-        ...item,
-        name: subscription.item.item_name,
-        category: subscription.item.category,
-        image: subscription.item.defaultimg_url
-      }))
-    }
-  }, [subscription]);
 
   const onUpdateCart = async () => {
     let updatedObject = { ...inputs };
     updatedObject.orderDate = newDates;
-    await dispatch(updateSubscriptionDetails(updatedObject));
-    history.push('/orders');
-  }
+    const requestData = getDataForUpdateCartApi(
+      newDates,
+      userDetails,
+      subscription,
+      deliveryAddress,
+      selectedSessions,
+      duration
+    );
+    await dispatch(updateSubscriptionDetails(requestData));
+    history.push("/orders");
+  };
+
   const handleGoBack = (e) => {
     e.preventDefault();
-    history.push('/orders');
-  }
-  return(
+    history.push("/orders");
+  };
+
+  const handleCalendarChange = (newSessionDates, sessionIndex) => {
+    const updatedDates = [...newDates];
+    updatedDates[sessionIndex] = newSessionDates;
+    setNewDates(updatedDates);
+  };
+
+  return (
     <section className="planner-container">
       <div className="text-center pb-3 updateOrder-sec">
-        {
-          loading ?
+        {loading ? (
           <div className="fullscreen-loader">
             <Spinner animation="border" role="status" />
           </div>
-          :
+        ) : (
           <>
-            <ProductPlanner
+            <EditSubscription
               productTitle={item.name}
               productCategory={item.category}
               imageUrl={item.image}
@@ -113,35 +117,35 @@ const UpdateOrder = () => {
               inputs={inputs}
               setInputs={setInputs}
               setDisable={setDisable}
-              setNewDates={setNewDates}
+              handleCalendarChange={handleCalendarChange}
+              orderDates={orderDates}
+              duration={duration}
+              deliveryType={deliveryType}
+              selectedSessions={selectedSessions}
+              mealDisplayName={mealDisplayName}
             />
-            {/* <div className="d-flex mx-auto btn-group mt-2 vl-action-btn">
-            <Button
-             className="btn w-50p vl-go-back-btn"
-              onClick={onUpdateCart}
-              disabled={disable}
-            >
-              Go Back
-            </Button>
-            <Button
-             className="btn w-50p vl-go-next-btn"
-              onClick={onUpdateCart}
-              disabled={disable}
-            >
-              {UPDATE_ORDER}
-            </Button>
-            </div> */}
             <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
-          <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleGoBack}>Go Back</button>
-          <button type="button" className="btn w-50p vl-go-next-btn" disabled={disable} onClick={onUpdateCart}>{UPDATE_ORDER}</button>
-        </div>
-            
+              <button
+                type="button"
+                className="btn w-50p vl-go-back-btn"
+                onClick={handleGoBack}
+              >
+                Go Back
+              </button>
+              <button
+                type="button"
+                className="btn w-50p vl-go-next-btn"
+                disabled={disable}
+                onClick={onUpdateCart}
+              >
+                {UPDATE_ORDER}
+              </button>
+            </div>
           </>
-        }
+        )}
       </div>
     </section>
   );
-
-}
+};
 
 export default UpdateOrder;
