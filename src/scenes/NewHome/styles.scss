@@ -326,16 +326,16 @@
     max-width: calc(100% - 40px);
     margin: 0 auto;
     border-radius: 20px !important;
-    // background-color: #225043 !important;
-    // border-color: #225043 !important;
-    background-color: #f7f2df !important;
-    border: 2px solid rgba(97, 71, 49, 0.25) !important;
+    background-color: #225043 !important;
+    border-color: #eff2f1 !important;
+    // background-color: #f7f2df !important;
+    border: 1px solid #eff2f1 !important;
     a {
         font-family: "Roboto Medium", serif;
         font-weight: 500;
         line-height: 20px;
-        // color: #F7C16A !important;
-        color: #614731 !important;
+        color: #FFF !important;
+        // color: #614731 !important;
         text-decoration: none !important;
         display: block;
         width: 100%;
@@ -360,8 +360,8 @@
     position: fixed;
     right: 0px;
     bottom: 10px;
-    // background: #225043;
-    background: #F7F2DF;
+    background: #225043;
+    // background: #F7F2DF;
     z-index: 1044;
     cursor: pointer;
     box-shadow: 0px 0px 4px rgb(0 0 0 / 45%);

@@ -12,13 +12,13 @@ const LoginModal = () => {
   const { isRegistered } = useSelector((state) => state.auth);
   const [isExistingUser, setExistingUser] = useState("login");
 
-  useEffect(() => {
-    if (isRegistered) {
-      setExistingUser("login");
-    } else {
-      setExistingUser("register");
-    }
-  }, [isRegistered]);
+  // useEffect(() => {
+  //   if (isRegistered) {
+  //     setExistingUser("login");
+  //   } else {
+  //     setExistingUser("register");
+  //   }
+  // }, [isRegistered]);
 
   // useEffect(() => {
   //   dispatch(clearAuthError());
