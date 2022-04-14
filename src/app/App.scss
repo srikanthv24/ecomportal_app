@@ -940,9 +940,9 @@ input[type="checkbox"].acc-checkbox:checked:after {
   width:100%;
   height: 50px;
   color: #f7f2df !important;
-  font-family: 'Roboto Regular', sans-serif;
+  font-family: 'Roboto Medium',sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   display: flex !important;
   flex-wrap: wrap;
   justify-content: center;
@@ -957,7 +957,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
 .vl-bg-success{
   // background: rgb(247, 242, 223) !important;
   // color:#614731 !important;
-  background: transparent !important;
+  background:#F5E0BC !important;
     color: #614731 !important;
     border: 1px solid #614731 !important;
     border-radius: 15px !important;

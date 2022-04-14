@@ -41,7 +41,7 @@
 }
 
 .calendar-container{
-  overflow: scroll;
+  overflow: auto;
   padding: 0px 0px;
 }
 
@@ -61,5 +61,10 @@
     font-weight: 500;
     margin: .5rem;
     }
+  }
+}
+.update-product-details{
+  .product-display{
+    padding: 0px;
   }
 }

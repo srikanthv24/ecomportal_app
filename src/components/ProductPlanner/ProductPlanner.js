@@ -57,11 +57,13 @@ const ProductPlanner = React.memo(
           imageUrl={imageUrl}
           description={productDescription}
         />
+        <div className="vl-prd-planner-design1">
         <SessionCordinator
           onSessionChange={onSessionChange}
           selectedSessions={selectedSessions}
           sessionCodes={["B", "L", "D"]}
         />
+        </div>
         <div className="mealPlan-date">
           <DatePicker
             // placeholder="Select Start Date"
