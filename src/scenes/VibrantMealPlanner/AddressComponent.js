@@ -85,9 +85,9 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
     const pcode = parseGoogleAddress(matches, "postal_code");
     const query = addressObject.formatted_address;
     if(parseInt(pcode) !== parseInt(pincode)) {
+      setPincode("");
       setShowPincodeError(true);
       setDisableAddressSelect(true);
-      setPincode("");
       setNewAddress({
         aline1: "",
         aline2: "",
@@ -157,7 +157,6 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
       }
     } else {
       setDisableAddressSelect(true);
-      setShowPincodeError(false);
       setShowAddressInput(false);
     }
   }, [pincode])
