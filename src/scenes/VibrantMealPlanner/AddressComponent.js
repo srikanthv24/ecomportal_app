@@ -11,7 +11,7 @@ import { calculateDeliveryCharge, getPostalCodes } from "../../store/actions/add
 
 let autoComplete;
 let addressLat = "", addressLong = "";
-const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAddressSelected, prevAddress = {} }) => {
+const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAddressSelected, prevAddress }) => {
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
@@ -42,8 +42,10 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
   const [disableAddressSelect, setDisableAddressSelect] = useState(true);
 
   useEffect(() => {
-    if (!_.isEmpty(prevAddress) && !_.isEmpty(prevAddress.postalcode)) {
+    if (!_.isEmpty(prevAddress) && prevAddress.postalcode !== "") {
+      setPincode(prevAddress.postalcode);
       setNewAddress(prevAddress);
+      setShowAddressInput(true);
     }
   }, []);
 
@@ -80,26 +82,43 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
     const aline2 = parseGoogleAddress(matches, "route");
     const community = parseGoogleAddress(matches, "sublocality_level_1");
     const area = parseGoogleAddress(matches, "sublocality_level_2") + ", " + parseGoogleAddress(matches, "sublocality_level_3");
-    setNewAddress((address) => ({
-      ...address,
-      "aline2": aline2,
-      "community": community,
-      "area": area
-    }));
+    const pcode = parseGoogleAddress(matches, "postal_code");
     const query = addressObject.formatted_address;
-    setQuery(query);
-    addressLat = addressObject.geometry.location.lat();
-    addressLong = addressObject.geometry.location.lng();
-    setNewAddress((address) => ({
-      ...address,
-      "latitude": addressLat,
-      "longitude": addressLong
-    }));
-    const queryParams = {
-      is_delivery: true,
-      destination: `[${addressLat}, ${addressLong}]`
+    if(parseInt(pcode) !== parseInt(pincode)) {
+      setShowPincodeError(true);
+      setDisableAddressSelect(true);
+      setPincode("");
+      setNewAddress({
+        aline1: "",
+        aline2: "",
+        community: "",
+        area: "",
+        landmark: "",
+        postalcode: "",
+        state: "",
+        city: ""
+      });
+    } else {
+      setQuery(query);
+      setNewAddress((address) => ({
+        ...address,
+        "aline2": aline2,
+        "community": community,
+        "area": area
+      }));
+      addressLat = addressObject.geometry.location.lat();
+      addressLong = addressObject.geometry.location.lng();
+      setNewAddress((address) => ({
+        ...address,
+        "latitude": addressLat,
+        "longitude": addressLong
+      }));
+      const queryParams = {
+        is_delivery: true,
+        destination: `[${addressLat}, ${addressLong}]`
+      }
+      dispatch(calculateDeliveryCharge(queryParams));
     }
-    dispatch(calculateDeliveryCharge(queryParams));
   }
 
   const handleHouseAreaChange = (e) => {
@@ -113,20 +132,31 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
   }
 
   useEffect(() => {
-    if (pincode.length === 6) {
+    if (pincode.toString().length === 6) {
       const filter = postalCodes.listPostalCodes.items.find(
         (code) => parseInt(pincode) === code.postalcode
       );
       if (filter) {
         setShowPincodeError(false);
         setShowAddressInput(true);
+        if(parseInt(prevAddress.postalcode) !== parseInt(pincode)) {
+          setNewAddress({
+            aline1: "",
+            aline2: "",
+            community: "",
+            area: "",
+            landmark: ""
+          });
+          setQuery("");
+        }
         setNewAddress((address) => ({ ...address, postalcode: filter.postalcode, city: filter.city, state: filter.state }));
-
+        
       } else {
         setShowPincodeError(true);
         setDisableAddressSelect(true);
       }
     } else {
+      setDisableAddressSelect(true);
       setShowPincodeError(false);
       setShowAddressInput(false);
     }
@@ -161,7 +191,14 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
 
   const handleGoBack = (e) => {
     e.preventDefault();
-    onDeliveryTypeChange(PICKUP);
+    if (newAddress.aline2 === "" ||
+      newAddress.postalcode === "" ||
+      newAddress.city === "" ||
+      newAddress.state === "") {
+      onDeliveryTypeChange(PICKUP);
+    } else {
+      setAddressSelected(true);
+    }
   }
 
   const handleAddAddress = (e) => {
