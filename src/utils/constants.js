@@ -75,7 +75,7 @@ export const MALE = "Male";
 export const FEMALE = "Female";
 export const WHATSAPP_LINK = "http://wa.aisensy.com/+918096091111";
 export const INDIAN_DATE_FORMAT = "DD/MM/YYYY";
-export const ISO_FORMAT = "YYYY/MM/DD";
+export const ISO_FORMAT = "YYYY-MM-DD";
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET: "Height-Feet",

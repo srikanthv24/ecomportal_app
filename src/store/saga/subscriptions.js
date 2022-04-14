@@ -1,10 +1,19 @@
 import { call, put, all, takeLatest } from "redux-saga/effects";
 import { types } from "../constants";
-import { getSubscriptionDetails, updateSubscriptionDetails } from "../../services/api/getSubscriptionDetails";
+import {
+  getSubscriptionDetails,
+  updateSubscriptionDetails,
+} from "../../services/api/getSubscriptionDetails";
 
 function* getSubscription(action) {
   try {
-    const {subscriptionDetails : data, error: errors} = yield call(() => getSubscriptionDetails(action.payload.cid, action.payload.ciid, action.payload.sid));
+    const { subscriptionDetails: data, error: errors } = yield call(() =>
+      getSubscriptionDetails(
+        action.payload.cid,
+        action.payload.ciid,
+        action.payload.sid
+      )
+    );
     if (data) {
       yield put({
         type: types.SUBSCRIPTION_DETAILS_SUCCESS,
@@ -59,9 +68,20 @@ function* updateSubscription(action) {
   }
 }
 
+function* onUpdateSUbscriptionSuccess(action) {
+  /*yield put({
+    type: types.UPDATE_SUBSCRIPTION_SUCCESS,
+    payload: data.consumerEditSubscription.id,
+  });*/
+}
+
 export function* subscriptionsSaga() {
   yield all([
     yield takeLatest(types.SUBSCRIPTION_DETAILS, getSubscription),
     yield takeLatest(types.UPDATE_SUBSCRIPTION, updateSubscription),
+    yield takeLatest(
+      types.UPDATE_SUBSCRIPTION_SUCCESS,
+      onUpdateSUbscriptionSuccess
+    ),
   ]);
 }
