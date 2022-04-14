@@ -42,9 +42,13 @@ import MealBowlImage from "../../assets/home/MealBowl.png";
 import "./styles.scss";
 
 function Home() {
+  let history = useHistory();
   const dispatch = useDispatch();
   const onGettingStarted = () => {
     dispatch(getMealPlans())
+  }
+  const goToMealPlanner =() =>{
+    history.push("/vibrant-meal-planner");
   }
   const options = {
     margin: 30,
@@ -84,7 +88,7 @@ function Home() {
           <h2 className="">Eat Deliciously <br />healthy <br />everyday!!</h2>
           {/* <img src={HomepageBannerContentWeb} alt="image" className="for-mblview mx-auto" /> */}
           <img src={MealBowlImage} alt="image" className="for-mblview mx-auto" />
-          <img src={MealBowlImage} alt="image" className="for-webview" />          
+          <img src={MealBowlImage} alt="image" className="for-webview" />
         </div>
       </div>
       {/* Green Bg Section */}
@@ -144,25 +148,20 @@ function Home() {
           </div>
         </div>
         <div className="d-block text-center choosemy-meal-btn">
-        <a href="#" className="gs-btn my-2 leading-8 tracking-wide inline-block">
-          <Link to="/vibrant-meal-planner" className="mb-0 px-7" onClick={onGettingStarted}>
-          <GiMeal size="30" /> Get Started
-          </Link>
-        </a>
+          <a href="#" className="gs-btn my-2 leading-8 tracking-wide inline-block">
+            <Link to="/vibrant-meal-planner" className="mb-0 px-7" onClick={onGettingStarted}>
+              <GiMeal size="30" /> Get Started
+            </Link>
+          </a>
+        </div>
+        {/* <div className="d-block text-center choosemy-meal-btn2" onClick={goToMealPlanner}>
+          <div className="getstarted-btn">
+            <div className="item"><GiMeal size="30" /></div>
+            <div className="item txt">Get Started</div>
+          </div>         
+        </div> */}
       </div>
-      {/* <div className="d-block text-center choosemy-meal-btn2">
-        <a href="#" className="gs-btn my-2 inline-block">
-          <Link to="/vibrant-meal-planner" className="mb-0 px-4" onClick={onGettingStarted}>
-          <div className="d-flex align-items-center justify-content-between">
-            <span className="px-1"><GiMeal size="30" /></span>
-            <span>Get Started</span>
-          </div>
-           
-          </Link>
-        </a>
-      </div> */}
-      </div>
-      
+
       {/* Green Bg Section */}
 
 

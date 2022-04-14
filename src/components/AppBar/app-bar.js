@@ -32,6 +32,7 @@ import MenuIcon from "./../../assets/home/search-normal.svg";
 import CustomSpinner from "../CustomSpinner";
 import { getCart } from "../../store/actions";
 import SmileFaceIcon from "./../../assets/home/smile.svg";
+import CartIcon from "./../../assets/home/cart.svg";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -196,7 +197,8 @@ export default function AppBar() {
                     {Cart?.cartLoading ? (
                       <Nav.Link onClick={onCartButtonClick}>
                         <h6 className="text-black nav-menu-cart">
-                          <AiOutlineShoppingCart size={24} />
+                          {/* <AiOutlineShoppingCart size={24} /> */}
+                          <img src={CartIcon} alt="Icon" height="30" />
                           <Badge pill>
                             <span className="cart-loading">
                               <Spinner animation="border" role="status" />
@@ -210,7 +212,8 @@ export default function AppBar() {
                       <>
                       <Nav.Link onClick={onCartButtonClick}>
                         <h6 className="text-black nav-menu-cart abcd">
-                          <AiOutlineShoppingCart size={24} />
+                          {/* <AiOutlineShoppingCart size={24} /> */}
+                          <img src={CartIcon} alt="Icon" height="30" />
                           <Badge pill>
                             {Cart?.cartDetails?.items?.length &&
                               Cart?.cartDetails?.items?.length}

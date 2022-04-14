@@ -249,7 +249,7 @@ function VibrantMealPlanner() {
         )}
         {activeStep === 3 &&
           (deliveryType === PICKUP || addressSelected === true ? (
-            <div className="px-0 text-center" style={{background:"#f5e0bc", paddingBottom:'20px'}}>
+            <div className="px-0 text-center">
               <ProductPlanner
                 productTitle={display_name}
                 productCategory={category}
