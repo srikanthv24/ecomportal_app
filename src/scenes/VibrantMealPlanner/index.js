@@ -82,7 +82,7 @@ function VibrantMealPlanner() {
   });
   const [selectedMeal, setSelectedMeal] = useState("");
   const [selectedSessions, setSelectedSessions] = useState([]);
-  const [deliveryType, setDeliveryType] = useState(PICKUP);
+  const [deliveryType, setDeliveryType] = useState("");
   const [selectedDuration, setSelectedDuration] = useState();
   const [selectedStartDate, setSelectedStartDate] = useState();
   const [mealPlans, setMealPlans] = useState([]);
@@ -248,7 +248,7 @@ function VibrantMealPlanner() {
           />
         )}
         {activeStep === 3 &&
-          (deliveryType === PICKUP || addressSelected === true ? (
+          (deliveryType === PICKUP || deliveryType === "" || addressSelected === true ? (
             <div className="px-0 text-center">
               <ProductPlanner
                 productTitle={display_name}
