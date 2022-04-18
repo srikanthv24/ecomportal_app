@@ -20,25 +20,7 @@ import {
 } from "../../store/actions/auth";
 import "../Login/styles.css";
 import auth_services from "../../services/auth_services";
-import * as yup from "yup";
 import { hideLogin } from "../../store/actions";
-
-const registerSchema = yup.object().shape({
-  password: yup.string().required("Password is required."),
-  name: yup
-    .string()
-    .required("Name field is required.")
-    .min(4, "Name field must be atleast 4 characters long")
-    .matches(
-      /^[A-Z]([a-z][A-Z]?)+$/,
-      "Name field must contain Uppercase letter"
-    ),
-  phone: yup
-    .string()
-    .required("Phone is required.")
-    .max(10, "Phone number shouldn't exceed 10 digits")
-    .min(10, "Phone number must be 10 digits"),
-});
 
 const Register = (props) => {
   const {
@@ -48,9 +30,11 @@ const Register = (props) => {
     reset,
   } = useForm();
   const dispatch = useDispatch();
-  const { loading, cognitoUserDetails, error } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, error } = useSelector((state) => state.auth);
+  const [showPwdErrors, setShowPwdErrors] = useState(false);
+  const [uppercaseError, setUppercaseError] = useState(false);
+  const [lowecaseError, setLowercaseError] = useState(false);
+  const [pwdLengthError, setPwdLengthError] = useState(false);
 
   const onSubmit = (data) => {
     dispatch(authLoading());
@@ -61,7 +45,6 @@ const Register = (props) => {
         dispatch(authLoading());
         auth_services.login(data.phone, data.password).then((res) => {
           getUserDetails();
-          //console.log("OnSuccess: ", res, res.accessToken);
           dispatch(loginSuccess(res));
           localStorage.setItem("token", res.accessToken.jwtToken);
           localStorage.setItem("expiry-time", Date.now());
@@ -84,6 +67,15 @@ const Register = (props) => {
     reset();
   }, []);
 
+  useEffect(() => {
+    if (errors.password && errors.password.type == "required") {
+      setShowPwdErrors(true);
+      setUppercaseError(false);
+      setLowercaseError(false);
+      setPwdLengthError(false);
+    }
+  }, [errors?.password]);
+
   const handleLogInClick = () => {
     props.handleModalType("login");
   };
@@ -97,9 +89,6 @@ const Register = (props) => {
       <Row>
         <Col xs={12} sm={12} lg={12} className="px-0">
           <p className="vl-modal-title-txt">Signup</p>
-          {/* <div className="text-center mt-4">
-            <Image src={VLogo} height="40" />
-          </div> */}
           <Form className="customform" onSubmit={handleSubmit(onSubmit)}>
             <p className="vl-modal-sub-desp-txt">
               Sign up with your mobile number, name and password
@@ -158,49 +147,66 @@ const Register = (props) => {
                 {...register("password", {
                   required: true,
                   validate: {
-                    hasUppercase: (value) =>
-                      /^(?=.*[A-Z])/.test(value) ? true : false,
-                    hasLowercase: (value) =>
-                      /^(.*[a-z].*)/.test(value) ? true : false,
-                    hasMinlength: (value) =>
-                      /^.{6,10}$/.test(value) ? true : false,
+                    hasUppercase: (value) => {
+                      if (/^(?=.*[A-Z])/.test(value)) {
+                        setUppercaseError(true);
+                        return true;
+                      } else {
+                        setUppercaseError(false);
+                        return false;
+                      }
+                    },
+                    hasLowercase: (value) => {
+                      if (/^(.*[a-z].*)/.test(value)) {
+                        setLowercaseError(true);
+                        return true;
+                      } else {
+                        setLowercaseError(false);
+                        return false;
+                      }
+                    },
+                    hasMinlength: (value) => {
+                      if (/^.{6,10}$/.test(value)) {
+                        setPwdLengthError(true);
+                        return true;
+                      } else {
+                        setPwdLengthError(false);
+                        return false;
+                      }
+                    },
                   },
                 })}
               />
+              {showPwdErrors && (
+                <div>
+                  <p
+                    className={`${
+                      uppercaseError ? "text-success" : "text-danger"
+                    } input-error-txt`}
+                    style={{ textAlign: "left" }}
+                  >
+                    Password must have 1 Uppercase char.
+                  </p>
+                  <p
+                    className={`${
+                      lowecaseError ? "text-success" : "text-danger"
+                    } input-error-txt`}
+                    style={{ textAlign: "left" }}
+                  >
+                    Password must have 1 Lowercase char.
+                  </p>
+
+                  <p
+                    className={`${
+                      pwdLengthError ? "text-success" : "text-danger"
+                    } input-error-txt`}
+                    style={{ textAlign: "left" }}
+                  >
+                    Password must be 6-10 char. long.
+                  </p>
+                </div>
+              )}
             </FloatingLabel>
-            {errors.password && errors.password.type == "required" && (
-              <p
-                className="text-danger input-error-txt"
-                style={{ textAlign: "left" }}
-              >
-                Your password should be minimum 8 characters, 1 Lowercase, 
-                1 Uppercase Letter
-              </p>
-            )}
-            {errors.password && errors.password.type === "hasUppercase" && (
-              <p
-                className="text-danger input-error-txt"
-                style={{ textAlign: "left" }}
-              >
-                Your password should contain 1 Uppercase letter
-              </p>
-            )}
-             {errors.password && errors.password.type === "hasLowercase" && (
-              <p
-                className="text-danger input-error-txt"
-                style={{ textAlign: "left" }}
-              >
-                Your password should contain 1 Lowercase letter
-              </p>
-            )}
-             {errors.password && errors.password.type === "hasMinlength" && (
-              <p
-                className="text-danger input-error-txt"
-                style={{ textAlign: "left" }}
-              >
-                Your password should be min 6 - 10 char. long
-              </p>
-            )}
             <Button
               className="mt-2 mb-3 vl-login-submit-btn"
               type="submit"
