@@ -20,7 +20,6 @@ const UpdateOrder = () => {
   const SubscriptionData = subscription?.item?.subscription;
   const loading = useSelector((state) => state.subscriptions.loading);
   const userDetails = useSelector((state) => state?.auth?.userDetails);
-  const deliveryAddress = useSelector((state) => state?.auth?.Address);
   const [inputs, setInputs] = useState({
     profileDetails: {},
     deliveryType: "",
@@ -75,13 +74,19 @@ const UpdateOrder = () => {
   }, []);
 
   const onUpdateCart = async () => {
-    let updatedObject = { ...inputs };
-    updatedObject.orderDate = newDates;
+    const updatedDates = SubscriptionData.map((sessionData, index) => {
+      if (newDates[index]) {
+        return newDates[index];
+      } else {
+        return sessionData.order_dates.map(
+          (orderDatesWithStatus) => orderDatesWithStatus.date
+        );
+      }
+    });
     const requestData = getDataForUpdateCartApi(
-      newDates,
+      updatedDates,
       userDetails,
       subscription,
-      deliveryAddress,
       selectedSessions,
       duration
     );
@@ -95,7 +100,7 @@ const UpdateOrder = () => {
   };
 
   const handleCalendarChange = (newSessionDates, sessionIndex) => {
-    const updatedDates = [...newDates];
+    const updatedDates = [];
     updatedDates[sessionIndex] = newSessionDates;
     setNewDates(updatedDates);
   };

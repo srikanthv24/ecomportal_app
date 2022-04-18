@@ -40,14 +40,20 @@ function* getSubscription(action) {
 
 function* updateSubscription(action) {
   try {
-    const { data, errors } = yield call(
+    const { consumerEditSubscription, errors } = yield call(
       updateSubscriptionDetails,
       action.payload
     );
-    if (data) {
+    if (consumerEditSubscription.id) {
+      yield put({
+        type: types.GET_ORDER,
+        payload: {
+          customer_number: consumerEditSubscription.customer_mobile.slice(3),
+        },
+      });
       yield put({
         type: types.UPDATE_SUBSCRIPTION_SUCCESS,
-        payload: data.consumerEditSubscription.id,
+        payload: consumerEditSubscription.id,
       });
     } else if (errors && errors[0]?.errorType === "UnauthorizedException") {
       yield put({
@@ -68,20 +74,9 @@ function* updateSubscription(action) {
   }
 }
 
-function* onUpdateSUbscriptionSuccess(action) {
-  /*yield put({
-    type: types.UPDATE_SUBSCRIPTION_SUCCESS,
-    payload: data.consumerEditSubscription.id,
-  });*/
-}
-
 export function* subscriptionsSaga() {
   yield all([
     yield takeLatest(types.SUBSCRIPTION_DETAILS, getSubscription),
     yield takeLatest(types.UPDATE_SUBSCRIPTION, updateSubscription),
-    yield takeLatest(
-      types.UPDATE_SUBSCRIPTION_SUCCESS,
-      onUpdateSUbscriptionSuccess
-    ),
   ]);
 }

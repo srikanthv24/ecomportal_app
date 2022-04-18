@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import _ from "underscore";
 import ModalComponent from "../../components/Modal/Modal";
-import { getCart, hideAlert, showAlert, updateCartQty } from "../../store/actions";
+import { getOrders } from "../../store/actions/orders";
+import {
+  getCart,
+  hideAlert,
+  showAlert,
+  updateCartQty,
+} from "../../store/actions";
 import CartItem from "../../components/CartItem/CartItem";
 import { CART, PICKUP } from "../../utils/constants";
 import OrderCheckList from "./order-checklist";
@@ -22,10 +28,13 @@ const CartSummary = () => {
   } = useSelector((state) => state.auth.userDetails);
   const { cartDetails, cartLoading, cartUpdateLoading, cartCreated } =
     useSelector((state) => state.Cart);
-  const { showAlert : alert, variant, alertMessage } = useSelector(
-    (state) => state.AlertReducer
-  );
+  const {
+    showAlert: alert,
+    variant,
+    alertMessage,
+  } = useSelector((state) => state.AlertReducer);
   const [items, setItems] = useState([]);
+  const userDetails = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
     if (cartDetails?.items && cartDetails.items?.length) {
@@ -88,6 +97,9 @@ const CartSummary = () => {
   const onGoToOrdersClick = () => {
     dispatch(hideAlert());
     dispatch(getCart({ customer_id: customerId }));
+    dispatch(
+      getOrders({ customer_number: userDetails.phone_number.substring(3) })
+    );
     history.push("/orders");
   };
 
@@ -187,13 +199,13 @@ const CartSummary = () => {
             )}
           </>
         )}
-        {
-          (_.isEmpty(cartDetails) || _.isEmpty(cartDetails.items)) && !cartLoading && !cartUpdateLoading 
-          ?
+        {(_.isEmpty(cartDetails) || _.isEmpty(cartDetails.items)) &&
+        !cartLoading &&
+        !cartUpdateLoading ? (
           <EmptyCart />
-          :
+        ) : (
           <></>
-        }
+        )}
       </div>
     </>
   );

@@ -4,7 +4,6 @@ export const getDataForUpdateCartApi = (
   updatedOrders,
   userDetails,
   subscription,
-  address,
   selectedSessions,
   duration
 ) => {
@@ -17,7 +16,6 @@ export const getDataForUpdateCartApi = (
     item_id,
     item_name,
   } = item;
-  const addressList = address?.addressList;
   return {
     customer_id: sub,
     customer_mobile: phone_number,
@@ -33,7 +31,10 @@ export const getDataForUpdateCartApi = (
       subscription: selectedSessions.map((session, index) => {
         return {
           addon_items: [],
-          address: subscriptionData[index].isDelivery ? addressList[index] : {},
+          address:
+            subscriptionData && subscriptionData[index].isDelivery
+              ? subscriptionData[index].address
+              : {},
           isDelivery: subscriptionData[index].isDelivery,
           meal_type: subscriptionData[index].meal_type,
           order_dates: updatedOrders[index],
