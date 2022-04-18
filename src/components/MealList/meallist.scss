@@ -33,3 +33,35 @@
   border-radius: 20px;
   cursor: pointer;
 }
+
+@media screen and (min-width: 768px) {
+  .custom-diet-btn,
+  .vl-action-btn .vl-go-back-btn,
+  .vl-action-btn .vl-go-next-btn {
+    max-width: 460px !important;
+  }
+  .vl-stepper-sec,
+  .product-planner .product-display,
+  .vl-prd-planner-design1,
+  .product-planner .mealPlan-date,
+  .product-planner .mealplan-address-block,
+  .product-planner .product-display .prdDesp,
+  .meal-plan-wrapper,
+  .vl-address-form,
+  .cart-summary-wrapper
+  {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  // Two column Layout
+  // .cart-summary-wrapper {
+  //   max-width: 100%;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   justify-content: space-between;
+  //   .w-100p.mb-3{
+  //     max-width:calc(50% - 20px);
+  //   }
+  // }
+}

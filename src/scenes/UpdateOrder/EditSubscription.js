@@ -44,7 +44,7 @@ const EditSubscription = ({
       {/* <DeliverySwitch deliveryType={inputs.deliveryType} disabled={true} /> */}
       <div className="mealplan-address-block">
         <div className="w-100p meal-transport vlradio-toolbar">
-          <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
+          <div className="form-check form-check-inline mr-1 my-0 px-0">
             <input
               className="form-check-input"
               type="radio"
@@ -58,7 +58,7 @@ const EditSubscription = ({
               Pickup
             </label>
           </div>
-          <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p relative">
+          <div className="form-check form-check-inline ml-1 my-0 px-0 relative">
             <input
               className="form-check-input"
               type="radio"
