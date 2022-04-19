@@ -117,7 +117,7 @@ const UpdateOrder = () => {
             <EditSubscription
               productTitle={item.name}
               productCategory={item.category}
-              imageUrl={item.image}
+              imageUrl={subscription?.item?.defaultimg_url}
               productDescription={item.description}
               inputs={inputs}
               setInputs={setInputs}
