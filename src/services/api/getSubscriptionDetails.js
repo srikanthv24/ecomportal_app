@@ -47,9 +47,7 @@ export const updateSubscriptionDetails = async (params) => {
       }),
     });
     const { data, errors } = await response.json();
-    return data.consumerEditSubscription
-      ? data.consumerEditSubscription
-      : { error: errors[0] };
+    return data ? data : { errors: errors };
   } catch (error) {
     return error;
   }

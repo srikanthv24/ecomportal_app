@@ -9,7 +9,8 @@ export const Orders = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_ORDER:
       return { ...state, isLoading: true };
-
+    case types.UPDATE_SUBSCRIPTION:
+      return { ...state, isLoading: true };
     case types.GET_ORDER_SUCCESS:
       return { ...state, isLoading: false, ordersList: action.payload };
 

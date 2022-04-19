@@ -4,6 +4,7 @@ import { Button, Spinner } from "react-bootstrap";
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { getOrders } from "../../store/actions/orders";
 import {
   getAddresses,
   getCartSummary,
@@ -22,8 +23,13 @@ const CartSummary = () => {
   const userDetails = useSelector((state) => state.auth.userDetails);
   const Addresses = useSelector((state) => state.Addresses.addressList);
   const AlertReducer = useSelector((state) => state.AlertReducer);
-  const { cartDetails, cartLoading, cartUpdateLoading, cartCreated, cartItemsLoading } =
-    useSelector((state) => state.Cart);
+  const {
+    cartDetails,
+    cartLoading,
+    cartUpdateLoading,
+    cartCreated,
+    cartItemsLoading,
+  } = useSelector((state) => state.Cart);
   const [items, setItems] = useState([]);
 
   /*useEffect(() => {
@@ -66,7 +72,7 @@ const CartSummary = () => {
       setItems(temp);
     }
   }, [cartDetails?.items]);
-  return ( !cartLoading)? (
+  return !cartLoading ? (
     <div>
       <ModalComponent
         show={AlertReducer.showAlert}
@@ -76,10 +82,17 @@ const CartSummary = () => {
         handleClose={() => dispatch(hideAlert())}
         footer={
           <div>
-            <Button className="vl-custom-btn"
+            <Button
+              className="vl-custom-btn"
               onClick={() => {
                 dispatch(hideAlert());
                 dispatch(getCart({ customer_id: userDetails.sub }));
+                dispatch(
+                  getOrders({
+                    customer_number: userDetails.phone_number.substring(3),
+                  })
+                );
+                console.log("from cart summary ");
                 history.push("/orders");
               }}
             >
@@ -156,11 +169,12 @@ const CartSummary = () => {
                   <h3>No Items added to cart</h3>
                 </div>
                 <div className="dis-back-btn">
-                <Button className="vl-custom-btn"
-                  onClick={() => history.push("/")}                                  
-                >
-                  Go to products
-                </Button>
+                  <Button
+                    className="vl-custom-btn"
+                    onClick={() => history.push("/")}
+                  >
+                    Go to products
+                  </Button>
                 </div>
               </div>
             )}

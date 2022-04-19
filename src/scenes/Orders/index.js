@@ -39,11 +39,6 @@ const Orders = () => {
 
   React.useEffect(() => {}, [selectedSubscriptionId]);
 
-  useEffect(() => {
-    dispatch(
-      getOrders({ customer_number: userDetails.phone_number.substring(3) })
-    );
-  }, []);
 
   const onMenuSelect = async (eventKey, subscriptionId) => {
     setServiceType(eventKey);

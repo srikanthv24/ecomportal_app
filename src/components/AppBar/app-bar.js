@@ -33,6 +33,7 @@ import CustomSpinner from "../CustomSpinner";
 import { getCart } from "../../store/actions";
 import SmileFaceIcon from "./../../assets/home/smile.svg";
 import CartIcon from "./../../assets/home/cart.svg";
+import { getOrders } from "../../store/actions/orders";
 
 export default function AppBar() {
   const { path } = useRouteMatch();
@@ -340,6 +341,11 @@ export default function AppBar() {
                 <ListGroup.Item
                   onClick={() => {
                     setMenu(false);
+                    dispatch(
+                      getOrders({
+                        customer_number: userDetails.phone_number.substring(3),
+                      })
+                    );
                     history.push("/orders/");
                   }}
                 >
