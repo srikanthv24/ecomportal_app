@@ -30,7 +30,7 @@ export default function AppBar() {
   const { isLoading: cartLoading, itemsCount } = useSelector(
     (state) => state.Cart.cartCount
   );
-  const { sub: customerId, name: customerName } = useSelector(
+  const { sub: customerId, name: customerName, phone_number : customerMobile } = useSelector(
     (state) => state.auth.userDetails
   );
 
@@ -222,7 +222,7 @@ export default function AppBar() {
                     setMenu(false);
                     dispatch(
                       getOrders({
-                        customer_number: userDetails.phone_number.substring(3),
+                        customer_number: customerMobile.substring(3),
                       })
                     );
                     history.push("/orders/");
