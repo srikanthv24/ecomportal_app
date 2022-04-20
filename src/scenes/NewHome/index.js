@@ -45,7 +45,7 @@ function Home() {
   let history = useHistory();
   const dispatch = useDispatch();
   const onGettingStarted = () => {
-    dispatch(getMealPlans())
+    // dispatch(getMealPlans())
   }
   const goToMealPlanner =() =>{
     history.push("/vibrant-meal-planner");
