@@ -17,7 +17,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
   return (
     <section
-      className="vl-bg-1"
+      className="vl-bg-1 vl-orders-wrapper"
       style={{
         minHeight: "calc(100vh - 0px)",
         padding: "70px 20px 60px",
