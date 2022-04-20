@@ -11,7 +11,7 @@ export const SERVICE_TYPE = {
 export const SERVICE_LABELS = {
   PAUSE_TOMORROW: "Pause Tomorrow",
   PAUSE_IN_BETWEEN: "Pause In Between",
-  PAUSE_INDEFINITE: "Pause In Definite",
+  PAUSE_INDEFINITE: "Pause Indefinite",
   PAUSE_CUSTOM: "Pause Custom",
   RESUME_TOMORROW: "Resume Tomorrow",
   RESUME_INDEFINITE: "Resume Indefinite",

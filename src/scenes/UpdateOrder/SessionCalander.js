@@ -16,6 +16,7 @@ const SessionCalander = ({
   checked,
   handleCalendarChange,
   sessionIndex,
+  subscriptionStartDate,
 }) => {
   const [activeDates, setActiveDates] = useState(remainingDates);
   const mapCalendarDates = (date) => {
@@ -45,6 +46,9 @@ const SessionCalander = ({
       sessionIndex
     );
   };
+  console.log(
+    "subscriptionStartDate: " + JSON.stringify(subscriptionStartDate)
+  );
   return (
     <div className="mealPlannerCheck vl-checkbox-custom">
       <Form.Check
