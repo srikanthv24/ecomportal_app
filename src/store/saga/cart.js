@@ -19,8 +19,8 @@ function* GetCart(params) {
         payload: data.listCarts,
       });
       yield put({
-        type: types.GET_CART_COUNT,
-        payload: { customer_id: params.payload.customer_id },
+        type: types.UPDATE_CART_COUNT,
+        payload: data.listCarts?.items?.length > 0 ? data.listCarts.items.length : 0,
       });
     } else if (errors && errors[0]?.errorType === "UnauthorizedException") {
       yield put({
@@ -50,10 +50,6 @@ function* CreateCart(params) {
       });
       yield put({
         type: types.GET_CART,
-        payload: { customer_id: data.createCart.customer_id },
-      });
-      yield put({
-        type: types.GET_CART_COUNT,
         payload: { customer_id: data.createCart.customer_id },
       });
     } else if (errors && errors[0]?.errorType === "UnauthorizedException") {

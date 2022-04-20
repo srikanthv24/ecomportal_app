@@ -80,6 +80,8 @@ export const Cart = (state = initialState, action) => {
 
     case types.GET_CART_COUNT_FAILURE:
       return { ...state, cartCount: { isLoading: false, itemsCount: 0 } };
+      case types.UPDATE_CART_COUNT:
+        return { ...state, cartCount: { isLoading: false, itemsCount: action.payload } };
 
     case types.DELETE_CART_ITEM:
       return { ...state, cartUpdateLoading: true };
