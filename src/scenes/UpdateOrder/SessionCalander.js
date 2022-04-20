@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import { ISO_FORMAT, SESSION_TYPES } from "../../utils/constants";
 import MealDisplay from "./MealDisplay";
 import { Calendar } from "react-multi-date-picker";
+import CalendarLegend from "../../components/CalendarLegend";
 
 const SessionCalander = ({
   sessionCode,
@@ -66,10 +67,11 @@ const SessionCalander = ({
           <div className="meal-plan-wrapper px-0">
             <MealDisplay name={mealDisplayName} type={deliveryType} />
           </div>
-          <div className="d-flex justify-content-start">
+          <div className="d-flex justify-content-between align-items-center">
             <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">{`selected ${
               completedDates?.length + activeDates?.length
             }/${duration} days`}</small>
+             <CalendarLegend />
           </div>
           <div className="calendar-container">
             <Calendar
