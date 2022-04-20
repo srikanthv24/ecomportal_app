@@ -25,7 +25,8 @@
 .vl-address-form{
   padding:0px 20px 20px;
   input{
-    border-color:#614731 !important;
+    // border-color:#614731 !important;
+    border-color: rgba(0,0,0,.125) !important;
   }
 }
 .vl-action-btn{
@@ -73,7 +74,7 @@
     border: none;
     position: absolute;
     top:16px;
-    left: 20px;
+    left: 8px;
     color: #614731;
     font-size: 24px;   
     background:transparent !important;

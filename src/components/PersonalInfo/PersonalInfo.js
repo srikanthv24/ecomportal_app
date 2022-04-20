@@ -138,7 +138,7 @@ const PersonalInfo = ({
       </p>
       <div className="personal-info-step">
         <Card.Body className="px-0 d-flex justify-content-between">
-          <label className="gender-card justify-content-center relative my-3">
+          <label className="gender-card justify-content-center relative mb-3 mt-0">
             <input
               name="gender"
               className="radio"
@@ -163,7 +163,7 @@ const PersonalInfo = ({
               <label>Male</label>
             </div>
           </label>
-          <label className="gender-card justify-content-center relative my-3">
+          <label className="gender-card justify-content-center relative mb-3 mt-0">
             <input
               name="gender"
               className="radio"

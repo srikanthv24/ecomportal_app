@@ -85,8 +85,24 @@
   border-radius: 20px !important;
 }
 
-.radio:checked ~ .plan-details + .pl-lable-info {
-  background: #614731 !important;
+// .radio:checked ~ .plan-details + .pl-lable-info {
+//   background: #614731 !important;
+//   label {
+//     color: #f7f2df !important;
+//     user-select: none;
+//   }
+// }
+
+.radio:checked ~ .plan-details + .pl-lable-info::after {
+  content: "";
+  border: 1px solid #614731;
+  width: 150px;
+  height: 120px;
+  position: absolute;
+  top: -90px;
+  left: -1px;
+  border-radius: 20px;
+  // background: #614731 !important;
   label {
     color: #f7f2df !important;
     user-select: none;

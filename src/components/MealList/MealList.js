@@ -44,7 +44,7 @@ const MealList = ({
             />
           ))}
       </div>
-      <div className="custom-diet-btn my-3" onClick={handleCustomDiet}>
+      <div className="custom-diet-btn mb-3" onClick={handleCustomDiet}>
         {MEAL_PLAN_STEPS.CUSTOM_DIET}
       </div>
     </section>
