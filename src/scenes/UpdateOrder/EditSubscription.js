@@ -21,6 +21,7 @@ const EditSubscription = React.memo(
     orderDates,
     duration: planDuration,
     handleCalendarChange,
+    ...rest
   }) => {
     return (
       <div className="product-planner">
@@ -38,6 +39,7 @@ const EditSubscription = React.memo(
           duration={planDuration}
           handleCalendarChange={handleCalendarChange}
           orderDates={orderDates}
+          {...rest}
         />
 
         <div className="mealPlan-date"></div>

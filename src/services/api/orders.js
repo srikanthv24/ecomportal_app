@@ -18,7 +18,7 @@ export class OrdersApi {
           },
           body: JSON.stringify({
             query: `{
-                listSubscriptions(filter: {status: {eq: "A"},customer_mobile: {eq: ${JSON.stringify(
+                listSubscriptions(filter: {status: {eq: "ALL"},customer_mobile: {eq: ${JSON.stringify(
                   params
                 )}}}) {
                   item_count

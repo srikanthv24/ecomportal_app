@@ -20,6 +20,7 @@ const UpdateOrder = () => {
   const SubscriptionData = subscription?.item?.subscription;
   const loading = useSelector((state) => state.subscriptions.loading);
   const userDetails = useSelector((state) => state?.auth?.userDetails);
+  const subscriptionList = useSelector((state) => state.Orders.ordersList);
   const [inputs, setInputs] = useState({
     profileDetails: {},
     deliveryType: "",
@@ -56,7 +57,9 @@ const UpdateOrder = () => {
   const selectedSessions = SubscriptionData?.map((sessionData) => {
     return sessionData.meal_type;
   });
-
+  const subscriptionStartDate = subscriptionList.find(
+    (eachSubscription) => eachSubscription.id === subscription.subscription_id
+  );
   const [newDates, setNewDates] = useState([]);
 
   useEffect(() => {
@@ -128,6 +131,8 @@ const UpdateOrder = () => {
               deliveryType={deliveryType}
               selectedSessions={selectedSessions}
               mealDisplayName={mealDisplayName}
+              subscriptionStartDate={subscriptionStartDate}
+              grace={7}
             />
             <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
               <button

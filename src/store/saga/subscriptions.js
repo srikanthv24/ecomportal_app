@@ -48,7 +48,7 @@ function* updateSubscription(action) {
       yield put({
         type: types.GET_ORDER,
         payload: {
-          customer_number: consumerEditSubscription.customer_mobile.slice(3),
+          customer_number: consumerEditSubscription.customer_mobile,
         },
       });
       yield put({
