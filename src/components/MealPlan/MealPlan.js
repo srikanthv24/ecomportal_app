@@ -72,10 +72,10 @@ const MealPlan = React.memo(
               <span>
                 {deliveryType === "Pickup" ? (
                   // <i class="fa-solid fa-truck"></i>
-                  <img src={PickupImage} alt="image" height="24" />
+                  <img src={PickupImage} alt="image" height="40" />
                 ) : (
                   // <i class="fa-solid fa-location-check"></i>
-                  <img src={TruckImage} alt="image" height="24" />
+                  <img src={TruckImage} alt="image" height="40" />
                 )}
               </span>
               {/* )} */}
