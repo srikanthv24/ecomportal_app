@@ -66,12 +66,13 @@ const ProductPlanner = React.memo(
         </div>
         <div className="mealPlan-date">
           <DatePicker
-            // placeholder="Select Start Date"
+            placeholder="Select Start Date"
+            isSearchable={ false }
             name="start-date"
             className="order-form-control-input"
             value={startDateInIndianFormat}
             onChange={onDateChange}
-            render={<InputIcon />}
+            render={<InputIcon readOnly />}
             editable={false}
             format={INDIAN_DATE_FORMAT}
             minDate={getTodayDate()}
