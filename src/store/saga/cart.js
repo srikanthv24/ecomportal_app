@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
-import { call, put, takeEvery, select, takeLatest } from "redux-saga/effects";
+import { call, put, select, takeLatest } from "redux-saga/effects";
 import { Cart } from "../../services/api/Cart";
 import { createCartInput } from "../../services/api/createCartInput";
-import { getCartItemsCount } from "../../services/api/getCartItemsCount";
 import {
   createCart,
   getCart,
@@ -18,6 +17,10 @@ function* GetCart(params) {
       yield put({
         type: types.GET_CART_SUCCESS,
         payload: data.listCarts,
+      });
+      yield put({
+        type: types.UPDATE_CART_COUNT,
+        payload: data.listCarts?.items?.length > 0 ? data.listCarts.items.length : 0,
       });
     } else if (errors && errors[0]?.errorType === "UnauthorizedException") {
       yield put({
@@ -113,13 +116,13 @@ function* updateCartQty(params) {
   }
 }
 
-function* getCartSummary(params) {
+function* getCartCount(action) {
   try {
-    const { data, errors } = yield call(Cart.getCartSummary, params);
+    const { data, errors } = yield call(Cart.getCartItemsCount, action.payload);
     if (data) {
       yield put({
-        type: types.GET_CART_SUMMARY_SUCCESS,
-        payload: data.listCarts,
+        type: types.GET_CART_COUNT_SUCCESS,
+        payload: data.getCartItemsCount.count,
       });
     } else if (errors && errors[0]?.errorType === "UnauthorizedException") {
       yield put({
@@ -128,13 +131,13 @@ function* getCartSummary(params) {
       });
     } else {
       yield put({
-        type: types.GET_CART_SUMMARY_FAILURE,
+        type: types.GET_CART_COUNT_FAILURE,
         payload: errors,
       });
     }
   } catch (error) {
     yield put({
-      type: types.GET_CART_SUMMARY_FAILURE,
+      type: types.GET_CART_COUNT_FAILURE,
       payload: error,
     });
   }
@@ -152,6 +155,6 @@ export function* CartSaga() {
   yield takeLatest(types.UPDATE_CART, UpdateCart);
   yield takeLatest(types.GET_CART, GetCart);
   yield takeLatest(types.UPDATE_CART_QTY, updateCartQty);
-  yield takeLatest(types.GET_CART_SUMMARY, getCartSummary);
+  yield takeLatest(types.GET_CART_COUNT, getCartCount);
   yield takeLatest(types.CREATE_CART_INPUT, callCreateCartInputApi);
 }

@@ -8,15 +8,13 @@ import {
   updateUserDetails,
 } from "../store/actions/auth";
 import { Button, Container, Modal } from "react-bootstrap";
-import { getCart } from "../store/actions/cart";
 import Routes from "./Routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import auth_services from "../services/auth_services";
-import { getOrders } from "../store/actions/orders";
 import { GrClose } from "react-icons/gr";
 import LoginModal from "../components/LoginModal";
-import { hideLogin } from "../store/actions";
+import { getCartItemsCount, hideLogin } from "../store/actions";
 import "./App.scss";
 import { SessionModal } from "../components/SessionExpireModal";
 import { RefreshToken } from "../helpers/refreshSession";
@@ -46,14 +44,13 @@ function App() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if (userDetails.sub) {
-  //     dispatch(getCart({ customer_id: userDetails.sub }));
-  //     dispatch(
-  //       getOrders({ customer_number: userDetails.phone_number.substring(3) })
-  //     );
-  //   }
-  // }, [userDetails.sub]);
+  useEffect(() => {
+    if (userDetails.sub) {
+      dispatch(getCartItemsCount({ customer_id: userDetails.sub }));
+    }
+  }, [userDetails.sub]);
+
+ 
 
   return (
     <div className="App">

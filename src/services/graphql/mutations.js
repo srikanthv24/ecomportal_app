@@ -311,53 +311,9 @@ export const getCart = `query ($customer_id: ID!){
   }
 }`;
 
-export const CartSummary = `query ($customer_id: ID!){
-  listCarts(filter: {customer_id: {eq: $customer_id},pay_status:{eq:"UNPAID"}}) {
-    items {
-      customer_id
-      customer_mobile
-      customer_name
-      id
-      ciid
-      grand_total
-      pay_status
-      item {
-        defaultimg_url
-        item_name
-        tax_methods
-        uom_name
-        category
-        item_id
-        sub_total
-        qty
-        tax_amount
-        subscription {
-          address {
-              aline1
-              aline2
-              city
-              tag
-              landmark
-              postalcode
-          }
-          isDelivery
-          meal_type
-          notes
-          order_dates
-          sale_val
-        }
-        variants {
-          display_name
-          items {
-            display_name
-          }
-        }
-      }
-    }
-    grand_total
-    total_tax
-    total_deliveryCharge
-    total_discount
+export const cartItemsCount = `query ($customer_id: ID!){
+  getCartItemsCount(filter: {customer_id: {eq: $customer_id}}) {
+    count
   }
 }`;
 
@@ -529,4 +485,4 @@ export const CANCEL_SUBSCRIPTION = `mutation($id: Int!) {
     {
       id
     }
-  }`
+  }`;

@@ -28,12 +28,6 @@ export const updateCartQty = (payload) => {
   };
 };
 
-export const getCartSummary = (payload) => {
-  return {
-    type: types.GET_CART_SUMMARY,
-    payload,
-  };
-};
 
 export const deleteCart = () => {
   return {
@@ -45,5 +39,12 @@ export const createCartInput = (payload) => {
   return {
     type: types.CREATE_CART_INPUT,
     payload,
+  };
+};
+
+export const getCartItemsCount = (data) => {
+  return {
+    type: types.GET_CART_COUNT,
+    payload: data,
   };
 };
