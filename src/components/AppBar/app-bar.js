@@ -114,7 +114,7 @@ export default function AppBar() {
                 position: "absolute",
                 right: "1rem",
                 top: "1rem",
-                cursor: "pointer",zIndex:99
+                cursor: "pointer",
               }}
             >
               {/* <Navbar.Toggle
@@ -142,12 +142,7 @@ export default function AppBar() {
               </Link>
             </Navbar.Brand>
           </div>
-          <Nav className="vl-navbar"  style={{
-                position: "absolute",
-                right: "1rem",
-                top: "1rem",
-                cursor: "pointer",
-              }}>
+          <Nav className="vl-navbar">
             <Container fluid className="px-0">
               <Row>
                 <Col className="d-lg-block1 search-section1 d-none">
@@ -239,7 +234,7 @@ export default function AppBar() {
                   </Col>
                 ) : (
                   <>
-                    <div className="d-flex pt-0 cursor-pointer">
+                    <div className="d-flex pt-2 cursor-pointer">
                       {/* <Nav.Link onClick={handleLoginModal}>
                         <p
                           className="text-black nav-menu-cart"
