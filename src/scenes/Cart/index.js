@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import _ from "underscore";
 import ModalComponent from "../../components/Modal/Modal";
-import { getOrders } from "../../store/actions/orders";
 import {
   getCart,
   hideAlert,
   showAlert,
+  updateCartCount,
   updateCartQty,
 } from "../../store/actions";
 import CartItem from "../../components/CartItem/CartItem";
@@ -37,7 +37,6 @@ const CartSummary = () => {
     alertMessage,
   } = useSelector((state) => state.AlertReducer);
   const [items, setItems] = useState([]);
-  const userDetails = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
     if (cartDetails?.items && cartDetails.items?.length) {
@@ -99,10 +98,7 @@ const CartSummary = () => {
 
   const onGoToOrdersClick = () => {
     dispatch(hideAlert());
-    dispatch(getCart({ customer_id: customerId }));
-    dispatch(
-      getOrders({ customer_number: userDetails.phone_number.substring(3) })
-    );
+    dispatch(updateCartCount(0));
     history.push("/orders");
   };
 
@@ -270,7 +266,6 @@ const CartSummary = () => {
       order_id: order_id,
       upi_link: true,
       handler: async function (response) {
-        dispatch(getCart({ customer_id: customerId }));
         dispatch(
           showAlert({
             message: (
