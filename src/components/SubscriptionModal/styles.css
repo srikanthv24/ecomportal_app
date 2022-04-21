@@ -7,11 +7,11 @@
 .order-modal-content h4 {
   font-family: "Roboto Medium",sans-serif;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: -0.01em;
   padding-bottom: 0px;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 .order-modal-content .form-check-label {
   font-family: "Roboto Regular",sans-serif;
@@ -124,4 +124,7 @@ border-radius: 15px;
 }
 .modal-body-content.product-planner.subs-modal-content textarea{
   background: transparent !important;
+}
+.modal-footer{
+  border-top: 0px !important;
 }

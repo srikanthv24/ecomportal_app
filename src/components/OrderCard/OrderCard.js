@@ -50,9 +50,9 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
                         <>
-                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
+                          {/* <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
                             <i className="fa-solid fa-pen-to-square"></i>
-                          </Link> &nbsp; &nbsp;
+                          </Link> &nbsp; &nbsp; */}
                           <label className="more-icon"><i className="fa-solid fa-bars"></i></label>
                           <div className="more-dp-info">                          
                             <MenuList
