@@ -1,4 +1,5 @@
-import { CART } from "../../utils/constants";
+import { CART, ISO_FORMAT } from "../../utils/constants";
+import moment from "moment";
 
 export const getDataForUpdateCartApi = (
   updatedOrders,
@@ -60,4 +61,20 @@ export const getDatesByStatus = (orderDates, sessionIndex, statusCode) => {
         .filter((dateObject) => dateObject.status === statusCode)
         .map((dateObject) => dateObject.date)
     : [];
+};
+
+export const getFirstSubscriptionDate = (orderDates) => {
+  const allDates = orderDates?.reduce((result, sessionDates) => {
+    const dates = sessionDates.map((dateWithStatus) => dateWithStatus.date);
+    return [...result, ...dates];
+  }, []);
+  return allDates?.sort((date1, date2) => {
+    const previousDateinMilliSecs = new Date(date1).getTime();
+    const currentDateinMilliSecs = new Date(date2).getTime();
+    return previousDateinMilliSecs - currentDateinMilliSecs;
+  })[0];
+};
+
+export const getGracePeriod = (grace, subscriptionStartDate) => {
+  return moment(subscriptionStartDate).add(grace, "days").format(ISO_FORMAT);
 };

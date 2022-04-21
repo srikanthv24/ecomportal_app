@@ -17,10 +17,14 @@ const UpdateOrder = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const subscription = useSelector((state) => state.subscriptions.subscription);
-  const SubscriptionData = subscription?.item?.subscription;
+  const item = subscription?.item;
+  const SubscriptionData = item?.subscription;
   const loading = useSelector((state) => state.subscriptions.loading);
   const userDetails = useSelector((state) => state?.auth?.userDetails);
   const subscriptionList = useSelector((state) => state.Orders.ordersList);
+  const addressList = SubscriptionData?.map(
+    (subscription) => subscription.address
+  );
   const [inputs, setInputs] = useState({
     profileDetails: {},
     deliveryType: "",
@@ -38,12 +42,6 @@ const UpdateOrder = () => {
     address: {},
   });
 
-  const [item, setItem] = useState({
-    name: "",
-    category: "",
-    image: "",
-    description: "",
-  });
   const [disable, setDisable] = useState(false);
 
   const orderDates = SubscriptionData?.map((sessionData) => {
@@ -52,14 +50,17 @@ const UpdateOrder = () => {
   /*** As of now duration would be same for all sessions ****/
   const mealDisplayName =
     subscription?.item?.variants[0]?.items[0].display_name;
+  const grace = subscription?.item?.variants[0]?.items[0].grace_period;
   const duration = mealDisplayName?.replace(/[^\d]/g, "");
   const deliveryType = SubscriptionData?.isDelivery ? DELIVERY : PICKUP;
   const selectedSessions = SubscriptionData?.map((sessionData) => {
     return sessionData.meal_type;
   });
-  const subscriptionStartDate = subscriptionList.find(
-    (eachSubscription) => eachSubscription.id === subscription.subscription_id
-  );
+  const subscriptionStartDate = subscription?.subscription_id
+    ? subscriptionList.find((eachSubscription) => {
+        return parseInt(eachSubscription.id) === subscription.subscription_id;
+      }).start_date
+    : new Date();
   const [newDates, setNewDates] = useState([]);
 
   useEffect(() => {
@@ -118,10 +119,10 @@ const UpdateOrder = () => {
         ) : (
           <>
             <EditSubscription
-              productTitle={item.name}
-              productCategory={item.category}
-              imageUrl={subscription?.item?.defaultimg_url}
-              productDescription={item.description}
+              productTitle={item?.item_name}
+              productCategory={item?.category}
+              imageUrl={item?.defaultimg_url}
+              productDescription={item?.description}
               inputs={inputs}
               setInputs={setInputs}
               setDisable={setDisable}
@@ -132,7 +133,8 @@ const UpdateOrder = () => {
               selectedSessions={selectedSessions}
               mealDisplayName={mealDisplayName}
               subscriptionStartDate={subscriptionStartDate}
-              grace={7}
+              addressList={addressList}
+              grace={grace}
             />
             <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
               <button

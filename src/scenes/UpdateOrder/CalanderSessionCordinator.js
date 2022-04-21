@@ -10,6 +10,7 @@ const CalanderSessionCordinator = React.memo(
     disabled = false,
     orderDates,
     handleCalendarChange,
+    addressList,
     ...rest
   }) => {
     const [sessions, setSessions] = useState(
@@ -40,6 +41,7 @@ const CalanderSessionCordinator = React.memo(
                 sessionCode={sessionCode}
                 handleCalendarChange={handleCalendarChange}
                 sessionIndex={index}
+                address={addressList[index]}
               />
             );
           })}
