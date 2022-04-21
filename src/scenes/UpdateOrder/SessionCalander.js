@@ -4,6 +4,7 @@ import { ISO_FORMAT, SESSION_TYPES } from "../../utils/constants";
 import MealDisplay from "./MealDisplay";
 import { Calendar } from "react-multi-date-picker";
 import { getGracePeriod } from "./updateOrder.utils";
+import CalendarLegend from "../../components/CalendarLegend";
 
 const SessionCalander = ({
   sessionCode,
@@ -80,6 +81,9 @@ const SessionCalander = ({
               }
               unscheduled meal deliveries.`}
             </small>
+          </div>
+          <div className="justify-content-between">
+          <CalendarLegend />
           </div>
           {address?.customer_name && (
             <div>

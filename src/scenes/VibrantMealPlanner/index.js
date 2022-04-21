@@ -267,7 +267,7 @@ function VibrantMealPlanner() {
               <div className="d-flex btn-group vl-action-btn">
                 {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}
                 <button type="button" className="btn w-100p vl-go-next-btn" 
-                  disabled={!selectedDuration || selectedSessions.length === 0}
+                  disabled={!selectedDuration || selectedSessions.length === 0 || deliveryType.length === 0 }
                   onClick={(e) => onAddToCart(e)} >
                     {ADD_TO_CART}
                 </button>

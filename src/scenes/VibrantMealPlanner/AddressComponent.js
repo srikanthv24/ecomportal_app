@@ -194,7 +194,7 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
       newAddress.postalcode === "" ||
       newAddress.city === "" ||
       newAddress.state === "") {
-      onDeliveryTypeChange(PICKUP);
+      onDeliveryTypeChange("");
     } else {
       setAddressSelected(true);
     }
