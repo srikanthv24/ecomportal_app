@@ -1,22 +1,7 @@
-import { types} from '../constants'
-
-export const saveMealPlanId = (id) => {
-    return {
-        type: types.MEAL_PLAN_ID,
-        id
-    }
-};
-
+import { types } from "../constants";
 
 export const getMealPlans = () => {
-    return {
-      type: types.MEALPLANS_LIST
-    };
-  };
-
-export const getMealPlanDetails = (payload) => {
   return {
-    type: types.MEALPLAN_DETAILS,
-    payload: payload,
+    type: types.MEALPLANS_LIST,
   };
 };

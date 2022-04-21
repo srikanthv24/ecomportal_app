@@ -76,6 +76,10 @@ export const FEMALE = "Female";
 export const WHATSAPP_LINK = "http://wa.aisensy.com/+918096091111";
 export const INDIAN_DATE_FORMAT = "DD/MM/YYYY";
 export const ISO_FORMAT = "YYYY-MM-DD";
+export const BOOLEAN_TRUE = true;
+export const ACTIVE_STATUS = "A";
+export const FUSION_FOODS_CATEGORY = "Fusion Foods"
+
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET: "Height-Feet",
@@ -115,3 +119,5 @@ export const CART = {
   DURATION: "Duration",
   CONFIRM_AND_PAY: "Confirm and Pay",
 };
+
+
