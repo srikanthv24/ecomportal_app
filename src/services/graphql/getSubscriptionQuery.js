@@ -27,6 +27,7 @@ export const GET_SUBSCRIPTION = `query($cart_id: ID!, $cartitem_id: ID!, $sub_id
     display_name
     items {
     display_name
+    grace_period
     }
     }
     subscription {
