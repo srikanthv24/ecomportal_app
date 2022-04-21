@@ -1,14 +1,13 @@
 import { getCategories } from "../graphql/mutations";
-import { api_urls } from "../../utils";
-import { RefreshToken } from "../../helpers/refreshSession";
-
+const PRODUCT_API_URL = process.env.REACT_APP_Product_REL_API_URL;
+const PRODUCT_API_KEY = process.env.REACT_APP_Product_REL_API_KEY;
 export class Categories {
   static getCategories = async(params) => {
-    return fetch(`${api_urls.Product_REL_API_URL}`, {
+    return fetch(`${PRODUCT_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        'X-API-Key': `${api_urls.Product_REL_API_KEY}`
+        'X-API-Key': `${PRODUCT_API_KEY}`
       },
       body: JSON.stringify({
         query: getCategories,

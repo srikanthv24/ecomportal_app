@@ -5,14 +5,14 @@ import {
   getCart,
   updateCartQty,
 } from "../graphql/mutations";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
+const COMMON_API_URL = process.env.REACT_APP_Common_API_URL;
 
 export class Cart {
   static getCart = async (params) => {
     const getToken = await RefreshToken.getRefreshedToken();
     try {
-      return fetch(`${api_urls.Common_API_URL}`, {
+      return fetch(`${COMMON_API_URL}`, {
         method: "POST",
         headers: {
           Authorization: getToken,
@@ -33,7 +33,7 @@ export class Cart {
     const { customer_id } = data;
     const getToken = await RefreshToken.getRefreshedToken();
     try {
-      return fetch(`${api_urls.Common_API_URL}`, {
+      return fetch(`${COMMON_API_URL}`, {
         method: "POST",
         headers: {
           Authorization: getToken,
@@ -52,7 +52,7 @@ export class Cart {
     const getToken = await RefreshToken.getRefreshedToken();
     let payload = params.payload;
     try {
-      return fetch(`${api_urls.Common_API_URL}`, {
+      return fetch(`${COMMON_API_URL}`, {
         method: "POST",
         headers: {
           Authorization: getToken,
@@ -79,7 +79,7 @@ export class Cart {
   static updateCart = async (params) => {
     const getToken = await RefreshToken.getRefreshedToken();
     try {
-      return fetch(`${api_urls.Common_API_URL}`, {
+      return fetch(`${COMMON_API_URL}`, {
         method: "POST",
         headers: {
           Authorization: getToken,
@@ -109,7 +109,7 @@ export class Cart {
     const getToken = await RefreshToken.getRefreshedToken();
     const { id, customer_id, qty, cart_item_id } = params.payload;
     try {
-      return fetch(`${api_urls.Common_API_URL}`, {
+      return fetch(`${COMMON_API_URL}`, {
         method: "POST",
         headers: {
           Authorization: getToken,

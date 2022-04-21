@@ -1,6 +1,6 @@
 import { PAUSE_SUBSCRIPTION } from "../graphql/pauseSubscriptionMutation";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
+const SUB_API_URL = process.env.REACT_APP_SUB_REL_API_URL;
 
 export const pauseSubscription = async (
   check,
@@ -16,7 +16,7 @@ export const pauseSubscription = async (
     pause_dates: pause_dates,
   };
   try {
-    const response = await fetch(`${api_urls.SUB_REL_API_URL}`, {
+    const response = await fetch(`${SUB_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

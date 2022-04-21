@@ -4,15 +4,15 @@ import {
   getCartItemSchema,
   updateCartItem,
 } from "../graphql/mutations";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
+const COMMON_API_URL = process.env.REACT_APP_Common_API_URL;
 
 export class CartItem {
   static getCartItem =async (params)=> {
     const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        `${api_urls.Common_API_URL}`,
+        `${COMMON_API_URL}`,
         {
           method: "POST",
           headers: {
@@ -35,7 +35,7 @@ export class CartItem {
     const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        `${api_urls.Common_API_URL}`,
+        `${COMMON_API_URL}`,
         {
           method: "POST",
           headers: {
@@ -60,7 +60,7 @@ export class CartItem {
     const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        `${api_urls.Common_API_URL}`,
+        `${COMMON_API_URL}`,
         {
           method: "POST",
           headers: {
@@ -85,7 +85,7 @@ export class CartItem {
     const getToken = await RefreshToken.getRefreshedToken()
     try {
       return fetch(
-        `${api_urls.Common_API_URL}`,
+        `${COMMON_API_URL}`,
         {
           method: "POST",
           headers: {

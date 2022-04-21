@@ -16,7 +16,11 @@ import ModalComponent from "../../components/Modal/Modal";
 import { OrderCheckList } from "./order-checklist";
 import CartSummaryItem from "./cart-summary-item";
 import { displayCurrency } from "../../helpers/displayCurrency";
-import api_urls from "../../utils/UrlConfig";
+
+const RAZORPAY_API_URL = process.env.REACT_APP_Razorpay_API_URL;
+const PAYMENT_API_URL = process.env.REACT_APP_Payment_API_URL;
+const PAYMENT_KEY = process.env.REACT_APP_payment_key;
+
 const CartSummary = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -200,7 +204,7 @@ const CartSummary = () => {
   }
 
   async function handleContinue() {
-    const res = await loadScript(`${api_urls.Razorpay_API_URL}`);
+    const res = await loadScript(`${RAZORPAY_API_URL}`);
 
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
@@ -220,7 +224,7 @@ const CartSummary = () => {
       phone: userDetails.phone_number.substring(3),
     };
 
-    const result = await fetch(`${api_urls.Payment_API_URL}`, {
+    const result = await fetch(`${PAYMENT_API_URL}`, {
       method: "POST",
       body: JSON.stringify(req),
     }).then((res) => res.json());
@@ -233,7 +237,7 @@ const CartSummary = () => {
     // Getting the order details back
     const { amount, id: order_id, currency } = result;
     const options = {
-      key: `${api_urls.payment_key}`, // Enter the Key ID generated from the Dashboard
+      key: `${PAYMENT_KEY}`, // Enter the Key ID generated from the Dashboard
       amount: amount,
       currency: currency,
       name: userDetails.name,

@@ -1,10 +1,10 @@
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
+const CUSTOMER_API_URL = process.env.REACT_APP_Customer_REL_API_URL;
 
 export class Customer {
   static getGender = async () => {
      const getToken = await RefreshToken.getRefreshedToken()
-    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
+    return  fetch(`${CUSTOMER_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export class Customer {
 
   static getPhysicalActivity = async () => {
     const getToken = await RefreshToken.getRefreshedToken()
-    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
+    return  fetch(`${CUSTOMER_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export class Customer {
 
   static getDietPreference = async () => {
     const getToken = await RefreshToken.getRefreshedToken()
-    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
+    return  fetch(`${CUSTOMER_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -91,7 +91,7 @@ export class Customer {
 
   static getGoalList = async () => {
     const getToken = await RefreshToken.getRefreshedToken()
-    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
+    return  fetch(`${CUSTOMER_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +120,7 @@ export class Customer {
 
   static createCustomer = async(data) => {
     const getToken = await RefreshToken.getRefreshedToken()
-    return  fetch(`${api_urls.Customer_REL_API_URL}`, {
+    return  fetch(`${CUSTOMER_API_URL}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
