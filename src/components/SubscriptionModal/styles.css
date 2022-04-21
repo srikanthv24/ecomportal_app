@@ -46,6 +46,7 @@
   min-height: 54px;
   border-radius: 10px;
   padding: 15px 20px !important;
+  background: transparent !important;
 }
 .order-form-control span.date-info {
   font-family: "Roboto";
@@ -71,11 +72,30 @@
   color: #fff;
   background-color: #614731 !important;
   border-color: #614731 !important;
+  border-radius:20px 0px 0px 20px !important;
 }
 .vl-btn-secondary {
   color: #212121 !important;
-  background-color: #cccccc !important;
-  border-color: #d3d3d3 !important;
+  background-color: transparent !important;
+  border-color: #614731 !important;
+  border-radius:0px 20px 20px 0px !important;
+  
+}
+.modal-footer-btn-group .vl-btn-primary,
+.modal-footer-btn-group .vl-btn-secondary 
+{
+  width: 50%;
+    max-width: calc(100% - 40px);
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: "Roboto Medium",sans-serif;
+    font-size: 16px;
+    font-weight: 500;
 }
 .order-modal-content-footer {
   background: #F7F2DF;
@@ -101,4 +121,7 @@ border-radius: 15px;
   font-family: 'Roboto Regular',sans-serif;
   font-size: 16px;
   font-weight: 400;
+}
+.modal-body-content.product-planner.subs-modal-content textarea{
+  background: transparent !important;
 }

@@ -91,9 +91,8 @@ export default function AppBar() {
               <Link to="/">
                 <img
                   alt=""
-                  src={vlLogoWhite}
-                  height="70"
-                  className="d-inline-block align-top"
+                  src={vlLogoWhite}                  
+                  className="d-inline-block align-top vl-logo"
                   style={{ marginTop: "-.5rem" }}
                 />
               </Link>
