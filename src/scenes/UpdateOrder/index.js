@@ -52,7 +52,8 @@ const UpdateOrder = () => {
     subscription?.item?.variants[0]?.items[0].display_name;
   const grace = subscription?.item?.variants[0]?.items[0].grace_period;
   const duration = mealDisplayName?.replace(/[^\d]/g, "");
-  const deliveryType = SubscriptionData?.isDelivery ? DELIVERY : PICKUP;
+  const deliveryType =
+    SubscriptionData && SubscriptionData[0].isDelivery ? DELIVERY : PICKUP;
   const selectedSessions = SubscriptionData?.map((sessionData) => {
     return sessionData.meal_type;
   });
@@ -60,7 +61,7 @@ const UpdateOrder = () => {
     ? subscriptionList.find((eachSubscription) => {
         return parseInt(eachSubscription.id) === subscription.subscription_id;
       }).start_date
-    : new Date();
+    : "";
   const [newDates, setNewDates] = useState([]);
 
   useEffect(() => {

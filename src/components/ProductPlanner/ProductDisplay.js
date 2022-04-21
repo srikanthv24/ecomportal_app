@@ -1,5 +1,6 @@
 import React from "react";
 import "./product-planner.scss";
+import { getDateInTextFormat } from "../../utils/dateUtils";
 
 const ProductDisplay = React.memo(
   ({
@@ -9,7 +10,7 @@ const ProductDisplay = React.memo(
     description,
     onClick,
     planName,
-    firstDeliveryDate,
+    subscriptionStartDate,
     duration
   }) => {
     return (
@@ -19,7 +20,7 @@ const ProductDisplay = React.memo(
         <img src={imageUrl} alt="product-img"></img>
         <div className="prdDesp">{description}</div>
         <div className="prdDesp">Subscribed for {duration} day plan</div>
-        <div className="prdDesp">First delivery date: {firstDeliveryDate}</div>
+        <div className="prdDesp">Start date: {getDateInTextFormat(subscriptionStartDate)}</div>
       </div>
     );
   }

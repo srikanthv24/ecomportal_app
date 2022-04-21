@@ -69,6 +69,7 @@ const SessionCalander = ({
         <>
           <div className="meal-plan-wrapper px-0">
             <MealDisplay name={mealDisplayName} type={deliveryType} />
+            <CalendarLegend />
           </div>
           <div className="d-flex justify-content-start">
             <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">
@@ -81,9 +82,6 @@ const SessionCalander = ({
               unscheduled meal deliveries.`}
             </small>
           </div>
-          <div className="justify-content-between">
-          <CalendarLegend />
-          </div>
           {address?.customer_name && (
             <div>
               Deliver To:
@@ -95,7 +93,7 @@ const SessionCalander = ({
               format="YYYY-MM-DD"
               multiple
               numberOfMonths={2}
-              minDate={new Date()}
+              minDate={subscriptionStartDate}
               maxDate={maxDate}
               value={activeDates}
               onChange={onCalandarChange}

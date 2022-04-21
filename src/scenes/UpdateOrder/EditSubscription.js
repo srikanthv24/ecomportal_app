@@ -25,10 +25,6 @@ const EditSubscription = React.memo(
     planName,
     ...rest
   }) => {
-    const firstDeliveryDate = useMemo(
-      () => getFirstSubscriptionDate(orderDates),
-      [orderDates]
-    );
     return (
       <div className="product-planner">
         <ProductDisplay
@@ -37,8 +33,8 @@ const EditSubscription = React.memo(
           imageUrl={imageUrl}
           description={productDescription}
           planName={planName}
-          firstDeliveryDate={firstDeliveryDate}
           duration={planDuration}
+          {...rest}
         />
         <CalanderSessionCordinator
           selectedSessions={selectedSessions}
@@ -61,7 +57,7 @@ const EditSubscription = React.memo(
                 type="radio"
                 name="order-type"
                 id={PICKUP}
-                checked={inputs.deliveryType === PICKUP ? true : false}
+                checked={deliveryType === PICKUP}
                 value={PICKUP}
                 disabled
               />
@@ -75,7 +71,7 @@ const EditSubscription = React.memo(
                 type="radio"
                 name="order-type"
                 id={DELIVERY}
-                checked={inputs.deliveryType === DELIVERY ? true : false}
+                checked={deliveryType === DELIVERY}
                 value={DELIVERY}
                 disabled
               />
