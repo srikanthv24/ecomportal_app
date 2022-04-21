@@ -1,12 +1,12 @@
 import { GET_SUBSCRIPTION } from "../graphql/getSubscriptionQuery";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
 import { UPDATE_ORDER_INPUT } from "../graphql/updateOrderInput";
+const COMMON_API_URL = process.env.REACT_APP_Common_API_URL;
 
 export const getSubscriptionDetails = async (cart_id, cartitem_id, sub_id) => {
   const getToken = await RefreshToken.getRefreshedToken();
   try {
-    const response = await fetch(`${api_urls.Common_API_URL}`, {
+    const response = await fetch(`${COMMON_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const getSubscriptionDetails = async (cart_id, cartitem_id, sub_id) => {
 export const updateSubscriptionDetails = async (params) => {
   const getToken = await RefreshToken.getRefreshedToken();
   try {
-    const response = await fetch(`${api_urls.Common_API_URL}`, {
+    const response = await fetch(`${COMMON_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

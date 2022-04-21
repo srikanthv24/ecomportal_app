@@ -1,6 +1,6 @@
 import { RESUME_SUBSCRIPTION } from "../graphql/resumeSubscriptionMutation";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
+const SUB_API_URL = process.env.REACT_APP_SUB_REL_API_URL;
 
 export const resumeSubscription = async (
   check,
@@ -10,7 +10,7 @@ export const resumeSubscription = async (
 ) => {
   const getToken = await RefreshToken.getRefreshedToken();
   try {
-    const response = await fetch(`${api_urls.SUB_REL_API_URL}`, {
+    const response = await fetch(`${SUB_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

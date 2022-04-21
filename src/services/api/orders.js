@@ -1,15 +1,11 @@
-import { Orders } from "../graphql/mutations";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
-
-//4du - 
-
+const SUB_API_URL = process.env.REACT_APP_SUB_REL_API_URL;
 export class OrdersApi {
   static getOrders = async(params) => {
     const getToken = await RefreshToken.getRefreshedToken()
     try {
       return await fetch(
-        `${api_urls.SUB_REL_API_URL}`,
+        `${SUB_API_URL}`,
         {
           method: "POST",
           headers: {

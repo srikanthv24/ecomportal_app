@@ -1,15 +1,13 @@
-import { api_urls } from "../../utils";
-
-const MEAL_PLAN_API_KEY = process.env.REACT_APP_ADDON_API_KEY;
-const MEAL_PLANDETAILS_API_KEY = process.env.REACT_APP_CATEGORY_KEY;
+const PRODUCT_API_URL = process.env.REACT_APP_Product_REL_API_URL;
+const PRODUCT_API_KEY = process.env.REACT_APP_Product_REL_API_KEY;
 
 export class mealPlans {
 	static getMealPlans = async () => {
-    return await fetch(`${api_urls.Product_REL_API_URL}`, {
+    return await fetch(`${PRODUCT_API_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
+				'X-API-Key': `${PRODUCT_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: `{
@@ -62,11 +60,11 @@ export class mealPlans {
 	};
 
 	static mealPlanDetails = async (id) => {
-		return await fetch(`${api_urls.Product_REL_API_URL}`, {
+		return await fetch(`${PRODUCT_API_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-        'X-API-Key': `${api_urls.Product_REL_API_KEY}`
+        'X-API-Key': `${PRODUCT_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: `{

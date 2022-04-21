@@ -1,6 +1,6 @@
 import { CREATE_CART_INPUT } from "../graphql/createCartInput";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
+const COMMON_API_URL = process.env.REACT_APP_Common_API_URL;
 
 export const createCartInput = async ({ payload }) => {
   const getToken = await RefreshToken.getRefreshedToken();
@@ -51,7 +51,7 @@ export const createCartInput = async ({ payload }) => {
   };
 
   try {
-    const response = await fetch(`${api_urls.Common_API_URL}`, {
+    const response = await fetch(`${COMMON_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

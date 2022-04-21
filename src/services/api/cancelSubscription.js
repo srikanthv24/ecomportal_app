@@ -1,12 +1,12 @@
 import { CANCEL_SUBSCRIPTION } from "../../services/graphql/mutations";
 import { RefreshToken } from "../../helpers/refreshSession";
-import { api_urls } from "../../utils";
+const SUB_API_URL = process.env.REACT_APP_SUB_REL_API_URL;
 
  export const cancelSubscriptionApi = async(id) => {
   const getToken = await RefreshToken.getRefreshedToken();
     try {
     const response = await fetch(
-      `${api_urls.SUB_REL_API_URL}`,
+      `${SUB_API_URL}`,
       {
         method: "POST",
         headers: {

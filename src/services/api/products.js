@@ -1,4 +1,3 @@
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
 import {
 	getAddressList,
@@ -8,6 +7,9 @@ import {
 	getStaples,
 	searchProducts,
 } from "../graphql/mutations";
+const COMMON_API_URL = process.env.REACT_APP_Common_API_URL;
+const PRODUCT_API_URL = process.env.REACT_APP_Product_REL_API_URL;
+const PRODUCT_API_KEY = process.env.REACT_APP_Product_REL_API_KEY;
 
 export class Products {
 	static getAddons = (data) => {
@@ -26,11 +28,11 @@ export class Products {
 				}
 			}
 		}`;
-		return fetch(`${api_urls.Product_REL_API_URL}`, {
+		return fetch(`${PRODUCT_API_URL}`, {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
+				'X-API-Key': `${PRODUCT_API_KEY}`
 			},
 			body: JSON.stringify({
 				query: q
@@ -44,11 +46,11 @@ export class Products {
 
 	static getProducts = async (params) => {
 		try {
-			return await fetch(api_urls.Product_REL_API_URL, {
+			return await fetch(`${PRODUCT_API_URL}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					'X-API-Key': `${api_urls.Product_REL_API_KEY}`
+					'X-API-Key': `${PRODUCT_API_KEY}`
 				},
 				body: JSON.stringify({
 					query: params.payload.category === "Staples" ? getStaples : getProducts,
@@ -66,22 +68,22 @@ export class Products {
 
 	static ProductDetails = async (id) => {
 		const getToken = await RefreshToken.getRefreshedToken()
-		return await fetch(api_urls.Product_REL_API_URL, {
+		return await fetch(`${PRODUCT_API_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
+				'X-API-Key': `${PRODUCT_API_KEY}`
 			},
 			body: getProductDetails(id.payload),
 		}).then((res) => res.json());
 	};
 
 	static productSearch = async (query) => {
-		return await fetch(api_urls.Product_REL_API_URL, {
+		return await fetch(`${PRODUCT_API_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				'X-API-Key': `${api_urls.Product_REL_API_KEY}`
+				'X-API-Key': `${PRODUCT_API_KEY}`
 			},
 			body: searchProducts(query),
 		}).then((res) => res.json());
@@ -90,7 +92,7 @@ export class Products {
 	static getAddressList = async (id) => {
 		const getToken = await RefreshToken.getRefreshedToken()
 		return await fetch(
-			`${api_urls.Common_API_URL}`,
+			`${COMMON_API_URL}`,
 			{
 				method: "POST",
 				headers: {

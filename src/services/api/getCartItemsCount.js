@@ -1,11 +1,11 @@
 import { GET_CART_ITEMS_COUNT } from "../graphql/getCartItemsCount";
-import { api_urls } from "../../utils";
 import { RefreshToken } from "../../helpers/refreshSession";
+const COMMON_API_URL = process.env.REACT_APP_Common_API_URL;
 
 export const getCartItemsCount = async (customerId) => {
   const getToken = await RefreshToken.getRefreshedToken();
   try {
-    const response = await fetch(`${api_urls.Common_API_URL}`, {
+    const response = await fetch(`${COMMON_API_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
