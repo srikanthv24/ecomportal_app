@@ -76,5 +76,5 @@ export const getFirstSubscriptionDate = (orderDates) => {
 };
 
 export const getGracePeriod = (grace, subscriptionStartDate) => {
-  return moment(subscriptionStartDate).add(grace, "days").format(ISO_FORMAT);
+  return moment(subscriptionStartDate).add(grace-1, "days").format(ISO_FORMAT);
 };
