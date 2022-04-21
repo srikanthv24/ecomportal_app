@@ -48,3 +48,10 @@ export const getCartItemsCount = (data) => {
     payload: data,
   };
 };
+
+export const updateCartCount = (count) => {
+  return {
+    type: types.UPDATE_CART_COUNT,
+    payload: count,
+  };
+};
