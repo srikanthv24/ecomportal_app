@@ -21,15 +21,15 @@ const ModalComponent = ({
 }) => {
   const getDefaultFooter = () => {
     return (
-      <Modal.Footer className="order-modal-content-footer">
-        {secondaryButtonText && (
-          <Button className="vl-btn-secondary" onClick={secondaryButtonClick}>
-            {secondaryButtonText}
-          </Button>
-        )}
+      <Modal.Footer className="order-modal-content-footer modal-footer-btn-group">        
         {primaryButtonText && (
           <Button className="vl-btn-primary" onClick={primaryButtonClick}>
             {primaryButtonText}
+          </Button>
+        )}
+        {secondaryButtonText && (
+          <Button className="vl-btn-secondary" onClick={secondaryButtonClick}>
+            {secondaryButtonText}
           </Button>
         )}
       </Modal.Footer>
