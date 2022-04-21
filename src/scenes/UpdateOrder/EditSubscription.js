@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import MealDisplay from "./MealDisplay";
 import SessionCordinator from "../../components/SessionCordinator";
 import CalanderSessionCordinator from "./CalanderSessionCordinator";
@@ -7,6 +7,7 @@ import _ from "underscore";
 import moment from "moment";
 import DeliverySwitch from "../../components/DeliverySwitch/DeliverySwitch";
 import { PICKUP, DELIVERY } from "../../utils/constants";
+import { getFirstSubscriptionDate } from "./updateOrder.utils";
 
 const EditSubscription = React.memo(
   ({
@@ -21,8 +22,13 @@ const EditSubscription = React.memo(
     orderDates,
     duration: planDuration,
     handleCalendarChange,
+    planName,
     ...rest
   }) => {
+    const firstDeliveryDate = useMemo(
+      () => getFirstSubscriptionDate(orderDates),
+      [orderDates]
+    );
     return (
       <div className="product-planner">
         <ProductDisplay
@@ -30,6 +36,9 @@ const EditSubscription = React.memo(
           category={productCategory}
           imageUrl={imageUrl}
           description={productDescription}
+          planName={planName}
+          firstDeliveryDate={firstDeliveryDate}
+          duration={planDuration}
         />
         <CalanderSessionCordinator
           selectedSessions={selectedSessions}

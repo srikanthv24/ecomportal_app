@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Form from "react-bootstrap/Form";
 import { ISO_FORMAT, SESSION_TYPES } from "../../utils/constants";
 import MealDisplay from "./MealDisplay";
 import { Calendar } from "react-multi-date-picker";
+import { getGracePeriod } from "./updateOrder.utils";
 import CalendarLegend from "../../components/CalendarLegend";
 
 const SessionCalander = ({
@@ -18,10 +19,11 @@ const SessionCalander = ({
   handleCalendarChange,
   sessionIndex,
   subscriptionStartDate,
+  grace,
+  address,
 }) => {
   const [activeDates, setActiveDates] = useState(remainingDates);
   const mapCalendarDates = (date) => {
-    console.log("Map calandar days called");
     let props = {};
     props.style = {};
     if (completedDates.length > 0) {
@@ -47,8 +49,9 @@ const SessionCalander = ({
       sessionIndex
     );
   };
-  console.log(
-    "subscriptionStartDate: " + JSON.stringify(subscriptionStartDate)
+  const maxDate = useMemo(
+    () => getGracePeriod(grace, subscriptionStartDate),
+    [grace, subscriptionStartDate]
   );
   return (
     <div className="mealPlannerCheck vl-checkbox-custom">
@@ -67,18 +70,33 @@ const SessionCalander = ({
           <div className="meal-plan-wrapper px-0">
             <MealDisplay name={mealDisplayName} type={deliveryType} />
           </div>
-          <div className="d-flex justify-content-between align-items-center">
-            <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">{`selected ${
-              completedDates?.length + activeDates?.length
-            }/${duration} days`}</small>
-             <CalendarLegend />
+          <div className="d-flex justify-content-start">
+            <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">
+              {`Delivered ${completedDates?.length} out of total of ${duration}
+              meals.
+              Deliveries scheduled for ${activeDates?.length} more meals.
+              Balance ${
+                duration - (completedDates?.length + activeDates?.length)
+              }
+              unscheduled meal deliveries.`}
+            </small>
           </div>
+          <div className="justify-content-between">
+          <CalendarLegend />
+          </div>
+          {address?.customer_name && (
+            <div>
+              Deliver To:
+              {` ${address.aline1}, ${address.aline2}, ${address.community}, ${address.state}, ${address.landmark}, ${address.postalcode}`}
+            </div>
+          )}
           <div className="calendar-container">
             <Calendar
               format="YYYY-MM-DD"
               multiple
               numberOfMonths={2}
               minDate={new Date()}
+              maxDate={maxDate}
               value={activeDates}
               onChange={onCalandarChange}
               mapDays={({ date }) => mapCalendarDates(date)}
