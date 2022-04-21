@@ -53,7 +53,6 @@ const SessionCalander = ({
     () => getGracePeriod(grace, subscriptionStartDate),
     [grace, subscriptionStartDate]
   );
-  console.log("address: " + JSON.stringify(address));
   return (
     <div className="mealPlannerCheck vl-checkbox-custom">
       <Form.Check

@@ -24,7 +24,6 @@ const CalanderSessionCordinator = React.memo(
       setSessions(updatedSessionCodes);
       onSessionChange(updatedSessionCodes);
     };
-    console.log("addressList: " + JSON.stringify(addressList));
     return (
       <>
         {selectedSessions?.length > 0 &&

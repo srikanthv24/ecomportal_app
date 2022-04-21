@@ -51,7 +51,6 @@ const UpdateOrder = () => {
   const mealDisplayName =
     subscription?.item?.variants[0]?.items[0].display_name;
   const grace = subscription?.item?.variants[0]?.items[0].grace_period;
-  console.log("grace: " + JSON.stringify(grace));
   const duration = mealDisplayName?.replace(/[^\d]/g, "");
   const deliveryType = SubscriptionData?.isDelivery ? DELIVERY : PICKUP;
   const selectedSessions = SubscriptionData?.map((sessionData) => {
@@ -59,7 +58,6 @@ const UpdateOrder = () => {
   });
   const subscriptionStartDate = subscription?.subscription_id
     ? subscriptionList.find((eachSubscription) => {
-        console.log("subscription: " + JSON.stringify(subscription));
         return parseInt(eachSubscription.id) === subscription.subscription_id;
       }).start_date
     : new Date();

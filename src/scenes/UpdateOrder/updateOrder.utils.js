@@ -76,8 +76,5 @@ export const getFirstSubscriptionDate = (orderDates) => {
 };
 
 export const getGracePeriod = (grace, subscriptionStartDate) => {
-  console.log("grace maxDate called " );
-  return moment(subscriptionStartDate)
-    .add(grace, "days")
-    .format(ISO_FORMAT);
+  return moment(subscriptionStartDate).add(grace, "days").format(ISO_FORMAT);
 };
