@@ -40,7 +40,7 @@ if (server === "production") {
       "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/kotorder",
     Payment_API_URL:
       "https://ie30n03rqb.execute-api.us-east-1.amazonaws.com/api/payment",
-    payment_key: "rzp_live_JvYF2a7kJsppDt",
+    payment_key: "rzp_test_QmipkFQ5tachW2",
     Razorpay_API_URL: "https://checkout.razorpay.com/v1/checkout.js",
     Product_REL_API_KEY: "da2-orjjngnz3ffc3jjnn75bfm4roi",
     Postal_API_KEY: "da2-j7yxgxymtrarzavgivfwda4h5u",
