@@ -71,7 +71,7 @@ const SessionCalander = ({
             <MealDisplay name={mealDisplayName} type={deliveryType} />
             <CalendarLegend />
           </div>
-          <div className="d-flex justify-content-start">
+          <div className="d-flex justify-content-start mb-2">
             <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">
               {`Delivered ${completedDates?.length} out of total of ${duration}
               meals.
