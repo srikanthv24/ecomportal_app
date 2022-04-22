@@ -51,9 +51,11 @@ const UpdateOrder = () => {
   const mealDisplayName =
     subscription?.item?.variants[0]?.items[0].display_name;
   const grace = subscription?.item?.variants[0]?.items[0].grace_period;
+  console.log("grace in main: " + JSON.stringify(grace));
   const duration = mealDisplayName?.replace(/[^\d]/g, "");
-  const deliveryType =
-    SubscriptionData && SubscriptionData[0].isDelivery ? DELIVERY : PICKUP;
+  const deliveryTypeDetails = SubscriptionData?.map((subscription) =>
+    subscription.isDelivery ? DELIVERY : PICKUP
+  );
   const selectedSessions = SubscriptionData?.map((sessionData) => {
     return sessionData.meal_type;
   });
@@ -130,7 +132,7 @@ const UpdateOrder = () => {
               handleCalendarChange={handleCalendarChange}
               orderDates={orderDates}
               duration={duration}
-              deliveryType={deliveryType}
+              deliveryTypeDetails={deliveryTypeDetails}
               selectedSessions={selectedSessions}
               mealDisplayName={mealDisplayName}
               subscriptionStartDate={subscriptionStartDate}

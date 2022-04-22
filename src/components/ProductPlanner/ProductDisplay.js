@@ -10,7 +10,6 @@ const ProductDisplay = React.memo(
     description,
     onClick,
     planName,
-    subscriptionStartDate,
     duration,
   }) => {
     return (
@@ -21,11 +20,6 @@ const ProductDisplay = React.memo(
         {description && <div className="prdDesp">{description}</div>}
         {duration && (
           <div className="prdDesp">Subscribed for {duration} day plan</div>
-        )}
-        {subscriptionStartDate && (
-          <div className="prdDesp">
-            Start date: {getDateInTextFormat(subscriptionStartDate)}
-          </div>
         )}
       </div>
     );

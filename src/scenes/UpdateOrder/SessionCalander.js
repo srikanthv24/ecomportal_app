@@ -5,10 +5,10 @@ import MealDisplay from "./MealDisplay";
 import { Calendar } from "react-multi-date-picker";
 import { getGracePeriod } from "./updateOrder.utils";
 import CalendarLegend from "../../components/CalendarLegend";
+import { getDateInTextFormat } from "../../utils/dateUtils";
 
 const SessionCalander = ({
   sessionCode,
-  onSessionClick,
   mealDisplayName,
   deliveryType,
   duration,
@@ -21,7 +21,12 @@ const SessionCalander = ({
   subscriptionStartDate,
   grace,
   address,
+  showCalander,
 }) => {
+  console.log(
+    "subscriptionStartDate: " + JSON.stringify(subscriptionStartDate)
+  );
+  console.log("grace: " + JSON.stringify(grace));
   const [activeDates, setActiveDates] = useState(remainingDates);
   const mapCalendarDates = (date) => {
     let props = {};
@@ -54,54 +59,45 @@ const SessionCalander = ({
     [grace, subscriptionStartDate]
   );
   return (
-    <div className="mealPlannerCheck vl-checkbox-custom">
-      <Form.Check
-        type="checkbox"
-        checked={checked}
-        name={sessionCode}
-        label={SESSION_TYPES[sessionCode]}
-        onClick={onSessionClick}
-        id={`session_checkbox_${sessionCode}`}
-        disabled={true}
-      />
-
-      {!disabled && (
-        <>
-          <div className="meal-plan-wrapper px-0">
-            <MealDisplay name={mealDisplayName} type={deliveryType} />
-            <CalendarLegend />
-          </div>
-          <div className="d-flex justify-content-start">
-            <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">
-              {`Delivered ${completedDates?.length} out of total of ${duration}
-              meals.
-              Deliveries scheduled for ${activeDates?.length} more meals.
-              Balance ${
+    <div className={showCalander ? "show-calander" : "hide-calander"}>
+      <div className="meal-plan-wrapper px-0">
+        <CalendarLegend />
+      </div>
+      {address?.customer_name && (
+        <div>
+          Deliver To:
+          {` ${address.aline1}, ${address.aline2}, ${address.community}, ${address.state}, ${address.landmark}, ${address.postalcode}`}
+        </div>
+      )}
+      <span>{duration} Days Subscription</span>
+      {subscriptionStartDate && (
+        <div className="prdDesp">
+          Start on: {getDateInTextFormat(subscriptionStartDate)}
+        </div>
+      )}
+      <div className="d-flex justify-content-start">
+        <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">
+          {`Delivered: ${completedDates?.length} 
+              Paused: ${
                 duration - (completedDates?.length + activeDates?.length)
               }
-              unscheduled meal deliveries.`}
-            </small>
-          </div>
-          {address?.customer_name && (
-            <div>
-              Deliver To:
-              {` ${address.aline1}, ${address.aline2}, ${address.community}, ${address.state}, ${address.landmark}, ${address.postalcode}`}
-            </div>
-          )}
-          <div className="calendar-container">
-            <Calendar
-              format="YYYY-MM-DD"
-              multiple
-              numberOfMonths={2}
-              minDate={subscriptionStartDate}
-              maxDate={maxDate}
-              value={activeDates}
-              onChange={onCalandarChange}
-              mapDays={({ date }) => mapCalendarDates(date)}
-            />
-          </div>
-        </>
-      )}
+              Balance: ${activeDates?.length}
+              `}
+        </small>
+      </div>
+
+      <div className="calendar-container">
+        <Calendar
+          format="YYYY-MM-DD"
+          multiple
+          numberOfMonths={2}
+          minDate={subscriptionStartDate}
+          maxDate={maxDate}
+          value={activeDates}
+          onChange={onCalandarChange}
+          mapDays={({ date }) => mapCalendarDates(date)}
+        />
+      </div>
     </div>
   );
 };
