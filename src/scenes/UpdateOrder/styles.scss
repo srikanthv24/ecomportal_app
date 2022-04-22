@@ -24,19 +24,28 @@
 }
 
 .updateOrder-sec{
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
   overflow: hidden;
   .vl-checkbox-custom{
-    padding: 0px !important;
+    // padding: 0px !important;
+  }
+  .mealPlannerCheck{
+    margin: 20px 20px !important;
+    border: 1px solid #d3d3d3;
+    padding: 10px 10px;
   }
   .rmdp-wrapper.rmdp-shadow {
     width: 100%;
     overflow: auto;
   }
   .mealplan-address-block{
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+    // padding-left: 0px !important;
+    // padding-right: 0px !important;
+  }
+  .vl-action-btn{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 }
 

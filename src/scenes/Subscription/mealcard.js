@@ -12,7 +12,7 @@ const MealCard = ({ product, handleNextStep }) => {
       onClick={() => {
         //handleClick(product.id);
         handleNextStep();
-        dispatch(saveMealPlanId(product.id));
+        // dispatch(saveMealPlanId(product.id));
         }}
     >
       <Card.Body variant="top" 

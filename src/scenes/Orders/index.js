@@ -153,6 +153,10 @@ const Orders = () => {
     dispatchToCallSubscriptionApi(false, subscriptionId, comments, dates);
   };
 
+  useEffect(() => {
+    dispatch(getOrders({ customer_number: userDetails.phone_number.substring(3) }));
+  }, []);
+
   return !isLoading ? (
     <>
       <OrderCard

@@ -21,12 +21,15 @@
 
 .nav-menu-cart .badge {
     background-color: rgba(53,40,23,1) !important;
-    border: 1px solid rgba(249,243,223,1);
+    border: 2px solid rgba(249,243,223,1);
     position: absolute;
     top: -10px;
     left: 10px;
     width: 1.5rem;
     height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-name-txt {
@@ -185,4 +188,15 @@
     top: 8px;
     margin: 0px 6px;
     cursor: pointer;
+}
+
+@media screen and (max-width:767px) {
+    .vl-logo{
+        max-width: 85px;
+    }    
+}
+@media screen and (min-width:768px) {
+    .vl-logo{
+        max-width: 120px;
+    }    
 }
