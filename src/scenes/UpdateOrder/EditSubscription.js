@@ -8,6 +8,10 @@ import moment from "moment";
 import DeliverySwitch from "../../components/DeliverySwitch/DeliverySwitch";
 import { PICKUP, DELIVERY } from "../../utils/constants";
 import { getFirstSubscriptionDate } from "./updateOrder.utils";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import SessionCalander from "./SessionCalander";
+import { getDatesByStatus } from "./updateOrder.utils";
+import SessionCordinatorToggle from "../../components/SessionCordinatorToggle/SessionCordinatorToggle";
 
 const EditSubscription = React.memo(
   ({
@@ -18,13 +22,21 @@ const EditSubscription = React.memo(
     mealDisplayName,
     inputs,
     selectedSessions,
-    deliveryType,
+    deliveryTypeDetails,
     orderDates,
     duration: planDuration,
     handleCalendarChange,
     planName,
+    addressList,
     ...rest
   }) => {
+    const [selectedSessionCode, setSelectedSessionCode] = useState(
+      selectedSessions && selectedSessions[0]
+    );
+    const deliveryType =
+      deliveryTypeDetails &&
+      deliveryTypeDetails[selectedSessions.indexOf(selectedSessionCode)];
+    console.log("deliveryTypeDetails: " + JSON.stringify(deliveryType));
     return (
       <div className="product-planner">
         <ProductDisplay
@@ -36,51 +48,41 @@ const EditSubscription = React.memo(
           duration={planDuration}
           {...rest}
         />
-        <CalanderSessionCordinator
-          selectedSessions={selectedSessions}
-          sessionCodes={["B", "L", "D"]}
-          mealDisplayName={mealDisplayName}
-          deliveryType={deliveryType}
-          duration={planDuration}
-          handleCalendarChange={handleCalendarChange}
-          orderDates={orderDates}
-          {...rest}
-        />
-
-        <div className="mealPlan-date"></div>
-        {/* <DeliverySwitch deliveryType={inputs.deliveryType} disabled={true} /> */}
-        <div className="mealplan-address-block">
-          <div className="w-100p meal-transport vlradio-toolbar">
-            <div className="form-check form-check-inline mr-1 my-0 px-0">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="order-type"
-                id={PICKUP}
-                checked={deliveryType === PICKUP}
-                value={PICKUP}
-                disabled
-              />
-              <label className="form-check-label" htmlFor={PICKUP}>
-                Pickup
-              </label>
-            </div>
-            <div className="form-check form-check-inline ml-1 my-0 px-0 relative">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="order-type"
-                id={DELIVERY}
-                checked={deliveryType === DELIVERY}
-                value={DELIVERY}
-                disabled
-              />
-              <label className="form-check-label" htmlFor={DELIVERY}>
-                Delivery
-              </label>
-            </div>
-          </div>
+        <div className="vl-prd-planner-design1">
+          <SessionCordinatorToggle
+            sessionCodes={["B", "L", "D"]}
+            enabledSessions={selectedSessions}
+            setSelectedSessionCode={setSelectedSessionCode}
+            selectedSessionCode={selectedSessionCode}
+          />
         </div>
+        {selectedSessions?.map((sessionCode, index) => {
+          const completedDates = getDatesByStatus(orderDates, index, "F");
+          const remainingDates = getDatesByStatus(orderDates, index, "S");
+          return (
+            <>
+              <SessionCalander
+                {...rest}
+                completedDates={completedDates}
+                remainingDates={remainingDates}
+                sessionCode={sessionCode}
+                handleCalendarChange={handleCalendarChange}
+                sessionIndex={index}
+                address={addressList[index]}
+                showCalander={sessionCode === selectedSessionCode}
+                duration={planDuration}
+              />
+            </>
+          );
+        })}
+        <DeliverySwitch
+          deliveryType={
+            deliveryTypeDetails &&
+            deliveryTypeDetails[selectedSessions.indexOf(selectedSessionCode)]
+          }
+          disabled={true}
+          showDeliverySwitch={true}
+        />
       </div>
     );
   }

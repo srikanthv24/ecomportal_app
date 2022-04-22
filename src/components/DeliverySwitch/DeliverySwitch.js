@@ -5,9 +5,19 @@ const DeliverySwitch = ({
   deliveryType,
   onServiceChange,
   disabled = false,
+  showDeliverySwitch,
 }) => {
+  console.log(
+    "deliveryType in delivery switch: "+ showDeliverySwitch + JSON.stringify(deliveryType)
+  );
   return (
-    <div className="mealplan-address-block">
+    <div
+      className={
+        showDeliverySwitch
+          ? "show-calander mealplan-address-block"
+          : "hide-calander mealplan-address-block"
+      }
+    >
       <div className="w-100p meal-transport vlradio-toolbar">
         <div className="form-check form-check-inline mx-0 my-0 px-0 w-50p">
           <input
@@ -15,7 +25,7 @@ const DeliverySwitch = ({
             type="radio"
             name="order-type"
             id={PICKUP}
-            defaultChecked={deliveryType === PICKUP ? true : false}
+            checked={deliveryType === PICKUP ? true : false}
             onChange={onServiceChange}
             value={PICKUP}
             disabled={disabled}
@@ -30,7 +40,7 @@ const DeliverySwitch = ({
             type="radio"
             name="order-type"
             id={DELIVERY}
-            defaultChecked={deliveryType === DELIVERY ? true : false}
+            checked={deliveryType === DELIVERY ? true : false}
             onChange={onServiceChange}
             value={DELIVERY}
             disabled={disabled}
