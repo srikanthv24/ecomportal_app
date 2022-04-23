@@ -14,7 +14,7 @@ const MenuList = React.memo(
           </li>
         ))}
         <li>
-          <a href="#" onClick={() => cancelSubscription(id)}><span className="icon"></span>Cancel Subscrition</a>
+          <a href="#" onClick={() => cancelSubscription(id)}><span className="icon"></span>Cancel Subscription</a>
         </li>
       </ul>
     );
