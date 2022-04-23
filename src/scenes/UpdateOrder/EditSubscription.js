@@ -60,7 +60,7 @@ const EditSubscription = React.memo(
           const completedDates = getDatesByStatus(orderDates, index, "F");
           const remainingDates = getDatesByStatus(orderDates, index, "S");
           return (
-            <>
+            <section className="vl-edit-prd-planner-sec">
               <SessionCalander
                 {...rest}
                 completedDates={completedDates}
@@ -72,7 +72,7 @@ const EditSubscription = React.memo(
                 showCalander={sessionCode === selectedSessionCode}
                 duration={planDuration}
               />
-            </>
+            </section>
           );
         })}
         {/* <DeliverySwitch
