@@ -75,14 +75,21 @@ const EditSubscription = React.memo(
             </section>
           );
         })}
-        <DeliverySwitch
+        {/* <DeliverySwitch
           deliveryType={
             deliveryTypeDetails &&
             deliveryTypeDetails[selectedSessions.indexOf(selectedSessionCode)]
           }
           disabled={true}
           showDeliverySwitch={true}
-        />
+        /> */}
+        {
+          deliveryTypeDetails && deliveryTypeDetails[selectedSessions.indexOf(selectedSessionCode)] === PICKUP
+          ?
+          <p className="text-start mt-2">Self Pickup</p>
+          :
+          <p className="text-start mt-2">Delivery</p>
+        }
       </div>
     );
   }
