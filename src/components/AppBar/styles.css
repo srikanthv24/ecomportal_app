@@ -169,6 +169,8 @@
   @media screen and (min-width: 768px) {
     .vl-navbar{
         padding-right: 3rem;
+        position: relative;
+        top:-1rem;
     }
   }
   @media screen and (max-width: 767px) {
