@@ -58,9 +58,9 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                             <MenuList
                               list={[
                                 SERVICE_TYPE.PAUSE_TOMORROW,
-                                SERVICE_TYPE.PAUSE_IN_BETWEEN,
-                                SERVICE_TYPE.PAUSE_INDEFINITE,
-                                SERVICE_TYPE.RESUME_INDEFINITE,
+                                // SERVICE_TYPE.PAUSE_IN_BETWEEN,
+                                // SERVICE_TYPE.PAUSE_INDEFINITE,
+                                // SERVICE_TYPE.RESUME_INDEFINITE,
                                 SERVICE_TYPE.EDIT_SUBSCRIPTION,
                               ]}
                               onMenuSelect={onMenuSelect}

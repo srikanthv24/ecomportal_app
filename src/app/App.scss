@@ -731,12 +731,31 @@ input[type="checkbox"].acc-checkbox:checked:after {
   font-family: "Roboto Medium", sans-serif;
   white-space: nowrap;
   padding: 5px 15px;
-  display: block;
+  display: flex;
+  align-items: center;
   text-decoration: none;
 }
 .more-dp-info ul li a:hover {
   background:rgb(245, 224, 188);
 }
+.more-dp-info ul li a span.icon{
+  width: 20px;
+  height: 20px;
+  background-size: 16px auto !important;
+  background-position: center center;
+  display: block;
+  margin-right: .5rem;
+}
+.more-dp-info ul li:first-child a span.icon{
+  background: url('../assets/home/pause.png') no-repeat;
+}
+.more-dp-info ul li:nth-child(2) a span.icon{
+  background: url('../assets/home/edit.png') no-repeat;
+}
+.more-dp-info ul li:last-child a span.icon{
+  background: url('../assets/home/cancel.png') no-repeat;
+}
+
 .sub-edit-btn{
   color: #718049;
   font-size: 14px;

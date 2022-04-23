@@ -60,30 +60,30 @@ const SessionCalander = ({
   );
   return (
     <div className={showCalander ? "show-calander" : "hide-calander"}>
-      <div className="meal-plan-wrapper px-0">
-        <CalendarLegend />
-      </div>
+
       {address?.customer_name && (
         <div>
           Deliver To:
           {` ${address.aline1}, ${address.aline2}, ${address.community}, ${address.state}, ${address.landmark}, ${address.postalcode}`}
         </div>
       )}
-      <span>{duration} Days Subscription</span>
-      {subscriptionStartDate && (
-        <div className="prdDesp">
-          Start on: {getDateInTextFormat(subscriptionStartDate)}
-        </div>
-      )}
-      <div className="d-flex justify-content-start">
-        <small className="font-weight-bold justify-content-start text-muted selected-duration px-0">
-          {`Delivered: ${completedDates?.length} 
-              Paused: ${
-                duration - (completedDates?.length + activeDates?.length)
-              }
-              Balance: ${activeDates?.length}
-              `}
-        </small>
+      <div className="d-flex align-items-center vl-edit-time-stamp">
+        <span className="vl-days-desp-info"><strong>{duration}</strong> Days Subscription</span>
+        {subscriptionStartDate && (
+          <div className="prdDesp vl-days-desp-info">
+            Start on <strong>{getDateInTextFormat(subscriptionStartDate)}</strong>
+          </div>
+        )}
+      </div>
+      <div className="d-flex justify-content-between vl-edit-bal-stamp">
+        <div className="vl-edit-bal-info">Delivered: <strong>{`${completedDates?.length}`}</strong></div>
+        <div className="vl-edit-bal-info">Paused: <strong>{`${duration - (completedDates?.length + activeDates?.length)}`}</strong></div>
+        <div className="vl-edit-bal-info">Balance: <strong>{`${activeDates?.length}`}</strong></div>
+        <div className="vl-edit-bal-info">
+            <div className="meal-plan-wrapper px-0 vl-edit-cal-info">
+              <CalendarLegend />
+            </div>
+          </div>
       </div>
 
       <div className="calendar-container">

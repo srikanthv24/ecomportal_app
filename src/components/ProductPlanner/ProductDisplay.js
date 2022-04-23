@@ -18,9 +18,9 @@ const ProductDisplay = React.memo(
         <div className="prdCategory">{category}</div>
         <img src={imageUrl} alt="product-img"></img>
         {description && <div className="prdDesp">{description}</div>}
-        {duration && (
+        {/* {duration && (
           <div className="prdDesp">Subscribed for {duration} day plan</div>
-        )}
+        )} */}
       </div>
     );
   }

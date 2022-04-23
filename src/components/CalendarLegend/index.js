@@ -12,19 +12,19 @@ const CalendarLegend = () => {
         placement="left"
         overlay={
           <Popover id="calendar-overlay">
-            <Popover.Header as="h3">Legend</Popover.Header>
-            <Popover.Body>
-              <div className="d-flex">
+            <Popover.Header as="h3" className="vl-edit-legends-bg">Legend</Popover.Header>
+            <Popover.Body className="vl-edit-cal-info-sec">
+              <div className="d-flex align-items-center">
                 <b className="calendar-circle mx-1 color-delievered"></b>
-                <p> Delievered </p>
+                <p className="vl-info-txt">Delievered </p>
               </div>
-              <div className="d-flex">
+              <div className="d-flex align-items-center">
                 <b className="calendar-circle mx-1 color-scheduled"></b>
-                <p> Scheduled </p>
+                <p className="vl-info-txt">Scheduled </p>
               </div>
-              <div className="d-flex">
+              <div className="d-flex align-items-center">
                 <b className="calendar-circle mx-1 color-todays-date"></b>
-                <p>Todays Date</p>
+                <p className="vl-info-txt">Todays Date</p>
               </div>
             </Popover.Body>
           </Popover>
