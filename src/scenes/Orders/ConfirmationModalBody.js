@@ -11,13 +11,13 @@ const ConfirmationModalBody = React.memo(
           } the subscription?`}
         </span>
         <div className="d-flex justify-content-start">
-          <span className="desp-info">Meal Type:</span>
+          <span className="desp-info-txt">Meal Type:</span>
           <span className="px-4">
             <b>{mealType}</b>
           </span>
         </div>
         <div className="d-flex justify-content-start my-2">
-          <span className="d-inline-block pr-4">
+          <span className="desp-info-txt">
             {isPauseSubscriptionService(serviceType)
               ? "Pause Dates:"
               : "Resume Dates:"}
