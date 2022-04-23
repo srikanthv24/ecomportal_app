@@ -89,6 +89,7 @@ function VibrantMealPlanner() {
   const [address, setAddress] = useState({});
   const [delivery, setDelivery] = useState({});
   const [addressSelected, setAddressSelected] = useState(false);
+  const [mealSelectedIndex, setMealSelectedIndex] = useState();
   const {
     display_name,
     category,
@@ -263,6 +264,8 @@ function VibrantMealPlanner() {
                 onMealPlanSelection={onMealPlanSelection}
                 onDeliveryChange={onDeliveryTypeChange}
                 setAddressSelected={setAddressSelected}
+                mealSelectedIndex={mealSelectedIndex}
+                setMealSelectedIndex={setMealSelectedIndex}
               />
               <div className="d-flex btn-group vl-action-btn">
                 {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}

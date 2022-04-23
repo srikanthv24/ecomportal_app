@@ -18,6 +18,7 @@ const MealPlan = React.memo(
     discount,
     onDurationChange,
     isActive,
+    mealPlanIndex
   }) => {
     const [customDuration, setCustomDuration] = useState(
       canChangeDuration ? duration : 1
@@ -31,16 +32,16 @@ const MealPlan = React.memo(
       }
     };
 
-    useEffect(() => {
-      onMealClick(canChangeDuration ? customDuration : duration);
-    },[customDuration])
+    // useEffect(() => {
+    //   onMealClick(canChangeDuration ? customDuration : duration, mealPlanIndex);
+    // },[duration])
     
     console.log("discount in meal plan: " + JSON.stringify(discount));
     return (
       <div
         className={`meal-card ${isActive ? "meal-card-active" : ""}`}
         onClick={() =>
-          onMealClick(canChangeDuration ? customDuration : duration)
+          onMealClick(canChangeDuration ? customDuration : duration, mealPlanIndex)
         }
       >
         <div className="w-100p plan-meal-card-sec">

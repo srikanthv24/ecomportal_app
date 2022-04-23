@@ -32,11 +32,13 @@ const ProductPlanner = React.memo(
     deliveryType,
     selectedSessions,
     setAddressSelected,
+    mealSelectedIndex,
+    setMealSelectedIndex
   }) => {
     const [startDateInIndianFormat, setStartDateInIndianFormat] = useState(
       getDateInIndianFormat(getTomorrowDate())
     );
-    const [mealSelectedIndex, setMealSelectedIndex] = useState();
+    
     const onServiceChange = (value) => {
       onDeliveryChange(value);
       setAddressSelected(false);
@@ -49,6 +51,7 @@ const ProductPlanner = React.memo(
       setMealSelectedIndex(index);
       onMealPlanSelection(duration);
     };
+
     return (
       <div className="product-planner">
         <ProductDisplay
@@ -114,7 +117,8 @@ const ProductPlanner = React.memo(
                 return (
                   <MealPlan
                     {...plan}
-                    onMealClick={(duration) => onMealClick(duration, index)}
+                    onMealClick={onMealClick}
+                    mealPlanIndex={index}
                     deliveryType={deliveryType}
                     isActive={mealSelectedIndex === index}
                   />
