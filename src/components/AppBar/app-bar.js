@@ -220,11 +220,6 @@ export default function AppBar() {
                 <ListGroup.Item
                   onClick={() => {
                     setMenu(false);
-                    dispatch(
-                      getOrders({
-                        customer_number: customerMobile.substring(3),
-                      })
-                    );
                     history.push("/orders/");
                   }}
                 >

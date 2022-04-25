@@ -86,8 +86,7 @@
                 padding: 15px 12px;
                 border: 1px solid #d3d3d3;
                 border-radius: 10px;
-                // background: rgb(247, 242, 223);
-                background: #cccccc;
+                background: rgb(247, 242, 223);
                 position: relative;
             }
             svg {
@@ -384,6 +383,7 @@
 .vl-prd-planner-design1 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0px 20px;
     .vl-checkbox-custom {
         width: 100%;
