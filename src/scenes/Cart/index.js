@@ -20,7 +20,6 @@ const RAZORPAY_API_URL = process.env.REACT_APP_Razorpay_API_URL;
 const PAYMENT_API_URL = process.env.REACT_APP_Payment_API_URL;
 const PAYMENT_KEY = process.env.REACT_APP_payment_key;
 
-
 const CartSummary = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -53,7 +52,7 @@ const CartSummary = () => {
   }, [cartDetails?.items]);
 
   useEffect(() => {
-    if (customerId) {
+    if (customerId && !cartLoading) {
       dispatch(getCart({ customer_id: customerId }));
     }
   }, [cartCreated]);
