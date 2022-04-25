@@ -82,6 +82,9 @@ export const getGracePeriod = (grace, subscriptionStartDate) => {
 export const addressFormatter = (jsonData) => {
   const {aline1 ,aline2 ,city ,community ,landmark ,state ,tag ,postalcode } = jsonData;
   let formattedAddress = "";
+  if (tag && tag !== "") {
+    formattedAddress = tag + ": ";
+  }
   if (aline1 && aline1 !== "") {
     formattedAddress = "#" + aline1 + ", ";
   }
