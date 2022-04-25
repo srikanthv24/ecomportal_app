@@ -16,17 +16,16 @@ import { CART, PICKUP } from "../../utils/constants";
 import OrderCheckList from "./order-checklist";
 import { deleteCartItem } from "../../store/actions/cart-item";
 import EmptyCart from "../../components/EmptyCart/EmptyCart";
-const RAZORPAY_API_URL = process.env.REACT_APP_Razorpay_API_URL;
-const PAYMENT_API_URL = process.env.REACT_APP_Payment_API_URL;
-const PAYMENT_KEY = process.env.REACT_APP_payment_key;
+import PaymentService from "../../services/payment_services";
 
 const CartSummary = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const onlinePayment = new PaymentService();
   const {
     sub: customerId,
     name: customerName,
-    phone_number: customerMobileNumber,
+    phone_number: customerMobile,
   } = useSelector((state) => state.auth.userDetails);
   const { cartDetails, cartLoading, cartUpdateLoading, cartCreated } =
     useSelector((state) => state.Cart);
@@ -36,6 +35,7 @@ const CartSummary = () => {
     alertMessage,
   } = useSelector((state) => state.AlertReducer);
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (cartDetails?.items && cartDetails.items?.length) {
@@ -101,6 +101,47 @@ const CartSummary = () => {
     history.push("/orders");
   };
 
+  const handleOnlinePayment = () => {
+    setLoading(true);
+    onlinePayment.InitPayment(
+      {
+        amount: cartDetails?.grand_total,
+        currency: "INR",
+        customer_id: customerId,
+        customer_name: customerName,
+        customer_phone: customerMobile,
+        cart_id: cartDetails?.items[0].id,
+        items: items,
+      },
+      (res) => {
+        if (res.type === "failure") {
+          setLoading(false);
+          dispatch(
+            showAlert({
+              variant: "failure",
+              title: "Payment Failed",
+            })
+          );
+        } else {
+          setLoading(false);
+          dispatch(getCart({ customer_id: customerId }));
+          dispatch(
+            showAlert({
+              message: (
+                <div>
+                  Transaction ID: <br />
+                  <b>{res.payload.razorpay_payment_id}</b>
+                </div>
+              ),
+              variant: "success",
+              title: "Payment Success",
+            })
+          );
+        }
+      }
+    );
+  };
+
   return (
     <>
       <ModalComponent
@@ -129,7 +170,7 @@ const CartSummary = () => {
               </p>
             )}
         </div>
-        {cartLoading || cartUpdateLoading ? (
+        {loading || cartLoading || cartUpdateLoading ? (
           <div className="fullscreen-loader">
             <Spinner animation="border" role="status" />
           </div>
@@ -188,7 +229,7 @@ const CartSummary = () => {
                 <div className="confirm-button-container">
                   <Button
                     className="vl-custom-btn abcd"
-                    onClick={handleContinue}
+                    onClick={handleOnlinePayment}
                   >
                     {CART.CONFIRM_AND_PAY}
                   </Button>
@@ -207,98 +248,6 @@ const CartSummary = () => {
       </div>
     </>
   );
-
-  // This block of code will be moved - start
-
-  function loadScript(src) {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-      document.body.appendChild(script);
-    });
-  }
-
-  async function handleContinue() {
-    const res = await loadScript(`${RAZORPAY_API_URL}`);
-
-    if (!res) {
-      alert("Razorpay SDK failed to load. Are you online?");
-      return;
-    }
-
-    const req = {
-      type: "createorder",
-      items: items,
-      amount: Number(
-        parseInt(parseFloat(cartDetails?.grand_total).toFixed(2)) * 100
-      ),
-      currency: "INR",
-      receipt: "Receipt #20",
-      id: cartDetails?.items[0].id,
-      customer_id: customerId,
-      phone: customerMobileNumber.substring(3),
-    };
-
-    const result = await fetch(`${PAYMENT_API_URL}`, {
-      method: "POST",
-      body: JSON.stringify(req),
-    }).then((res) => res.json());
-
-    if (!result) {
-      alert("Server error. Are you online?");
-      return;
-    }
-
-    // Getting the order details back
-    const { amount, id: order_id, currency } = result;
-    const options = {
-      key: `${PAYMENT_KEY}`, // Enter the Key ID generated from the Dashboard
-      amount: amount,
-      currency: currency,
-      name: customerName,
-      order_id: order_id,
-      upi_link: true,
-      handler: async function (response) {
-        dispatch(
-          showAlert({
-            message: (
-              <div>
-                Transaction ID: <br />
-                <b>{response.razorpay_payment_id}</b>
-              </div>
-            ),
-            variant: "success",
-            title: "Payment Success",
-          })
-        );
-      },
-      prefill: {
-        name: customerName,
-        contact: customerMobileNumber.substring(3),
-      },
-      notes: {
-        address: "VL",
-      },
-      theme: {
-        color: "#f05922",
-      },
-    };
-
-    const paymentObject = new window.Razorpay(options);
-
-    paymentObject.on("payment.failed", (response) =>
-      console.log("FailedResponse", response)
-    );
-    paymentObject.open();
-  }
-
-  // This block of code will be moved - end
 };
 
 export default CartSummary;
