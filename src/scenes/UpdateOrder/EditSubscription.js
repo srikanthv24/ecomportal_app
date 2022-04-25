@@ -35,10 +35,6 @@ const EditSubscription = React.memo(
     const [selectedSessionCode, setSelectedSessionCode] = useState(
       selectedSessions && selectedSessions[0]
     );
-    const deliveryType =
-      deliveryTypeDetails &&
-      deliveryTypeDetails[selectedSessions.indexOf(selectedSessionCode)];
-
     return (
       <div className="product-planner">
         <ProductDisplay
@@ -106,7 +102,6 @@ const EditSubscription = React.memo(
           disabled={true}
           showDeliverySwitch={true}
         /> */}
-       
       </div>
     );
   }

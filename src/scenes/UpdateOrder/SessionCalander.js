@@ -23,10 +23,6 @@ const SessionCalander = ({
   address,
   showCalander,
 }) => {
-  console.log(
-    "subscriptionStartDate: " + JSON.stringify(subscriptionStartDate)
-  );
-  console.log("grace: " + JSON.stringify(grace));
   const [activeDates, setActiveDates] = useState(remainingDates);
   const mapCalendarDates = (date) => {
     let props = {};
@@ -44,8 +40,10 @@ const SessionCalander = ({
   }, []);
   const onCalandarChange = (dates) => {
     const isoFormattedDates = dates.map((date) => date.format(ISO_FORMAT));
-    if (dates.length > duration) {
-      setActiveDates(isoFormattedDates.slice(0, duration));
+    if (dates.length + completedDates.length > duration) {
+      setActiveDates(
+        isoFormattedDates.slice(0, duration - completedDates.length)
+      );
       return;
     }
     setActiveDates(isoFormattedDates);
@@ -60,7 +58,6 @@ const SessionCalander = ({
   );
   return (
     <div className={showCalander ? "show-calander" : "hide-calander"}>
-
       {address?.customer_name && (
         <div>
           Deliver To:
@@ -68,22 +65,34 @@ const SessionCalander = ({
         </div>
       )}
       <div className="d-flex align-items-center vl-edit-time-stamp">
-        <span className="vl-days-desp-info"><strong>{duration}</strong> Days Subscription</span>
+        <span className="vl-days-desp-info">
+          <strong>{duration}</strong> Days Subscription
+        </span>
         {subscriptionStartDate && (
           <div className="prdDesp vl-days-desp-info">
-            Start on <strong>{getDateInTextFormat(subscriptionStartDate)}</strong>
+            Start on{" "}
+            <strong>{getDateInTextFormat(subscriptionStartDate)}</strong>
           </div>
         )}
       </div>
       <div className="d-flex justify-content-between vl-edit-bal-stamp">
-        <div className="vl-edit-bal-info">Delivered: <strong>{`${completedDates?.length}`}</strong></div>
-        <div className="vl-edit-bal-info">Paused: <strong>{`${duration - (completedDates?.length + activeDates?.length)}`}</strong></div>
-        <div className="vl-edit-bal-info">Balance: <strong>{`${activeDates?.length}`}</strong></div>
         <div className="vl-edit-bal-info">
-            <div className="meal-plan-wrapper px-0 vl-edit-cal-info">
-              <CalendarLegend />
-            </div>
+          Delivered: <strong>{`${completedDates?.length}`}</strong>
+        </div>
+        <div className="vl-edit-bal-info">
+          Paused:{" "}
+          <strong>{`${
+            duration - (completedDates?.length + activeDates?.length)
+          }`}</strong>
+        </div>
+        <div className="vl-edit-bal-info">
+          Balance: <strong>{`${activeDates?.length}`}</strong>
+        </div>
+        <div className="vl-edit-bal-info">
+          <div className="meal-plan-wrapper px-0 vl-edit-cal-info">
+            <CalendarLegend />
           </div>
+        </div>
       </div>
 
       <div className="calendar-container">
