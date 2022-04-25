@@ -51,7 +51,6 @@ const UpdateOrder = () => {
   const mealDisplayName =
     subscription?.item?.variants[0]?.items[0].display_name;
   const grace = subscription?.item?.variants[0]?.items[0].grace_period;
-  console.log("grace in main: " + JSON.stringify(grace));
   const duration = mealDisplayName?.replace(/[^\d]/g, "");
   const deliveryTypeDetails = SubscriptionData?.map((subscription) =>
     subscription.isDelivery ? DELIVERY : PICKUP
