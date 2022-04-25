@@ -26,7 +26,7 @@ const popover = (
 const CalendarLegend = () => {
   return (
     <span className="d-flex justify-content-between align-items-center">
-      <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+      <OverlayTrigger trigger="focus" placement="left" key="calendar-overlay" overlay={popover}>
         <Button variant="transparent">
           <BsInfoCircle />
         </Button>
