@@ -21,7 +21,7 @@ const ModalComponent = ({
 }) => {
   const getDefaultFooter = () => {
     return (
-      <Modal.Footer className="order-modal-content-footer modal-footer-btn-group">        
+      <Modal.Footer className="order-modal-content-footer modal-footer-btn-group vl-edit-button-group">        
         {primaryButtonText && (
           <Button className="vl-btn-primary" onClick={primaryButtonClick}>
             {primaryButtonText}

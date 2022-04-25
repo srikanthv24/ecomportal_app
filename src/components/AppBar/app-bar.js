@@ -77,6 +77,7 @@ export default function AppBar() {
                 right: "1rem",
                 top: "1rem",
                 cursor: "pointer",
+                zIndex:"9"
               }}
             >
               <img
@@ -125,7 +126,7 @@ export default function AppBar() {
                     ) : (
                       <>
                         <Nav.Link onClick={onCartButtonClick}>
-                          <h6 className="text-black nav-menu-cart abcd">
+                          <h6 className="text-black nav-menu-cart">
                             <img src={CartIcon} alt="Icon" height="30" />
                             <Badge pill>{itemsCount}</Badge>
                           </h6>

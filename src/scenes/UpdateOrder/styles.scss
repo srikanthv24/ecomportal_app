@@ -126,3 +126,18 @@
   font-weight: 400;
   white-space: nowrap;
 }
+.vl-edit-button-group{
+  .vl-btn-primary{
+    border-radius: 20px 20px 20px 20px !important;
+    position: relative;
+    z-index: 1;
+  }
+  .vl-btn-secondary{
+    border-radius: 0px 20px 20px 0px !important;
+    position: relative;
+    margin-left: -25px;
+    z-index: 2;
+    right: 0px;
+    background: #F7F2DF !important;
+  }
+}

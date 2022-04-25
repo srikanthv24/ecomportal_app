@@ -6,7 +6,7 @@ const SucscriptionComments = React.memo(({ onCommentsChange }) => (
     as="textarea"
     rows={3}
     onChange={onCommentsChange}
-    className="my-2"
+    className="mb-3"
   />
 ));
 
