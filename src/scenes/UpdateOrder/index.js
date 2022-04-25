@@ -61,7 +61,7 @@ const UpdateOrder = () => {
   const subscriptionStartDate = subscription?.subscription_id
     ? subscriptionList.find((eachSubscription) => {
         return parseInt(eachSubscription.id) === subscription.subscription_id;
-      }).start_date
+      })?.start_date
     : "";
   const [newDates, setNewDates] = useState([]);
 

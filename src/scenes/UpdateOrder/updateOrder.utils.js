@@ -78,3 +78,33 @@ export const getFirstSubscriptionDate = (orderDates) => {
 export const getGracePeriod = (grace, subscriptionStartDate) => {
   return moment(subscriptionStartDate).add(grace-1, "days").format(ISO_FORMAT);
 };
+
+export const fullAddress = (jsonData) => {
+  const {aline1 ,aline2 ,city ,community ,landmark ,state ,tag ,postalcode } = jsonData;
+  let formattedAddress = "";
+  if (tag && tag !== "") {
+    formattedAddress = tag + ": ";
+  }
+  if (aline1 && aline1 !== "") {
+    formattedAddress = "#" + aline1 + ", ";
+  }
+  if (aline2 && aline2 !== "") {
+    formattedAddress = formattedAddress + aline2 + ", ";
+  }
+  if (landmark && landmark !== "") {
+    formattedAddress = formattedAddress + landmark + ", ";
+  }
+  if (community && community !== "") {
+    formattedAddress = formattedAddress + community + ", ";
+  }
+  if (city && city !== "") {
+    formattedAddress = formattedAddress + city + ", ";
+  }
+  if (state && state !== "") {
+    formattedAddress = formattedAddress + state + ", ";
+  }
+  if (postalcode && postalcode !== "") {
+    formattedAddress = formattedAddress + postalcode;
+  }
+    return formattedAddress;
+}
