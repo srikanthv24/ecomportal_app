@@ -137,6 +137,7 @@ const UpdateOrder = () => {
               subscriptionStartDate={subscriptionStartDate}
               addressList={addressList}
               grace={grace}
+              sid={sid}
             />
             <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
               <button

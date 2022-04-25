@@ -11,11 +11,16 @@ const ProductDisplay = React.memo(
     onClick,
     planName,
     duration,
+    sid,
+    showProductId
   }) => {
     return (
       <div className="product-display" onClick={onClick}>
         <div className="prdTitle">{title}</div>
+        <div className="d-flex justify-content-between">
         <div className="prdCategory">{category}</div>
+         { showProductId &&  <div className="prdCategory">{`#${sid}`}</div> } 
+        </div>
         <img src={imageUrl} alt="product-img"></img>
         {description && <div className="prdDesp">{description}</div>}
         {/* {duration && (

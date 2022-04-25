@@ -30,6 +30,7 @@ const EditSubscription = React.memo(
     handleCalendarChange,
     planName,
     addressList,
+    sid,
     ...rest
   }) => {
     const [selectedSessionCode, setSelectedSessionCode] = useState(
@@ -44,6 +45,8 @@ const EditSubscription = React.memo(
           description={productDescription}
           planName={planName}
           duration={planDuration}
+          showProductId={true}
+          sid={sid}
           {...rest}
         />
         <div className="vl-prd-planner-design1">
@@ -70,7 +73,7 @@ const EditSubscription = React.memo(
           <p className="text-start mt-0 mb-1 d-flex align-items-center">
             <img src={TruckIocn} alt="icon" height={25} />
           <span className="px-2 vl-edit-del-type-text">Delivery</span></p>
-          <p className="mb-0"> {addressList && addressList?.length > 0 && fullAddress(addressList[0])}</p>
+          <p className="mb-0 text-left"> {addressList && addressList?.length > 0 && fullAddress(addressList[0])}</p>
           </section>
         }
         </div>
