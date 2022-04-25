@@ -93,6 +93,7 @@ const SubscriptionModal = React.memo(
                   <div className="subscription-description">
                     {getSubscriptionConfirmationText(serviceType, productName)}
                   </div>
+                 
                   {serviceType === SERVICE_TYPE.PAUSE_IN_BETWEEN && (
                     <div className="order-form-control">
                       <span className="date-info">From Date:</span>
@@ -125,15 +126,18 @@ const SubscriptionModal = React.memo(
                       />
                     </div>
                   )}
+                  <div className="vl-prd-planner-design1 px-0">
                   <SessionCordinator
                     sessionCodes={sessionCodes}
                     onSessionChange={onSessionChange}
                     disabled={true}
                     selectedSessions={sessionCodes}
                   />
+                  </div>
                   <SubscriptionComments
                     onCommentsChange={(e) => setComments(e.target.value)}
                   />
+                  
                   <SubscriptionButtonGroup
                     onCancel={onCancel}
                     onSubmit={setDatesAndSubmit}

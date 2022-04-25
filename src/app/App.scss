@@ -735,25 +735,34 @@ input[type="checkbox"].acc-checkbox:checked:after {
   align-items: center;
   text-decoration: none;
 }
+.more-dp-info ul li:first-child{
+  padding-top:10px;
+}
+.more-dp-info ul li:last-child{
+  padding-bottom:10px;
+}
 .more-dp-info ul li a:hover {
   background:rgb(245, 224, 188);
 }
 .more-dp-info ul li a span.icon{
   width: 20px;
-  height: 20px;
-  background-size: 16px auto !important;
-  background-position: center center;
+  height: 20px; 
+  background-position: left center;
+  background-repeat: no-repeat;
   display: block;
   margin-right: .5rem;
 }
 .more-dp-info ul li:first-child a span.icon{
-  background: url('../assets/home/pause.png') no-repeat;
+  background-image: url('../assets/home/pause.png');
+  background-size: 20px auto !important;
 }
 .more-dp-info ul li:nth-child(2) a span.icon{
-  background: url('../assets/home/edit.png') no-repeat;
+  background-image: url('../assets/home/edit.png');
+  background-size: 20px auto !important;
 }
 .more-dp-info ul li:last-child a span.icon{
-  background: url('../assets/home/cancel.png') no-repeat;
+  background-image: url('../assets/home/cancel.png');
+  background-size: 16px auto !important;
 }
 
 .sub-edit-btn{
