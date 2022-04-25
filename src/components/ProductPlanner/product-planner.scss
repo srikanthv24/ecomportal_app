@@ -102,11 +102,10 @@
         }
         .rmdp-container > div > div::after {
             content: "";
-            content: "";
             width: calc(100% - 60px);
             height: 100%;
             background: transparent;
-            position: absolute;
+            // position: absolute;
             top: 0;
             left: 0;
             border-radius: 10px;
