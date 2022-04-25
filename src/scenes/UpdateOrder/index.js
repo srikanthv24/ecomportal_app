@@ -51,7 +51,6 @@ const UpdateOrder = () => {
   const mealDisplayName =
     subscription?.item?.variants[0]?.items[0].display_name;
   const grace = subscription?.item?.variants[0]?.items[0].grace_period;
-  console.log("grace in main: " + JSON.stringify(grace));
   const duration = mealDisplayName?.replace(/[^\d]/g, "");
   const deliveryTypeDetails = SubscriptionData?.map((subscription) =>
     subscription.isDelivery ? DELIVERY : PICKUP
@@ -112,7 +111,6 @@ const UpdateOrder = () => {
     setNewDates(updatedDates);
   };
 
-  console.log("addressList__parent", addressList);
   return (
     <section className="planner-container">
       <div className="text-center pb-3 updateOrder-sec">

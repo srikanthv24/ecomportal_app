@@ -10,7 +10,7 @@ import { PICKUP, DELIVERY } from "../../utils/constants";
 import { getFirstSubscriptionDate } from "./updateOrder.utils";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import SessionCalander from "./SessionCalander";
-import { getDatesByStatus, addressFormatter } from "./updateOrder.utils";
+import { getDatesByStatus, fullAddress } from "./updateOrder.utils";
 import SessionCordinatorToggle from "../../components/SessionCordinatorToggle/SessionCordinatorToggle";
 import SelfPickupIocn from "../../assets/home/Pickup.png";
 import TruckIocn from "../../assets/home/truck.png";
@@ -74,7 +74,7 @@ const EditSubscription = React.memo(
           <p className="text-start mt-0 mb-1 d-flex align-items-center">
             <img src={TruckIocn} alt="icon" height={25} />
           <span className="px-2 vl-edit-del-type-text">Delivery</span></p>
-          <p className="mb-0"> {addressList && addressList.length > 0 && addressFormatter(addressList[0])}</p>
+          <p className="mb-0"> {addressList && addressList.length > 0 && fullAddress(addressList[0])}</p>
           </section>
         }
         </div>

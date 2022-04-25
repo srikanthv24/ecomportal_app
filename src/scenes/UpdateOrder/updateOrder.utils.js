@@ -79,7 +79,7 @@ export const getGracePeriod = (grace, subscriptionStartDate) => {
   return moment(subscriptionStartDate).add(grace-1, "days").format(ISO_FORMAT);
 };
 
-export const addressFormatter = (jsonData) => {
+export const fullAddress = (jsonData) => {
   const {aline1 ,aline2 ,city ,community ,landmark ,state ,tag ,postalcode } = jsonData;
   let formattedAddress = "";
   if (tag && tag !== "") {
