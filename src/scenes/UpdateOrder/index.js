@@ -62,7 +62,7 @@ const UpdateOrder = () => {
   const subscriptionStartDate = subscription?.subscription_id
     ? subscriptionList.find((eachSubscription) => {
         return parseInt(eachSubscription.id) === subscription.subscription_id;
-      }).start_date
+      })?.start_date
     : "";
   const [newDates, setNewDates] = useState([]);
 
@@ -112,6 +112,7 @@ const UpdateOrder = () => {
     setNewDates(updatedDates);
   };
 
+  console.log("addressList__parent", addressList);
   return (
     <section className="planner-container">
       <div className="text-center pb-3 updateOrder-sec">

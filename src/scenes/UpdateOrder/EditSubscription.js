@@ -10,7 +10,7 @@ import { PICKUP, DELIVERY } from "../../utils/constants";
 import { getFirstSubscriptionDate } from "./updateOrder.utils";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import SessionCalander from "./SessionCalander";
-import { getDatesByStatus } from "./updateOrder.utils";
+import { getDatesByStatus, addressFormatter } from "./updateOrder.utils";
 import SessionCordinatorToggle from "../../components/SessionCordinatorToggle/SessionCordinatorToggle";
 import SelfPickupIocn from "../../assets/home/Pickup.png";
 import TruckIocn from "../../assets/home/truck.png";
@@ -38,7 +38,7 @@ const EditSubscription = React.memo(
     const deliveryType =
       deliveryTypeDetails &&
       deliveryTypeDetails[selectedSessions.indexOf(selectedSessionCode)];
-    console.log("deliveryTypeDetails: " + JSON.stringify(deliveryType));
+
     return (
       <div className="product-planner">
         <ProductDisplay
@@ -72,10 +72,9 @@ const EditSubscription = React.memo(
           :
           <section>
           <p className="text-start mt-0 mb-1 d-flex align-items-center">
-            <img src={TruckIocn} alt="icon" height={30} />
+            <img src={TruckIocn} alt="icon" height={25} />
           <span className="px-2 vl-edit-del-type-text">Delivery</span></p>
-          {/* Delivery Address Text here */}
-          <p className="mb-0"></p>
+          <p className="mb-0"> {addressList && addressList.length > 0 && addressFormatter(addressList[0])}</p>
           </section>
         }
         </div>
