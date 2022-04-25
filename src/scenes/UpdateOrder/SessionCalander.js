@@ -40,11 +40,6 @@ const SessionCalander = ({
   }, []);
   const onCalandarChange = (dates) => {
     const isoFormattedDates = dates.map((date) => date.format(ISO_FORMAT));
-    console.log("dates.length: " + JSON.stringify(dates.length));
-    console.log(
-      "completedDates.length: " + JSON.stringify(completedDates.length)
-    );
-    console.log("duration: " + duration);
     if (dates.length + completedDates.length > duration) {
       setActiveDates(
         isoFormattedDates.slice(0, duration - completedDates.length)
