@@ -32,7 +32,7 @@ const CartSummary = () => {
   const {
     showAlert: alert,
     variant,
-    alertMessage,
+    alertMessage : transactionId,
   } = useSelector((state) => state.AlertReducer);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -101,6 +101,15 @@ const CartSummary = () => {
     history.push("/orders");
   };
 
+  const onGoToCartClick = () => {
+    dispatch(hideAlert());
+  }
+
+  const onRetryPaymentClick = () => {
+    dispatch(hideAlert());
+    handleOnlinePayment();
+  }
+
   const handleOnlinePayment = () => {
     setLoading(true);
     onlinePayment.InitPayment(
@@ -127,12 +136,7 @@ const CartSummary = () => {
           dispatch(getCart({ customer_id: customerId }));
           dispatch(
             showAlert({
-              message: (
-                <div>
-                  Transaction ID: <br />
-                  <b>{res.payload.razorpay_payment_id}</b>
-                </div>
-              ),
+              message: res.payload.razorpay_payment_id,
               variant: "success",
               title: "Payment Success",
             })
@@ -147,14 +151,11 @@ const CartSummary = () => {
       <ModalComponent
         show={alert}
         type={variant}
-        Body={alertMessage.body}
-        Title={alertMessage.title}
+        transactionId={transactionId}
         handleClose={() => dispatch(hideAlert())}
-        footer={
-          <div>
-            <Button onClick={onGoToOrdersClick}>{CART.GO_TO_ORDERS}</Button>
-          </div>
-        }
+        onGoToOrdersClick={onGoToOrdersClick}
+        onGoToCartClick={onGoToCartClick}
+        onRetryClick={onRetryPaymentClick}
       />
       <div className="cart-summary-wrapper">
         <p className="h3 page-title">{CART.CART_TITLE}</p>
