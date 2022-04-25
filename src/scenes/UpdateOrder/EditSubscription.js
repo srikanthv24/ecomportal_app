@@ -45,7 +45,6 @@ const EditSubscription = React.memo(
           description={productDescription}
           planName={planName}
           duration={planDuration}
-          showProductId={true}
           sid={sid}
           {...rest}
         />
