@@ -21,28 +21,27 @@ const MealPlan = React.memo(
     isActive,
     mealPlanIndex
   }) => {
-    const [customDuration, setCustomDuration] = useState(
-      canChangeDuration ? duration : 1
-    );
+    const [customDuration, setCustomDuration] = useState(duration);
     const onCustomDurationChange = (e) => {
       const numberRegix = /^([1-9]|[1-5][0-9]|60|all)$/;
       const inputDuration = e.target.value;
 
       if (inputDuration === "" || numberRegix.test(inputDuration)) {
         setCustomDuration(inputDuration);
+        onMealClick(e, inputDuration, mealPlanIndex)
       }
     };
 
     // useEffect(() => {
     //   onMealClick(canChangeDuration ? customDuration : duration, mealPlanIndex);
-    // },[duration])
+    // },[customDuration])
     
     console.log("discount in meal plan: " + JSON.stringify(discount));
     return (
       <div
         className={`meal-card ${isActive ? "meal-card-active" : ""}`}
-        onClick={() =>
-          onMealClick(canChangeDuration ? customDuration : duration, mealPlanIndex)
+        onClick={(e) =>
+          onMealClick(e, canChangeDuration ? customDuration : duration, mealPlanIndex)
         }
       >
         <div className="w-100p plan-meal-card-sec">
