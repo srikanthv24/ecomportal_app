@@ -3,7 +3,6 @@ import { Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import _ from "underscore";
-import ModalComponent from "../../components/Modal/Modal";
 import {
   getCart,
   hideAlert,
@@ -17,6 +16,7 @@ import OrderCheckList from "./order-checklist";
 import { deleteCartItem } from "../../store/actions/cart-item";
 import EmptyCart from "../../components/EmptyCart/EmptyCart";
 import PaymentService from "../../services/payment_services";
+import {PaymentStatusModal} from '../../components/PaymentStatusModal';
 
 const CartSummary = () => {
   const dispatch = useDispatch();
@@ -148,7 +148,7 @@ const CartSummary = () => {
 
   return (
     <>
-      <ModalComponent
+      <PaymentStatusModal
         show={alert}
         type={variant}
         transactionId={transactionId}

@@ -1,80 +1,59 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import SucessIcon from "../../assets/mealplanner/alert-success.svg";
-import FailureIcon from "../../assets/mealplanner/alert-failed.svg";
-import {
-  CART,
-  COMPLTED_SUCCESSFULLY,
-  FAILED,
-  FAILURE_TITLE,
-  GO_TO_CART,
-  RETRY,
-  RETRY_MESSAGE,
-  SUCCESS_TITLE,
-  WITH_TRANSACTION_ID,
-  YOUR_PAYMENT,
-} from "../../utils/constants";
-import "./styles.scss";
+import OkImage from "./../../assets/logos/icons8-ok-480.png";
+import ErrorImage from "./../../assets/logos/icons8-error-64.png";
 
 const ModalComponent = ({
   show,
   handleClose,
+  Title,
+  Body,
   type,
-  showModalHeader,
+  footer = null,
+  showModalHeader = true,
+  primaryButtonClick,
+  secondaryButtonClick,
+  primaryButtonText,
+  secondaryButtonText,
   fullscreen = true,
-  onGoToCartClick,
-  onRetryClick,
-  onGoToOrdersClick,
-  transactionId = "",
+  showImage = true,
 }) => {
-  const FailedModalFooter = () => {
+  const getDefaultFooter = () => {
     return (
       <Modal.Footer className="order-modal-content-footer modal-footer-btn-group vl-edit-button-group">
-        <Button className="vl-btn-primary" onClick={onGoToCartClick}>
-          {GO_TO_CART}
-        </Button>
-        <Button className="vl-btn-secondary" onClick={onRetryClick}>
-          {RETRY}
-        </Button>
+        {primaryButtonText && (
+          <Button className="vl-btn-primary" onClick={primaryButtonClick}>
+            {primaryButtonText}
+          </Button>
+        )}
+        {secondaryButtonText && (
+          <Button className="vl-btn-secondary" onClick={secondaryButtonClick}>
+            {secondaryButtonText}
+          </Button>
+        )}
       </Modal.Footer>
     );
   };
 
-  const SuccessModalFooter = () => {
-    return (
-      <Modal.Footer className="order-modal-content-footer modal-footer-btn-group vl-edit-button-group">
-        <Button className="vl-btn-primary w-100" onClick={onGoToOrdersClick}>
-          {CART.GO_TO_ORDERS}
-        </Button>
-      </Modal.Footer>
-    );
-  };
   return (
     <Modal show={show} onHide={handleClose} fullscreen={fullscreen} centered>
       {showModalHeader && <Modal.Header closeButton />}
-      <Modal.Body className="order-modal-content pt-5">
-        <div className="d-flex justify-content-center align-items-center my-3">
-          <img
-            src={type === "success" ? SucessIcon : FailureIcon}
-            width="50"
-            alt="Status_Image"
-          />
-        </div>
-        <div className="payment-status-modal">
-          <p className="h3 m-2 psm-title">{`${
-            type === "success" ? SUCCESS_TITLE : FAILURE_TITLE
-          }`}</p>
-          <p className="m-2 psm-text">{`${YOUR_PAYMENT} ${
-            type === "success" ? COMPLTED_SUCCESSFULLY : FAILED
-          }`}</p>
-          <p className="m-2 psm-text">{`${
-            type === "success"
-              ? `${WITH_TRANSACTION_ID} ${transactionId}`
-              : RETRY_MESSAGE
-          }`}</p>
+      <Modal.Body className="order-modal-content">
+        <div
+          className="d-flex flex-column align-items-center justify-content-center"
+        >
+          {showImage && (
+            <img
+              src={type === "success" ? OkImage : ErrorImage}
+              width="150px"
+              alt="Status_Image"
+            />
+          )}
+          {Title && <div className="h4 m-2">{Title}</div>}
+          <div className="my-4 modal-desp-info">{Body}</div>
         </div>
       </Modal.Body>
-      {type === "success" ? <SuccessModalFooter /> : <FailedModalFooter />}
+      {footer ? <Modal.Footer>{footer}</Modal.Footer> : getDefaultFooter()}
     </Modal>
   );
 };
