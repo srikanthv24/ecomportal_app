@@ -39,9 +39,7 @@ const ModalComponent = ({
     <Modal show={show} onHide={handleClose} fullscreen={fullscreen} centered>
       {showModalHeader && <Modal.Header closeButton />}
       <Modal.Body className="order-modal-content">
-        <div
-          className="d-flex flex-column align-items-center justify-content-center"
-        >
+        <div className="d-flex flex-column align-items-center justify-content-center">
           {showImage && (
             <img
               src={type === "success" ? OkImage : ErrorImage}
