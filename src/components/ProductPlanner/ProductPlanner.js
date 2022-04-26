@@ -47,7 +47,8 @@ const ProductPlanner = React.memo(
       setStartDateInIndianFormat(date.format(INDIAN_DATE_FORMAT));
       onStartDateChange(date);
     };
-    const onMealClick = (duration, index) => {
+    const onMealClick = (e, duration, index) => {
+      e.preventDefault();
       setMealSelectedIndex(index);
       onMealPlanSelection(duration);
     };
