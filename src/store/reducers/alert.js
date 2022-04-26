@@ -2,7 +2,7 @@ import { types } from "../constants";
 
 const initialState = {
   showAlert: false,
-  alertMessage: { title: "SJHDKJDH", body: "" },
+  alertMessage: "",
   variant: "success",
 };
 
@@ -12,14 +12,11 @@ export const AlertReducer = (state = initialState, action) => {
       return {
         ...state,
         showAlert: true,
-        alertMessage: {
-          body: action.payload.message,
-          title: action.payload.title,
-        },
+        alertMessage: action.payload.message,
         variant: action.payload.variant,
       };
     case types.HIDE_ALERT:
-      return { ...state, showAlert: false, alertMessage: {} };
+      return { ...state, showAlert: false, alertMessage: "" };
     default:
       return state;
   }

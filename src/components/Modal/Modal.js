@@ -1,8 +1,7 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import OkImage from "./../../assets/logos/icons8-ok-480.png";
 import ErrorImage from "./../../assets/logos/icons8-error-64.png";
-import { Button } from "react-bootstrap";
 
 const ModalComponent = ({
   show,
@@ -21,7 +20,7 @@ const ModalComponent = ({
 }) => {
   const getDefaultFooter = () => {
     return (
-      <Modal.Footer className="order-modal-content-footer modal-footer-btn-group vl-edit-button-group">        
+      <Modal.Footer className="order-modal-content-footer modal-footer-btn-group vl-edit-button-group">
         {primaryButtonText && (
           <Button className="vl-btn-primary" onClick={primaryButtonClick}>
             {primaryButtonText}
@@ -35,15 +34,12 @@ const ModalComponent = ({
       </Modal.Footer>
     );
   };
+
   return (
     <Modal show={show} onHide={handleClose} fullscreen={fullscreen} centered>
       {showModalHeader && <Modal.Header closeButton />}
       <Modal.Body className="order-modal-content">
-        <div
-          className={
-            "d-flex flex-column align-items-center justify-content-center"
-          }
-        >
+        <div className="d-flex flex-column align-items-center justify-content-center">
           {showImage && (
             <img
               src={type === "success" ? OkImage : ErrorImage}

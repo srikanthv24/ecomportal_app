@@ -78,7 +78,17 @@ export const INDIAN_DATE_FORMAT = "DD/MM/YYYY";
 export const ISO_FORMAT = "YYYY-MM-DD";
 export const BOOLEAN_TRUE = true;
 export const ACTIVE_STATUS = "A";
-export const FUSION_FOODS_CATEGORY = "Fusion Foods"
+export const FUSION_FOODS_CATEGORY = "Fusion Foods";
+export const RETRY = "Retry";
+export const GO_TO_CART = "Go to Cart";
+export const SUCCESS_TITLE = "Success";
+export const FAILURE_TITLE = "Failed";
+export const COMPLTED_SUCCESSFULLY = "completed successfully";
+export const FAILED = "failed";
+export const WITH_TRANSACTION_ID  = "With Transaction Id : ";
+export const RETRY_MESSAGE = "Retry or go to cart to try another payment options";
+export const YOUR_PAYMENT = "Your payment has been";
+export const SUCCESS = "success";
 
 
 export const PERSONAL_INFO = {
