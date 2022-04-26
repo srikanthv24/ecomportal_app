@@ -5,6 +5,7 @@ import { BiRupee } from "react-icons/bi";
 import TruckImage from "../../assets/home/truck.png";
 import PickupImage from "../../assets/home/Pickup.png";
 import "./meal-plan.scss";
+import { displayCurrency } from "../../helpers/displayCurrency";
 
 const MealPlan = React.memo(
   ({
@@ -87,9 +88,9 @@ const MealPlan = React.memo(
             <span className="amountInfo">
               <BiRupee />
               {`${
-                pricePerDay * (canChangeDuration ? customDuration : duration) +
+                displayCurrency(pricePerDay * (canChangeDuration ? customDuration : duration) +
                 totalTaxes -
-                discount
+                discount)
               }/-`}
             </span>
           </div>
