@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import OkImage from "./../../assets/logos/icons8-ok-480.png";
-import ErrorImage from "./../../assets/logos/icons8-error-64.png";
+import SucessIcon from "../../assets/mealplanner/alert-success.svg";
+import FailureIcon from "../../assets/mealplanner/alert-failed.svg";
 import {
   CART,
   COMPLTED_SUCCESSFULLY,
@@ -14,7 +14,7 @@ import {
   WITH_TRANSACTION_ID,
   YOUR_PAYMENT,
 } from "../../utils/constants";
-import './styles.scss';
+import "./styles.scss";
 
 const ModalComponent = ({
   show,
@@ -52,22 +52,22 @@ const ModalComponent = ({
   return (
     <Modal show={show} onHide={handleClose} fullscreen={fullscreen} centered>
       {showModalHeader && <Modal.Header closeButton />}
-      <Modal.Body className="order-modal-content">
-        <div className="d-flex justify-content-center align-items-center my-2">
+      <Modal.Body className="order-modal-content pt-5">
+        <div className="d-flex justify-content-center align-items-center my-3">
           <img
-            src={type === "success" ? OkImage : ErrorImage}
-            width="50px"
+            src={type === "success" ? SucessIcon : FailureIcon}
+            width="50"
             alt="Status_Image"
           />
         </div>
         <div className="payment-status-modal">
-          <p className="h3 m-2">{`${
+          <p className="h3 m-2 psm-title">{`${
             type === "success" ? SUCCESS_TITLE : FAILURE_TITLE
           }`}</p>
-          <p className="m-2">{`${YOUR_PAYMENT} ${
+          <p className="m-2 psm-text">{`${YOUR_PAYMENT} ${
             type === "success" ? COMPLTED_SUCCESSFULLY : FAILED
           }`}</p>
-          <p className="m-2">{`${
+          <p className="m-2 psm-text">{`${
             type === "success"
               ? `${WITH_TRANSACTION_ID} ${transactionId}`
               : RETRY_MESSAGE

@@ -85,7 +85,7 @@ export const SUCCESS_TITLE = "Sucess";
 export const FAILURE_TITLE = "Failed";
 export const COMPLTED_SUCCESSFULLY = "completed successfully";
 export const FAILED = "failed";
-export const WITH_TRANSACTION_ID  = "With Transaction Id";
+export const WITH_TRANSACTION_ID  = "With Transaction Id : ";
 export const RETRY_MESSAGE = "Retry or go to cart to try another payment options";
 export const YOUR_PAYMENT = "Your payment has been";
 
