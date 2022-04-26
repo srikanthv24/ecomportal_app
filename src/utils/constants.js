@@ -68,7 +68,7 @@ export const DELIVER_TO = "DELIVER TO";
 export const COMPLETED = "Completed";
 export const DELETE = "delete";
 export const UPDATE_ORDER = "Update Order";
-export const PLAN_YOUR_MEAL = "Plan your Meal";
+export const CHOOSE_YOUR_MEAL = "Choose your Meal";
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
 export const MALE = "Male";
@@ -89,7 +89,9 @@ export const WITH_TRANSACTION_ID  = "With Transaction Id : ";
 export const RETRY_MESSAGE = "Retry or go to cart to try another payment options";
 export const YOUR_PAYMENT = "Your payment has been";
 export const SUCCESS = "success";
-
+export const CHOOSE_DELIVERY_TYPE = "Choose delivery type";
+export const START_ON = "Start on";
+export const CHOOSE_YOUR_GENDER = "Choose your gender";
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET: "Height-Feet",

@@ -5,8 +5,10 @@ import ProductDisplay from "./ProductDisplay";
 import {
   PICKUP,
   DELIVERY,
-  PLAN_YOUR_MEAL,
+  CHOOSE_YOUR_MEAL,
   INDIAN_DATE_FORMAT,
+  CHOOSE_DELIVERY_TYPE,
+  START_ON,
 } from "../../utils/constants";
 import _ from "underscore";
 import {
@@ -68,22 +70,27 @@ const ProductPlanner = React.memo(
           sessionCodes={["B", "L", "D"]}
         />
         </div>
-        <div className="mealPlan-date">
-          <DatePicker
-            placeholder="Select Start Date"
-            isSearchable={ false }
-            name="start-date"
-            className="order-form-control-input"
-            value={startDateInIndianFormat}
-            onChange={onDateChange}
-            render={<InputIcon readOnly />}
-            editable={false}
-            format={INDIAN_DATE_FORMAT}
-            minDate={getTodayDate()}
-          />
+        <div className="meal-plan-wrapper">
+          {selectedSessions.length > 0 && (
+            <>
+              <h4 className="title-info">{CHOOSE_YOUR_MEAL}</h4>
+              {mealPlans.map((plan, index) => {
+                return (
+                  <MealPlan
+                    {...plan}
+                    onMealClick={onMealClick}
+                    mealPlanIndex={index}
+                    deliveryType={deliveryType}
+                    isActive={mealSelectedIndex === index}
+                  />
+                );
+              })}
+            </>
+          )}
         </div>
-
+       
         <div className="mealplan-address-block">
+        <h4 className="title-info">{CHOOSE_DELIVERY_TYPE}</h4>
           <div className="d-flex btn-group vl-action-btn">
             <button
               type="button"
@@ -110,24 +117,22 @@ const ProductPlanner = React.memo(
             </button>
           </div>
         </div>
-        <div className="meal-plan-wrapper">
-          {selectedSessions.length > 0 && (
-            <>
-              <h4 className="title-info">{PLAN_YOUR_MEAL}</h4>
-              {mealPlans.map((plan, index) => {
-                return (
-                  <MealPlan
-                    {...plan}
-                    onMealClick={onMealClick}
-                    mealPlanIndex={index}
-                    deliveryType={deliveryType}
-                    isActive={mealSelectedIndex === index}
-                  />
-                );
-              })}
-            </>
-          )}
+        <div className="mealPlan-date">
+        <h4 className="title-info">{START_ON}</h4>
+          <DatePicker
+            placeholder="Select Start Date"
+            isSearchable={ false }
+            name="start-date"
+            className="order-form-control-input"
+            value={startDateInIndianFormat}
+            onChange={onDateChange}
+            render={<InputIcon readOnly />}
+            editable={false}
+            format={INDIAN_DATE_FORMAT}
+            minDate={getTodayDate()}
+          />
         </div>
+
       </div>
     );
   }
