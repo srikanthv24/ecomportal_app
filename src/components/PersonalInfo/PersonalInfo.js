@@ -11,6 +11,7 @@ import {
   MALE,
   FEMALE,
   MEAL_PLAN_STEPS,
+  CHOOSE_YOUR_GENDER,
 } from "../../utils/constants";
 import {
   validateAndSetFeet,
@@ -133,10 +134,11 @@ const PersonalInfo = ({
 
   return (
     <section className="text-center w-100p mx-auto">
-       <p className="fs-4 fw-bold mb-3 text-center page-title">
+       <p className="fs-4 fw-bold mb-0 text-center page-title">
         { MEAL_PLAN_STEPS.MY_PROFILE}
       </p>
       <div className="personal-info-step">
+      <small className="mb-2 mt-0 d-flex text-muted mx-3">{CHOOSE_YOUR_GENDER}</small>
         <Card.Body className="px-0 d-flex justify-content-between">
           <label className="gender-card justify-content-center relative mb-3 mt-0">
             <input
