@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
-import Form from "react-bootstrap/Form";
 import { ISO_FORMAT, SESSION_TYPES } from "../../utils/constants";
-import MealDisplay from "./MealDisplay";
 import { Calendar } from "react-multi-date-picker";
 import { getGracePeriod } from "./updateOrder.utils";
 import CalendarLegend from "../../components/CalendarLegend";
-import { getDateInTextFormat } from "../../utils/dateUtils";
 
 const SessionCalander = ({
   sessionCode,
@@ -64,17 +61,6 @@ const SessionCalander = ({
           {` ${address.aline1}, ${address.aline2}, ${address.community}, ${address.state}, ${address.landmark}, ${address.postalcode}`}
         </div>
       )}
-      <div className="d-flex align-items-center vl-edit-time-stamp">
-        <span className="vl-days-desp-info">
-          <strong>{duration}</strong> Days Subscription
-        </span>
-        {subscriptionStartDate && (
-          <div className="prdDesp vl-days-desp-info">
-            Start on{" "}
-            <strong>{getDateInTextFormat(subscriptionStartDate)}</strong>
-          </div>
-        )}
-      </div>
       <div className="d-flex justify-content-between vl-edit-bal-stamp">
         <div className="vl-edit-bal-info">
           Delivered: <strong>{`${completedDates?.length}`}</strong>
