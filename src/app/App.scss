@@ -996,9 +996,8 @@ input[type="checkbox"].acc-checkbox:checked:after {
 .subs-modal-content .vl-checkbox-custom{
   padding: 0px !important;
 }
-*{
-  user-select: none;
-}
+
+*:not(input) {user-select: none;}
 
 .show-calander {
   display: block;
