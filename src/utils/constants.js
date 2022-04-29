@@ -133,3 +133,6 @@ export const CART = {
 };
 
 
+export const SESSION_ERROR_MSG = "choose sessions";
+export const MEALPLAN_SELECTION_ERROR_MSG = "select your meal";
+export const DELIVERY_TYPE_ERROR_MSG = "choose delivery type";
