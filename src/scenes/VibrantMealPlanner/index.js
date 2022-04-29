@@ -1,7 +1,16 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Step, StepButton, StepLabel, Stepper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { MEAL_PLAN_STEPS, PICKUP, ADD_TO_CART, MALE, FEMALE } from "../../utils/constants";
+import {
+  MEAL_PLAN_STEPS,
+  PICKUP,
+  ADD_TO_CART,
+  MALE,
+  FEMALE,
+  SESSION_ERROR_MSG,
+  MEALPLAN_SELECTION_ERROR_MSG,
+  DELIVERY_TYPE_ERROR_MSG
+} from "../../utils/constants";
 import { createCartInput } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -18,7 +27,7 @@ import "./styles.scss";
 import DetoxMyBody from "../../assets/mealplanner/Detox.png";
 import CustomDiet from "../../assets/mealplanner/CustomDiet.png";
 import Weight from "../../assets/mealplanner/Weight.png";
-import {FaChevronLeft} from 'react-icons/fa';
+import { FaChevronLeft } from "react-icons/fa";
 
 const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
 let script = document.createElement("script");
@@ -52,17 +61,17 @@ const goals = [
   {
     name: "Manage My Weight",
     value: "MANAGEMYWEIGHT",
-    icon: Weight
+    icon: Weight,
   },
   {
     name: "Detox My Body",
     value: "DETOXMYBODY",
-    icon: DetoxMyBody
+    icon: DetoxMyBody,
   },
   {
     name: "Have Delicious Healthy Food",
     value: "HEALTHYFOOD",
-    icon: CustomDiet
+    icon: CustomDiet,
   },
 ];
 
@@ -108,7 +117,7 @@ function VibrantMealPlanner() {
 
   const onMealProductClick = (meal) => {
     setSelectedMeal(meal);
-    setMeal(meal?.id)
+    setMeal(meal?.id);
   };
 
   const onMealPlanSelection = (duration) => setSelectedDuration(duration);
@@ -143,7 +152,7 @@ function VibrantMealPlanner() {
     e?.preventDefault();
     if (!customerId || customerId === "") {
       dispatch(showLogin());
-    } else if(selectedDuration !== ""){
+    } else if (selectedDuration !== "") {
       dispatch(
         createCartInput({
           profileDetails,
@@ -163,7 +172,7 @@ function VibrantMealPlanner() {
   };
 
   useEffect(() => {
-    if (selectedDuration && selectedSessions.length > 0 && customerId !== ""){
+    if (selectedDuration && selectedSessions.length > 0 && customerId !== "") {
       onAddToCart();
     }
   }, [customerId]);
@@ -196,22 +205,20 @@ function VibrantMealPlanner() {
   return (
     <section className="planner-container">
       <div className="vl-stepper-sec">
-      <Stepper
-        activeStep={activeStep}
-        alternativeLabel
-        className="stepperComponent"
-      >
-        {steps.map((label, index) => (
-          <Step key={label}>
-             <StepButton onClick={handleStep(index)}>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
-      <button
+        <Stepper
+          activeStep={activeStep}
+          alternativeLabel
+          className="stepperComponent"
+        >
+          {steps.map((label, index) => (
+            <Step key={label}>
+              <StepButton onClick={handleStep(index)}>{label}</StepButton>
+            </Step>
+          ))}
+        </Stepper>
+        <button
           type="button"
-          className="stepper-back-btn"         
+          className="stepper-back-btn"
           onClick={handleBack}
           disabled={activeStep === 0 ? true : false}
         >
@@ -268,11 +275,21 @@ function VibrantMealPlanner() {
                 setMealSelectedIndex={setMealSelectedIndex}
               />
               <div className="d-flex btn-group vl-action-btn">
-                {/* <button type="button" className="btn w-50p vl-go-back-btn" onClick={handleBack}>Go Back</button> */}
-                <button type="button" className="btn w-100p vl-go-next-btn" 
-                  disabled={!selectedDuration || selectedSessions.length === 0 || deliveryType.length === 0 }
-                  onClick={(e) => onAddToCart(e)} >
-                    {ADD_TO_CART}
+                <button type="button" className="btn w-100p vl-go-next-btn"
+                  disabled={
+                    !selectedDuration ||
+                    selectedSessions.length === 0 ||
+                    deliveryType.length === 0
+                  }
+                  onClick={(e) => onAddToCart(e)}
+                >
+                  {selectedSessions.length === 0
+                    ? SESSION_ERROR_MSG
+                    : !selectedDuration
+                    ? MEALPLAN_SELECTION_ERROR_MSG
+                    : deliveryType.length === 0
+                    ? DELIVERY_TYPE_ERROR_MSG
+                    : ADD_TO_CART}
                 </button>
               </div>
             </div>

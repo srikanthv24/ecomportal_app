@@ -138,7 +138,6 @@ const PersonalInfo = ({
         { MEAL_PLAN_STEPS.MY_PROFILE}
       </p>
       <div className="personal-info-step">
-      <small className="mb-2 mt-0 d-flex text-muted mx-3">{CHOOSE_YOUR_GENDER}</small>
         <Card.Body className="px-0 d-flex justify-content-between">
           <label className="gender-card justify-content-center relative mb-3 mt-0">
             <input
@@ -336,20 +335,13 @@ const PersonalInfo = ({
         </Card.Body>
       </div>
       <div className="d-flex btn-group vl-action-btn">
-        {/* <button
-          type="button"
-          className="btn w-50p vl-go-back-btn"
-          onClick={handleBack}
-        >
-          Go Back
-        </button> */}
         <button
           type="button"
           className="btn w-100p vl-go-next-btn"
           onClick={onSubmit}
           disabled={!genderSelected}
         >
-          {NEXT}
+          {!genderSelected ? CHOOSE_YOUR_GENDER : NEXT}
         </button>
       </div>
     </section>
