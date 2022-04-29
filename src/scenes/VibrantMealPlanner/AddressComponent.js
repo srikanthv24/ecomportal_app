@@ -224,7 +224,7 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
             onChange={handlePincodeChange}
             placeholder="Enter your pincode"
             value={pincode}
-            maxLength="6"
+            maxLength="6" type="number"
           />
         </FloatingLabel>
         {
