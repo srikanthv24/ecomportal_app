@@ -19,29 +19,32 @@ const MealPlan = React.memo(
     discount,
     onDurationChange,
     isActive,
-    mealPlanIndex
+    mealPlanIndex,
   }) => {
     const [customDuration, setCustomDuration] = useState(duration);
     const onCustomDurationChange = (e) => {
       const numberRegix = /^([1-9]|[1-5][0-9]|60|all)$/;
       const inputDuration = e.target.value;
-
       if (inputDuration === "" || numberRegix.test(inputDuration)) {
         setCustomDuration(inputDuration);
-        onMealClick(e, inputDuration, mealPlanIndex)
+        onMealClick(e, inputDuration, mealPlanIndex);
       }
     };
 
     // useEffect(() => {
     //   onMealClick(canChangeDuration ? customDuration : duration, mealPlanIndex);
     // },[customDuration])
-    
+
     console.log("discount in meal plan: " + JSON.stringify(discount));
     return (
       <div
         className={`meal-card ${isActive ? "meal-card-active" : ""}`}
         onClick={(e) =>
-          onMealClick(e, canChangeDuration ? customDuration : duration, mealPlanIndex)
+          onMealClick(
+            e,
+            canChangeDuration ? customDuration : duration,
+            mealPlanIndex
+          )
         }
       >
         <div className="w-100p plan-meal-card-sec">
@@ -56,9 +59,7 @@ const MealPlan = React.memo(
                 ) : (
                   <div className="custom-plan-input-sec">
                     <Form.Control
-                      type="number"
                       size="sm"
-                      min="1" max="60"
                       value={customDuration}
                       onChange={onCustomDurationChange}
                       style={{ width: "60px", marginRight: "10px" }}
@@ -69,7 +70,6 @@ const MealPlan = React.memo(
               </span>
             </div>
             <div className="items">
-              {/* {!canChangeDuration && ( */}
               <span>
                 {deliveryType === "Pickup" ? (
                   // <i class="fa-solid fa-truck"></i>
@@ -86,11 +86,11 @@ const MealPlan = React.memo(
           <div className="d-flex d-flex justify-content-end">
             <span className="amountInfo">
               <BiRupee />
-              {`${
-                displayCurrency(pricePerDay * (canChangeDuration ? customDuration : duration) +
-                totalTaxes -
-                discount)
-              }/-`}
+              {`${displayCurrency(
+                pricePerDay * (canChangeDuration ? customDuration : duration) +
+                  totalTaxes -
+                  discount
+              )}/-`}
             </span>
           </div>
         </div>
