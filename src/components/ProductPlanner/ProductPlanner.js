@@ -113,7 +113,7 @@ const ProductPlanner = React.memo(
               }}
             >
               {DELIVERY}
-              <div className="deliveryArrow"></div>
+              <span className="deliveryArrow"></span>
             </button>
           </div>
         </div>
