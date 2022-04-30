@@ -112,7 +112,8 @@ const ForgotPassword = (props) => {
                       type="password"
                       {...register("password", {
                           required: true,
-                          pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
+                          // pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
+                          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/
                       })}
                     />
                   </FloatingLabel>
