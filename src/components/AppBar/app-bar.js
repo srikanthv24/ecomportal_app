@@ -30,9 +30,11 @@ export default function AppBar() {
   const { isLoading: cartLoading, itemsCount } = useSelector(
     (state) => state.Cart.cartCount
   );
-  const { sub: customerId, name: customerName, phone_number : customerMobile } = useSelector(
-    (state) => state.auth.userDetails
-  );
+  const {
+    sub: customerId,
+    name: customerName,
+    phone_number: customerMobile,
+  } = useSelector((state) => state.auth.userDetails);
 
   const logoutCognitoUser = () => {
     auth_services.logout();
@@ -43,11 +45,6 @@ export default function AppBar() {
     history.push("/");
   };
 
-  const handleLoginModal = () => {
-    dispatch(handleLoginLink());
-    dispatch(showLogin());
-  };
-
   const onCartButtonClick = () => {
     if (customerId) {
       dispatch(getCart({ customer_id: customerId }));
@@ -55,10 +52,19 @@ export default function AppBar() {
     history.push("/cart-summary");
   };
 
-  const onProfileClick = () => {
-    history.push("/profile");
+  const handleLoginModal = () => {
+    dispatch(handleLoginLink());
+    dispatch(showLogin());
   };
 
+  const handleSmileIconClick = () => {
+    if (customerId) {
+      history.push("/profile");
+    } else {
+      dispatch(handleLoginLink());
+      dispatch(showLogin());
+    }
+  };
   return (
     <>
       <Navbar
@@ -70,94 +76,76 @@ export default function AppBar() {
         style={{ position: "fixed", width: "100%" }}
       >
         <Container fluid className="flex-nowrap custom-nav">
-          <div>
-            <div
-              style={{
-                position: "absolute",
-                right: "1rem",
-                top: "1rem",
-                cursor: "pointer",
-                zIndex:"9"
-              }}
-            >
+          <Navbar.Brand>
+            <Link to="/">
               <img
                 alt=""
-                src={MenuIcon}
-                height="25"
-                className="d-inline-block align-top"
-                onClick={() => setMenu(true)}
+                src={vlLogoWhite}
+                className="d-inline-block align-top vl-logo"
+                style={{ marginTop: "-.5rem" }}
               />
-            </div>
-            <Navbar.Brand>
-              <Link to="/">
-                <img
-                  alt=""
-                  src={vlLogoWhite}                  
-                  className="d-inline-block align-top vl-logo"
-                  style={{ marginTop: "-.5rem" }}
-                />
-              </Link>
-            </Navbar.Brand>
-          </div>
-          <Nav className="vl-navbar">
-            <Container fluid className="px-0">
-              <Row>
+            </Link>
+          </Navbar.Brand>
+          <Nav>
+            <Container fluid>
+              <Row  xs="auto">
                 {customerId ? (
-                  <Col className="d-flex flex-nowrap px-0 profile-menu">
-                    <Nav.Link>
-                      <div className="customNavBar">
-                        <strong className="text-black profile-name-txt">
-                          Hello, {customerName}
-                        </strong>
-                      </div>
-                    </Nav.Link>
-                    {cartLoading ? (
-                      <Nav.Link onClick={onCartButtonClick}>
-                        <h6 className="text-black nav-menu-cart">
-                          <img src={CartIcon} alt="Icon" height="30" />
-                          <Badge pill>
-                            <span className="cart-loading">
-                              <Spinner animation="border" role="status" />
-                            </span>
-                            {itemsCount}
-                          </Badge>
-                        </h6>
+                  <>
+                    <Col className="d-flex justify-content-center align-items-center">
+                      <Nav.Link>
+                        <div className="customNavBar">
+                          <strong className="text-black profile-name-txt">
+                            Hello, {customerName}
+                          </strong>
+                        </div>
                       </Nav.Link>
-                    ) : (
-                      <>
+                    </Col>
+                    <Col className="d-flex justify-content-center align-items-center">
+                      {cartLoading ? (
+                        <Nav.Link onClick={onCartButtonClick}>
+                          <h6 className="text-black nav-menu-cart">
+                            <img src={CartIcon} alt="Icon" height="30" />
+                            <Badge pill>
+                              <span className="cart-loading">
+                                <Spinner animation="border" role="status" />
+                              </span>
+                              {itemsCount}
+                            </Badge>
+                          </h6>
+                        </Nav.Link>
+                      ) : (
                         <Nav.Link onClick={onCartButtonClick}>
                           <h6 className="text-black nav-menu-cart">
                             <img src={CartIcon} alt="Icon" height="30" />
                             <Badge pill>{itemsCount}</Badge>
                           </h6>
                         </Nav.Link>
-                        <div
-                          className="vl-profile-icon"
-                          onClick={onProfileClick}
-                        >
-                          <img
-                            alt=""
-                            src={SmileFaceIcon}
-                            height="25"
-                            className="d-inline-block align-top"
-                          />
-                        </div>
-                      </>
-                    )}
-                  </Col>
-                ) : (
-                  <>
-                    <div className="d-flex pt-2 cursor-pointer">
-                      <img
-                        alt=""
-                        src={SmileFaceIcon}
-                        height="25"
-                        className="d-inline-block align-top"
-                        onClick={handleLoginModal}
-                      />
-                    </div>
+                      )}
+                    </Col>
                   </>
-                )}
+                ) : null}
+                   <Col className="d-flex justify-content-center align-items-center">
+                  <div
+                    // className="vl-profile-icon"
+                    onClick={handleSmileIconClick}
+                  >
+                    <img
+                      alt=""
+                      src={SmileFaceIcon}
+                      height="25"
+                      className="d-inline-block align-top"
+                    />
+                  </div>
+                </Col>
+                <Col className="d-flex justify-content-center align-items-center">
+                  <img
+                    alt=""
+                    src={MenuIcon}
+                    height="25"
+                    className="d-inline-block align-top"
+                    onClick={() => setMenu(true)}
+                  />
+                </Col>
               </Row>
             </Container>
           </Nav>
