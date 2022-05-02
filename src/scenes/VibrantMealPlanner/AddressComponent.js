@@ -127,8 +127,11 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
   }
 
   const handlePincodeChange = (e) => {
+    const numberRegex = /^[0-9]{0,6}$/;
     const { value } = e.target;
-    setPincode(value);
+    if(numberRegex.test(value)){
+      setPincode(value);
+    } 
   }
 
   useEffect(() => {
@@ -156,6 +159,7 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
         setDisableAddressSelect(true);
       }
     } else {
+      setShowPincodeError(false);
       setDisableAddressSelect(true);
       setShowAddressInput(false);
     }
@@ -224,7 +228,7 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
             onChange={handlePincodeChange}
             placeholder="Enter your pincode"
             value={pincode}
-            maxLength="6" type="number"
+            type="number"
           />
         </FloatingLabel>
         {
