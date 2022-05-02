@@ -35,19 +35,19 @@ const ProductPlanner = React.memo(
     selectedSessions,
     setAddressSelected,
     mealSelectedIndex,
-    setMealSelectedIndex
+    setMealSelectedIndex,
   }) => {
     const [startDateInIndianFormat, setStartDateInIndianFormat] = useState(
       getDateInIndianFormat(getTomorrowDate())
     );
-    
+
     const onServiceChange = (value) => {
       onDeliveryChange(value);
       setAddressSelected(false);
     };
     const onDateChange = (date) => {
       setStartDateInIndianFormat(date.format(INDIAN_DATE_FORMAT));
-      onStartDateChange(date);
+      onStartDateChange(new Date(date));
     };
     const onMealClick = (e, duration, index) => {
       e.preventDefault();
@@ -64,11 +64,11 @@ const ProductPlanner = React.memo(
           description={productDescription}
         />
         <div className="vl-prd-planner-design1">
-        <SessionCordinator
-          onSessionChange={onSessionChange}
-          selectedSessions={selectedSessions}
-          sessionCodes={["B", "L", "D"]}
-        />
+          <SessionCordinator
+            onSessionChange={onSessionChange}
+            selectedSessions={selectedSessions}
+            sessionCodes={["B", "L", "D"]}
+          />
         </div>
         <div className="meal-plan-wrapper">
           {selectedSessions.length > 0 && (
@@ -88,9 +88,9 @@ const ProductPlanner = React.memo(
             </>
           )}
         </div>
-       
+
         <div className="mealplan-address-block">
-        <h4 className="title-info">{CHOOSE_DELIVERY_TYPE}</h4>
+          <h4 className="title-info">{CHOOSE_DELIVERY_TYPE}</h4>
           <div className="d-flex btn-group vl-action-btn">
             <button
               type="button"
@@ -118,21 +118,19 @@ const ProductPlanner = React.memo(
           </div>
         </div>
         <div className="mealPlan-date">
-        <h4 className="title-info">{START_ON}</h4>
+          <h4 className="title-info">{START_ON}</h4>
           <DatePicker
             placeholder="Select Start Date"
-            isSearchable={ false }
-            name="start-date"
+            name="subscription-start-date"
+            isSearchable={false}
             className="order-form-control-input"
             value={startDateInIndianFormat}
             onChange={onDateChange}
             render={<InputIcon readOnly />}
-            editable={false}
             format={INDIAN_DATE_FORMAT}
             minDate={getTodayDate()}
           />
         </div>
-
       </div>
     );
   }
