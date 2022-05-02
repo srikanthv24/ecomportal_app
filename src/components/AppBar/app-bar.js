@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import vlLogoWhite from "./../../assets/home/vl-logo-white.svg";
+import vlLogoModified from "./../../assets/home/vl-logo-modified.svg";
 import {
   Badge,
   Col,
@@ -80,7 +81,7 @@ export default function AppBar() {
             <Link to="/">
               <img
                 alt=""
-                src={vlLogoWhite}
+                src={vlLogoModified}
                 className="d-inline-block align-top vl-logo"
                 style={{ marginTop: "-.5rem" }}
               />
