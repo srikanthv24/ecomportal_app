@@ -225,6 +225,7 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
         >
           <Form.Control
             className="bg-transparent border border-dark"
+            onKeyDown={(evt) => ["e", "E", "+", "-", "."].includes(evt.key) && evt.preventDefault()}
             onChange={handlePincodeChange}
             placeholder="Enter your pincode"
             value={pincode}
