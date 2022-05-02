@@ -60,7 +60,7 @@ function App() {
         showModal={showModal}
         // message={errors[0]?.message}
       />
-      <Modal show={loginModal} centered size="xl">
+      <Modal show={loginModal} centered size="xl" className="loginModalSec">
         <Button         
           style={{ position: "absolute", top: 0, right: 0, background:'#f5f5f5', border:'none' }}
           onClick={() => dispatch(hideLogin())}
