@@ -159,7 +159,7 @@ const AddressComponent = ({ setAddress, setDelivery, onDeliveryTypeChange, setAd
         setDisableAddressSelect(true);
       }
     } else {
-      setShowPincodeError(false);
+      // setShowPincodeError(false);
       setDisableAddressSelect(true);
       setShowAddressInput(false);
     }
