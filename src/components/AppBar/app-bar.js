@@ -87,11 +87,11 @@ export default function AppBar() {
             </Link>
           </Navbar.Brand>
           <Nav>
-            <Container fluid>
-              <Row  xs="auto">
+            <Container fluid className="px-0">
+              <Row xs="auto">
                 {customerId ? (
                   <>
-                    <Col className="d-flex justify-content-center align-items-center">
+                    <Col className="d-flex justify-content-center align-items-center vl-px-app-bar-align">
                       <Nav.Link>
                         <div className="customNavBar">
                           <strong className="text-black profile-name-txt">
@@ -100,7 +100,7 @@ export default function AppBar() {
                         </div>
                       </Nav.Link>
                     </Col>
-                    <Col className="d-flex justify-content-center align-items-center">
+                    <Col className="d-flex justify-content-center align-items-center vl-px-app-bar-align">
                       {cartLoading ? (
                         <Nav.Link onClick={onCartButtonClick}>
                           <h6 className="text-black nav-menu-cart">
@@ -124,7 +124,7 @@ export default function AppBar() {
                     </Col>
                   </>
                 ) : null}
-                   <Col className="d-flex justify-content-center align-items-center">
+                   <Col className="d-flex justify-content-center align-items-center vl-px-app-bar-align">
                   <div
                     // className="vl-profile-icon"
                     onClick={handleSmileIconClick}
@@ -137,7 +137,7 @@ export default function AppBar() {
                     />
                   </div>
                 </Col>
-                <Col className="d-flex justify-content-center align-items-center">
+                <Col className="d-flex justify-content-center align-items-center vl-px-app-bar-align">
                   <img
                     alt=""
                     src={MenuIcon}

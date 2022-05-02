@@ -82,7 +82,7 @@ export const Profile = () => {
             </Col>
           </Row>
         </>
-        <Row className="mt-2">
+        {/* <Row className="mt-2">
           <Col>
             <div class="custom-diet-btn my-3" onClick={() => history.push("/")}>
               Back
@@ -93,7 +93,11 @@ export const Profile = () => {
               Log Out
             </div>
           </Col>
-        </Row>
+        </Row> */}
+        <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
+            <button className="btn w-50p vl-go-back-btn" onClick={() => history.push("/")}>Go Back</button>
+            <button className="btn w-50p vl-go-next-btn" onClick={logoutCognitoUser}>Log Out</button>
+        </div>       
       </section>
     </Container>
   );

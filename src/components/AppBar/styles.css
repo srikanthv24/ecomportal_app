@@ -180,6 +180,7 @@
 }
 .vl-navbar-header{
     background-color: transparent;
+    padding-top: 0px !important;
 }
 .cursor-pointer{
     cursor: pointer;
@@ -196,9 +197,26 @@
     .vl-logo{
         max-width: 85px;
     }    
+    .vl-px-app-bar-align{
+        padding-left: .25rem !important;
+        padding-right: .25rem !important;
+    }
 }
 @media screen and (min-width:768px) {
     .vl-logo{
         max-width: 120px;
     }    
+    .vl-px-app-bar-align{
+        padding-left: .5rem !important;
+        padding-right: .5rem !important;
+    }
+}
+html,body{
+    margin: 0px !important;
+}
+.vl-px-app-bar-align img,.vl-px-app-bar-align svg{
+    cursor: pointer;
+}
+.loginModalSec .modal-dialog{
+    max-width: 500px !important; 
 }
