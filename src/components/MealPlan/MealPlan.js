@@ -20,13 +20,16 @@ const MealPlan = React.memo(
     onDurationChange,
     isActive,
     mealPlanIndex,
+    customMealDuration,
+    setCustomMealDuration
   }) => {
-    const [customDuration, setCustomDuration] = useState(duration);
+    const [customDuration, setCustomDuration] = useState(customMealDuration);
     const onCustomDurationChange = (e) => {
       const numberRegix = /^([1-9]|[1-5][0-9]|60|all)$/;
       const inputDuration = e.target.value;
       if (inputDuration === "" || numberRegix.test(inputDuration)) {
         setCustomDuration(inputDuration);
+        setCustomMealDuration(inputDuration);
         onMealClick(e, inputDuration, mealPlanIndex);
       }
     };

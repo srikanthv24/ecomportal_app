@@ -99,6 +99,7 @@ function VibrantMealPlanner() {
   const [delivery, setDelivery] = useState({});
   const [addressSelected, setAddressSelected] = useState(false);
   const [mealSelectedIndex, setMealSelectedIndex] = useState();
+  const [customMealDuration, setCustomMealDuration] = useState(30);
   const {
     display_name,
     category,
@@ -135,10 +136,15 @@ function VibrantMealPlanner() {
         meal_prices,
         variants[0],
         delivery_charge,
-        discount
+        discount,
+        customMealDuration
       )
     );
   };
+
+  useEffect(() => {
+    debugger;
+  }, [customMealDuration])
 
   const onDeliveryTypeChange = (value) => {
     setDeliveryType(value);
@@ -273,6 +279,8 @@ function VibrantMealPlanner() {
                 setAddressSelected={setAddressSelected}
                 mealSelectedIndex={mealSelectedIndex}
                 setMealSelectedIndex={setMealSelectedIndex}
+                customMealDuration={customMealDuration}
+                setCustomMealDuration={setCustomMealDuration}
               />
               <div className="d-flex btn-group vl-action-btn">
                 <button type="button" className="btn w-100p vl-go-next-btn"

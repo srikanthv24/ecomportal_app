@@ -36,6 +36,8 @@ const ProductPlanner = React.memo(
     setAddressSelected,
     mealSelectedIndex,
     setMealSelectedIndex,
+    customMealDuration,
+    setCustomMealDuration
   }) => {
     const [startDateInIndianFormat, setStartDateInIndianFormat] = useState(
       getDateInIndianFormat(getTomorrowDate())
@@ -81,6 +83,8 @@ const ProductPlanner = React.memo(
                     onMealClick={onMealClick}
                     mealPlanIndex={index}
                     deliveryType={deliveryType}
+                    setCustomMealDuration={setCustomMealDuration}
+                    customMealDuration={customMealDuration}
                     isActive={mealSelectedIndex === index}
                   />
                 );

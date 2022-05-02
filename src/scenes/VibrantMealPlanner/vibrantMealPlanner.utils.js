@@ -7,13 +7,14 @@ export const getMealPlanDetails = (
   durationVariant,
   deliveryCharge = 0,
   discount = 0,
+  customMealDuration,
   totalTaxes = 0,
   addonPrice = 0
 ) => {
   if (selectedSessions.length === 0) return [];
   const mealPlans = [
     ...durationVariant.items,
-    { duration: 30, canChangeDuration: true },
+    { duration: customMealDuration, canChangeDuration: true },
   ].map((item) => {
     const { duration, canChangeDuration } = item;
     const pricePerDay = selectedSessions
