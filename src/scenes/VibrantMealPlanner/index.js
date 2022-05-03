@@ -142,9 +142,9 @@ function VibrantMealPlanner() {
     );
   };
 
-  useEffect(() => {
-    debugger;
-  }, [customMealDuration])
+  // useEffect(() => {
+  //   debugger;
+  // }, [customMealDuration])
 
   const onDeliveryTypeChange = (value) => {
     setDeliveryType(value);
