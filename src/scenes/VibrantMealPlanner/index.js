@@ -9,7 +9,8 @@ import {
   FEMALE,
   SESSION_ERROR_MSG,
   MEALPLAN_SELECTION_ERROR_MSG,
-  DELIVERY_TYPE_ERROR_MSG
+  DELIVERY_TYPE_ERROR_MSG,
+  DELIVERY,
 } from "../../utils/constants";
 import { createCartInput } from "../../store/actions/cart";
 import { useHistory } from "react-router-dom";
@@ -201,7 +202,11 @@ function VibrantMealPlanner() {
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    if (deliveryType === DELIVERY && !addressSelected) {
+      setDeliveryType(PICKUP);
+    }
+    if (deliveryType !== DELIVERY || addressSelected)
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleStep = (step) => () => {
@@ -228,7 +233,7 @@ function VibrantMealPlanner() {
           onClick={handleBack}
           disabled={activeStep === 0 ? true : false}
         >
-         <FaChevronLeft />
+          <FaChevronLeft />
         </button>
       </div>
       <div>
@@ -262,7 +267,9 @@ function VibrantMealPlanner() {
           />
         )}
         {activeStep === 3 &&
-          (deliveryType === PICKUP || deliveryType === "" || addressSelected === true ? (
+          (deliveryType === PICKUP ||
+          deliveryType === "" ||
+          addressSelected === true ? (
             <div className="px-0 text-center">
               <ProductPlanner
                 productTitle={display_name}
@@ -283,7 +290,9 @@ function VibrantMealPlanner() {
                 setCustomMealDuration={setCustomMealDuration}
               />
               <div className="d-flex btn-group vl-action-btn">
-                <button type="button" className="btn w-100p vl-go-next-btn"
+                <button
+                  type="button"
+                  className="btn w-100p vl-go-next-btn"
                   disabled={
                     !selectedDuration ||
                     selectedSessions.length === 0 ||
