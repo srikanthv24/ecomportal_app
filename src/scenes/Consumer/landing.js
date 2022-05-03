@@ -30,10 +30,10 @@ const Landing = () => {
   const products = useSelector((state) => state.products);
   const categories = useSelector((state) => state.categories);
 
-  // useEffect(() => {
-  //   dispatch(getProductsAction({ limit: 10, nextToken: "" }));
-  //   dispatch(getCategories({ limit: 40, nextToken: "" }));
-  // }, []);
+  useEffect(() => {
+    dispatch(getProductsAction({ limit: 10, nextToken: "" }));
+    dispatch(getCategories({ limit: 40, nextToken: "" }));
+  }, []);
 
   // eslint-disable-next-line no-array-constructor
   let dummyList = new Array(10, {});
@@ -52,9 +52,9 @@ const Landing = () => {
             <Testimonials />
           </Container>
 
-          {/* <Container fluid style={{ background: "#F2CBBD", marginTop: '0rem' }}>
+          <Container fluid style={{ background: "#F2CBBD", marginTop: '0rem' }}>
             <StoreContent1 />
-          </Container> */}
+          </Container>
          
         {/* </section> */}
       </Container>
