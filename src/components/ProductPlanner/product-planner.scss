@@ -74,8 +74,9 @@
             }
         }
     }
+  
     .mealPlan-date {
-        margin-bottom: 5px;
+        margin-bottom:1rem;
         padding: 0px 20px;
         .rmdp-container {
             width: 100%;
@@ -400,13 +401,15 @@
             top: -10px;
             width: 16px;
             height: 16px;
-            background-color: #f7f2df;
-            border-radius: 50%;
+            background-color: #f7f2df !important;
+            border-radius: 50% !important;
+            border:1px solid #d3d3d3 !important;
+            -webkit-appearance: none;
         }
         .form-check-input:focus {
             box-shadow: none !important;
         }
-    }
+    }  
 }
 
 
