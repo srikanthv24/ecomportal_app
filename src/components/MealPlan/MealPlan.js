@@ -38,7 +38,6 @@ const MealPlan = React.memo(
     //   onMealClick(canChangeDuration ? customDuration : duration, mealPlanIndex);
     // },[customDuration])
 
-    console.log("discount in meal plan: " + JSON.stringify(discount));
     return (
       <div
         className={`meal-card ${isActive ? "meal-card-active" : ""}`}

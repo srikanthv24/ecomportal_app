@@ -41,3 +41,7 @@ export const getTomorrowDate = () => {
 export const getTodayDate = () => {
   return moment().format(ISO_FORMAT);
 }
+
+export const getMax60Days = () => {
+  return moment().add(60, "days").format(ISO_FORMAT);
+}
