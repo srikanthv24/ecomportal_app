@@ -33,6 +33,7 @@ const Register = (props) => {
   const { loading, error } = useSelector((state) => state.auth);
   const [showPwdErrors, setShowPwdErrors] = useState(false);
   const [uppercaseError, setUppercaseError] = useState(false);
+  
   const [lowecaseError, setLowercaseError] = useState(false);
   const [pwdLengthError, setPwdLengthError] = useState(false);
 
@@ -72,6 +73,15 @@ const Register = (props) => {
       setShowPwdErrors(true);
       setUppercaseError(false);
       setLowercaseError(false);
+      setPwdLengthError(false);
+    } else if(errors.password && errors.password.type == "hasUppercase"){
+      setShowPwdErrors(true);
+      setUppercaseError(false);                                                            
+    } else if(errors.password && errors.password.type == "hasLowercase"){
+      setShowPwdErrors(true);
+      setLowercaseError(false);
+    } else if(errors.password && errors.password.type == "hasMinlength"){
+      setShowPwdErrors(true);
       setPwdLengthError(false);
     }
   }, [errors?.password]);
@@ -144,18 +154,10 @@ const Register = (props) => {
                 className={errors.password && "is-invalid"}
                 type="password"
                 style={{ marginBottom: "10px" }}
+                onFocus={() =>setShowPwdErrors(true)}
                 {...register("password", {
                   required: true,
                   validate: {
-                    hasUppercase: (value) => {
-                      if (/^(?=.*[A-Z])/.test(value)) {
-                        setUppercaseError(true);
-                        return true;
-                      } else {
-                        setUppercaseError(false);
-                        return false;
-                      }
-                    },
                     hasLowercase: (value) => {
                       if (/^(.*[a-z].*)/.test(value)) {
                         setLowercaseError(true);
@@ -171,6 +173,15 @@ const Register = (props) => {
                         return true;
                       } else {
                         setPwdLengthError(false);
+                        return false;
+                      }
+                    },
+                    hasUppercase: (value) => {
+                      if (/^(?=.*[A-Z])/.test(value)) {
+                        setUppercaseError(true);
+                        return true;
+                      } else {
+                        setUppercaseError(false);
                         return false;
                       }
                     },
