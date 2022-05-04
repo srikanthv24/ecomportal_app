@@ -15,6 +15,7 @@ import {
   getTomorrowDate,
   getTodayDate,
   getDateInIndianFormat,
+  getMax60Days,
 } from "../../utils/dateUtils";
 import DatePicker from "react-multi-date-picker";
 import InputIcon from "react-multi-date-picker/components/input_icon";
@@ -37,7 +38,7 @@ const ProductPlanner = React.memo(
     mealSelectedIndex,
     setMealSelectedIndex,
     customMealDuration,
-    setCustomMealDuration
+    setCustomMealDuration,
   }) => {
     const [startDateInIndianFormat, setStartDateInIndianFormat] = useState(
       getDateInIndianFormat(getTomorrowDate())
@@ -133,6 +134,7 @@ const ProductPlanner = React.memo(
             render={<InputIcon readOnly />}
             format={INDIAN_DATE_FORMAT}
             minDate={getTodayDate()}
+            maxDate={getMax60Days()}
           />
         </div>
       </div>
