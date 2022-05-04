@@ -98,7 +98,7 @@ function VibrantMealPlanner() {
   const [mealPlans, setMealPlans] = useState([]);
   const [address, setAddress] = useState({});
   const [delivery, setDelivery] = useState({});
-  const [addressSelected, setAddressSelected] = useState(false);
+  const [showAddressForm, setShowAddressForm] = useState(false);
   const [mealSelectedIndex, setMealSelectedIndex] = useState();
   const [customMealDuration, setCustomMealDuration] = useState(30);
   const {
@@ -202,11 +202,11 @@ function VibrantMealPlanner() {
   };
 
   const handleBack = () => {
-    if (deliveryType === DELIVERY && !addressSelected) {
-      setDeliveryType(PICKUP);
+    if (showAddressForm) {
+      setShowAddressForm(false);
+      return;
     }
-    if (deliveryType !== DELIVERY || addressSelected)
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleStep = (step) => () => {
@@ -267,9 +267,7 @@ function VibrantMealPlanner() {
           />
         )}
         {activeStep === 3 &&
-          (deliveryType === PICKUP ||
-          deliveryType === "" ||
-          addressSelected === true ? (
+          (!showAddressForm ? (
             <div className="px-0 text-center">
               <ProductPlanner
                 productTitle={display_name}
@@ -283,7 +281,7 @@ function VibrantMealPlanner() {
                 onStartDateChange={onStartDateChange}
                 onMealPlanSelection={onMealPlanSelection}
                 onDeliveryChange={onDeliveryTypeChange}
-                setAddressSelected={setAddressSelected}
+                setShowAddressForm={setShowAddressForm}
                 mealSelectedIndex={mealSelectedIndex}
                 setMealSelectedIndex={setMealSelectedIndex}
                 customMealDuration={customMealDuration}
@@ -317,7 +315,7 @@ function VibrantMealPlanner() {
                 prevAddress={address}
                 setDelivery={setDelivery}
                 onDeliveryTypeChange={onDeliveryTypeChange}
-                setAddressSelected={setAddressSelected}
+                setShowAddressForm={setShowAddressForm}
               />
             </>
           ))}
