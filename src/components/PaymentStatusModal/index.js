@@ -54,14 +54,15 @@ export const PaymentStatusModal = ({
     <Modal show={show} onHide={handleClose} fullscreen={fullscreen} centered>
       {showModalHeader && <Modal.Header closeButton />}
       <Modal.Body className="order-modal-content pt-5">
-        <div className="d-flex justify-content-center align-items-center my-3">
+        
+        <div className="payment-status-modal">
+        <div className="d-flex justify-content-center align-items-center success-icon-align">
           <img
             src={type === SUCCESS ? SucessIcon : FailureIcon}
             width="50"
-            alt="Status_Image"
+            alt="Status_Image" className="success-img-bg"
           />
         </div>
-        <div className="payment-status-modal">
           <p className="h3 m-2 psm-title">{`${
             type === SUCCESS ? SUCCESS_TITLE : FAILURE_TITLE
           }`}</p>
