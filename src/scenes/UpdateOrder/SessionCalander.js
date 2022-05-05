@@ -66,13 +66,13 @@ const SessionCalander = ({
           Delivered: <strong>{`${completedDates?.length}`}</strong>
         </div>
         <div className="vl-edit-bal-info">
-          Paused:{" "}
+          Scheduled: <strong>{`${completedDates?.length + activeDates?.length}`}</strong>
+        </div>
+        <div className="vl-edit-bal-info">
+          Balance:{" "}
           <strong>{`${
             duration - (completedDates?.length + activeDates?.length)
           }`}</strong>
-        </div>
-        <div className="vl-edit-bal-info">
-          Balance: <strong>{`${activeDates?.length}`}</strong>
         </div>
         <div className="vl-edit-bal-info">
           <div className="meal-plan-wrapper px-0 vl-edit-cal-info">

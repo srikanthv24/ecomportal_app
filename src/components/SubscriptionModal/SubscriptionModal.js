@@ -134,9 +134,9 @@ const SubscriptionModal = React.memo(
                     selectedSessions={sessionCodes}
                   />
                   </div>
-                  <SubscriptionComments
+                  {/* <SubscriptionComments
                     onCommentsChange={(e) => setComments(e.target.value)}
-                  />
+                  /> */}
                   
                   <SubscriptionButtonGroup
                     onCancel={onCancel}
