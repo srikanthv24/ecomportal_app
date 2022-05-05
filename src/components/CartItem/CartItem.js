@@ -109,7 +109,7 @@ const CartItem = ({
                 <p className="crt-prd-session-deliver m-0">
                   {isDelivery && selectedSessions?.includes(SESSION_CODES.B)
                     ? DELIVERY
-                    : SELF_PICKUP}
+                    : ""}
                 </p>
               </div>
               <div>
@@ -123,7 +123,7 @@ const CartItem = ({
                 <p className="crt-prd-session-deliver m-0">
                   {isDelivery && selectedSessions?.includes(SESSION_CODES.L)
                     ? DELIVERY
-                    : SELF_PICKUP}
+                    : ""}
                 </p>
               </div>
               <div>
@@ -137,7 +137,7 @@ const CartItem = ({
                 <p className="crt-prd-session-deliver m-0">
                   {isDelivery && selectedSessions?.includes(SESSION_CODES.D)
                     ? DELIVERY
-                    : SELF_PICKUP}
+                    : ""}
                 </p>
               </div>
             </>
