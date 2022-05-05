@@ -12,6 +12,9 @@ import { displayCurrency } from "../../helpers/displayCurrency";
 import { SERVICE_TYPE, COMPLETED } from "../../utils/constants";
 import _ from "underscore";
 import MenuList from "../MenuList/MenuList";
+import {FaRegPauseCircle} from 'react-icons/fa';
+
+
 
 const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
@@ -50,11 +53,14 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
                         <>
-                          {/* <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
+                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
                             <i className="fa-solid fa-pen-to-square"></i>
-                          </Link> &nbsp; &nbsp; */}
-                          <label className="more-icon"><i className="fa-solid fa-bars"></i></label>
-                          <div className="more-dp-info">                          
+                          </Link> &nbsp; &nbsp;
+                          <div className="sub-edit-btn" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
+                            <FaRegPauseCircle style={{fontSize:"24px"}}/>
+                          </div>
+                          {/* <label className="more-icon"><i className="fa-solid fa-bars"></i></label> */}
+                          {/* <div className="more-dp-info">                          
                             <MenuList
                               list={[
                                 SERVICE_TYPE.PAUSE_TOMORROW,
@@ -67,7 +73,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                               id={order.id}
                               cancelSubscription={cancelSubscription}
                             />
-                          </div>
+                          </div> */}
                         </>
                       )}
                     </>
