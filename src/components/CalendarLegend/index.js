@@ -28,7 +28,7 @@ const CalendarLegend = () => {
     <span className="d-flex justify-content-between align-items-center">
       <OverlayTrigger trigger="focus" placement="left" key="calendar-overlay" overlay={popover}>
         <Button variant="transparent">
-          <BsInfoCircle /> Example
+          <BsInfoCircle />
         </Button>
       </OverlayTrigger>
     </span>
