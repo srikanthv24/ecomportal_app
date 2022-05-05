@@ -91,7 +91,7 @@ const Login = (props) => {
             <Image src={VLogo} height="40" />
           </div> */}          
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
-          <p className="vl-modal-sub-desp-txt">Sign in with your mobile number and password</p>
+          <p className="vl-modal-sub-desp-txt">Sign in with your phone number and password</p>
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control

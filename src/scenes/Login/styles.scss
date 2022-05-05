@@ -110,3 +110,20 @@
 //   background-color: #0079c1 !important;
 //   opacity: 1;
 // }
+.validation-state{
+  width: 10px;
+  height: 10px;
+  display: block;
+  border-radius: 50%;
+  background-color: #f9f3df;
+  border:1px solid #dc3535;
+  margin-right: 5px; 
+}
+.validation-success{
+  background-color: #198754 !important;
+  border:1px solid #198754 !important;
+}
+.validation-fail{
+  background-color: #f9f3df !important;
+  border:1px solid #dc3535 !important;
+}

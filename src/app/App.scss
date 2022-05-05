@@ -44,14 +44,14 @@
   background: #f2cbbd !important;
 }
 .page-title {
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Medium";
   font-size: 25px !important;
   color: rgba(35, 27, 16, 0.25);
   font-weight: 700 !important;
   text-transform: uppercase;
 }
 .value-txt {
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Medium";
   font-size: 14px !important;
   color: rgba(35, 27, 16, 0.25);
   font-weight: 500 !important;
@@ -560,6 +560,7 @@
 .cart-order-summery-list-discount,
 .cart-order-summery-list-shipping {
   color: #3cb77c !important;
+  font-size: 14px !important;
 }
 .cart-order-summery-list-total,
 .cart-order-summery-list-total-price {
@@ -1005,4 +1006,14 @@ input[type="checkbox"].acc-checkbox:checked:after {
 
 .hide-calander {
   display: none;
+}
+.nav-link:focus, .nav-link:hover {
+  outline: transparent !important;
+  box-shadow: none !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px #f7f2df inset;
 }
