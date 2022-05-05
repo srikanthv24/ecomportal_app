@@ -18,6 +18,8 @@ const AddressComponent = ({
   onDeliveryTypeChange,
   setShowAddressForm,
   prevAddress,
+  addressBtnClicked,
+  setAddressBtnClicked
 }) => {
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
@@ -219,11 +221,14 @@ const AddressComponent = ({
       newAddress.state === ""
     ) {
       onDeliveryTypeChange("");
+    } else if(!addressBtnClicked){
+      onDeliveryTypeChange("");
     }
     setShowAddressForm(false);
   };
 
   const handleAddAddress = (e) => {
+    setAddressBtnClicked(true)
     e.preventDefault();
     setAddress(newAddress);
     setDelivery(deliveryCost);

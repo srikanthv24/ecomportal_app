@@ -110,6 +110,7 @@ function VibrantMealPlanner() {
     variants,
     id: productId,
   } = selectedMeal;
+  const [addressBtnClicked, setAddressBtnClicked] = useState(false);
 
   const { mealPlansList: mealList, loading: mealLoading } = useSelector(
     (state) => state.mealPlans
@@ -142,10 +143,6 @@ function VibrantMealPlanner() {
       )
     );
   };
-
-  // useEffect(() => {
-  //   debugger;
-  // }, [customMealDuration])
 
   const onDeliveryTypeChange = (value) => {
     setDeliveryType(value);
@@ -316,6 +313,8 @@ function VibrantMealPlanner() {
                 setDelivery={setDelivery}
                 onDeliveryTypeChange={onDeliveryTypeChange}
                 setShowAddressForm={setShowAddressForm}
+                addressBtnClicked={addressBtnClicked}
+                setAddressBtnClicked={setAddressBtnClicked}
               />
             </>
           ))}
