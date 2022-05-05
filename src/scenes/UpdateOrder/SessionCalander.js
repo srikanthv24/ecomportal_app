@@ -66,7 +66,7 @@ const SessionCalander = ({
           Delivered: <strong>{`${completedDates?.length}`}</strong>
         </div>
         <div className="vl-edit-bal-info">
-          Scheduled: <strong>{`${completedDates?.length + activeDates?.length}`}</strong>
+          Scheduled: <strong>{`${activeDates?.length}`}</strong>
         </div>
         <div className="vl-edit-bal-info">
           Balance:{" "}

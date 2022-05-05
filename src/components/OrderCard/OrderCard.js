@@ -136,7 +136,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       </td>
                       <td>
                         <span className="order-info-txt">
-                          {order?.orderscount[1]?.meals_ordered}
+                          {order?.orderscount[1]?.meals_remaining}
                         </span>
                       </td>
                       <td>
