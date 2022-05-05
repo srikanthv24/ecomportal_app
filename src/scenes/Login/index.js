@@ -96,7 +96,7 @@ const Login = (props) => {
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
                 className={errors.phone && 'is-invalid'}
-                type="number"
+                type="number" placeholder="Phone Number"
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>
@@ -127,7 +127,7 @@ const Login = (props) => {
               <a href="#" className="vl-hyper-link-txt text-center" onClick={handleForgotClick}>Forgot Password?</a>
             </p>
             <Button
-              className="w-100 mt-2 mb-3 btn btn-lg vl-login-submit-btn"
+              className="mt-2 mb-3 btn btn-lg vl-login-submit-btn"
               type="submit"
               size="lg"
             >

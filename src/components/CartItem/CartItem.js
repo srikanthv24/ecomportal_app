@@ -9,9 +9,11 @@ import {
   DELIVER_TO,
   DELETE,
   SESSION_CODES,
+  SELF_PICKUP
 } from "../../utils/constants";
 import { displayCurrency } from "../../helpers/displayCurrency";
 import TructIcon from "../../assets/home/truck.png";
+import PickupIcon from "../../assets/home/Pickup.png";
 import { gstPercent } from "./cartItemUtility";
 
 const CartItem = ({
@@ -107,7 +109,7 @@ const CartItem = ({
                 <p className="crt-prd-session-deliver m-0">
                   {isDelivery && selectedSessions?.includes(SESSION_CODES.B)
                     ? DELIVERY
-                    : ""}
+                    : SELF_PICKUP}
                 </p>
               </div>
               <div>
@@ -121,7 +123,7 @@ const CartItem = ({
                 <p className="crt-prd-session-deliver m-0">
                   {isDelivery && selectedSessions?.includes(SESSION_CODES.L)
                     ? DELIVERY
-                    : ""}
+                    : SELF_PICKUP}
                 </p>
               </div>
               <div>
@@ -135,7 +137,7 @@ const CartItem = ({
                 <p className="crt-prd-session-deliver m-0">
                   {isDelivery && selectedSessions?.includes(SESSION_CODES.D)
                     ? DELIVERY
-                    : ""}
+                    : SELF_PICKUP}
                 </p>
               </div>
             </>
@@ -153,15 +155,23 @@ const CartItem = ({
             </Button>
           </div>
         </Card.Body>
-        {isMealItem && isDelivery && (
-          <Card.Footer className="cart-summary-footer relative">
-            <p className="crt-prd-address-title m-0">
-              {/* {DELIVER_TO} */}
-              <img src={TructIcon} alt="truck" height="30" className="truckIcon" />
-            </p>
-            <p className="crt-prd-address-title m-0">{address}</p>
-          </Card.Footer>
-        )}
+        {isMealItem && isDelivery ? (
+            <Card.Footer className="cart-summary-footer relative px-1">
+              <p className="crt-prd-address-title m-0">
+                {/* {DELIVER_TO} */}
+                <img src={TructIcon} alt="truck" height="30" className="truckIcon" />
+              </p>
+              <p className="crt-prd-address-title m-0">{address}</p>
+            </Card.Footer>
+        ) : <Card.Footer className="cart-summary-footer relative px-1">
+        <p className="crt-prd-address-title m-0">
+          {/* {DELIVER_TO} */}
+          <img src={PickupIcon} alt="PickupIcon" height="26" className="truckIcon" />
+        </p>
+        <p className="crt-prd-address-title m-0">{SELF_PICKUP}</p>
+      </Card.Footer>
+      }
+        
       </Card>
     </div>
   );

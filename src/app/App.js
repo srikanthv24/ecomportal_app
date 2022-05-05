@@ -62,7 +62,7 @@ function App() {
       />
       <Modal show={loginModal} centered size="xl" className="loginModalSec">
         <Button         
-          style={{ position: "absolute", top: 0, right: 0, background:'#f5f5f5', border:'none' }}
+          style={{ position: "absolute", top: 0, right: 0, background:'#f5f0dd', border:'none' }}
           onClick={() => dispatch(hideLogin())}
         >
           <GrClose />

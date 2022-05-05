@@ -49,17 +49,20 @@
     // background-color: #e4e4e4;
     background: transparent !important;
     color: #424141;
-    border-radius: 20px;
+    border-radius: 7px;
     border:1px solid #614731;
   }
   .vl-go-next-btn{   
     background-color: #614731;
     color: #F7F2DF;
-    border-radius: 20px;
-    border:1px solid #614731 !important;
+    border-radius: 7px;
+    border:1px solid #614731 !important;    
   }
   .vl-go-next-btn:hover{
     color: #F7F2DF !important;
+  }
+  .vl-go-next-btn:disabled{
+    // background-color: #0079c1 !important;
   }
 }
 

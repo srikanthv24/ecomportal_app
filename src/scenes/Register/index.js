@@ -95,6 +95,7 @@ const Register = (props) => {
   }
 
   return (
+    <section className="vl-login-popup-container">
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12} className="px-0">
@@ -245,6 +246,7 @@ const Register = (props) => {
         </Col>
       </Row>
     </div>
+    </section>
   );
 };
 
