@@ -64,6 +64,7 @@ const ForgotPassword = (props) => {
   }
 
   return (
+    <section className="vl-login-popup-container">
     <div className="container login-container">
       <Row>
         <Col xs={12} sm={12} lg={12} className="px-0">
@@ -78,7 +79,7 @@ const ForgotPassword = (props) => {
               <Form.Control
                 className={errors.phone && 'is-invalid'}
                 disabled={showOtp}
-                type="number"
+                type="number" placeholder="Phone Number"
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>
@@ -104,7 +105,7 @@ const ForgotPassword = (props) => {
                   <FloatingLabel
                     controlId="password"
                     label="New Password"
-                    className="mb-3"
+                    className="mb-3 vl-input-element"
                   >
                     <Form.Control
                       placeholder="new password"
@@ -123,7 +124,7 @@ const ForgotPassword = (props) => {
                   <FloatingLabel
                     controlId="confPassword"
                     label="Confirm Password"
-                    className="mb-3"
+                    className="mb-3 vl-input-element"
                   >
                     <Form.Control
                       placeholder="confirm password"
@@ -162,6 +163,7 @@ const ForgotPassword = (props) => {
         </Col>
       </Row>
     </div>
+    </section>
   );
 }
 
