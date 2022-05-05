@@ -222,26 +222,32 @@ const ForgotPassword = (props) => {
                     <p
                       className={`${
                         uppercaseError ? "text-success" : "text-danger"
-                      } input-error-txt`}
+                      } input-error-txt d-flex align-items-center`}
                       style={{ textAlign: "left" }}
-                    >
+                    ><span className={`${
+                      uppercaseError ? "validation-success" : "validation-fail"
+                    } validation-state`}></span>
                       Password must have 1 Uppercase char.
                     </p>
                     <p
                       className={`${
                         lowecaseError ? "text-success" : "text-danger"
-                      } input-error-txt`}
+                      } input-error-txt d-flex align-items-center`}
                       style={{ textAlign: "left" }}
-                    >
+                    ><span className={`${
+                      lowecaseError ? "validation-success" : "validation-fail"
+                    } validation-state`}></span>
                       Password must have 1 Lowercase char.
                     </p>
 
                     <p
                       className={`${
                         pwdLengthError ? "text-success" : "text-danger"
-                      } input-error-txt`}
+                      } input-error-txt d-flex align-items-center`}
                       style={{ textAlign: "left" }}
-                    >
+                    ><span className={`${
+                      pwdLengthError ? "validation-success" : "validation-fail"
+                    } validation-state`}></span>
                       Password must be 6-10 char. long.
                     </p>
                   </div>
