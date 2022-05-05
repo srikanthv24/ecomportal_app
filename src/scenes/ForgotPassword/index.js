@@ -22,7 +22,7 @@ import { hideLogin } from "../../store/actions";
 
 const ForgotPassword = (props) => {
   const dispatch = useDispatch();
-  const { loading :isLoading } = useSelector((state) => state.auth);
+  const { loading: isLoading } = useSelector((state) => state.auth);
   const [phone, setPhone] = useState("");
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -54,22 +54,28 @@ const ForgotPassword = (props) => {
           setError(err.message);
         });
     } else {
-      debugger;
       auth_services
         .reset(data.phone, data.otp, data.password)
         .then((res) => {
-          setLoading((prev) => !prev);
+          // setLoading((prev) => !prev);
           // setShowOtp((prev) => !prev);
           // dispatch(resetSuccess());
           // handleLogInClick();
-          auth_services.login(data.phone, data.password).then((res) => {
-            getUserDetails();
-            dispatch(loginSuccess(res));
-            localStorage.setItem("token", res.accessToken.jwtToken);
-            localStorage.setItem("expiry-time", Date.now());
-            setLoading((prev) => !prev);
-            dispatch(hideLogin());
-          });
+          auth_services
+            .login(data.phone, data.password)
+            .then((res) => {
+              getUserDetails();
+              dispatch(loginSuccess(res));
+              localStorage.setItem("token", res.accessToken.jwtToken);
+              localStorage.setItem("expiry-time", Date.now());
+              setLoading((prev) => !prev);
+              dispatch(hideLogin());
+            })
+            .catch((err) => {
+              setLoading((prev) => !prev);
+              setError(err.message);
+              dispatch(authError(error.message));
+            });
         })
         .catch((err) => {
           setLoading((prev) => !prev);
