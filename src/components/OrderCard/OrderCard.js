@@ -51,29 +51,18 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       {moment(moment()).isAfter(order.finish_date) ? (
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
-                        <>
-                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </Link> &nbsp; &nbsp;
-                          <div className="sub-edit-btn" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
+                        <div className="d-flex">
+                        {
+                          order?.tomorrows_delivery ? (
+                          <div className="sub-edit-btn px-4" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
                             <i class="fa-solid fa-pause"></i>
                           </div>
-                          {/* <label className="more-icon"><i className="fa-solid fa-bars"></i></label> */}
-                          {/* <div className="more-dp-info">                          
-                            <MenuList
-                              list={[
-                                SERVICE_TYPE.PAUSE_TOMORROW,
-                                // SERVICE_TYPE.PAUSE_IN_BETWEEN,
-                                // SERVICE_TYPE.PAUSE_INDEFINITE,
-                                // SERVICE_TYPE.RESUME_INDEFINITE,
-                                SERVICE_TYPE.EDIT_SUBSCRIPTION,
-                              ]}
-                              onMenuSelect={onMenuSelect}
-                              id={order.id}
-                              cancelSubscription={cancelSubscription}
-                            />
-                          </div> */}
-                        </>
+                           ) : null
+                        } 
+                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </Link> 
+                        </div>
                       )}
                     </>
                   </div>
