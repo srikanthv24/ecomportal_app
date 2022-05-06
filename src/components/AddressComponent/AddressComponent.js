@@ -1,13 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
-import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
-import { DISCLAIMER_DATA, PICKUP, WHATSAPP_LINK } from "../../utils/constants";
 import {
   calculateDeliveryCharge,
   getPostalCodes,
 } from "../../store/actions/addresses";
+import { Modal, Button } from "react-bootstrap";
+
+const ROAD_FIELD_ERROR = "roadFieldError";
+const FLAT_FIELD_ERROR = "flatFieldError";
+const LANDMARK_ERROR = "landmarkError";
+const DEFAULT_ADDRESS_STATE = {
+  aline1: "",
+  aline2: "",
+  community: "",
+  area: "",
+  landmark: "",
+  city: "",
+  state: "",
+  postalcode: 0,
+  tag: "home",
+  latitude: "",
+  longitude: "",
+};
 
 let autoComplete;
 let addressLat = "",
@@ -19,25 +35,12 @@ const AddressComponent = ({
   setShowAddressForm,
   prevAddress,
   addressBtnClicked,
-  setAddressBtnClicked
+  setAddressBtnClicked,
 }) => {
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
-  const loading = useSelector((state) => state.Addresses.loading);
-  const [newAddress, setNewAddress] = useState({
-    aline1: "",
-    aline2: "",
-    community: "",
-    area: "",
-    landmark: "",
-    city: "",
-    state: "",
-    postalcode: 0,
-    tag: "home",
-    latitude: "",
-    longitude: "",
-  });
+  const [newAddress, setNewAddress] = useState(DEFAULT_ADDRESS_STATE);
   const [deliveryCost, setDeliveryCost] = useState({
     delivery_charge: 0,
     discount: 0,
@@ -48,7 +51,13 @@ const AddressComponent = ({
   const [showPincodeError, setShowPincodeError] = useState(false);
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
-  const [disableAddressSelect, setDisableAddressSelect] = useState(true);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [errors, setErrors] = useState({
+    flatFieldError: false,
+    roadFieldError: false,
+    landmarkError: false,
+  });
+  const [showCityAndState, setShowCityAndState] = useState(false);
 
   useEffect(() => {
     if (!_.isEmpty(prevAddress) && prevAddress.postalcode !== "") {
@@ -57,6 +66,12 @@ const AddressComponent = ({
       setShowAddressInput(true);
     }
   }, []);
+
+  const setErrorsbySpread = (errorType, value) => {
+    setErrors((prev) => {
+      return { ...prev, [errorType]: value };
+    });
+  };
 
   const handleScriptLoad = (autoCompleteRef) => {
     autoComplete = new window.google.maps.places.Autocomplete(
@@ -79,8 +94,10 @@ const AddressComponent = ({
 
   async function handlePlaceSelect() {
     const addressObject = autoComplete.getPlace();
+    console.log("addressObject: " + JSON.stringify(addressObject));
     let matches = addressObject.address_components.filter((address_component) =>
       [
+        "plus_code",
         "route",
         "sublocality_level_1",
         "sublocality_level_2",
@@ -89,45 +106,53 @@ const AddressComponent = ({
         "administrative_area_level_2",
         "administrative_area_level_1",
         "postal_code",
-      ].some((word) => ~address_component.types.indexOf(word))
+      ].some((word) => address_component.types.indexOf(word))
     );
+    const aline1 = parseGoogleAddress(matches, "plus_code");
     const aline2 = parseGoogleAddress(matches, "route");
     const community = parseGoogleAddress(matches, "sublocality_level_1");
     const area =
       parseGoogleAddress(matches, "sublocality_level_2") +
       ", " +
       parseGoogleAddress(matches, "sublocality_level_3");
-    const pcode = parseGoogleAddress(matches, "postal_code");
+    const pinCodeFromGoogle = parseGoogleAddress(matches, "postal_code");
     const query = addressObject.formatted_address;
-    if (parseInt(pcode) !== parseInt(pincode)) {
-      setPincode("");
+    const city = parseGoogleAddress(matches, "administrative_area_level_2");
+    const state = parseGoogleAddress(matches, "administrative_area_level_1");
+    setQuery(query);
+    if (pinCodeFromGoogle === "") {
+      setNewAddress(DEFAULT_ADDRESS_STATE);
+      setShowCityAndState(true);
+    } else if (parseInt(pinCodeFromGoogle) !== parseInt(pincode)) {
+      setPincode(pincode);
       setShowPincodeError(true);
-      setDisableAddressSelect(true);
-      setNewAddress({
-        aline1: "",
-        aline2: "",
-        community: "",
-        area: "",
-        landmark: "",
-        postalcode: "",
-        state: "",
-        city: "",
-      });
-    } else {
-      setQuery(query);
+      setShowCityAndState(true);
+      ValidatePincode(pinCodeFromGoogle);
       setNewAddress((address) => ({
-        ...address,
+        ...DEFAULT_ADDRESS_STATE,
+        aline1: aline1,
         aline2: aline2,
         community: community,
         area: area,
-      }));
-      addressLat = addressObject.geometry.location.lat();
-      addressLong = addressObject.geometry.location.lng();
-      setNewAddress((address) => ({
-        ...address,
+        postalcode: pincode,
+        city: city,
+        state: state,
         latitude: addressLat,
         longitude: addressLong,
       }));
+    } else {
+      addressLat = addressObject.geometry.location.lat();
+      addressLong = addressObject.geometry.location.lng();
+      setNewAddress((address) => ({
+        ...DEFAULT_ADDRESS_STATE,
+        aline2: aline2,
+        community: community,
+        area: area,
+        postalcode: pincode,
+        latitude: addressLat,
+        longitude: addressLong,
+      }));
+      setShowCityAndState(false);
       const queryParams = {
         is_delivery: true,
         destination: `[${addressLat}, ${addressLong}]`,
@@ -137,6 +162,15 @@ const AddressComponent = ({
   }
 
   const handleHouseAreaChange = (e) => {
+    if (newAddress.aline1 !== "") {
+      setErrorsbySpread(FLAT_FIELD_ERROR, false);
+    }
+    if (newAddress.aline2 !== "") {
+      setErrorsbySpread(ROAD_FIELD_ERROR, false);
+    }
+    if (newAddress.landmark !== "") {
+      setErrorsbySpread(LANDMARK_ERROR, false);
+    }
     const { name, value } = e.target;
     setNewAddress((address) => ({ ...address, [name]: value }));
   };
@@ -146,43 +180,47 @@ const AddressComponent = ({
     const { value } = e.target;
     if (numberRegex.test(value)) {
       setPincode(value);
+      if (value.toString().length === 6) {
+        setQuery("");
+        ValidatePincode(value);
+        setShowPincodeError(false);
+      } else {
+        setShowPincodeError(true);
+        setShowAddressInput(false);
+      }
+    } else {
+      setShowPincodeError(true);
+      setShowAddressInput(false);
     }
   };
 
-  useEffect(() => {
-    if (pincode.toString().length === 6) {
-      const filter = postalCodes.listPostalCodes.items.find(
-        (code) => parseInt(pincode) === code.postalcode
-      );
-      if (filter) {
-        setShowPincodeError(false);
-        setShowAddressInput(true);
-        if (parseInt(prevAddress.postalcode) !== parseInt(pincode)) {
-          setNewAddress({
-            aline1: "",
-            aline2: "",
-            community: "",
-            area: "",
-            landmark: "",
-          });
-          setQuery("");
-        }
-        setNewAddress((address) => ({
-          ...address,
-          postalcode: filter.postalcode,
-          city: filter.city,
-          state: filter.state,
-        }));
-      } else {
-        setShowPincodeError(true);
-        setDisableAddressSelect(true);
+  const ValidatePincode = (pinCode) => {
+    const filter = postalCodes.listPostalCodes.items.find(
+      (code) => parseInt(pinCode) === code.postalcode
+    );
+    if (filter) {
+      setShowPincodeError(false);
+      setShowAddressInput(true);
+      if (parseInt(prevAddress.postalcode) !== parseInt(pinCode)) {
+        setNewAddress({
+          aline1: "",
+          aline2: "",
+          community: "",
+          area: "",
+          landmark: "",
+        });
+        //setQuery("");
       }
+      setNewAddress((address) => ({
+        ...address,
+        postalcode: filter.postalcode,
+        city: filter.city,
+        state: filter.state,
+      }));
     } else {
-      // setShowPincodeError(false);
-      setDisableAddressSelect(true);
-      setShowAddressInput(false);
+      setShowDisclaimer(true);
     }
-  }, [pincode]);
+  };
 
   useEffect(() => {
     dispatch(getPostalCodes());
@@ -191,23 +229,10 @@ const AddressComponent = ({
   useEffect(() => {
     if (!_.isEmpty(deliveryCharge)) {
       setDeliveryCost(deliveryCharge);
-      showPincodeError
-        ? setDisableAddressSelect(true)
-        : setDisableAddressSelect(false);
     }
   }, [deliveryCharge]);
 
   useEffect(() => {
-    if (
-      newAddress.aline2 === "" ||
-      newAddress.postalcode === "" ||
-      newAddress.city === "" ||
-      newAddress.state === ""
-    ) {
-      setDisableAddressSelect(true);
-    } else {
-      setDisableAddressSelect(false);
-    }
     handleScriptLoad(autoCompleteRef);
     autoComplete.addListener("place_changed", () => handlePlaceSelect());
   }, [newAddress]);
@@ -221,18 +246,33 @@ const AddressComponent = ({
       newAddress.state === ""
     ) {
       onDeliveryTypeChange("");
-    } else if(!addressBtnClicked){
+    } else if (!addressBtnClicked) {
       onDeliveryTypeChange("");
     }
     setShowAddressForm(false);
   };
 
   const handleAddAddress = (e) => {
-    setAddressBtnClicked(true)
-    e.preventDefault();
-    setAddress(newAddress);
-    setDelivery(deliveryCost);
-    setShowAddressForm(false);
+    if (newAddress.aline1 === "") {
+      setErrorsbySpread(FLAT_FIELD_ERROR, true);
+    }
+    if (newAddress.aline2 === "") {
+      setErrorsbySpread(ROAD_FIELD_ERROR, true);
+    }
+    if (newAddress.landmark === "") {
+      setErrorsbySpread(LANDMARK_ERROR, true);
+    }
+    if (
+      newAddress.aline1 !== "" &&
+      newAddress.aline2 !== "" &&
+      newAddress.landmark !== ""
+    ) {
+      e.preventDefault();
+      setAddressBtnClicked(true);
+      setAddress(newAddress);
+      setDelivery(deliveryCost);
+      setShowAddressForm(false);
+    }
   };
 
   return (
@@ -261,42 +301,28 @@ const AddressComponent = ({
             type="number"
           />
         </FloatingLabel>
-        {showPincodeError ? (
-          <>
-            <section className="disclaimerWrapper">
-              <div className="card text-dark text-center bg-transparent border-0 disclaimer-info">
-                <h3>
-                  Unfortunately our services are not available in your area,
-                  please give a call to arrange alternate delivery options
-                </h3>
-                <h3>
-                  &nbsp;<strong>+91 {DISCLAIMER_DATA.CONTACT_NUMBER}</strong>
-                  &nbsp;
-                </h3>
-              </div>
-              <div className="d-flex align-items-center justify-content-center message-contact-number-info my-3">
-                <a href={WHATSAPP_LINK} className="whatsup-info">
-                  <span className="d-flex align-items-center">
-                    <FaWhatsapp
-                      className=""
-                      style={{ width: "35px", height: "auto" }}
-                    />
-                  </span>
-                </a>
-                <a
-                  href={`tel:${DISCLAIMER_DATA.CONTACT_NUMBER}`}
-                  className="contact-info"
-                >
-                  <span>
-                    <FaPhoneAlt
-                      className=""
-                      style={{ width: "30px", height: "auto" }}
-                    />
-                  </span>
-                </a>
-              </div>
-            </section>
-          </>
+        {showDisclaimer ? (
+          <Modal show={showPincodeError}>
+            <Modal.Body>
+              <p>
+                Address found in {pincode}, which is not in our service area
+                Enter your address manually
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setShowAddressInput(true);
+                  setShowPincodeError(false);
+                  setShowCityAndState(true);
+                  setShowDisclaimer(false);
+                }}
+              >
+                Ok
+              </Button>
+            </Modal.Footer>
+          </Modal>
         ) : (
           <>
             {showAddressInput ? (
@@ -316,98 +342,69 @@ const AddressComponent = ({
                     type="text"
                   />
                 </FloatingLabel>
-                <FloatingLabel label="House No./Door No." className="mt-3 mb-2">
+                <FloatingLabel label="House No/ Flat No." className="mt-3 mb-2">
                   <Form.Control
                     className="bg-transparent border-dark"
                     value={newAddress.aline1}
                     type="text"
-                    placeholder="houseNo"
+                    placeholder="House No / Flat No."
                     name="aline1"
                     onChange={handleHouseAreaChange}
                   />
                 </FloatingLabel>
-                <FloatingLabel label="Address" className="mb-2">
+                {errors.flatFieldError && (
+                  <span>Please Enter valid House Number</span>
+                )}
+                <FloatingLabel label="Apartment / Road" className="mb-2">
                   <Form.Control
                     className="bg-transparent border-dark"
                     value={newAddress.aline2}
                     type="text"
-                    placeholder="address"
+                    placeholder="Apartment/ Road"
                     name="aline2"
                     onChange={handleHouseAreaChange}
                   />
                 </FloatingLabel>
-                <FloatingLabel label="Street Name" className="mb-2">
-                  <Form.Control
-                    className="bg-transparent border-dark"
-                    value={newAddress.community}
-                    type="text"
-                    placeholder="street"
-                    name="community"
-                    onChange={handleHouseAreaChange}
-                  />
-                </FloatingLabel>
-                <FloatingLabel label="Area" className="mb-2">
-                  <Form.Control
-                    className="bg-transparent border-dark"
-                    value={newAddress.area}
-                    type="text"
-                    placeholder="area"
-                    name="area"
-                    onChange={handleHouseAreaChange}
-                  />
-                </FloatingLabel>
+                {errors.roadFieldError && (
+                  <span>Please Enter valid Road number</span>
+                )}
                 <FloatingLabel label="Landmark" className="mb-2">
                   <Form.Control
                     className="bg-transparent border-dark"
                     value={newAddress.landmark}
                     type="text"
-                    placeholder="landmark"
+                    placeholder="Landmark"
                     name="landmark"
                     onChange={handleHouseAreaChange}
                   />
                 </FloatingLabel>
-                {/* <FloatingLabel
-                    label="Postal Code"
-                    className="mt-3 mb-2"
-                  >
-                    <Form.Control
-                      className="bg-transparent border-dark"
-                      value={newAddress.postalcode}
-                      type="text"
-                      placeholder="Pincode"
-                      name="postalcode"
-                      disabled
-                      
-                    />
-                  </FloatingLabel> */}
-                <FloatingLabel
-                  //controlId="floatingInput"
-                  label="City"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    className="bg-transparent border-dark"
-                    value={newAddress.city}
-                    type="text"
-                    placeholder="city"
-                    name="city"
-                    readOnly
-                  />
-                </FloatingLabel>
-                <FloatingLabel
-                  //controlId="floatingInput"
-                  label="State"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    className="bg-transparent border-dark"
-                    value={newAddress.state}
-                    type="text"
-                    placeholder="state"
-                    name="state"
-                    readOnly
-                  />
-                </FloatingLabel>
+                {errors.landmarkError && (
+                  <span>Please Enter valid Landmark</span>
+                )}
+                {showCityAndState && (
+                  <>
+                    <FloatingLabel label="City" className="mb-2">
+                      <Form.Control
+                        className="bg-transparent border-dark"
+                        value={newAddress.city}
+                        type="text"
+                        placeholder="City"
+                        name="city"
+                        onChange={handleHouseAreaChange}
+                      />
+                    </FloatingLabel>
+                    <FloatingLabel label="State" className="mb-2">
+                      <Form.Control
+                        className="bg-transparent border-dark"
+                        value={newAddress.state}
+                        type="text"
+                        placeholder="state"
+                        name="state"
+                        onChange={handleHouseAreaChange}
+                      />
+                    </FloatingLabel>
+                  </>
+                )}
               </>
             ) : (
               <></>
@@ -417,15 +414,8 @@ const AddressComponent = ({
         <div className="d-flex mx-auto btn-group mt-3 vl-action-btn">
           <button
             type="button"
-            className="btn w-50p vl-go-back-btn"
-            onClick={handleGoBack}
-          >
-            Go Back
-          </button>
-          <button
-            type="button"
             className="btn w-50p vl-go-next-btn"
-            disabled={disableAddressSelect}
+            disabled={!showAddressInput}
             onClick={handleAddAddress}
           >
             Add Address

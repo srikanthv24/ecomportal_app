@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { PICKUP, ADD_TO_CART } from "../../utils/constants";
 import ProductPlanner from "../../components/ProductPlanner/ProductPlanner";
-import AddressComponent from "../VibrantMealPlanner/AddressComponent";
+import AddressComponent from "../../components/AddressComponent/AddressComponent";
 import { getMealPlanDetails, getOrderDates } from "./vibrantMealPlanner.utils";
 import { showLogin } from "../../store/actions";
 import { clearDeliveryCharges } from "../../store/actions/addresses";
