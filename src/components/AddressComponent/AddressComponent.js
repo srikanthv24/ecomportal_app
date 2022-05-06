@@ -100,6 +100,7 @@ const AddressComponent = ({
     setDisableAddressSelect(false);
     let matches = addressObject.address_components.filter((address_component) =>
       [
+        "plus_code",
         "route",
         "sublocality_level_1",
         "sublocality_level_2",
@@ -110,6 +111,7 @@ const AddressComponent = ({
         "postal_code",
       ].some((word) => address_component.types.indexOf(word))
     );
+    const aline1 = parseGoogleAddress(matches, "plus_code");
     const aline2 = parseGoogleAddress(matches, "route");
     const community = parseGoogleAddress(matches, "sublocality_level_1");
     const area =
@@ -118,34 +120,29 @@ const AddressComponent = ({
       parseGoogleAddress(matches, "sublocality_level_3");
     const pinCodeFromGoogle = parseGoogleAddress(matches, "postal_code");
     const query = addressObject.formatted_address;
-    console.log("pinCodeFromGoogle: " + JSON.stringify(pinCodeFromGoogle));
+    const city = parseGoogleAddress(matches, "administrative_area_level_2");
+    const state = parseGoogleAddress(matches, "administrative_area_level_1");
     setQuery(query);
     if (pinCodeFromGoogle === "") {
-      setNewAddress((address) => ({ ...address, postalcode: pincode }));
+      setNewAddress(DEFAULT_ADDRESS_STATE);
       setShowCityAndState(true);
     } else if (parseInt(pinCodeFromGoogle) !== parseInt(pincode)) {
       setPincode(pincode);
       setShowPincodeError(true);
-      console.log("setting address as expected");
       setShowCityAndState(true);
-
-      if (pinCodeFromGoogle === "") {
-        setShowCityAndState(true);
-        setNewAddress(DEFAULT_ADDRESS_STATE);
-      } else {
-        ValidatePincode(pinCodeFromGoogle);
-        setNewAddress((address) => ({
-          ...DEFAULT_ADDRESS_STATE,
-          aline2: aline2,
-          community: community,
-          area: area,
-          postalcode: pincode,
-          city: city,
-          state: state,
-          latitude: addressLat,
-          longitude: addressLong,
-        }));
-      }
+      ValidatePincode(pinCodeFromGoogle);
+      setNewAddress((address) => ({
+        ...DEFAULT_ADDRESS_STATE,
+        aline1: aline1,
+        aline2: aline2,
+        community: community,
+        area: area,
+        postalcode: pincode,
+        city: city,
+        state: state,
+        latitude: addressLat,
+        longitude: addressLong,
+      }));
     } else {
       addressLat = addressObject.geometry.location.lat();
       addressLong = addressObject.geometry.location.lng();
@@ -158,6 +155,7 @@ const AddressComponent = ({
         latitude: addressLat,
         longitude: addressLong,
       }));
+      setShowCityAndState(false);
       const queryParams = {
         is_delivery: true,
         destination: `[${addressLat}, ${addressLong}]`,
@@ -186,6 +184,7 @@ const AddressComponent = ({
     if (numberRegex.test(value)) {
       setPincode(value);
       if (value.toString().length === 6) {
+        setQuery("");
         ValidatePincode(value);
         setShowPincodeError(false);
       } else {
@@ -199,11 +198,9 @@ const AddressComponent = ({
   };
 
   const ValidatePincode = (pinCode) => {
-    console.log("pincode in validating: " + JSON.stringify(pinCode));
     const filter = postalCodes.listPostalCodes.items.find(
       (code) => parseInt(pinCode) === code.postalcode
     );
-    console.log("filter: " + JSON.stringify(filter));
     if (filter) {
       setShowPincodeError(false);
       setShowAddressInput(true);
@@ -227,42 +224,6 @@ const AddressComponent = ({
       setShowDisclaimer(true);
     }
   };
-
-  /*useEffect(() => {
-    if (pincode.toString().length === 6) {
-      const filter = postalCodes.listPostalCodes.items.find(
-        (code) => parseInt(pincode) === code.postalcode
-      );
-      console.log("filter: " + JSON.stringify(filter));
-      if (filter) {
-        setShowPincodeError(false);
-        setShowAddressInput(true);
-        if (pincode === "") {
-          setShowCityAndState(true);
-        }
-        if (parseInt(prevAddress.postalcode) !== parseInt(pincode)) {
-          setNewAddress({
-            aline1: "",
-            aline2: "",
-            community: "",
-            area: "",
-            landmark: "",
-          });
-          setQuery("");
-        }
-        setNewAddress((address) => ({
-          ...address,
-          postalcode: filter.postalcode,
-          city: filter.city,
-          state: filter.state,
-        }));
-      } else {
-        //setShowPincodeError(true);
-        //setDisableAddressSelect(true);
-        setShowDisclaimer(true);
-      }
-    }
-  }, [pincode]);*/
 
   useEffect(() => {
     dispatch(getPostalCodes());
