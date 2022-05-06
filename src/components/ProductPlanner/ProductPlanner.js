@@ -39,11 +39,10 @@ const ProductPlanner = React.memo(
     setMealSelectedIndex,
     customMealDuration,
     setCustomMealDuration,
-  }) => {
-    const [startDateInIndianFormat, setStartDateInIndianFormat] = useState(
-      getDateInIndianFormat(getTomorrowDate())
-    );
-
+    startDateInIndianFormat,
+    setStartDateInIndianFormat
+  }) => { 
+   
     const onServiceChange = (value) => {
       onDeliveryChange(value);
       setShowAddressForm(value === DELIVERY ? true : false);
