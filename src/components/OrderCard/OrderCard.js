@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { Badge, Card, Col, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import DefaultImage from "./../../assets/default_thumbnail.png";
 import MoreIcon from "./../../assets/more.png";
 import StartTimeIcon from "./../../assets/start-time.png";
@@ -51,29 +51,16 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       {moment(moment()).isAfter(order.finish_date) ? (
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
-                        <>
-                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </Link> &nbsp; &nbsp;
-                          <div className="sub-edit-btn" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
-                            <i class="fa-solid fa-pause"></i>
+                        <div className="d-flex">
+                          <div className="mx-4">
+                          <Button variant="outlined" disabled={order?.tomorrows_delivery ? false : true }  className="p-0" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
+                            <i class={`fa-solid fa-pause ${order?.tomorrows_delivery ? "pause-btn-active" : "pause-btn-disable"}`}></i>
+                          </Button>
                           </div>
-                          {/* <label className="more-icon"><i className="fa-solid fa-bars"></i></label> */}
-                          {/* <div className="more-dp-info">                          
-                            <MenuList
-                              list={[
-                                SERVICE_TYPE.PAUSE_TOMORROW,
-                                // SERVICE_TYPE.PAUSE_IN_BETWEEN,
-                                // SERVICE_TYPE.PAUSE_INDEFINITE,
-                                // SERVICE_TYPE.RESUME_INDEFINITE,
-                                SERVICE_TYPE.EDIT_SUBSCRIPTION,
-                              ]}
-                              onMenuSelect={onMenuSelect}
-                              id={order.id}
-                              cancelSubscription={cancelSubscription}
-                            />
-                          </div> */}
-                        </>
+                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="pause-btn-active d-flex align-items-center">
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </Link> 
+                        </div>
                       )}
                     </>
                   </div>

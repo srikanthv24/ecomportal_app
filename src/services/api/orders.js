@@ -26,6 +26,7 @@ export class OrdersApi {
                   }
                   paid_amount
                   duration
+                  tomorrows_delivery
                   orderscount {
                   meal_type
                   meals_consumed
