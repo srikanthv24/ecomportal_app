@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
-import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
-import { DISCLAIMER_DATA, PICKUP, WHATSAPP_LINK } from "../../utils/constants";
 import {
   calculateDeliveryCharge,
   getPostalCodes,
@@ -37,12 +35,11 @@ const AddressComponent = ({
   setShowAddressForm,
   prevAddress,
   addressBtnClicked,
-  setAddressBtnClicked
+  setAddressBtnClicked,
 }) => {
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
   const postalCodes = useSelector((state) => state.Addresses.postalCodes);
-  const loading = useSelector((state) => state.Addresses.loading);
   const [newAddress, setNewAddress] = useState(DEFAULT_ADDRESS_STATE);
   const [deliveryCost, setDeliveryCost] = useState({
     delivery_charge: 0,
@@ -54,7 +51,6 @@ const AddressComponent = ({
   const [showPincodeError, setShowPincodeError] = useState(false);
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
-  const [disableAddressSelect, setDisableAddressSelect] = useState(true);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [errors, setErrors] = useState({
     flatFieldError: false,
@@ -99,7 +95,6 @@ const AddressComponent = ({
   async function handlePlaceSelect() {
     const addressObject = autoComplete.getPlace();
     console.log("addressObject: " + JSON.stringify(addressObject));
-    setDisableAddressSelect(false);
     let matches = addressObject.address_components.filter((address_component) =>
       [
         "plus_code",
@@ -234,9 +229,6 @@ const AddressComponent = ({
   useEffect(() => {
     if (!_.isEmpty(deliveryCharge)) {
       setDeliveryCost(deliveryCharge);
-      showPincodeError
-        ? setDisableAddressSelect(true)
-        : setDisableAddressSelect(false);
     }
   }, [deliveryCharge]);
 
@@ -254,7 +246,7 @@ const AddressComponent = ({
       newAddress.state === ""
     ) {
       onDeliveryTypeChange("");
-    } else if(!addressBtnClicked){
+    } else if (!addressBtnClicked) {
       onDeliveryTypeChange("");
     }
     setShowAddressForm(false);
@@ -276,7 +268,7 @@ const AddressComponent = ({
       newAddress.landmark !== ""
     ) {
       e.preventDefault();
-      setAddressBtnClicked(true)
+      setAddressBtnClicked(true);
       setAddress(newAddress);
       setDelivery(deliveryCost);
       setShowAddressForm(false);
@@ -324,7 +316,6 @@ const AddressComponent = ({
                   setShowAddressInput(true);
                   setShowPincodeError(false);
                   setShowCityAndState(true);
-                  setDisableAddressSelect(true);
                   setShowDisclaimer(false);
                 }}
               >
