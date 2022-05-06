@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { Badge, Card, Col, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import DefaultImage from "./../../assets/default_thumbnail.png";
 import MoreIcon from "./../../assets/more.png";
 import StartTimeIcon from "./../../assets/start-time.png";
@@ -52,14 +52,12 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
                         <div className="d-flex">
-                        {
-                          order?.tomorrows_delivery ? (
-                          <div className="sub-edit-btn px-4" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
-                            <i class="fa-solid fa-pause"></i>
+                          <div className="mx-4">
+                          <Button variant="outlined" disabled={order?.tomorrows_delivery ? false : true }  className="p-0" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
+                            <i class={`fa-solid fa-pause ${order?.tomorrows_delivery ? "pause-btn-active" : "pause-btn-disable"}`}></i>
+                          </Button>
                           </div>
-                           ) : null
-                        } 
-                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
+                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="pause-btn-active d-flex align-items-center">
                             <i className="fa-solid fa-pen-to-square"></i>
                           </Link> 
                         </div>
