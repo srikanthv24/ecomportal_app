@@ -86,10 +86,15 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       {order?.product?.category}
                     </p>
                   </h4>
-                  <div className="amount-info">
+                  <h4 className="prd-item mb-0" >
+                    <span  className="amount-info">
                     <BiRupee />
                     {displayCurrency(order?.paid_amount) || 0}
-                  </div>
+                    </span>
+                    <p className="d-flex justify-content-end mb-0">
+                    <Badge className="badge-bg-secondary">{`${order?.duration ? order?.duration : 0} Days`}</Badge>
+                    </p>
+                  </h4>
                 </div>
                 <div className="w-100p d-flex justify-content-between mt-1">
                   <div className="date-info">
