@@ -19,7 +19,7 @@ export const getMaxDate = (subscriptions) => {
       subscription.order_dates[subscription.order_dates.length - 1]
   );
   // As of now all end dates are same
-  return endDatesofSessions[0].date;
+  return endDatesofSessions[0]?.date;
 };
 
 export const getDateInTextFormat = (date) => {

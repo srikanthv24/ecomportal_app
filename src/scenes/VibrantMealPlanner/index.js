@@ -29,6 +29,7 @@ import DetoxMyBody from "../../assets/mealplanner/Detox.png";
 import CustomDiet from "../../assets/mealplanner/CustomDiet.png";
 import Weight from "../../assets/mealplanner/Weight.png";
 import { FaChevronLeft } from "react-icons/fa";
+import { getDateInIndianFormat, getTomorrowDate } from "../../utils/dateUtils";
 
 const apiKey = "AIzaSyC6YxgAdZtGYuU2Isl9V4eDdbZfwPjAcAs";
 let script = document.createElement("script");
@@ -111,6 +112,9 @@ function VibrantMealPlanner() {
     id: productId,
   } = selectedMeal;
   const [addressBtnClicked, setAddressBtnClicked] = useState(false);
+  const [startDateInIndianFormat, setStartDateInIndianFormat] = useState(
+    getDateInIndianFormat(getTomorrowDate())
+  );
 
   const { mealPlansList: mealList, loading: mealLoading } = useSelector(
     (state) => state.mealPlans
@@ -283,6 +287,8 @@ function VibrantMealPlanner() {
                 setMealSelectedIndex={setMealSelectedIndex}
                 customMealDuration={customMealDuration}
                 setCustomMealDuration={setCustomMealDuration}
+                startDateInIndianFormat={startDateInIndianFormat}
+                setStartDateInIndianFormat={setStartDateInIndianFormat}
               />
               <div className="d-flex btn-group vl-action-btn">
                 <button
