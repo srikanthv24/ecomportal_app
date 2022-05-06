@@ -676,6 +676,13 @@ input[type="checkbox"].acc-checkbox:checked:after {
   border-radius: 6px;
   /* background: #ffffff; */
 }
+.orders-info-3 .badge{
+  font-family: 'Roboto Medium',sans-serif;
+  // font-weight: 500 !important;
+}
+.badge-bg-secondary,.badge-bg-secondary.badge.bg-primary{
+  background: #614731 !important;
+}
 .subs-id {
   font-size: 16px;
   font-weight: 500;
@@ -777,13 +784,13 @@ input[type="checkbox"].acc-checkbox:checked:after {
   color: rgba(53, 40, 23, 1);
   font-size: 16px;
   font-weight: 700;
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Bold",sans-serif;
 }
 .amount-info {
   color: rgba(53, 40, 23, 1);
   font-size: 16px;
   font-weight: 700;
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Bold",sans-serif;
   white-space: nowrap;
 }
 
@@ -851,8 +858,8 @@ input[type="checkbox"].acc-checkbox:checked:after {
 .food-info-txt {
   color: rgba(53, 40, 23, 1);
   font-size: 12px !important;
-  font-weight: 600;
-  font-family: "Roboto Condensed";
+  font-weight: 700;
+  font-family: "Roboto Bold",sans-serif;
 }
 /* .sub-result-info-item ul li:nth-child(2){  
   background: #203864;
