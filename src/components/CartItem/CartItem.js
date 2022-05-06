@@ -95,7 +95,7 @@ const CartItem = ({
             />
           </div>
         </Card.Body>
-        <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between">
+        <Card.Body className="p-1 d-flex flex-row align-items-start justify-content-between" style={{minHeight:"44px"}}>
           {isMealItem ? (
             <>
               <div>

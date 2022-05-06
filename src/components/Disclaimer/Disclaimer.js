@@ -67,7 +67,7 @@ const Disclaimer = () => {
             </div>
           </div>
           <div className="dis-back-btn">
-            <Link to="/vibrant-meal-planner">
+            <Link to="/start">
               Back
             </Link>
           </div>
