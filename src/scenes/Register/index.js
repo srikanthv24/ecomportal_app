@@ -102,13 +102,13 @@ const Register = (props) => {
           <p className="vl-modal-title-txt">Signup</p>
           <Form className="customform" onSubmit={handleSubmit(onSubmit)}>
             <p className="vl-modal-sub-desp-txt">
-              Sign up with your mobile number, name and password
+              Sign up with your Phone number, name and password
             </p>
-            <InputGroup className="mb-3" hasValidation>
+            <InputGroup className="mb-3 login-phn" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
                 className={errors.phone && "is-invalid"}
-                type="number"
+                type="number" placeholder="Phone Number"
                 {...register("phone", {
                   required: true,
                   pattern: /^([7-9]{1})([0-9]{9})$/,

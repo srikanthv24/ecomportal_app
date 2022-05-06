@@ -48,7 +48,7 @@ function Home() {
     // dispatch(getMealPlans())
   }
   const goToMealPlanner =() =>{
-    history.push("/vibrant-meal-planner");
+    history.push("/start");
   }
   const options = {
     margin: 30,
@@ -149,7 +149,7 @@ function Home() {
         </div>
         <div className="d-block text-center choosemy-meal-btn">
           <a href="#" className="gs-btn my-2 leading-8 tracking-wide inline-block">
-            <Link to="/vibrant-meal-planner" className="mb-0 px-7" onClick={onGettingStarted}>
+            <Link to="/start" className="mb-0 px-7" onClick={onGettingStarted}>
               <GiMeal size="30" /> Get Started
             </Link>
           </a>

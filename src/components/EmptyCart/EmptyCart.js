@@ -11,7 +11,7 @@ const EmptyCart = () => {
             {CART.NO_ITEMS_IN_CART}
         </div>
         <Button className="vl-custom-btn"
-          onClick={() => history.push("/")}
+          onClick={() => history.push("/start")}
          
         >
           {CART.EXPLORE_PRODUCTS}

@@ -77,7 +77,7 @@ function Home() {
             <div className="info-block">
               <p className="for-store-des pt-2 pb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               <a href="#" class="my-2 leading-8 bg-chocolate-800 py-1 px-7 tracking-wide rounded-full inline-block">
-               <Link to="/vibrant-meal-planner" className="viewall-txt mb-0" onClick={onGettingStarted}>
+               <Link to="/start" className="viewall-txt mb-0" onClick={onGettingStarted}>
                   <Button
                     style={{ background: "#f05922", borderColor: "#f05910" }}
                     className="w-100 bg-chocolate-900"
