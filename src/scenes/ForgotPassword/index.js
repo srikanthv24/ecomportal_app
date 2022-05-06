@@ -110,6 +110,7 @@ const ForgotPassword = (props) => {
                       placeholder="new password"
                       className={errors.password && 'is-invalid'}
                       type="password"
+                      autoComplete="off"
                       {...register("password", {
                           required: true,
                           pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
@@ -129,6 +130,7 @@ const ForgotPassword = (props) => {
                       placeholder="confirm password"
                       className={errors.confPassword && 'is-invalid'}
                       type="password"
+                      autoComplete="off"
                       {...register("confPassword",  {
                         validate: (value) => value === getValues("password")
                       })}
