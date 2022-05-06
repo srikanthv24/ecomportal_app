@@ -92,6 +92,7 @@ export const SUCCESS = "success";
 export const CHOOSE_DELIVERY_TYPE = "Choose delivery type";
 export const START_ON = "Start on";
 export const CHOOSE_YOUR_GENDER = "Choose your gender";
+export const SELF_PICKUP = "Self Pickup";
 
 export const PERSONAL_INFO = {
   HEIGHT_FEET: "Height-Feet",

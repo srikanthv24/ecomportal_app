@@ -119,6 +119,7 @@
   font-size: 14px;
   font-family: 'Roboto Medium',sans-serif;
   font-weight: 500;
+  white-space: nowrap;
 }
 .vl-days-desp-info,.vl-edit-bal-info{
   font-size: 14px;
@@ -128,12 +129,12 @@
 }
 .vl-edit-button-group{
   .vl-btn-primary{
-    border-radius: 20px 20px 20px 20px !important;
+    border-radius: 7px 7px 7px 7px !important;
     position: relative;
     z-index: 1;
   }
   .vl-btn-secondary{
-    border-radius: 0px 20px 20px 0px !important;
+    border-radius: 0px 7px 7px 0px !important;
     position: relative;
     margin-left: -25px;
     z-index: 2;

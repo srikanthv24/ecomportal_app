@@ -72,13 +72,13 @@
   color: #fff;
   background-color: #614731 !important;
   border-color: #614731 !important;
-  border-radius:20px 0px 0px 20px !important;
+  border-radius:7px 0px 0px 7px !important;
 }
 .vl-btn-secondary {
   color: #212121 !important;
   background-color: transparent !important;
   border-color: #614731 !important;
-  border-radius:0px 20px 20px 0px !important;
+  border-radius:0px 7px 7px 0px !important;
   
 }
 .modal-footer-btn-group .vl-btn-primary,

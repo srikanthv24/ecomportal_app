@@ -44,14 +44,14 @@
   background: #f2cbbd !important;
 }
 .page-title {
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Medium";
   font-size: 25px !important;
   color: rgba(35, 27, 16, 0.25);
   font-weight: 700 !important;
   text-transform: uppercase;
 }
 .value-txt {
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Medium";
   font-size: 14px !important;
   color: rgba(35, 27, 16, 0.25);
   font-weight: 500 !important;
@@ -560,6 +560,7 @@
 .cart-order-summery-list-discount,
 .cart-order-summery-list-shipping {
   color: #3cb77c !important;
+  font-size: 14px !important;
 }
 .cart-order-summery-list-total,
 .cart-order-summery-list-total-price {
@@ -675,6 +676,13 @@ input[type="checkbox"].acc-checkbox:checked:after {
   border-radius: 6px;
   /* background: #ffffff; */
 }
+.orders-info-3 .badge{
+  font-family: 'Roboto Medium',sans-serif;
+  // font-weight: 500 !important;
+}
+.badge-bg-secondary,.badge-bg-secondary.badge.bg-primary{
+  background: #614731 !important;
+}
 .subs-id {
   font-size: 16px;
   font-weight: 500;
@@ -776,13 +784,13 @@ input[type="checkbox"].acc-checkbox:checked:after {
   color: rgba(53, 40, 23, 1);
   font-size: 16px;
   font-weight: 700;
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Bold",sans-serif;
 }
 .amount-info {
   color: rgba(53, 40, 23, 1);
   font-size: 16px;
   font-weight: 700;
-  font-family: "Roboto Condensed";
+  font-family: "Roboto Bold",sans-serif;
   white-space: nowrap;
 }
 
@@ -850,8 +858,8 @@ input[type="checkbox"].acc-checkbox:checked:after {
 .food-info-txt {
   color: rgba(53, 40, 23, 1);
   font-size: 12px !important;
-  font-weight: 600;
-  font-family: "Roboto Condensed";
+  font-weight: 700;
+  font-family: "Roboto Bold",sans-serif;
 }
 /* .sub-result-info-item ul li:nth-child(2){  
   background: #203864;
@@ -977,7 +985,7 @@ input[type="checkbox"].acc-checkbox:checked:after {
   align-items: center;
   background-color: #614731 !important;
   border:1px solid #614731 !important;
-  border-radius: 20px !important;
+  border-radius: 7px !important;
   padding: 0 20px;
   margin: 0 auto;
   
@@ -1005,4 +1013,14 @@ input[type="checkbox"].acc-checkbox:checked:after {
 
 .hide-calander {
   display: none;
+}
+.nav-link:focus, .nav-link:hover {
+  outline: transparent !important;
+  box-shadow: none !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px #f7f2df inset;
 }

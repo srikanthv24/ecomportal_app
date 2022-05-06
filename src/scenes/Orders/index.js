@@ -11,7 +11,7 @@ import SubscriptionModal from "../../components/SubscriptionModal/SubscriptionMo
 import { pauseSubscription } from "../../services/api/pauseSubscription";
 import { getSubscriptionErrorData, isPauseSubscriptionService } from "./utils";
 import ConfirmationModalBody from "./ConfirmationModalBody";
-import { getMinDate, getMaxDate } from "../../utils/dateUtils";
+import { getMinDate, getMaxDate, getTomorrowDateIndianFormat } from "../../utils/dateUtils";
 import { resumeSubscription } from "../../services/api/resumeSubscription";
 import { SERVICE_TYPE } from "../../utils/constants";
 import { useHistory } from "react-router-dom";
@@ -106,6 +106,7 @@ const Orders = () => {
   const processPauseSubscriptionData = (pauseSubscriptionData) => {
     const { errorMessage } = getSubscriptionErrorData(pauseSubscriptionData);
     const { check, pause_dates, product_name } = pauseSubscriptionData;
+    const tomorrowDate = getTomorrowDateIndianFormat();
     if (errorMessage !== "") {
       displayErrorModal(errorMessage);
     } else if (check) {
@@ -119,7 +120,7 @@ const Orders = () => {
       dispatch(
         getOrders({ customer_number: userDetails.phone_number.substring(3) })
       );
-      displayErrorModal("subscription paused");
+      displayErrorModal(`subscription paused on ${tomorrowDate}`);
     }
   };
 

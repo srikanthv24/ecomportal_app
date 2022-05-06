@@ -91,12 +91,12 @@ const Login = (props) => {
             <Image src={VLogo} height="40" />
           </div> */}          
           <Form className="customform" onSubmit={handleSubmit(onSubmit)} >
-          <p className="vl-modal-sub-desp-txt">Sign in with your mobile number and password</p>
+          <p className="vl-modal-sub-desp-txt">Sign in with your phone number and password</p>
             <InputGroup className="mb-3" hasValidation>
               <InputGroup.Text id="phone">+91</InputGroup.Text>
               <Form.Control
                 className={errors.phone && 'is-invalid'}
-                type="number"
+                type="number" placeholder="Phone Number"
                 {...register("phone", { required: true, pattern: /^([7-9]{1})([0-9]{9})$/ })}
               />
             </InputGroup>
@@ -127,7 +127,7 @@ const Login = (props) => {
               <a href="#" className="vl-hyper-link-txt text-center" onClick={handleForgotClick}>Forgot Password?</a>
             </p>
             <Button
-              className="w-100 mt-2 mb-3 btn btn-lg vl-login-submit-btn"
+              className="mt-2 mb-3 btn btn-lg vl-login-submit-btn"
               type="submit"
               size="lg"
             >

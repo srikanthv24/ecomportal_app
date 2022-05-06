@@ -19,7 +19,7 @@ export const getMaxDate = (subscriptions) => {
       subscription.order_dates[subscription.order_dates.length - 1]
   );
   // As of now all end dates are same
-  return endDatesofSessions[0].date;
+  return endDatesofSessions[0]?.date;
 };
 
 export const getDateInTextFormat = (date) => {
@@ -44,4 +44,8 @@ export const getTodayDate = () => {
 
 export const getMax60Days = () => {
   return moment().add(60, "days").format(ISO_FORMAT);
+}
+
+export const getTomorrowDateIndianFormat = () => {
+  return moment().add(1, "days").format(INDIAN_DATE_FORMAT);
 }

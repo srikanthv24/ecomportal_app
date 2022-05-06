@@ -98,9 +98,13 @@
   white-space: normal;
 }
 
-.btn-outline-primary {
+.cart-qty-sec .btn-outline-primary,
+.cart-qty-sec .btn-outline-primary:hover,
+.cart-qty-sec .btn-outline-primary:active,
+.cart-qty-sec .btn-outline-primary:focus {
   color: #614731 !important;
   border-color: #614731 !important;
+  background: transparent !important;
 }
 
 .prd-price-duration {

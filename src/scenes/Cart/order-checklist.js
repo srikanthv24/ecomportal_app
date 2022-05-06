@@ -35,7 +35,7 @@ const OrderCheckList = ({
       </li>
       <li>
         <p class="cart-order-summery-list-titles mb-0">Less Discount</p>
-        <p class="cart-order-summery-list-discount mb-0">
+        <p class="cart-order-summery-list-discount mb-0"> -
           <BiRupee />
           {displayCurrency(discount)}
         </p>

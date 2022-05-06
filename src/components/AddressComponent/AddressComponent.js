@@ -36,6 +36,8 @@ const AddressComponent = ({
   onDeliveryTypeChange,
   setShowAddressForm,
   prevAddress,
+  addressBtnClicked,
+  setAddressBtnClicked
 }) => {
   const dispatch = useDispatch();
   const deliveryCharge = useSelector((state) => state.Addresses.deliveryCharge);
@@ -252,6 +254,8 @@ const AddressComponent = ({
       newAddress.state === ""
     ) {
       onDeliveryTypeChange("");
+    } else if(!addressBtnClicked){
+      onDeliveryTypeChange("");
     }
     setShowAddressForm(false);
   };
@@ -272,6 +276,7 @@ const AddressComponent = ({
       newAddress.landmark !== ""
     ) {
       e.preventDefault();
+      setAddressBtnClicked(true)
       setAddress(newAddress);
       setDelivery(deliveryCost);
       setShowAddressForm(false);

@@ -13,6 +13,8 @@ import { SERVICE_TYPE, COMPLETED } from "../../utils/constants";
 import _ from "underscore";
 import MenuList from "../MenuList/MenuList";
 
+
+
 const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
   const history = useHistory();
   return (
@@ -50,11 +52,14 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                         <Badge bg="success">{COMPLETED}</Badge>
                       ) : (
                         <>
-                          {/* <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
+                          <Link to={`/order/${order.cart_id}/${order.cartitem_id}/${order.id}`} className="sub-edit-btn">
                             <i className="fa-solid fa-pen-to-square"></i>
-                          </Link> &nbsp; &nbsp; */}
-                          <label className="more-icon"><i className="fa-solid fa-bars"></i></label>
-                          <div className="more-dp-info">                          
+                          </Link> &nbsp; &nbsp;
+                          <div className="sub-edit-btn" onClick={() => onMenuSelect(SERVICE_TYPE.PAUSE_TOMORROW, order.id)}>
+                            <i class="fa-solid fa-pause"></i>
+                          </div>
+                          {/* <label className="more-icon"><i className="fa-solid fa-bars"></i></label> */}
+                          {/* <div className="more-dp-info">                          
                             <MenuList
                               list={[
                                 SERVICE_TYPE.PAUSE_TOMORROW,
@@ -67,7 +72,7 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                               id={order.id}
                               cancelSubscription={cancelSubscription}
                             />
-                          </div>
+                          </div> */}
                         </>
                       )}
                     </>
@@ -81,10 +86,15 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       {order?.product?.category}
                     </p>
                   </h4>
-                  <div className="amount-info">
+                  <h4 className="prd-item mb-0" >
+                    <span  className="amount-info">
                     <BiRupee />
                     {displayCurrency(order?.paid_amount) || 0}
-                  </div>
+                    </span>
+                    <p className="d-flex justify-content-end mb-0">
+                    <Badge className="badge-bg-secondary">{`${order?.duration ? order?.duration : 0} Days`}</Badge>
+                    </p>
+                  </h4>
                 </div>
                 <div className="w-100p d-flex justify-content-between mt-1">
                   <div className="date-info">
@@ -100,18 +110,12 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                   <table className="order-details-table">
                     <tr>
                       <td></td>
-                      <td className="food-info-txt">Ordered</td>
                       <td className="food-info-txt">Delivered</td>
-                      {/* <td className="food-info-txt">P/C</td> */}
+                      <td className="food-info-txt">Scheduled</td>
                       <td className="food-info-txt">Balance</td>
                     </tr>
                     <tr>
                       <td className="food-info-txt">Breakfast</td>
-                      <td>
-                        <span className="order-info-txt">
-                          {order?.orderscount[0]?.meals_ordered}
-                        </span>
-                      </td>
                       <td>
                         <span className="order-info-txt">
                           {order?.orderscount[0]?.meals_consumed}
@@ -122,14 +126,14 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                           {order?.orderscount[0]?.meals_remaining}
                         </span>
                       </td>
+                      <td>
+                        <span className="order-info-txt">
+                          {order?.orderscount[0]?.meals_ordered !== 0 ? order?.duration - order?.orderscount[0]?.meals_ordered : 0}
+                        </span>
+                      </td>
                     </tr>
                     <tr>
                       <td className="food-info-txt">Lunch</td>
-                      <td>
-                        <span className="order-info-txt">
-                          {order?.orderscount[1]?.meals_ordered}
-                        </span>
-                      </td>
                       <td>
                         <span className="order-info-txt">
                           {order?.orderscount[1]?.meals_consumed}
@@ -140,14 +144,14 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                           {order?.orderscount[1]?.meals_remaining}
                         </span>
                       </td>
+                      <td>
+                        <span className="order-info-txt">
+                        {order?.orderscount[1]?.meals_ordered !== 0 ? order?.duration - order?.orderscount[1]?.meals_ordered : 0}
+                        </span>
+                      </td>
                     </tr>
                     <tr>
                       <td className="food-info-txt">Dinner</td>
-                      <td>
-                        <span className="order-info-txt">
-                          {order?.orderscount[2]?.meals_ordered}
-                        </span>
-                      </td>
                       <td>
                         <span className="order-info-txt">
                           {order?.orderscount[2]?.meals_consumed}
@@ -156,6 +160,11 @@ const OrderCard = ({ ordersList, cancelSubscription, onMenuSelect }) => {
                       <td>
                         <span className="order-info-txt">
                           {order?.orderscount[2]?.meals_remaining}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="order-info-txt">
+                        {order?.orderscount[2]?.meals_ordered !== 0 ? order?.duration - order?.orderscount[2]?.meals_ordered : 0}
                         </span>
                       </td>
                     </tr>
