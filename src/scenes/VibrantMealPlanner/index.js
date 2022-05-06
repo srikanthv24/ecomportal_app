@@ -19,7 +19,7 @@ import MealList from "../../components/MealList/MealList";
 import GoalList from "../../components/GoalList/GoalList";
 import PersonalInfo from "../../components/PersonalInfo/PersonalInfo";
 import ProductPlanner from "../../components/ProductPlanner/ProductPlanner";
-import AddressComponent from "./AddressComponent";
+import AddressComponent from "../../components/AddressComponent/AddressComponent";
 import { getMealPlanDetails, getOrderDates } from "./vibrantMealPlanner.utils";
 import { FaWeight, FaLeaf, FaRegGrinHearts } from "react-icons/fa";
 import { showLogin } from "../../store/actions";

@@ -16,7 +16,7 @@ import LegalContent from "../components/LegalContent";
 import PrivacyPolicyContent from "../components/PrivacyPolicyContent";
 import VibrantMealPlanner from "../scenes/VibrantMealPlanner";
 import Disclaimer from "../components/Disclaimer/Disclaimer";
-import AddressComponent from "../scenes/VibrantMealPlanner/AddressComponent";
+import AddressComponent from "../components/AddressComponent/AddressComponent";
 import UpdateOrder from "../scenes/UpdateOrder";
 
 function Routes() {
