@@ -6,7 +6,20 @@ const initialState = {
   addressList: [],
   postalCodes: [],
   deleteAddress: {},
-  deliveryCharge: {}
+  deliveryCharge: {}, 
+  defaultAddress : {
+    aline1: "",
+    aline2: "",
+    community: "",
+    area: "",
+    landmark: "",
+    city: "",
+    state: "",
+    postalcode: 0,
+    tag: "home",
+    latitude: "",
+    longitude: "",
+  },
 };
 
 export const Addresses = (state = initialState, action) => {
@@ -106,6 +119,11 @@ export const Addresses = (state = initialState, action) => {
         deliveryCharge: {}
       }
 
+    case types.ADD_ADDRESS:
+      return {
+        ...state,
+        defaultAddress: action.payload
+      }
     default:
       return state;
   }

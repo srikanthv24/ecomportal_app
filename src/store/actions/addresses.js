@@ -41,3 +41,10 @@ export const clearDeliveryCharges = () => {
     type: types.DELIVERY_CHARGE_CLEAR
   }
 }
+
+export const addAddress = (data) => {
+  return {
+    type: types.ADD_ADDRESS,
+    payload: data
+  }
+}
